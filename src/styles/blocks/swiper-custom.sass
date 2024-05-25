@@ -1,0 +1,75 @@
+.swiper
+  height: 100%
+
+.swiper-custom
+  position: relative
+  padding: 0
+  &__item
+    display: flex
+    height: calc( 100% - 160px )
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 50px
+    padding: 120px 40px 40px
+    &-wrapper
+      display: flex
+      margin-top: auto
+      width: 100%
+      justify-content: space-between
+      & div
+        display: flex
+        flex-direction: column
+    &-accent
+      @include inter-semi-bold
+      margin: 0
+      font-size: 27px
+    &-name
+      @include amatic-bold
+      font-size: 36px
+    &-image
+      filter: drop-shadow(4px 8px 12px rgba($black, 25%))
+
+  &__buttons
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    display: flex
+    width: calc(100% - 120px)
+    justify-content: space-between
+    pointer-events: none
+    z-index: 10
+    @media (max-width: 400px)
+      display: none
+  &__btn
+    width: 60px
+    height: 35px
+    padding: 0 8px 0 0
+    border: none
+    background-image: url("../../img/icons/swiper-arrow.svg")
+    background-color: transparent
+    background-position: center
+    background-repeat: no-repeat
+    background-size: 50px 35px
+    cursor: pointer
+    pointer-events: all
+    transition: transform 0.5s cubic-bezier(.39,.1,0,.98)
+    &:hover
+      transform: translateX(-8px)
+    &--next
+      rotate: 180deg
+      &:hover
+        transform: translateX(-8px)
+
+.button__wrapper
+  position: absolute
+  top: 50%
+  left: 50%
+  display: block
+  transform: translate(-50%, -50%)
+  z-index: 20
+  opacity: 0
+  transition: 0.4s
+  &--active
+    opacity: 1
