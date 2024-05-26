@@ -1,7 +1,7 @@
 .swiper
   height: 100%
 
-.swiper-custom
+.beer
   position: relative
   padding: 0
   &__item
@@ -22,8 +22,12 @@
         flex-direction: column
     &-accent
       @include inter-semi-bold
+      @include link-reset
       margin: 0
       font-size: 27px
+      transition: 0.3s
+      &:hover
+        color: $link-hover
     &-name
       @include amatic-bold
       font-size: 36px
@@ -61,6 +65,25 @@
       rotate: 180deg
       &:hover
         transform: translateX(-8px)
+
+  &__sold
+    position: absolute
+    top: 15%
+    right: 15%
+    color: $white
+    & svg
+      width: 90px
+      height: 90px
+      transform: rotate(12deg)
+      color: $black
+    & span
+      @include inter-semi-bold
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      text-transform: uppercase
+      font-style: italic
 
 .button__wrapper
   position: absolute

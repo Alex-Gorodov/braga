@@ -1,0 +1,78 @@
+{
+  "braga-db" : {
+    "beers" : [
+      {
+        "id": 0,
+        "name": "Juicy bomb NEIPA",
+        "style": "neipa",
+        "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, soluta!",
+        "categories": ["Fruity", "Hoppy", "Bitter"],
+        "price": 14,
+        "img": "/braga/img/bottles/neipa",
+        "onStock": 8
+      },
+      {
+        "id": 1,
+        "name": "Hey mango IPA",
+        "style": "ipa",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        "categories": ["Fruity", "Hoppy", "Bitter"],
+        "price": 13,
+        "img": "/braga/img/bottles/ipa",
+        "onStock": 0
+      },
+      {
+        "id": 2,
+        "name": "Therapist’s breakfast",
+        "style": "stout",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium corrupti, rerum iusto doloribus quas voluptate?",
+        "categories": ["Coffee", "Chocolate", "Bread"],
+        "price": 11,
+        "img": "/braga/img/bottles/stout",
+        "onStock": 0
+      },
+      {
+        "id": 3,
+        "name": "Witbier",
+        "style": "Wheat beer",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium corrupti.",
+        "categories": ["Wheat", "Citrusy", "Herbal", "Spicy"],
+        "price": 12,
+        "img": "/braga/img/bottles/wheat",
+        "onStock": 0
+      },
+      {
+        "id": 4,
+        "name": "Desert vagabond",
+        "style": "Light lager",
+        "description": "Lorem ipsum, fishing deepsum",
+        "categories": ["Malty", "Hoppy"],
+        "price": 11,
+        "img": "/braga/img/bottles/lager",
+        "onStock": 0
+      },
+      {
+        "id": 5,
+        "name": "Bounty injection",
+        "style": "Porter",
+        "description": "Coconut sweet porter",
+        "categories": ["Coconut", "Chocolate", "Vanilla"],
+        "price": 14,
+        "img": "/braga/img/bottles/porter",
+        "onStock": 0
+      }
+    ],
+    "cart" : [
+      {
+        "id": 4,
+        "name": "Desert vagabond",
+        "style": "Light lager",
+        "description": "Lorem ipsum, fishing deepsum",
+        "categories": ["Malty", "Hoppy"],
+        "price": 11,
+        "img": "/braga/img/bottles/lager",
+        "onStock": 0
+      }
+    ]
+  }
+}

@@ -1,5 +1,8 @@
 $background-gray: #d6d6d6
 $black: #000000
+$white: #ffffff
+$red-star-color: #f04147
+$link-hover: #18c28a
 
 $section-border: 1px solid $black
 
@@ -55,6 +58,13 @@ $extra-bold: 800
   animation-duration: 0.4s
   animation-iteration-count: 4
   animation-timing-function: step-start
+
+@mixin burger-line
+  display: block
+  width: 40px
+  height: 3px
+  background-color: $black
+  transition: 0.3s
 
 // ANIMATIONS
 
