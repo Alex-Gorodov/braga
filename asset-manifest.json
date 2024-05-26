@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.dfd81118.css",
-    "main.js": "/braga/static/js/main.0573c8d0.js",
+    "main.css": "/braga/static/css/main.f4b412b8.css",
+    "main.js": "/braga/static/js/main.727c4bda.js",
     "static/media/logo.svg": "/braga/static/media/logo.0d94c22d962b7ed0d11961441e2036af.svg",
     "index.html": "/braga/index.html",
-    "static/media/star.svg": "/braga/static/media/star.a20dedecff356fe367a292f82830bea3.svg",
+    "static/media/star.svg": "/braga/static/media/star.c64dee83dd5fde05144bcd90231ff0f7.svg",
     "static/media/cart.svg": "/braga/static/media/cart.03f2cfab0ebce5ce62ba459333872fa6.svg",
     "static/media/swiper-arrow.svg": "/braga/static/media/swiper-arrow.6e6f118fecdae63c52c5.svg",
-    "main.dfd81118.css.map": "/braga/static/css/main.dfd81118.css.map",
-    "main.0573c8d0.js.map": "/braga/static/js/main.0573c8d0.js.map"
+    "main.f4b412b8.css.map": "/braga/static/css/main.f4b412b8.css.map",
+    "main.727c4bda.js.map": "/braga/static/js/main.727c4bda.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfd81118.css",
-    "static/js/main.0573c8d0.js"
+    "static/css/main.f4b412b8.css",
+    "static/js/main.727c4bda.js"
   ]
 }
