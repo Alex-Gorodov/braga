@@ -1,5 +1,7 @@
+import { AuthorizationStatus } from "../const";
 import { store } from "../store";
 import { Beer, BeerInCart } from "./beer";
+import { UserAuthData } from "./user-auth-data";
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -12,6 +14,7 @@ export type DataState = {
   isCartDataLoading: boolean,
 }
 
-export type PageState = {
-  isCartopened: boolean;
-}
+export type AuthState = {
+  authorizationStatus: AuthorizationStatus;
+  userInfo: UserAuthData | null;
+};

@@ -7,10 +7,10 @@ import { CartItem } from "../../components/cart-item/cart-item";
 
 export function CartPage(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems)
-  // const [isLoading, setIsLoading] = useState(true);
-  // if (isLoading) {
-  //   return <Spinner size={"40"}/>
-  // }
+  const isCartLoading = useSelector((state: RootState) => state.data.isCartDataLoading);
+
+  console.log(isCartLoading);
+  
   
   return (
     <Layout>
@@ -19,9 +19,10 @@ export function CartPage(): JSX.Element {
       </Helmet>
       <div>
         {
+          isCartLoading ? <Spinner size={"40"}/> :
           cartItems.map((item) => {
             return (
-              <CartItem item={item}/>
+              <CartItem item={item} key={`${item.name}`}/>
             )
           })
         }

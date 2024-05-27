@@ -1,37 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { APIRoute } from "../const";
+import { APIRoute, AppRoute, AuthorizationStatus } from "../const";
 import { AppDispatch } from "../types/state";
-import { loadBeers, loadCart, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
-import firebase from "firebase/compat/app";
+import { getUserInformation, loadBeers, loadCart, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
-import "firebase/compat/database";
-import { useSelector } from "react-redux";
-import { RootState } from "./root-reducer";
+import { database } from "../services/database";
+import { AuthData } from "../types/auth-data";
+import { UserAuthData } from "../types/user-auth-data";
+import { AxiosInstance } from "axios";
+import { dropToken, saveToken } from "../services/token";
 
 type ThunkOptions = {
   dispatch: AppDispatch;
+  extra: AxiosInstance;
 };
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAubl8w5sBzjV7pKberZSLAw0mXTRkrqSg",
-  authDomain: "braga-67e6d.firebaseapp.com",
-  databaseURL: "https://braga-67e6d-default-rtdb.firebaseio.com/",
-  projectId: "braga-67e6d",
-  storageBucket: "braga-67e6d.appspot.com",
-  messagingSenderId: "305750185039",
-  appId: "1:305750185039:web:b73331ff9fadb92651863a"
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
 
 export const fetchBeersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   'data/fetchItems', async (_arg, { dispatch }) => {
     try {
       dispatch(setBeersDataLoadingStatus({ isBeersDataLoading: true }));
       
-      const data = (await firebase.database().ref(APIRoute.Beers).once("value")).val();
+      const data = (await database.ref(APIRoute.Beers).once("value")).val();
 
       const itemsArray: Beer[] = data ? Object.values(data) : [];
       dispatch(loadBeers({ beers: itemsArray }));
@@ -43,18 +31,26 @@ export const fetchBeersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   }
 );
 
+export const fetchCartAction = createAsyncThunk<void, undefined, ThunkOptions>(
+  'data/fetchCart', async (_arg, { dispatch }) => {
+    dispatch(setCartDataLoadingStatus({isCartDataLoading: true}));
+    const data = (await database.ref(APIRoute.Cart).once("value")).val();
+    const itemsArray: BeerInCart[] = data ? Object.values(data) : [];
+    dispatch(loadCart({beers: itemsArray}));
+    dispatch(setCartDataLoadingStatus({isCartDataLoading: false}));
+  }
+)
+
 export const addItemToDatabaseCart = async (item: BeerInCart) => {
   try {
-    const cartRef = firebase.database().ref(APIRoute.Cart);
+    const cartRef = database.ref(APIRoute.Cart);
     const snapshot = await cartRef.orderByChild('id').equalTo(item.id).once('value');
 
     if (snapshot.exists()) {
-      // If item already exists, update its amount
       const key = Object.keys(snapshot.val())[0];
       const existingItem = snapshot.val()[key];
-      await cartRef.child(key).update({ amount: existingItem.amount + item.amount });
+      await cartRef.child(key).update({ amount: existingItem.amount + 1 });
     } else {
-      // If item doesn't exist, add a new item
       await cartRef.push(item);
     }
   } catch (error) {
@@ -62,12 +58,46 @@ export const addItemToDatabaseCart = async (item: BeerInCart) => {
   }
 }
 
-export const fetchCartAction = createAsyncThunk<void, undefined, ThunkOptions>(
-  'data/fetchCart', async (_arg, { dispatch }) => {
-    dispatch(setCartDataLoadingStatus({isCartDataLoading: true}));
-    const data = (await firebase.database().ref(APIRoute.Cart).once("value")).val();
-    const itemsArray: BeerInCart[] = data ? Object.values(data) : [];
-    dispatch(loadCart({beers: itemsArray}));
-    dispatch(setCartDataLoadingStatus({isCartDataLoading: false}));
+export const checkAuthAction = createAsyncThunk<
+void,
+undefined,
+ThunkOptions>
+(
+  'user/checkAuth', async (_arg, { dispatch, extra: api }) => {
+    try {
+      const {data} = await api.get<UserAuthData>(APIRoute.Login);
+      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
+      dispatch(getUserInformation({userInformation: data}));
+    } catch {
+      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
+    }
+  });
+
+export const loginAction = createAsyncThunk<
+void,
+AuthData,
+ThunkOptions>
+(
+  'user/login',
+  async ({ login: email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<UserAuthData>(APIRoute.Login, {
+      email,
+      password,
+    });
+    saveToken(data.token);
+    dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
+    dispatch(redirectToRoute(AppRoute.Root));
+    dispatch(getUserInformation({userInformation: data}));
   }
-)
+);
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  ThunkOptions>
+  (
+    'user/logout', async (_arg, { dispatch, extra: api }) => {
+      await api.delete(APIRoute.Logout);
+      dropToken();
+      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
+    });

@@ -63,16 +63,29 @@
       }
     ],
     "cart" : [
+    ],
+    "users" : [
       {
-        "id": 4,
-        "name": "Desert vagabond",
-        "style": "Light lager",
-        "description": "Lorem ipsum, fishing deepsum",
-        "categories": ["Malty", "Hoppy"],
-        "price": 11,
-        "img": "/braga/img/bottles/lager",
-        "onStock": 0,
-        "amount": 1
+        "name": "Alexandr",
+        "surname": "Gorodov",
+        "email": "a.gorodov.22@gmail.com",
+        "phone": "0543955573",
+        "password": "2242838",
+        "isAdmin": true,
+        "cartItems": [],
+        "subscriptions": [],
+        "liked": []
+      },
+      {
+        "name": "Michael",
+        "surname": "Gorodov",
+        "email": "gorodov2002@outlook.com",
+        "phone": "0",
+        "password": "23011302",
+        "isAdmin": false,
+        "cartItems": [],
+        "subscriptions": [],
+        "liked": []
       }
     ]
   }

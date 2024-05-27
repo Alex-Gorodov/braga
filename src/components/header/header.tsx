@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { AppRoute } from "../../const";
 import { ReactComponent as Logo} from '../../img/icons/logo.svg';
 import { ReactComponent as Cart} from '../../img/icons/cart.svg';
+import { ReactComponent as User} from '../../img/icons/user.svg';
 import { useEffect, useState } from "react";
 import cn from 'classnames';
 import { useSelector } from "react-redux";
@@ -59,7 +60,11 @@ export function Header(): JSX.Element {
                     <span>{totalAmount}</span>
                   </Link>
                 </li>
-                <li className="user-navigation__item"></li>
+                <li className="user-navigation__item">
+                  <Link className="header__cart-wrapper" to={AppRoute.Cart}>
+                    <User/>
+                  </Link>
+                </li>
                 <li className="user-navigation__item"></li>
               </ul>
             </nav>

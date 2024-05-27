@@ -1,13 +1,13 @@
-import { Beer } from "../../types/beer";
+import { BeerInCart } from "../../types/beer";
 
 type CartItemProps = {
-  item: Beer;
+  item: BeerInCart;
 }
 
 export function CartItem({item}: CartItemProps): JSX.Element {
   return (
     <div>
-      {item.name}
+      {item.name} {item.amount}
     </div>
   )
 }

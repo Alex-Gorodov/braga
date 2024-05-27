@@ -22,6 +22,12 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(addItemToCart, (state, action) => {
     const { item } = action.payload;
-    state.cartItems.push(item);
+    const existingItem = state.cartItems.find((cartItem) => cartItem.id === item.id);
+
+    existingItem?.id === item.id
+      ?
+      state.cartItems[item.id].amount = state.cartItems[item.id].amount + 1
+      :
+      state.cartItems.push(item)
   })
 })
