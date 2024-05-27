@@ -4,6 +4,8 @@
   padding: 16px 40px
   border-bottom: 1px solid $black
   &__cart-wrapper
+    @include link-reset
+    display: block
     position: relative
     & span
       position: absolute
@@ -11,14 +13,15 @@
       right: -16px
       font-size: 20px
   &__burger
-    background-color: transparent
+    padding: 0
     border: none
+    background-color: transparent
     &--opened .header__burger-line
-        transform: translateX(120px)
-        &::before
-          transform: translate(-120px, 10px) rotate(45deg)
-        &::after
-          transform: translate(-120px, -10px) rotate(-45deg)
+      transform: translateX(120px)
+      &::before
+        transform: translate(-120px, 10px) rotate(45deg)
+      &::after
+        transform: translate(-120px, -10px) rotate(-45deg)
     &-line
       @include burger-line
       position: relative

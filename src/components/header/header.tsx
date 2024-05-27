@@ -9,7 +9,7 @@ import { RootState } from "../../store/root-reducer";
 import { useIsMobile } from "../../hooks/isMobile";
 
 export function Header(): JSX.Element {
-  const cardItems = useSelector((state: RootState) => state.data.cartItems);
+  const cartItems = useSelector((state: RootState) => state.data.cartItems);
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
   const location = useLocation();
@@ -29,6 +29,9 @@ export function Header(): JSX.Element {
       const pathname = location.pathname as AppRoute;
       setActivePage(validPaths.includes(pathname) ? pathname : '');
     }, [location.pathname]);
+
+
+  const totalAmount = cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0);
 
   return (
     <header className="header">
@@ -51,10 +54,10 @@ export function Header(): JSX.Element {
               </ul>
               <ul className="header__user-navigation user-navigation">
                 <li className="user-navigation__item">
-                  <p className="header__cart-wrapper">
+                  <Link className="header__cart-wrapper" to={AppRoute.Cart}>
                     <Cart/>
-                    <span>{cardItems.length}</span>
-                  </p>
+                    <span>{totalAmount}</span>
+                  </Link>
                 </li>
                 <li className="user-navigation__item"></li>
                 <li className="user-navigation__item"></li>

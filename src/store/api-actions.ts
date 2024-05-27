@@ -5,6 +5,8 @@ import { loadBeers, loadCart, setBeersDataLoadingStatus, setCartDataLoadingStatu
 import firebase from "firebase/compat/app";
 import { Beer, BeerInCart } from "../types/beer";
 import "firebase/compat/database";
+import { useSelector } from "react-redux";
+import { RootState } from "./root-reducer";
 
 type ThunkOptions = {
   dispatch: AppDispatch;
@@ -41,8 +43,23 @@ export const fetchBeersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   }
 );
 
-export const addItemToDatabaseCart = (item: BeerInCart) => {
-  return firebase.database().ref(APIRoute.Cart).push(item);
+export const addItemToDatabaseCart = async (item: BeerInCart) => {
+  try {
+    const cartRef = firebase.database().ref(APIRoute.Cart);
+    const snapshot = await cartRef.orderByChild('id').equalTo(item.id).once('value');
+
+    if (snapshot.exists()) {
+      // If item already exists, update its amount
+      const key = Object.keys(snapshot.val())[0];
+      const existingItem = snapshot.val()[key];
+      await cartRef.child(key).update({ amount: existingItem.amount + item.amount });
+    } else {
+      // If item doesn't exist, add a new item
+      await cartRef.push(item);
+    }
+  } catch (error) {
+    console.error('Error adding item to database cart:', error);
+  }
 }
 
 export const fetchCartAction = createAsyncThunk<void, undefined, ThunkOptions>(

@@ -71,7 +71,8 @@
         "categories": ["Malty", "Hoppy"],
         "price": 11,
         "img": "/braga/img/bottles/lager",
-        "onStock": 0
+        "onStock": 0,
+        "amount": 1
       }
     ]
   }

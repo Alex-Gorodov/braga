@@ -15,7 +15,7 @@ type BeerItemProps = {
 
 export function BeerItem({ item }: BeerItemProps): JSX.Element {
   const [isCartBtnShown, setCartBtnShown] = useState(false);
-  const cart = useSelector((state: RootState) => state.data.cartItems);
+  const cartItems = useSelector((state: RootState) => state.data.cartItems);
   const dispatch = useDispatch();
 
   const cartButtonClassName = cn("button__wrapper", {
@@ -27,7 +27,7 @@ export function BeerItem({ item }: BeerItemProps): JSX.Element {
   });
 
   const handleAddToCart = () => {
-    const existingItem = cart.find((cartItem: BeerInCart) => cartItem && cartItem.id === item.id);
+    const existingItem = cartItems.find((cartItem: BeerInCart) => cartItem && cartItem.id === item.id);
   
     const itemInCart: BeerInCart = {
       ...item,
@@ -35,15 +35,15 @@ export function BeerItem({ item }: BeerItemProps): JSX.Element {
     };
     dispatch(addItemToCart({ item: itemInCart }));
     addItemToDatabaseCart(itemInCart)
-    console.log(cart.length);
-    
   };
 
   return (
     <div
       className="hero__swipe beer__item item"
-      onMouseEnter={() => setCartBtnShown(true)}
-      onMouseLeave={() => setCartBtnShown(false)}
+      onMouseEnter = {() => setCartBtnShown(true)}
+      onMouseLeave = {() => setCartBtnShown(false)}
+      onTouchStart = {() => setCartBtnShown(true)}
+    
     >
       <div className={cartButtonClassName}>
         {

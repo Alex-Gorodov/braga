@@ -2,6 +2,7 @@ export enum AppRoute {
   Root = "/braga",
   Shop = "/braga/shop",
   Blog = "/braga/blog",
+  Cart = "/braga/cart",
   ProductPage = "/braga/shop/:id",
 }
 
