@@ -1,5 +1,5 @@
 import { ReactComponent as StarIcon } from '../../img/icons/star.svg';
-import { Link, generatePath } from "react-router-dom";
+import { Link, generatePath, useLocation } from "react-router-dom";
 import { addItemToCart } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Beer, BeerInCart } from "../../types/beer";
@@ -17,6 +17,7 @@ export function BeerItem({ item }: BeerItemProps): JSX.Element {
   const [isCartBtnShown, setCartBtnShown] = useState(false);
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const cartButtonClassName = cn("button__wrapper", {
     "button__wrapper--active": isCartBtnShown,
@@ -42,16 +43,18 @@ export function BeerItem({ item }: BeerItemProps): JSX.Element {
       className="hero__swipe beer__item item"
       onMouseEnter = {() => setCartBtnShown(true)}
       onMouseLeave = {() => setCartBtnShown(false)}
-      onTouchStart = {() => setCartBtnShown(true)}
-    
+      onTouchStart = {() => setCartBtnShown(!isCartBtnShown)}
     >
       <div className={cartButtonClassName}>
         {
-          item.onStock === 0
+          !location.pathname.includes(AppRoute.Shop)
             ?
-            <Link className="button beer__cart-btn" to={link}>Read more</Link>
-            :
-            <button className="button beer__cart-btn" onClick={handleAddToCart}>Add to cart</button>
+            item.onStock === 0
+              ?
+              <Link className="button beer__cart-btn" to={link}>Read more</Link>
+              :
+              <button className="button beer__cart-btn" onClick={handleAddToCart}>Add to cart</button>
+            : ''
         }
       </div>
       {

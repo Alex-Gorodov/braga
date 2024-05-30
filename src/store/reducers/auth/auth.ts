@@ -17,6 +17,9 @@ export const authReducer: ReducerWithInitialState<AuthState> = createReducer(
         const {authorizationStatus} = action.payload;
         state.authorizationStatus = authorizationStatus;
       })
+      // .addCase(setUserInformation, (state, action) => {
+
+      // })
       .addCase(getUserInformation, (state, action) => {
         const {userInformation} = action.payload;
         state.userInfo = userInformation;

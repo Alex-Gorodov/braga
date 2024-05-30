@@ -85,9 +85,17 @@ ThunkOptions>
       password,
     });
     saveToken(data.token);
-    dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
-    dispatch(redirectToRoute(AppRoute.Root));
-    dispatch(getUserInformation({userInformation: data}));
+    console.log(api);
+    try {
+
+      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
+      dispatch(redirectToRoute(AppRoute.Root));
+      dispatch(getUserInformation({userInformation: data}));
+    }
+    catch {
+      console.log(data);
+      
+    }
   }
 );
 

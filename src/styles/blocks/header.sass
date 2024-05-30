@@ -19,25 +19,27 @@
     &--opened .header__burger-line
       transform: translateX(120px)
       &::before
-        transform: translate(-120px, 10px) rotate(45deg)
+        transform: translate(-120px, 12px) rotate(45deg)
       &::after
-        transform: translate(-120px, -10px) rotate(-45deg)
+        transform: translate(-120px, -12px) rotate(-45deg)
     &-line
       @include burger-line
       position: relative
       display: flex
       flex-direction: column
-      gap: 10px
       &::before
         @include burger-line
         position: absolute
         left: 0
-        top: -10px
+        top: -12px
         content: ''
       &::after
         @include burger-line
         position: absolute
         left: 0
-        top: 10px
+        top: 12px
         content: ''
-
+  &__login-btn
+    border: none
+    background-color: transparent
+    cursor: pointer
