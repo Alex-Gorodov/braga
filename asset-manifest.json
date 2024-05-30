@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.5084ba5c.css",
-    "main.js": "/braga/static/js/main.7ef14a36.js",
+    "main.css": "/braga/static/css/main.35ad3e64.css",
+    "main.js": "/braga/static/js/main.7c382d34.js",
     "static/media/logo.svg": "/braga/static/media/logo.0d94c22d962b7ed0d11961441e2036af.svg",
     "index.html": "/braga/index.html",
     "static/media/user.svg": "/braga/static/media/user.dda1f80c63b2a52d27c54ca34ceeab28.svg",
     "static/media/star.svg": "/braga/static/media/star.c64dee83dd5fde05144bcd90231ff0f7.svg",
     "static/media/cart.svg": "/braga/static/media/cart.03f2cfab0ebce5ce62ba459333872fa6.svg",
     "static/media/swiper-arrow.svg": "/braga/static/media/swiper-arrow.6e6f118fecdae63c52c5.svg",
-    "main.5084ba5c.css.map": "/braga/static/css/main.5084ba5c.css.map",
-    "main.7ef14a36.js.map": "/braga/static/js/main.7ef14a36.js.map"
+    "main.35ad3e64.css.map": "/braga/static/css/main.35ad3e64.css.map",
+    "main.7c382d34.js.map": "/braga/static/js/main.7c382d34.js.map"
   },
   "entrypoints": [
-    "static/css/main.5084ba5c.css",
-    "static/js/main.7ef14a36.js"
+    "static/css/main.35ad3e64.css",
+    "static/js/main.7c382d34.js"
   ]
 }
