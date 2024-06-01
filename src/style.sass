@@ -2,9 +2,12 @@ $background-gray: #d6d6d6
 $black: #000000
 $white: #ffffff
 $red-star-color: #f04147
+$online-green: #3eb63e
 $link-hover: #18c28a
+$max-page-width: 1280px
 
 $section-border: 1px solid $black
+$block-shadow: 0px 6px 12px 0 rgba($black, 50%)
 
 // FONTS
 
@@ -66,6 +69,10 @@ $extra-bold: 800
   background-color: $black
   transition: transform .7s cubic-bezier(.39,.1,0,.98)
 
+@mixin block-center
+  max-width: 1280px
+  margin: auto
+
 // ANIMATIONS
 
 @keyframes wiggle
@@ -82,11 +89,19 @@ $extra-bold: 800
   100%
     transform: rotate(360deg)
 
+*,
+*::after,
+*::before
+  box-sizing: border-box
 
+html
+  height: 100%
 
 body
   background-color: $background-gray
   margin: auto
+  min-height: 100%
+  overflow-x: hidden
 
 .visually-hidden
   position: absolute
@@ -101,3 +116,12 @@ body
   clip-path: inset(100%)
   clip: rect(0 0 0 0)
   overflow: hidden
+
+.page-container
+  display: flex
+  flex-direction: column
+  justify-content: center
+  height: 100%
+
+.main
+  flex-grow: 1

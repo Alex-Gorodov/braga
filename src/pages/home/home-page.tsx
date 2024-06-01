@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "../../components/layout/layout";
 import { Hero } from "../../components/hero/hero";
+import { Video } from "../../components/video/video";
 
 export function HomePage(): JSX.Element {
   return (
@@ -10,6 +11,7 @@ export function HomePage(): JSX.Element {
       </Helmet>
       <main className="main">
         <Hero/>
+        <Video/>
       </main>
     </Layout>
   );

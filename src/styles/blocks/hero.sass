@@ -1,13 +1,16 @@
 .hero
+  position: relative
   display: grid
   grid-template-columns: repeat(2, 1fr)
-  border-bottom: $section-border
   @media (max-width: 1040px)
     grid-template-columns: 1fr
   &__wrapper
     padding: 60px
     overflow: hidden
     &:first-of-type
+      display: flex
+      flex-direction: column
+      align-items: flex-start
       border-right: $section-border
       @media (max-width: 1040px)
         border-bottom: $section-border
@@ -15,7 +18,7 @@
     &--swiper
       padding: 0
   &__star
-    width: 149px
+    width: 70px
     height: auto
     animation: rotation
     color: $red-star-color
@@ -24,6 +27,7 @@
     animation-timing-function: linear
   &__text
     @include inter-regular
+    display: inline
     max-width: 540px
     margin: 0
     margin-bottom: 20px

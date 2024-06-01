@@ -9,5 +9,6 @@ export type User = {
   isAdmin: boolean,
   cartItems: BeerInCart[],
   subscriptions: Beer[],
-  liked: Beer[]
+  liked: Beer[],
+  avatar: string
 }

@@ -1,8 +1,24 @@
 .header
-  display: flex
-  justify-content: space-between
-  padding: 16px 40px
   border-bottom: 1px solid $black
+  display: flex
+  padding: 16px 40px
+  justify-content: space-between
+  background-color: $background-gray
+  gap: 40px
+  z-index: 10
+  &--mobile
+    border-bottom: none
+    padding: 0
+  &__container
+    display: flex
+    padding: 0 20px
+    width: 100%
+    border-bottom: 1px solid $black
+    background-color: $background-gray
+    z-index: 10
+
+  &__user-navigation
+    margin-left: auto
   &__cart-wrapper
     @include link-reset
     display: block
@@ -13,15 +29,21 @@
       right: -16px
       font-size: 20px
   &__burger
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 60px
+    height: 60px
     padding: 0
     border: none
+    cursor: pointer
     background-color: transparent
     &--opened .header__burger-line
-      transform: translateX(120px)
+      transform: translateX(-120px)
       &::before
-        transform: translate(-120px, 12px) rotate(45deg)
+        transform: translate(120px, 12px) rotate(45deg)
       &::after
-        transform: translate(-120px, -12px) rotate(-45deg)
+        transform: translate(120px, -12px) rotate(-45deg)
     &-line
       @include burger-line
       position: relative
@@ -39,6 +61,8 @@
         left: 0
         top: 12px
         content: ''
+  &__form-wrapper
+    position: relative
   &__login-btn
     border: none
     background-color: transparent

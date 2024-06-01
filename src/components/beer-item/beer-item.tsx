@@ -29,7 +29,7 @@ export function BeerItem({ item }: BeerItemProps): JSX.Element {
 
   const handleAddToCart = () => {
     const existingItem = cartItems.find((cartItem: BeerInCart) => cartItem && cartItem.id === item.id);
-  
+
     const itemInCart: BeerInCart = {
       ...item,
       amount: existingItem ? existingItem.amount + 1 : 1,
@@ -45,31 +45,47 @@ export function BeerItem({ item }: BeerItemProps): JSX.Element {
       onMouseLeave = {() => setCartBtnShown(false)}
       onTouchStart = {() => setCartBtnShown(!isCartBtnShown)}
     >
-      <div className={cartButtonClassName}>
-        {
-          !location.pathname.includes(AppRoute.Shop)
-            ?
-            item.onStock === 0
-              ?
-              <Link className="button beer__cart-btn" to={link}>Read more</Link>
-              :
-              <button className="button beer__cart-btn" onClick={handleAddToCart}>Add to cart</button>
-            : ''
-        }
-      </div>
       {
-        item.onStock === 0 &&
-        <div className="beer__sold">
-          <StarIcon />
-          <span>sold</span>
-        </div>
+        !location.pathname.includes(AppRoute.Shop)
+          ?
+          item.onStock === 0
+            ?
+            item.onBrewing ?
+              <div className={cartButtonClassName}>
+                <button className="button beer__cart-btn">Pre-order</button>
+              </div>
+              :
+              <div className={cartButtonClassName}>
+                <Link className="button beer__cart-btn" to={link}>Read more</Link>
+              </div>
+            :
+            <div className={cartButtonClassName}>
+              <button className="button beer__cart-btn" onClick={handleAddToCart}>Add to cart</button>
+            </div>
+          : ''
       }
-      <picture>
-        <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={135} height={463}/>
-        <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-        <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-        <img src={`${item.img}.png`} width={135} height={463} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
-      </picture>
+      <div className="beer__picture-wrapper">
+        {
+          item.onStock === 0 &&
+            <div className="beer__label beer__label--sold">
+              <StarIcon />
+              <span>sold</span>
+            </div>
+        }
+        {
+          item.onStock === 0 && item.onBrewing &&
+            <div className="beer__label beer__label--soon">
+              <StarIcon />
+              <span>soon</span>
+            </div>
+        }
+        <picture>
+          <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={135} height={463}/>
+          <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
+          <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
+          <img src={`${item.img}.png`} width={135} height={463} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
+        </picture>
+      </div>
       <div className='beer__item-wrapper'>
         <div>
           <Link className="beer__item-name beer__item-accent" to={link}>

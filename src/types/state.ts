@@ -1,7 +1,7 @@
 import { AuthorizationStatus } from "../const";
 import { store } from "../store";
 import { Beer, BeerInCart } from "./beer";
-import { UserAuthData } from "./user-auth-data";
+import { User } from "./user";
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -16,5 +16,5 @@ export type DataState = {
 
 export type AuthState = {
   authorizationStatus: AuthorizationStatus;
-  userInfo: UserAuthData | null;
+  userInfo: User | null;
 };

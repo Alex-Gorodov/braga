@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { getUserInformation, redirectToRoute } from "../../store/actions";
+import { redirectToRoute } from "../../store/actions";
 import { AppRoute, ErrorMessage } from "../../const";
 import { loginAction } from "../../store/api-actions";
 import { ChangeEvent, useRef, useState } from "react";
@@ -72,7 +72,7 @@ export function AuthForm(): JSX.Element {
       dispatch(redirectToRoute(AppRoute.Root));
     }
   };
-  
+
   return (
     <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
       <div className="login__input-wrapper form__input-wrapper">

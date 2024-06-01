@@ -16,6 +16,7 @@
       display: flex
       margin-top: auto
       width: 100%
+      max-width: 1280px
       justify-content: space-between
       & div
         display: flex
@@ -34,6 +35,9 @@
     &-image
       filter: drop-shadow(4px 8px 12px rgba($black, 25%))
 
+  &__picture-wrapper
+    position: relative
+
   &__buttons
     position: absolute
     top: 50%
@@ -41,6 +45,7 @@
     transform: translate(-50%, -50%)
     display: flex
     width: calc(100% - 120px)
+    max-width: 800px
     justify-content: space-between
     pointer-events: none
     z-index: 10
@@ -66,16 +71,14 @@
       &:hover
         transform: translateX(-8px)
 
-  &__sold
+  &__label
     position: absolute
-    top: 15%
-    right: 15%
-    color: $white
+    top: 0
+    right: -100px
     & svg
       width: 90px
       height: 90px
       transform: rotate(12deg)
-      color: $black
     & span
       @include inter-semi-bold
       position: absolute
@@ -84,6 +87,14 @@
       transform: translate(-50%, -50%)
       text-transform: uppercase
       font-style: italic
+    &--sold
+      color: $white
+      & svg
+        color: $black
+    &--soon
+      color: $black
+      & svg
+        color: #efc91c
 
 .button__wrapper
   position: absolute

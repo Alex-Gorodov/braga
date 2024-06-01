@@ -1,11 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AppRoute, AuthorizationStatus } from "../const";
 import { AppDispatch } from "../types/state";
-import { getUserInformation, loadBeers, loadCart, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
+import { loadBeers, loadCart, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
 import { AuthData } from "../types/auth-data";
-import { UserAuthData } from "../types/user-auth-data";
 import { AxiosInstance } from "axios";
 import { dropToken, saveToken } from "../services/token";
 
@@ -18,7 +17,7 @@ export const fetchBeersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   'data/fetchItems', async (_arg, { dispatch }) => {
     try {
       dispatch(setBeersDataLoadingStatus({ isBeersDataLoading: true }));
-      
+
       const data = (await database.ref(APIRoute.Beers).once("value")).val();
 
       const itemsArray: Beer[] = data ? Object.values(data) : [];
@@ -65,9 +64,9 @@ ThunkOptions>
 (
   'user/checkAuth', async (_arg, { dispatch, extra: api }) => {
     try {
-      const {data} = await api.get<UserAuthData>(APIRoute.Login);
+      // const {data} = await api.get<UserAuthData>(APIRoute.Login);
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
-      dispatch(getUserInformation({userInformation: data}));
+      // dispatch(getUserInformation({userInformation: data}));
     } catch {
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
     }
@@ -80,21 +79,20 @@ ThunkOptions>
 (
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserAuthData>(APIRoute.Login, {
+    const { data } = await api.post<AuthData>(APIRoute.Login, {
       email,
       password,
     });
-    saveToken(data.token);
+    // saveToken(data.token);
     console.log(api);
     try {
 
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
       dispatch(redirectToRoute(AppRoute.Root));
-      dispatch(getUserInformation({userInformation: data}));
     }
     catch {
       console.log(data);
-      
+
     }
   }
 );

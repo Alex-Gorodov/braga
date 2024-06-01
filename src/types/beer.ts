@@ -7,6 +7,7 @@ export type Beer = {
   price: number;
   img: string;
   onStock: number;
+  onBrewing?: boolean;
 }
 
 export type BeerInCart = Beer & {
