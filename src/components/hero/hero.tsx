@@ -20,7 +20,7 @@ export function Hero(): JSX.Element {
       </div>
       <div className="section__container">
         <div className="hero__wrapper hero__wrapper--image">
-          <img className="hero__image" src="braga/img/haifa.jpg" alt="Haifa bay" width={750} height={520}/>
+          <img className="hero__image" src="/braga/img/haifa.jpg" alt="Haifa bay" width={750} height={520}/>
         </div>
         <div className="hero__wrapper hero__wrapper--text">
           <p className='hero__text hero__text--centered'>
