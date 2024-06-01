@@ -1,15 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import { AppRoute, AuthorizationStatus } from "../../const";
-import { ReactComponent as Logo} from '../../img/icons/logo.svg';
+import { ReactComponent as Logo} from '../../img/icons/braga-logo.svg';
 import { ReactComponent as Cart} from '../../img/icons/cart.svg';
 import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
 import { useEffect, useState } from "react";
 import cn from 'classnames';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useIsMobile } from "../../hooks/isMobile";
 import { AuthForm } from "../auth-form/auth-form";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { CartBlock } from "../cart-block/cart-block";
 
 export function Header(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
@@ -17,11 +18,10 @@ export function Header(): JSX.Element {
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
   const [isLoginFormOpened, setLoginFormOpened] = useState(false);
+  const [isCartOpened, setCartOpened] = useState(false);
   const location = useLocation();
 
   const isMobile = useIsMobile();
-
-  const dispatch = useDispatch();
 
   const mobileNavClassName = cn('navigation__mobile', {
     'navigation__mobile--opened': isMenuOpened
@@ -61,6 +61,13 @@ export function Header(): JSX.Element {
 
   const totalAmount = cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0);
 
+  const handleCartOpen = () => {
+    setCartOpened(!isCartOpened)
+    console.log('cart triggered');
+    console.log('is Opened', isCartOpened);
+
+  }
+
   return (
     <header className={headerClassName}>
       {
@@ -82,10 +89,10 @@ export function Header(): JSX.Element {
             </ul>
             <ul className="header__user-navigation user-navigation">
               <li className="user-navigation__item">
-                <Link className="header__cart-wrapper" to={AppRoute.Cart}>
+                <button className="header__cart-wrapper header__btn" onClick={handleCartOpen}>
                   <Cart/>
                   <span>{totalAmount}</span>
-                </Link>
+                </button>
               </li>
               <li className="user-navigation__item">
                 {
@@ -94,7 +101,7 @@ export function Header(): JSX.Element {
                   <img className="user-navigation__avatar" src={user?.avatar} alt="" width={60} height={60}/>
                   :
                   <div className="header__form-wrapper">
-                    <button className="header__login-btn" onClick={() => setLoginFormOpened(!isLoginFormOpened)}>
+                    <button className="header__btn" onClick={() => setLoginFormOpened(!isLoginFormOpened)}>
                       <UserIcon/>
                       {
                         isLoginFormOpened && <AuthForm/>
@@ -105,7 +112,7 @@ export function Header(): JSX.Element {
               </li>
             </ul>
           </nav>
-    :
+      :
       <>
         <div className="header__container">
           <button className={burgerClassName} onClick={() => setMenuOpened(!isMenuOpened)}>
@@ -113,10 +120,10 @@ export function Header(): JSX.Element {
           </button>
           <ul className="header__user-navigation user-navigation">
               <li className="user-navigation__item">
-                <Link className="header__cart-wrapper" to={AppRoute.Cart}>
+                <button className="header__cart-wrapper header__btn" onClick={handleCartOpen}>
                   <Cart/>
                   <span>{totalAmount}</span>
-                </Link>
+                </button>
               </li>
               <li className="user-navigation__item">
                 {
@@ -125,7 +132,7 @@ export function Header(): JSX.Element {
                   <p>{userInfo?.name}</p>
                   :
                   <div className="header__form-wrapper">
-                    <button className="header__login-btn" onClick={() => setLoginFormOpened(!isLoginFormOpened)}>
+                    <button className="header__btn" onClick={() => setLoginFormOpened(!isLoginFormOpened)}>
                       <UserIcon/>
                       {
                         isLoginFormOpened && <AuthForm/>
@@ -150,7 +157,8 @@ export function Header(): JSX.Element {
           </ul>
         </nav>
       </>
-    }
+      }
+      {isCartOpened && <CartBlock/>}
     </header>
   )
 }

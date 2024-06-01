@@ -28,13 +28,13 @@ export function ProductPage(): JSX.Element {
   if (isLoading) {
     return <Spinner size={"40"}/>
   }
-  
+
   return (
     <Layout>
       <Helmet>
         <title>{`Shop | ${product?.name}`}</title>
       </Helmet>
-      {product && <BeerItem item={product} />}
+      {product && <BeerItem item={product} showStatus={false} className=""/>}
       <div>
 
       </div>

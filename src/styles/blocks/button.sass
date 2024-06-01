@@ -6,11 +6,25 @@
   text-transform: uppercase
   font-style: italic
   font-size: clamp(0.875rem, 0.762rem + 0.5319vw, 1.1875rem)
-  color: $black
   background-color: $background-gray
   border: 1px solid $black
   cursor: pointer
   white-space: nowrap
+  &__wrapper
+    position: absolute
+    top: 50%
+    left: 50%
+    display: block
+    transform: translate(-50%, -50%)
+    z-index: 20
+    opacity: 0
+    transition: 0.4s
+    &--active
+      opacity: 1
+
+  &--small
+    padding: 11px 20px
+    font-size: clamp(0.5375rem, 0.481rem + 0.3660vw, 0.693rem)
   &::after
     position: absolute
     width: 100%
@@ -21,6 +35,9 @@
     background-color: $black
     content: ''
     transition: 0.4s cubic-bezier(.2,.78,.12,.86)
+  &--small::after
+    top: 6px
+    left: 6px
   &:hover::after
     top: 0
     left: 0

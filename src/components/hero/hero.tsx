@@ -1,9 +1,11 @@
 import { ReactComponent as Star} from '../../img/icons/star.svg';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { HeroSwiper } from '../swiper/swiper';
+import { HeroSwiper } from '../hero-swiper/hero-swiper';
+import { useIsMobileOnly } from '../../hooks/isMobile';
 
 export function Hero(): JSX.Element {
+  const isMobile = useIsMobileOnly();
   return (
     <section className='section section--hero'>
       <div className='hero section__container'>
@@ -20,7 +22,7 @@ export function Hero(): JSX.Element {
       </div>
       <div className="section__container">
         <div className="hero__wrapper hero__wrapper--image">
-          <img className="hero__image" src="/braga/img/haifa.jpg" alt="Haifa bay" width={750} height={520}/>
+          <img className="hero__image" src={`/braga/img/haifa${isMobile ? '' : '@2x'}.webp`} alt="Haifa bay" width={750} height={520}/>
         </div>
         <div className="hero__wrapper hero__wrapper--text">
           <p className='hero__text hero__text--centered'>

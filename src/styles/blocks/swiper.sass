@@ -1,0 +1,17 @@
+.swiper
+  &__classics
+    user-select: none
+  &__slide
+    &--classics
+      display: grid
+      justify-items: center
+      align-items: start
+      padding: 20px 0
+      grid-template-rows: 300px 100px
+      height: 100%
+      border-right: $section-border
+      @media (max-width: $mobile)
+        padding-top: 40px
+        padding-inline: 10px
+  &-slide
+    overflow: hidden

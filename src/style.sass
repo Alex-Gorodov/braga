@@ -34,6 +34,10 @@ $extra-bold: 800
   font-family: "Inter", $main-fonts
   font-weight: $medium
 
+@mixin inter-bold
+  font-family: "Inter", $main-fonts
+  font-weight: $bold
+
 @mixin amatic-regular
   font-family: "Amatic SC", $main-fonts
   font-weight: $regular
@@ -56,12 +60,19 @@ $extra-bold: 800
   color: $black
   transition: 0.3s
 
-@mixin wiggle-text
+@mixin wiggle-italic-text
   display: inline-block
   font-style: italic
-  animation-name: wiggle
+  animation-name: wiggle-italic
   animation-duration: 0.4s
   animation-iteration-count: 4
+  animation-timing-function: step-start
+
+@mixin wiggle-text
+  display: inline-block
+  animation-name: wiggle
+  animation-duration: 0.4s
+  animation-iteration-count: 3
   animation-timing-function: step-start
 
 @mixin burger-line
@@ -80,6 +91,12 @@ $extra-bold: 800
 @keyframes wiggle
   0%, 100%
     font-weight: normal
+  50%
+    font-weight: bold
+
+@keyframes wiggle-italic
+  0%, 100%
+    font-weight: normal
     font-style: normal
   50%
     font-weight: bold
@@ -95,6 +112,7 @@ $extra-bold: 800
 *::after,
 *::before
   box-sizing: border-box
+  user-select: none
 
 html
   height: 100%

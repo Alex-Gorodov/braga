@@ -37,7 +37,7 @@ export function HeroSwiper(): JSX.Element {
           {
             beers.map((item) => (
               <SwiperSlide key={`slide-${item.id}`}>
-                <BeerItem item={item}/>
+                <BeerItem item={item} showStatus={true} className="hero__swipe"/>
               </SwiperSlide>
             ))
           }
