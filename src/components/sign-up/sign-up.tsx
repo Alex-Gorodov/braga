@@ -11,7 +11,7 @@ export function SignUp(): JSX.Element {
         <SignUpForm/>
       </article>
       <article className="sign-up__container">
-        <img src="/braga/img/sign-up-beers.png" alt="" />
+        <img className="sign-up__image" src="/braga/img/sign-up-beers.png" alt="" width={326} height={300}/>
       </article>
     </section>
   )
