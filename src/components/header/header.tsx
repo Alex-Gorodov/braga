@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useIsMobile } from "../../hooks/isMobile";
 import { AuthForm } from "../auth-form/auth-form";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 export function Header(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
@@ -53,6 +54,10 @@ export function Header(): JSX.Element {
       if (pathname.includes('/shop/')) setActivePage(AppRoute.Shop as string);
 
     }, [location.pathname]);
+
+  const menuRef = useOutsideClick(() => {
+    isMobile && setMenuOpened(false);
+  }) as React.RefObject<HTMLDivElement>;
 
   const totalAmount = cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0);
 
@@ -131,7 +136,7 @@ export function Header(): JSX.Element {
               </li>
             </ul>
         </div>
-        <nav className={mobileNavClassName}>
+        <nav className={mobileNavClassName} ref={menuRef}>
           <ul className="navigation__list">
             <li className="navigation__item">
               <Link className={pageClassName(AppRoute.Root)} to={AppRoute.Root}>Home</Link>

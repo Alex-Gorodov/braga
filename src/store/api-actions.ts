@@ -7,6 +7,7 @@ import { database } from "../services/database";
 import { AuthData } from "../types/auth-data";
 import { AxiosInstance } from "axios";
 import { dropToken, saveToken } from "../services/token";
+import { UserAuthData } from "../types/user-auth-data";
 
 type ThunkOptions = {
   dispatch: AppDispatch;
@@ -79,11 +80,11 @@ ThunkOptions>
 (
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<AuthData>(APIRoute.Login, {
+    const { data } = await api.post<UserAuthData>(APIRoute.Login, {
       email,
       password,
     });
-    // saveToken(data.token);
+    saveToken(data.token);
     console.log(api);
     try {
 

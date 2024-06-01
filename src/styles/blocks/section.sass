@@ -1,6 +1,11 @@
 .section
-  border-bottom: $section-border
   &--video
     padding: 40px
     @media (max-width: $mobile)
       padding: 10px
+  &__container
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    border-bottom: $section-border
+    @media (max-width: 800px)
+      grid-template-columns: 1fr
