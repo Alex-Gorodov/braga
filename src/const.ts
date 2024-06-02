@@ -1,10 +1,10 @@
 export enum AppRoute {
   Root = "/braga",
-  Shop = "/shop",
-  Blog = "/blog",
-  Cart = "/cart",
-  Login = "/login",
-  ProductPage = "/shop/:id",
+  Shop = "/braga/shop",
+  Blog = "/braga/blog",
+  Cart = "/braga/cart",
+  Login = "/braga/login",
+  ProductPage = "/braga/shop/:id",
 }
 
 export enum ScreenSizes {

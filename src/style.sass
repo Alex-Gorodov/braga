@@ -116,6 +116,9 @@ $extra-bold: 800
 
 html
   height: 100%
+  overflow-x: hidden
+  &:has(.cart--opened)
+    overflow-y: hidden
 
 body
   background-color: $background-gray
@@ -123,7 +126,7 @@ body
   min-height: 100%
   overflow-x: hidden
   &:has(.cart--opened)
-    overflow: hidden
+    overflow-y: hidden
 
 .visually-hidden
   position: absolute

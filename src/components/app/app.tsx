@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import { BlogPage } from "../../pages/blog/blog-page";
 import { ShopPage } from "../../pages/shop/shop-page";
 import { ProductPage } from "../../pages/product/product-page";
-// import { CartPage } from "../../pages/cart/cart-page";
+import { CartPage } from "../../pages/cart/cart-page";
 
 export function App() {
   return (
@@ -20,8 +20,7 @@ export function App() {
           <Routes>
             <Route path={AppRoute.Root} element={<HomePage/>}/>
             <Route path={AppRoute.Shop} element={<ShopPage/>}/>
-            {/* <Route path={AppRoute.Cart} element={<CartPage/>}/> */}
-            <Route path={AppRoute.Blog} element={<BlogPage/>}/>
+            <Route path={AppRoute.Cart} element={<CartPage/>}/>
             <Route path={AppRoute.Blog} element={<BlogPage/>}/>
             <Route path={AppRoute.ProductPage} element={<ProductPage/>}/>
             <Route path="*" element={<NotFound/>}/>

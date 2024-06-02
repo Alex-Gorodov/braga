@@ -9,9 +9,6 @@ export function CartPage(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems)
   const isCartLoading = useSelector((state: RootState) => state.data.isCartDataLoading);
 
-  console.log(isCartLoading);
-  
-  
   return (
     <Layout>
       <Helmet>
