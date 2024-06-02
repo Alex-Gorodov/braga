@@ -67,9 +67,9 @@ export const removeItemFromDatabaseCart = async (item: BeerInCart) => {
       const key = Object.keys(snapshot.val())[0];
       const existingItem = snapshot.val()[key];
 
-      if (existingItem.amount > 1) {
-        await cartRef.child(key).update({ amount: existingItem.amount - 1 });
-      } else {
+      if (existingItem.amount) {
+      //   await cartRef.child(key).update({ amount: 0 });
+      // } else {
         await cartRef.child(key).remove();
       }
     }

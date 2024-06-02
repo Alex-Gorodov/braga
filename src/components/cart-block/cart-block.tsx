@@ -23,7 +23,7 @@ const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
         <>
           <ul className="cart__list">
             {cartItems.map((item) => (
-              <CartItem item={item}/>
+              <CartItem item={item} key={`${item.name}-in-cart`}/>
             ))}
           </ul>
           <Link className="button" to={AppRoute.Cart}>Checkout</Link>

@@ -37,9 +37,7 @@ export const dataReducer = createReducer(initialState, (builder) => {
       if (existingItemIndex !== -1) {
         const existingItem = state.cartItems[existingItemIndex];
 
-        if (existingItem.amount > 1) {
-          existingItem.amount -= 1;
-        } else {
+        if (existingItem.amount) {
           state.cartItems.splice(existingItemIndex, 1);
         }
       }
