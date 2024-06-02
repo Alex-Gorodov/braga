@@ -1,6 +1,7 @@
 $background-gray: #d6d6d6
 $black: #000000
 $white: #ffffff
+$dark-gray: #898989
 $red-star-color: #f04147
 $online-green: #3eb63e
 $link-hover: #18c28a
@@ -127,6 +128,10 @@ body
   overflow-x: hidden
   &:has(.cart--opened)
     overflow-y: hidden
+    .swiper
+      pointer-events: none
+  &::-webkit-scrollbar
+    display: none
 
 .visually-hidden
   position: absolute

@@ -64,6 +64,8 @@ export function Header(): JSX.Element {
   }) as React.RefObject<HTMLDivElement>;
 
   const cartRef = useOutsideClick(() => {
+    console.log('clicked');
+
     setCartOpened(false);
   }) as React.RefObject<HTMLDivElement>;
 

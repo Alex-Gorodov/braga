@@ -5,12 +5,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/root-reducer';
 import { CartItem } from '../cart-item/cart-item';
 
-// Типизация пропсов для компонента CartBlock
 type CartBlockProps = {
   cartClassName: string;
 };
 
-// Использование forwardRef для передачи рефа
 const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
 
@@ -26,6 +24,10 @@ const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
               <CartItem item={item} key={`${item.name}-in-cart`}/>
             ))}
           </ul>
+          <p className="cart__total">
+            <span>Total:</span>
+            <span>₪{cartItems.map((item) => item.price * item.amount)}</span>
+          </p>
           <Link className="button" to={AppRoute.Cart}>Checkout</Link>
         </>
         :

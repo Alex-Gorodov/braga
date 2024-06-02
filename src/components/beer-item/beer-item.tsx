@@ -110,7 +110,12 @@ export function BeerItem({ item, showStatus, small, className }: BeerItemProps):
           ))}
         </p>
         <p className="beer__item-price beer__item-accent">
-          ₪ {item.price}
+          <span>
+            ₪
+          </span>
+          <span>
+            {item.price}
+          </span>
         </p>
       </div>
     </div>

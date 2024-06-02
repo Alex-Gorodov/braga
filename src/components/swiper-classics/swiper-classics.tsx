@@ -26,9 +26,9 @@ export function SwiperClassics(): JSX.Element {
             nextEl: '.beer__btn--next'
           }}
           modules={[Autoplay, Navigation]}
-          autoplay={{
-            delay: 2000
-          }}
+          // autoplay={{
+          //   delay: 2000
+          // }}
           speed={1000}
           slidesPerView={isMobile ? 2 : 4}
           slidesPerGroup={1}
