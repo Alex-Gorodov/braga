@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.f874869d.css",
+    "main.css": "/braga/static/css/main.31977d5a.css",
     "main.js": "/braga/static/js/main.2ceb9b8c.js",
     "static/media/hand.png": "/braga/static/media/hand.9c02734d030b38801843.png",
     "static/media/braga-logo.svg": "/braga/static/media/braga-logo.0dd70711429a888c1a6a22df0c39f8d5.svg",
@@ -11,11 +11,11 @@
     "static/media/swiper-arrow.svg": "/braga/static/media/swiper-arrow.6e6f118fecdae63c52c5.svg",
     "static/media/cross.svg": "/braga/static/media/cross.269632face0a52e2057a0a85436b9764.svg",
     "static/media/form-arrow.svg": "/braga/static/media/form-arrow.5df1ec287b210d4425f7.svg",
-    "main.f874869d.css.map": "/braga/static/css/main.f874869d.css.map",
+    "main.31977d5a.css.map": "/braga/static/css/main.31977d5a.css.map",
     "main.2ceb9b8c.js.map": "/braga/static/js/main.2ceb9b8c.js.map"
   },
   "entrypoints": [
-    "static/css/main.f874869d.css",
+    "static/css/main.31977d5a.css",
     "static/js/main.2ceb9b8c.js"
   ]
 }
