@@ -58,6 +58,26 @@ export const addItemToDatabaseCart = async (item: BeerInCart) => {
   }
 }
 
+export const removeItemFromDatabaseCart = async (item: BeerInCart) => {
+  try {
+    const cartRef = database.ref(APIRoute.Cart);
+    const snapshot = await cartRef.orderByChild('id').equalTo(item.id).once('value');
+
+    if (snapshot.exists()) {
+      const key = Object.keys(snapshot.val())[0];
+      const existingItem = snapshot.val()[key];
+
+      if (existingItem.amount > 1) {
+        await cartRef.child(key).update({ amount: existingItem.amount - 1 });
+      } else {
+        await cartRef.child(key).remove();
+      }
+    }
+  } catch (error) {
+    console.error('Error removing item from database cart:', error);
+  }
+}
+
 export const checkAuthAction = createAsyncThunk<
 void,
 undefined,

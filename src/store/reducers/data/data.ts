@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addItemToCart, loadBeers, loadCart, setBeersDataLoadingStatus } from "../../actions";
+import { addItemToCart, loadBeers, loadCart, removeFromCart, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -29,5 +29,19 @@ export const dataReducer = createReducer(initialState, (builder) => {
       state.cartItems[item.id].amount = state.cartItems[item.id].amount + 1
       :
       state.cartItems.push(item)
+  })
+  .addCase(removeFromCart, (state, action) => {
+    const { item } = action.payload;
+      const existingItemIndex = state.cartItems.findIndex(cartItem => cartItem.id === item.id);
+
+      if (existingItemIndex !== -1) {
+        const existingItem = state.cartItems[existingItemIndex];
+
+        if (existingItem.amount > 1) {
+          existingItem.amount -= 1;
+        } else {
+          state.cartItems.splice(existingItemIndex, 1);
+        }
+      }
   })
 })

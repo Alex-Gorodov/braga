@@ -10,7 +10,7 @@ import { RootState } from "../../store/root-reducer";
 import { useIsMobile } from "../../hooks/isMobile";
 import { AuthForm } from "../auth-form/auth-form";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
-import { CartBlock } from "../cart-block/cart-block";
+import CartBlock from "../cart-block/cart-block";
 
 export function Header(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
@@ -20,6 +20,10 @@ export function Header(): JSX.Element {
   const [isLoginFormOpened, setLoginFormOpened] = useState(false);
   const [isCartOpened, setCartOpened] = useState(false);
   const location = useLocation();
+
+  const cartClassName = cn('cart', {
+    'cart--opened': isCartOpened
+  })
 
   const isMobile = useIsMobile();
 
@@ -59,13 +63,14 @@ export function Header(): JSX.Element {
     isMobile && setMenuOpened(false);
   }) as React.RefObject<HTMLDivElement>;
 
+  const cartRef = useOutsideClick(() => {
+    setCartOpened(false);
+  }) as React.RefObject<HTMLDivElement>;
+
   const totalAmount = cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0);
 
   const handleCartOpen = () => {
     setCartOpened(!isCartOpened)
-    console.log('cart triggered');
-    console.log('is Opened', isCartOpened);
-
   }
 
   return (
@@ -158,7 +163,7 @@ export function Header(): JSX.Element {
         </nav>
       </>
       }
-      {isCartOpened && <CartBlock/>}
+      <CartBlock ref={cartRef} cartClassName={cartClassName}/>
     </header>
   )
 }

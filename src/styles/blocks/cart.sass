@@ -1,6 +1,23 @@
 .cart
   position: absolute
   top: 0
-  right: 0
-  height: 500px
-  background-color: red
+  right: -500px
+  display: flex
+  gap: 40px
+  height: 100vh
+  max-width: 80vw
+  flex-direction: column
+  padding: 40px
+  background-color: $background-gray
+  border-left: $section-border
+  transition: 0.5s
+  z-index: 20
+  &--opened
+    right: 0
+  &__title
+    @include inter-semi-bold
+    text-align: right
+  &__list
+    @include list-reset
+    gap: 20px
+  &-item

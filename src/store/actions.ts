@@ -12,6 +12,8 @@ export const loadCart = createAction<{beers: BeerInCart[]}>('data/loadCart');
 
 export const addItemToCart = createAction<{item: BeerInCart}>('page/addItemToCart');
 
+export const removeFromCart = createAction<{item: BeerInCart}>('page/removeFromCart');
+
 export const requireAuthorization = createAction<{authorizationStatus: AuthorizationStatus}>('user/requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('page/redirectToRoute');
