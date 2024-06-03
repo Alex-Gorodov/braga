@@ -3,6 +3,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { HeroSwiper } from '../hero-swiper/hero-swiper';
 import { useIsMobileOnly } from '../../hooks/isMobile';
+import { AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
 
 export function Hero(): JSX.Element {
   const isMobile = useIsMobileOnly();
@@ -31,7 +33,7 @@ export function Hero(): JSX.Element {
           <p className="hero__description">
             Our beer showcases pure ingredients and traditional brewing methods, reflecting our dedication to quality and craftsmanship.
           </p>
-          <button className='button'>Learn more</button>
+          <Link className='button' to={AppRoute.Blog}>Learn more</Link>
         </div>
       </div>
     </section>
