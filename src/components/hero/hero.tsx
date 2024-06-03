@@ -18,7 +18,7 @@ export function Hero(): JSX.Element {
           <p className='hero__text'>
             The journey of our <span className='hero__text hero__text--bold'>successful</span> craft <span className='hero__text hero__text--bold'>microbrewery</span>
           </p>
-          <button className='button'>Learn more</button>
+          <Link className='button' to={AppRoute.Blog}>Learn more</Link>
         </div>
         <HeroSwiper/>
       </div>

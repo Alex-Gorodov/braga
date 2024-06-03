@@ -2,7 +2,7 @@ import { AuthorizationStatus } from '../../../const';
 import { AuthState } from '../../../types/state';
 import { ActionReducerMapBuilder, createReducer } from '@reduxjs/toolkit';
 import { ReducerWithInitialState } from '@reduxjs/toolkit/dist/createReducer';
-import { requireAuthorization } from '../../actions';
+import { getUserInformation, requireAuthorization } from '../../actions';
 
 const initialState: AuthState = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -17,5 +17,9 @@ export const authReducer: ReducerWithInitialState<AuthState> = createReducer(
         const {authorizationStatus} = action.payload;
         state.authorizationStatus = authorizationStatus;
       })
+      .addCase(getUserInformation, (state, action) => {
+        const {userInformation} = action.payload;
+        state.userInfo = userInformation;
+      });
   }
 );

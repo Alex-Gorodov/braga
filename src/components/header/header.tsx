@@ -5,21 +5,24 @@ import { ReactComponent as Cart} from '../../img/icons/cart.svg';
 import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
 import { useEffect, useState } from "react";
 import cn from 'classnames';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useIsMobile } from "../../hooks/isMobile";
 import { AuthForm } from "../auth-form/auth-form";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import CartBlock from "../cart-block/cart-block";
+import { toggleSignInForm } from "../../store/actions";
+import { RegisterForm } from "../register-form/register-form";
 
 export function Header(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
   const user = useSelector((state: RootState) => state.auth.userInfo);
+  const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
-  const [isLoginFormOpened, setLoginFormOpened] = useState(false);
   const [isCartOpened, setCartOpened] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const cartClassName = cn('cart', {
     'cart--opened': isCartOpened
@@ -64,8 +67,6 @@ export function Header(): JSX.Element {
   }) as React.RefObject<HTMLDivElement>;
 
   const cartRef = useOutsideClick(() => {
-    console.log('clicked');
-
     setCartOpened(false);
   }) as React.RefObject<HTMLDivElement>;
 
@@ -96,7 +97,7 @@ export function Header(): JSX.Element {
             </ul>
             <ul className="header__user-navigation user-navigation">
               <li className="user-navigation__item">
-                <button className="header__cart-wrapper header__btn" onClick={handleCartOpen}>
+                <button className="header__cart-wrapper header__btn" onClick={handleCartOpen} type="button">
                   <Cart/>
                   <span>{totalAmount}</span>
                 </button>
@@ -108,11 +109,8 @@ export function Header(): JSX.Element {
                   <img className="user-navigation__avatar" src={user?.avatar} alt="" width={60} height={60}/>
                   :
                   <div className="header__form-wrapper">
-                    <button className="header__btn" onClick={() => setLoginFormOpened(!isLoginFormOpened)}>
+                    <button className="header__btn" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
                       <UserIcon/>
-                      {
-                        isLoginFormOpened && <AuthForm/>
-                      }
                     </button>
                   </div>
                 }
@@ -122,12 +120,12 @@ export function Header(): JSX.Element {
       :
       <>
         <div className="header__container">
-          <button className={burgerClassName} onClick={() => setMenuOpened(!isMenuOpened)}>
+          <button className={burgerClassName} onClick={() => setMenuOpened(!isMenuOpened)} type="button">
             <span className="header__burger-line"></span>
           </button>
           <ul className="header__user-navigation user-navigation">
               <li className="user-navigation__item">
-                <button className="header__cart-wrapper header__btn" onClick={handleCartOpen}>
+                <button className="header__cart-wrapper header__btn" onClick={handleCartOpen} type="button">
                   <Cart/>
                   <span>{totalAmount}</span>
                 </button>
@@ -139,11 +137,8 @@ export function Header(): JSX.Element {
                   <p>{userInfo?.name}</p>
                   :
                   <div className="header__form-wrapper">
-                    <button className="header__btn" onClick={() => setLoginFormOpened(!isLoginFormOpened)}>
+                    <button className="header__btn" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
                       <UserIcon/>
-                      {
-                        isLoginFormOpened && <AuthForm/>
-                      }
                     </button>
                   </div>
                 }
@@ -166,6 +161,8 @@ export function Header(): JSX.Element {
       </>
       }
       <CartBlock ref={cartRef} cartClassName={cartClassName}/>
+      <AuthForm/>
+      <RegisterForm/>
     </header>
   )
 }

@@ -1,10 +1,12 @@
-import { useDispatch } from "react-redux";
-import { redirectToRoute } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { redirectToRoute, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 import { AppRoute, ErrorMessage } from "../../const";
 import { loginAction } from "../../store/api-actions";
 import { ChangeEvent, useRef, useState } from "react";
 import { AuthData } from "../../types/auth-data";
 import { AppDispatch } from "../../types/state";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { RootState } from "../../store/root-reducer";
 
 type FormProps = {
   value: string;
@@ -20,6 +22,9 @@ type dataProps = {
 export function AuthForm(): JSX.Element {
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
+  const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
   const [data, setData] = useState<dataProps>({
     email: {
@@ -58,6 +63,10 @@ export function AuthForm(): JSX.Element {
     });
   };
 
+  const formRef = useOutsideClick(() => {
+    dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
+  }) as React.RefObject<HTMLFormElement>;
+
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -74,36 +83,49 @@ export function AuthForm(): JSX.Element {
   };
 
   return (
-    <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
-      <div className="login__input-wrapper form__input-wrapper">
-        <label className="visually-hidden">E-mail</label>
-        <input
-          className="login__input form__input"
-          type="email"
-          name="email"
-          placeholder="Email"
-          ref={loginRef}
-          required
-          value={data.email.value}
-          onChange={handleFieldChange}
-        />
-      </div>
-      <div className="login__input-wrapper form__input-wrapper">
-        <label className="visually-hidden">Password</label>
-        <input
-          className="login__input form__input"
-          type="password"
-          name="password"
-          placeholder="Password"
-          ref={passwordRef}
-          required
-          value={data.password.value}
-          onChange={handleFieldChange}
-        />
-      </div>
-      <button className="login__submit form__submit button" type="submit">
-        Sign in
-      </button>
-    </form>
+    isSignInOpened ?
+    <div className="form__wrapper">
+      <form className="login__form form" action="#" method="post" onSubmit={handleSubmit} ref={formRef}>
+        <div className="login__input-wrapper form__input-wrapper">
+          <label className="visually-hidden">E-mail</label>
+          <input
+            className="login__input form__input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            ref={loginRef}
+            required
+            value={data.email.value}
+            onChange={handleFieldChange}
+          />
+        </div>
+        <div className="login__input-wrapper form__input-wrapper">
+          <label className="visually-hidden">Password</label>
+          <input
+            className="login__input form__input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            ref={passwordRef}
+            required
+            value={data.password.value}
+            onChange={handleFieldChange}
+          />
+        </div>
+        <div className="form__buttons">
+          <button className="login__submit form__submit button" type="submit">Sign in</button>
+          <p>Have not account?</p>
+          <button
+            className="button"
+            type="button"
+            onClick={() => {
+              dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
+              dispatch(toggleSignUpForm({isOpened: !isSignUpOpened}));
+            }}
+          >Sign up</button>
+        </div>
+      </form>
+    </div>
+    : <></>
   )
 }

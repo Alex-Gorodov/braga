@@ -43,10 +43,10 @@ export function HeroSwiper(): JSX.Element {
           }
         </Swiper>
         <div className='hero__swiper-buttons beer__buttons'>
-          <button className='beer__btn beer__btn--prev'>
+          <button className='beer__btn beer__btn--prev' type="button">
             <span className='visually-hidden'>previous slide</span>
           </button>
-          <button className='beer__btn beer__btn--next'>
+          <button className='beer__btn beer__btn--next' type="button">
             <span className='visually-hidden'>next slide</span>
           </button>
         </div>

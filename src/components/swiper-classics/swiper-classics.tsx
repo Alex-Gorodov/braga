@@ -29,9 +29,9 @@ export function SwiperClassics(): JSX.Element {
               nextEl: '.beer__btn--next'
             }}
             modules={[Autoplay, Navigation]}
-            autoplay={{
-              delay: 2000
-            }}
+            // autoplay={{
+            //   delay: 2000
+            // }}
             speed={1000}
             slidesPerView={isMobile ? 2 : 4}
             slidesPerGroup={1}
@@ -47,10 +47,10 @@ export function SwiperClassics(): JSX.Element {
             }
           </Swiper>
           <div className='beer__buttons beer__buttons--classics'>
-            <button className='beer__btn beer__btn--prev'>
+            <button className='beer__btn beer__btn--prev' type="button">
               <span className='visually-hidden'>previous slide</span>
             </button>
-            <button className='beer__btn beer__btn--next'>
+            <button className='beer__btn beer__btn--next' type="button">
               <span className='visually-hidden'>next slide</span>
             </button>
           </div>

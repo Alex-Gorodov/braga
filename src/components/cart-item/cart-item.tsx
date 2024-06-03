@@ -30,7 +30,7 @@ export function CartItem({item}: CartItemProps): JSX.Element {
         <span className="cart-item__text cart-item__amount">
           {item.amount} x ₪{item.price}
         </span>
-        <button className="cart-item__remove-btn" onClick={handleRemoveItem}>
+        <button className="cart-item__remove-btn" onClick={handleRemoveItem} type="button">
           <Cross/>
           <span className="visually-hidden">Remove from cart</span>
         </button>

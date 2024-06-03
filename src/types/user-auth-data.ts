@@ -1,8 +1,15 @@
+import { BeerInCart, Beer } from "./beer";
+
 export type UserAuthData = {
-  id: number;
-  email: string;
+  name: string,
+  surname: string,
+  email: string,
   token: string;
-  avatarUrl: string;
-  isPro: boolean;
-  name: string;
+  phone: number,
+  password: string,
+  isAdmin: boolean,
+  cartItems: BeerInCart[],
+  subscriptions: Beer[],
+  liked: Beer[],
+  avatar: string
 };

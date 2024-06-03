@@ -1,7 +1,8 @@
 .form
   position: absolute
-  top: 60px
-  right: 0
+  top: 50vh
+  right: 50vw
+  transform: translate(50%, -50%)
   display: flex
   flex-direction: column
   gap: 10px
@@ -10,3 +11,18 @@
   background-color: $background-gray
   box-shadow: $block-shadow
   z-index: 10
+  &__wrapper
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    background-color: rgba(0,0,0,0.5)
+  &__buttons
+    display: flex
+    flex-direction: column
+    align-items: center
+    & p
+      margin: 0
+  &__submit
+    margin-bottom: 20px

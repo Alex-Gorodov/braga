@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AppRoute, AuthorizationStatus } from "../const";
 import { AppDispatch } from "../types/state";
-import { loadBeers, loadCart, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
+import { getUserInformation, loadBeers, loadCart, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
 import { AuthData } from "../types/auth-data";
@@ -85,9 +85,9 @@ ThunkOptions>
 (
   'user/checkAuth', async (_arg, { dispatch, extra: api }) => {
     try {
-      // const {data} = await api.get<UserAuthData>(APIRoute.Login);
+      const {data} = await api.get<UserAuthData>(APIRoute.Login);
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
-      // dispatch(getUserInformation({userInformation: data}));
+      dispatch(getUserInformation({userInformation: data}));
     } catch {
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
     }
@@ -110,6 +110,9 @@ ThunkOptions>
 
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
       dispatch(redirectToRoute(AppRoute.Root));
+      dispatch(getUserInformation({userInformation: data}));
+      console.log(data.password);
+
     }
     catch {
       console.log(data);

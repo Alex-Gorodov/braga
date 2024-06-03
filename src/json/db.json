@@ -3,8 +3,8 @@
     "beers" : [
       {
         "id": 0,
-        "name": "Juicy bomb NEIPA",
-        "style": "neipa",
+        "name": "Juicy bomb",
+        "style": "NEIPA",
         "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus, soluta!",
         "categories": ["Fruity", "Hoppy", "Bitter"],
         "price": 14,
@@ -13,8 +13,8 @@
       },
       {
         "id": 1,
-        "name": "Hey mango IPA",
-        "style": "ipa",
+        "name": "Hey mango",
+        "style": "IPA",
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         "categories": ["Fruity", "Hoppy", "Bitter"],
         "price": 13,
@@ -34,7 +34,7 @@
       {
         "id": 3,
         "name": "Witbier",
-        "style": "Wheat beer",
+        "style": "wheat beer",
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laudantium corrupti.",
         "categories": ["Wheat", "Citrusy", "Herbal", "Spicy"],
         "price": 12,
@@ -44,7 +44,7 @@
       {
         "id": 4,
         "name": "Desert vagabond",
-        "style": "Light lager",
+        "style": "light lager",
         "description": "Lorem ipsum, fishing deepsum",
         "categories": ["Malty", "Hoppy"],
         "price": 11,
@@ -54,7 +54,7 @@
       {
         "id": 5,
         "name": "Bounty injection",
-        "style": "Porter",
+        "style": "porter",
         "description": "Coconut sweet porter",
         "categories": ["Coconut", "Chocolate", "Vanilla"],
         "price": 14,

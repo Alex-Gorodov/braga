@@ -18,3 +18,8 @@ export type AuthState = {
   authorizationStatus: AuthorizationStatus;
   userInfo: User | null;
 };
+
+export type PageState = {
+  isSignInFormOpened: boolean;
+  isSignUpFormOpened: boolean;
+}

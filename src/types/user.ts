@@ -10,5 +10,5 @@ export type User = {
   cartItems: BeerInCart[],
   subscriptions: Beer[],
   liked: Beer[],
-  avatar: string
-}
+  avatar: string,
+};

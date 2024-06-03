@@ -2,7 +2,7 @@ import { Spinner } from '../spinner/spinner';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export function SignUpForm(): JSX.Element {
+export function SubscribeForm(): JSX.Element {
   const [formData, setFormData] = useState({
     email: '',
   });

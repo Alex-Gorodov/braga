@@ -66,7 +66,7 @@ export function BeerItem({ item, showStatus, small, className }: BeerItemProps):
                 item.onBrewing
                 ?
                   <div className={itemButtonWrapperClassName}>
-                    <button className={itemButtonClassName}>Pre-order</button>
+                    <button className={itemButtonClassName} type="button">Pre-order</button>
                   </div>
                 :
                   <div className={itemButtonWrapperClassName}>
@@ -74,7 +74,7 @@ export function BeerItem({ item, showStatus, small, className }: BeerItemProps):
                   </div>
               :
                 <div className={itemButtonWrapperClassName}>
-                  <button className={itemButtonClassName} onClick={handleAddToCart}>Add to cart</button>
+                  <button className={itemButtonClassName} onClick={handleAddToCart} type="button">Add to cart</button>
                 </div>
            : ''
       }
@@ -104,6 +104,9 @@ export function BeerItem({ item, showStatus, small, className }: BeerItemProps):
         <Link className="beer__item-name beer__item-accent" to={link}>
           {item.name}
         </Link>
+        <p className='beer__item-style'>
+          {item.style}
+        </p>
         <p className="beer__item-categories">
           {item.categories.map((c, index) => (
             index < item.categories.length - 1 ? `${c}, ` : c
