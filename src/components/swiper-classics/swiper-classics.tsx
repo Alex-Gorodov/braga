@@ -5,12 +5,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { Autoplay, Navigation } from "swiper/modules";
 import { BeerItem } from "../beer-item/beer-item";
-import { useIsMobile } from "../../hooks/isMobile";
 import { Spinner } from "../spinner/spinner";
+import { useIsDesktop, useIsMobile } from "../../hooks/isMobile";
 
 export function SwiperClassics(): JSX.Element {
   const items = useSelector((state: RootState) => state.data.beers);
   const isMobile = useIsMobile();
+  const isDesktop = useIsDesktop();
 
   return (
     <section className="section section--swiper">
@@ -33,7 +34,7 @@ export function SwiperClassics(): JSX.Element {
               delay: 2000
             }}
             speed={1000}
-            slidesPerView={isMobile ? 2 : 4}
+            slidesPerView={isMobile ? 2 : isDesktop ? 3 : 4}
             slidesPerGroup={1}
           >
             {

@@ -8,9 +8,8 @@ export enum AppRoute {
 }
 
 export enum ScreenSizes {
-  Mobile = 430,
-  MobileOnly = 768,
-  Tablet = 1024,
+  Mobile = 490,
+  Tablet = 768,
   Desktop = 1280,
   ContainerMaxWidth = 1250
 }

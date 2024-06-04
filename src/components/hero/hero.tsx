@@ -2,12 +2,12 @@ import { ReactComponent as Star} from '../../img/icons/star.svg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { HeroSwiper } from '../hero-swiper/hero-swiper';
-import { useIsMobileOnly } from '../../hooks/isMobile';
+import { useIsMobile } from '../../hooks/isMobile';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 
 export function Hero(): JSX.Element {
-  const isMobile = useIsMobileOnly();
+  const isMobile = useIsMobile();
   return (
     <section className='section section--hero'>
       <div className='hero section__container'>
