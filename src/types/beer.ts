@@ -6,6 +6,7 @@ export type Beer = {
   categories: string[];
   price: number;
   img: string;
+  previewImg: string;
   onStock: number;
   onBrewing?: boolean;
 }

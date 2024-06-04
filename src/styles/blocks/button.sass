@@ -10,8 +10,11 @@
   background-color: $background-gray
   border: 1px solid $black
   cursor: pointer
+  color: $black
   -webkit-tap-highlight-color: transparent
   white-space: nowrap
+  &::-webkit-inner-spin-button
+    display: none
   &__wrapper
     position: absolute
     top: 50%
@@ -23,10 +26,11 @@
     transition: 0.4s
     &--active
       opacity: 1
-
   &--small
     padding: 11px 20px
     font-size: clamp(0.5375rem, 0.481rem + 0.3660vw, 0.693rem)
+  &--no-shadow::after
+    display: none
   &::after
     position: absolute
     width: 100%
@@ -43,3 +47,10 @@
   &:hover::after
     top: 0
     left: 0
+  &:disabled
+    background-color: lighten($background-gray, 5%)
+    color:  lighten($black, 50%)
+    cursor: not-allowed
+    &::after
+      top: 0
+      left: 0

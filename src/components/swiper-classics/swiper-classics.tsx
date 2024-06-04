@@ -4,9 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { Autoplay, Navigation } from "swiper/modules";
-import { BeerItem } from "../beer-item/beer-item";
+import { BeerItemPreview } from "../beer-item/beer-item-preview";
 import { Spinner } from "../spinner/spinner";
-import { useIsDesktop, useIsMobile } from "../../hooks/isMobile";
+import { useIsDesktop, useIsMobile } from "../../hooks/useSizes";
 
 export function SwiperClassics(): JSX.Element {
   const items = useSelector((state: RootState) => state.data.beers);
@@ -41,7 +41,7 @@ export function SwiperClassics(): JSX.Element {
               items.map((item) => {
                 return (
                   <SwiperSlide key={`classic-swipe-${item.id}`}>
-                    <BeerItem item={item} showStatus={false} small={true} className="swiper__slide--classics"/>
+                    <BeerItemPreview item={item} showStatus={false} small={true} className="swiper__slide--classics"/>
                   </SwiperSlide>
                 )
               })

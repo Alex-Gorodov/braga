@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
 import { Autoplay, Navigation } from "swiper/modules";
 import { RootState } from "../../store/root-reducer";
-import { BeerItem } from "../beer-item/beer-item";
+import { BeerItemPreview } from "../beer-item/beer-item-preview";
 import { Spinner } from "../spinner/spinner";
 import { Swiper, SwiperSlide } from 'swiper/react';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -37,7 +36,7 @@ export function HeroSwiper(): JSX.Element {
           {
             beers.map((item) => (
               <SwiperSlide key={`slide-${item.id}`}>
-                <BeerItem item={item} showStatus={true} className="hero__swipe"/>
+                <BeerItemPreview item={item} showStatus={true} className="hero__swipe"/>
               </SwiperSlide>
             ))
           }

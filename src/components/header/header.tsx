@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import cn from 'classnames';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { useIsMobile } from "../../hooks/isMobile";
+import { useIsTablet } from "../../hooks/useSizes";
 import { AuthForm } from "../auth-form/auth-form";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import CartBlock from "../cart-block/cart-block";
@@ -28,7 +28,7 @@ export function Header(): JSX.Element {
     'cart--opened': isCartOpened
   })
 
-  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
 
   const mobileNavClassName = cn('navigation__mobile', {
     'navigation__mobile--opened': isMenuOpened
@@ -42,12 +42,12 @@ export function Header(): JSX.Element {
   );
 
   const headerClassName = cn('header', {
-    'header--mobile': isMobile
+    'header--mobile': isTablet
   })
 
   const pageClassName = (page: string) => cn('navigation__link', {
     'navigation__link--active': activePage === page,
-    'navigation__link--mobile': isMobile
+    'navigation__link--mobile': isTablet
   });
 
   const burgerClassName = cn("header__burger", {
@@ -63,7 +63,7 @@ export function Header(): JSX.Element {
     }, [location.pathname]);
 
   const menuRef = useOutsideClick(() => {
-    isMobile && setMenuOpened(false);
+    isTablet && setMenuOpened(false);
   }) as React.RefObject<HTMLDivElement>;
 
   const cartRef = useOutsideClick(() => {
@@ -79,7 +79,7 @@ export function Header(): JSX.Element {
   return (
     <header className={headerClassName}>
       {
-        !isMobile ?
+        !isTablet ?
           <nav className="header__navigation navigation">
             <Link className="navigation__logo" to={AppRoute.Root}>
               <Logo/>

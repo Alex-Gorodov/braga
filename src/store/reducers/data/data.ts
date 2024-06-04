@@ -21,14 +21,14 @@ export const dataReducer = createReducer(initialState, (builder) => {
     state.cartItems = action.payload.beers;
   })
   .addCase(addItemToCart, (state, action) => {
-    const { item } = action.payload;
+    const { item, amount } = action.payload;
     const existingItem = state.cartItems.find((cartItem) => cartItem.id === item.id);
 
     existingItem?.id === item.id
       ?
-      state.cartItems[item.id].amount = state.cartItems[item.id].amount + 1
+      state.cartItems[item.id].amount = state.cartItems[item.id].amount + amount
       :
-      state.cartItems.push(item)
+      state.cartItems.push({...item, amount: amount})
   })
   .addCase(removeFromCart, (state, action) => {
     const { item } = action.payload;

@@ -11,7 +11,7 @@ export const setCartDataLoadingStatus = createAction<{isCartDataLoading: boolean
 
 export const loadCart = createAction<{beers: BeerInCart[]}>('data/loadCart');
 
-export const addItemToCart = createAction<{item: BeerInCart}>('data/addItemToCart');
+export const addItemToCart = createAction<{item: BeerInCart, amount: number}>('data/addItemToCart');
 
 export const removeFromCart = createAction<{item: BeerInCart}>('data/removeFromCart');
 

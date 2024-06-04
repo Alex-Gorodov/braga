@@ -34,10 +34,7 @@ export function ProductPage(): JSX.Element {
       <Helmet>
         <title>{`Shop | ${product?.name}`}</title>
       </Helmet>
-      {product && <BeerItem item={product} showStatus={false} className=""/>}
-      <div>
-
-      </div>
+      {product && <BeerItem item={product}/>}
     </Layout>
   )
 }

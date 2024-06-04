@@ -2,7 +2,7 @@ import { ReactComponent as Star} from '../../img/icons/star.svg';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { HeroSwiper } from '../hero-swiper/hero-swiper';
-import { useIsMobile } from '../../hooks/isMobile';
+import { useIsMobile } from '../../hooks/useSizes';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 

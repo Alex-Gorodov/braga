@@ -11,7 +11,7 @@ type CartBlockProps = {
 
 const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
-
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
   return (
     <div className={props.cartClassName} ref={ref}>
       <h2 className="cart__title">My cart</h2>
@@ -26,7 +26,7 @@ const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
           </ul>
           <p className="cart__total">
             <span>Total:</span>
-            <span>₪{cartItems.map((item) => item.price * item.amount)}</span>
+            <span>₪{totalPrice}</span>
           </p>
           <Link className="button" to={AppRoute.Cart}>Checkout</Link>
         </>

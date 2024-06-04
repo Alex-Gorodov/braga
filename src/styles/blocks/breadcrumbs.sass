@@ -1,0 +1,15 @@
+.breadcrumbs
+  display: flex
+  gap: 10px
+  &__item:not(:last-of-type)
+    &::after
+      margin-left: 10px
+      content: "/"
+  &__link
+    @include link-reset
+    @include inter-regular
+    transition: 0.3s
+    &:hover
+      opacity: 0.6
+    &:active
+      opacity: 0.3
