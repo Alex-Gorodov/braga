@@ -44,18 +44,18 @@ export function SubscribeForm(): JSX.Element {
   };
 
   return (
-    <div className="sign-up__wrapper">
+    <div className="subscribe__wrapper">
       {!isSuccess && (
-        <div className="sign-up__form-wrapper">
+        <div className="subscribe__form-wrapper">
           {isSending ? (
             <div style={{paddingTop: '60px'}}>
               <Spinner size={'40'} color={'#000c24'} />
             </div>
           ) : (
-            <form className="sign-up__form" onSubmit={sendForm}>
-              <label className={`sign-up__item ${isError && 'sign-up__item--error'}`} htmlFor="email">
+            <form className="subscribe__form" onSubmit={sendForm}>
+              <label className={`subscribe__item ${isError ? 'subscribe__item--error' : ''}`} htmlFor="email">
                 <input
-                  className={`sign-up__field ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'sign-up__field--error'}`}
+                  className={`subscribe__field ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) ? 'subscribe__field--error' : ''}`}
                   type="email"
                   name="email"
                   id="email"
@@ -67,13 +67,13 @@ export function SubscribeForm(): JSX.Element {
                   onChange={handleInputChange}
                 />
               </label>
-              <p className={`sign-up__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'sign-up__error-message--opened'}`}>Please fill in the required fields.</p>
+              <p className={`subscribe__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'subscribe__error-message--opened'}`}>Please fill in the required fields.</p>
             </form>
           )}
         </div>
       )}
       {isSuccess && (
-        <p className="sign-up__success-message">Successfully sent!</p>
+        <p className="subscribe__success-message">Successfully sent!</p>
       )}
     </div>
   )
