@@ -1,0 +1,28 @@
+.review-item
+  position: relative
+  display: grid
+  grid-template-columns: 60px auto
+  gap: 32px
+  &::after
+    position: absolute
+    bottom: 0px
+    left: 0
+    width: 100%
+    display: block
+    height: 1px
+    background-color: $dark-gray
+    content: ''
+  &__author
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 8px
+    grid-column: 1
+    &-avatar
+      border-radius: 50%
+      border: 1px solid $black
+  &__comment
+    grid-column: 2
+  &__date
+    color: $dark-gray
+  &__rating

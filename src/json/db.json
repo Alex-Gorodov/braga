@@ -10,7 +10,31 @@
         "price": 14,
         "img": "/braga/img/bottles/neipa",
         "previewImg": "/braga/img/beers-preview/neipa",
-        "onStock": 8
+        "onStock": 2,
+        "abv": 6.3,
+        "ibu": 54.9,
+        "srm": 5.6,
+        "calories": 201,
+        "reviews": [
+          {
+            "review": "Excellent beer! As soon as I opened the bottle, the room was filled with a hoppy aroma! I will definitely buy it again!",
+            "date": "2024-06-06T12:34:56.789Z",
+            "id": 0,
+            "rating": 5,
+            "user": {
+              "name": "Michael",
+              "surname": "Gorodov",
+              "email": "gorodov2002@outlook.com",
+              "phone": "0",
+              "password": "23011302",
+              "isAdmin": false,
+              "cartItems": [],
+              "subscriptions": [],
+              "liked": [],
+              "avatar": "/braga/img/avatars/user-1.png"
+            }
+          }
+        ]
       },
       {
         "id": 1,
@@ -21,7 +45,12 @@
         "price": 13,
         "img": "/braga/img/bottles/ipa",
         "previewImg": "/braga/img/beers-preview/ipa",
-        "onStock": 0
+        "onStock": 0,
+        "abv": 6.3,
+        "ibu": 47.1,
+        "srm": 4.4,
+        "calories": 192,
+        "reviews": []
       },
       {
         "id": 2,
@@ -32,7 +61,12 @@
         "price": 11,
         "img": "/braga/img/bottles/stout",
         "previewImg": "/braga/img/beers-preview/stout",
-        "onStock": 0
+        "onStock": 0,
+        "abv": 5.6,
+        "ibu": 41,
+        "srm": 49,
+        "calories": 182,
+        "reviews": []
       },
       {
         "id": 3,
@@ -43,7 +77,12 @@
         "price": 12,
         "img": "/braga/img/bottles/wheat",
         "previewImg": "/braga/img/beers-preview/wheat",
-        "onStock": 0
+        "onStock": 0,
+        "abv": 4.8,
+        "ibu": 12.6,
+        "srm": 3.1,
+        "calories": 143,
+        "reviews": []
       },
       {
         "id": 4,
@@ -54,7 +93,12 @@
         "price": 11,
         "img": "/braga/img/bottles/lager",
         "previewImg": "/braga/img/beers-preview/lager",
-        "onStock": 0
+        "onStock": 0,
+        "abv": 5,
+        "ibu": 22.4,
+        "srm": 4,
+        "calories": 146,
+        "reviews": []
       },
       {
         "id": 5,
@@ -65,7 +109,12 @@
         "price": 14,
         "img": "/braga/img/bottles/porter",
         "previewImg": "/braga/img/beers-preview/porter",
-        "onStock": 0
+        "onStock": 0,
+        "abv": 7.2,
+        "ibu": 48.7,
+        "srm": 41.6,
+        "calories": 211,
+        "reviews": []
       }
     ],
     "cart" : [
@@ -80,7 +129,8 @@
         "isAdmin": true,
         "cartItems": [],
         "subscriptions": [],
-        "liked": []
+        "liked": [],
+        "avatar": "/braga/img/avatars/user-0.png"
       },
       {
         "name": "Michael",
@@ -91,7 +141,8 @@
         "isAdmin": false,
         "cartItems": [],
         "subscriptions": [],
-        "liked": []
+        "liked": [],
+        "avatar": "/braga/img/avatars/user-1.png"
       }
     ]
   }

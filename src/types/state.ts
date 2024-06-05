@@ -1,6 +1,7 @@
 import { AuthorizationStatus } from "../const";
 import { store } from "../store";
 import { Beer, BeerInCart } from "./beer";
+import { Review } from "./review";
 import { User } from "./user";
 
 export type State = ReturnType<typeof store.getState>;
@@ -23,3 +24,9 @@ export type PageState = {
   isSignInFormOpened: boolean;
   isSignUpFormOpened: boolean;
 }
+
+export type ReviewState = {
+  reviews: Record<string, Review[]>;
+  reviewsList: Review[];
+  isReviewSending: boolean;
+};

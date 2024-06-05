@@ -32,3 +32,22 @@ export enum ErrorMessage {
   PasswordError = 'Please enter at least one letter and one number',
   CommentError = 'Error! Can\'t add review, please, try again',
 }
+
+export enum ItemInfo {
+  Description = "Description",
+  Additional = "Additional information",
+  Reviews = "Reviews",
+}
+
+export const REVIEW_STARS = [
+  { value: 1, title: 'badly' },
+  { value: 2, title: 'terribly' },
+  { value: 3, title: 'not bad' },
+  { value: 4, title: 'good' },
+  { value: 5, title: 'perfect' },
+];
+
+export const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];

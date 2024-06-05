@@ -1,10 +1,13 @@
 import { Link, generatePath } from "react-router-dom";
-import { AppRoute } from "../../const";
+import { AppRoute, ItemInfo } from "../../const";
 import { Beer } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../../store/actions";
 import { addItemToDatabaseCart } from "../../store/api-actions";
+import cn from 'classnames';
+import { ReviewForm } from "../review/review-form/review-form";
+import { ReviewItem } from "../review/review-item/review-item";
 
 type BeerItemProps = {
   item: Beer;
@@ -33,6 +36,12 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
       setAmount(value);
     }
   };
+
+  const [activeInfo, setActiveInfo] = useState('Description');
+
+  const infoBtnClassName = (page: string) => cn('product__info-nav-link', {
+    'product__info-nav-link--active': activeInfo === page
+  })
 
   return (
     <main className="main">
@@ -73,21 +82,110 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             <span className="product__price">₪ {item.price}</span>
             <p className="product__description">{item.description}</p>
             <div className="product__buttons">
-              <input type="number" name="amount-to-add" id="" min={1} step={1} className="button product__amount-input" value={amount} onChange={handleChange} disabled={!(item.onStock > amount)}/>
-              <button type="button" className="button button--no-shadow product__button--plus" onClick={() => handleIncrease()} disabled={!(item.onStock > amount)}>+</button>
-              <button type="button" className="button button--no-shadow product__button--minus" onClick={() => handleDecrease()}>-</button>
+              <input type="number" name="amount-to-add" id="" min={1} max={item.onStock} step={1} className="button product__amount-input" value={amount} onChange={handleChange}/>
+              <button type="button" className="button button--no-shadow product__button product__button--plus" onClick={() => handleIncrease()} disabled={!(item.onStock > amount)}>+</button>
+              <button type="button" className="button button--no-shadow product__button product__button--minus" onClick={() => handleDecrease()}>-</button>
               <button
                 type="button"
-                className="button product__button--add"
+                className="button product__button product__button--add"
                 onClick={() => {
                   dispatch(addItemToCart({item: {...item, amount: amount}, amount: amount}))
                   addItemToDatabaseCart({...item, amount: amount})
                 }}
-                disabled={!(item.onStock > amount)}
+                disabled={!(item.onStock > amount - 1)}
               >Add to cart</button>
             </div>
+            <div className="product__amount">
+              <p className="product__details-title">sku:</p>
+              <span>
+                {
+                  item.onStock < 100 ?
+                    item.onStock < 10 ?
+                      `00${item.onStock}` : `0${item.onStock}`
+                    :
+                  `${item.onStock}`
+                }
+              </span>
+            </div>
+            <div>
+              <p className="product__details-title">Categories:</p>
+              <ul className="product__categories">
+                <li className="product__category" key={`cat-${item.id}`}>
+                  {item.categories.map((c, index) => (
+                    <span key={`cat-${c}-${item.id}`}>
+                      {c}{index < item.categories.length - 1 ? ', ' : ''}
+                    </span>
+                  ))}
+                </li>
+              </ul>
+            </div>
           </div>
+          <div className="product__info">
+            <div className="product__info-buttons-wrapper">
+              <button className={infoBtnClassName(ItemInfo.Description)} onClick={() => setActiveInfo(ItemInfo.Description)}>Description</button>
+              <button className={infoBtnClassName(ItemInfo.Additional)} onClick={() => setActiveInfo(ItemInfo.Additional)}>Additional information</button>
+              <button className={infoBtnClassName(ItemInfo.Reviews)} onClick={() => setActiveInfo(ItemInfo.Reviews)}>Reviews({item.reviews?.length ? item.reviews.length : 0})</button>
+            </div>
+            <div className="product__info-content">
+              {activeInfo === ItemInfo.Description ? (
+                <p className="product__description">{item.description}</p>
+              ) : activeInfo === ItemInfo.Additional ? (
+                <div>
+                  <table className="product__details-table">
+                    <tbody>
+                      <tr>
+                        <td>Vol:</td>
+                        <td>0.33l</td>
+                      </tr>
+                      <tr>
+                        <td>ABV:</td>
+                        <td>{item.abv}%</td>
+                      </tr>
+                      <tr>
+                        <td>IBU:</td>
+                        <td>{item.ibu}</td>
+                      </tr>
+                      <tr>
+                        <td>SRM:</td>
+                        <td>{item.srm}</td>
+                      </tr>
+                      <tr>
+                        <td>Calories:</td>
+                        <td>{item.calories}/per 0.33l</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
+              ) : (
+                <div className="product__review-wrapper">
+                  <p className="product__details-title product__details-title--small">Reviews</p>
+                  {item.reviews && item.reviews.length > 0 ? (
+                    <>
+                      <ul className="product__review-list">
+                        {item.reviews.map((review, index) => (
+                          <li key={index}>
+                            <ReviewItem item={review} />
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="product__details-title product__details-title--small">Add review</p>
+                    </>
+                ) : (
+                  <div>
+                    <p>There are no reviews yet.</p>
+                    {
+                      <p className="product__details-title product__details-title--small">Be the first to review “{item.name}”</p>
+                    }
+                  </div>
+                )}
+                  <ReviewForm/>
+                </div>
+              )}
+
+            </div>
+
+          </div>
         </div>
       </div>
     </main>
