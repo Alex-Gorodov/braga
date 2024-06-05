@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.5f4052ba.css",
-    "main.js": "/braga/static/js/main.23dd66cf.js",
+    "main.css": "/braga/static/css/main.7746c203.css",
+    "main.js": "/braga/static/js/main.f2f897f2.js",
     "static/media/hand.png": "/braga/static/media/hand.9c02734d030b38801843.png",
     "static/media/beer-video-poster.jpg": "/braga/static/media/beer-video-poster.d2d6f9741418c795656d.jpg",
     "static/media/braga-logo.svg": "/braga/static/media/braga-logo.0dd70711429a888c1a6a22df0c39f8d5.svg",
     "index.html": "/braga/index.html",
+    "static/media/rating-star.svg": "/braga/static/media/rating-star.0016478338828101c85d18a90f2b1675.svg",
     "static/media/user.svg": "/braga/static/media/user.dda1f80c63b2a52d27c54ca34ceeab28.svg",
     "static/media/star.svg": "/braga/static/media/star.ca7bbd642402fb8859e6ea1436961f8a.svg",
     "static/media/cart.svg": "/braga/static/media/cart.03f2cfab0ebce5ce62ba459333872fa6.svg",
     "static/media/swiper-arrow.svg": "/braga/static/media/swiper-arrow.6e6f118fecdae63c52c5.svg",
     "static/media/cross.svg": "/braga/static/media/cross.269632face0a52e2057a0a85436b9764.svg",
     "static/media/form-arrow.svg": "/braga/static/media/form-arrow.5df1ec287b210d4425f7.svg",
-    "main.5f4052ba.css.map": "/braga/static/css/main.5f4052ba.css.map",
-    "main.23dd66cf.js.map": "/braga/static/js/main.23dd66cf.js.map"
+    "main.7746c203.css.map": "/braga/static/css/main.7746c203.css.map",
+    "main.f2f897f2.js.map": "/braga/static/js/main.f2f897f2.js.map"
   },
   "entrypoints": [
-    "static/css/main.5f4052ba.css",
-    "static/js/main.23dd66cf.js"
+    "static/css/main.7746c203.css",
+    "static/js/main.f2f897f2.js"
   ]
 }
