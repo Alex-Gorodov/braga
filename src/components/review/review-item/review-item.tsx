@@ -14,18 +14,22 @@ export const getRating = (rating: number) =>
   (Math.round(rating) * 100) / 5;
 
 export function ReviewItem({item}: ReviewProps): JSX.Element {
+  const user = item.user || {};
+  const avatar = user.avatar || '/path/to/default/avatar.png';
+  const name = user.name || 'Anonymous';
+
   return (
     <div className="review-item">
       <p className="review-item__author">
-        <img className="review-item__author-avatar" src={item.user.avatar} alt={item.user.avatar} width={60} height={60}/>
-        {item.user.name}
+        <img className="review-item__author-avatar" src={avatar} alt={name} width={60} height={60}/>
+        {name}
       </p>
-      <p className="review-item__comment">
+      <div className="review-item__comment">
         <div className="review-item__rating rating">
           {
-            REVIEW_STARS.slice(0, item.rating).map((s) => {
+            REVIEW_STARS.slice(0, item.rating).map((s, index) => {
               return (
-                <span style={{color: '#efc91c'}}>
+                <span key={index} style={{color: '#efc91c'}}>
                   <RatingStar/>
                 </span>
               )
@@ -43,7 +47,7 @@ export function ReviewItem({item}: ReviewProps): JSX.Element {
         >
             {formatDate(item.date, 'DD MMMM YYYY, HH:MM')}
         </time>
-      </p>
+      </div>
     </div>
   )
 }

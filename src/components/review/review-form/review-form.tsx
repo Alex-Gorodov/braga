@@ -8,6 +8,7 @@ import { AppDispatch } from "../../../types/state";
 import { addReview, getReviewLoadingStatus } from "../../../store/actions";
 import { RootState } from "../../../store/root-reducer";
 import { Beer } from "../../../types/beer";
+import { addReviewToDatabase } from "../../../store/api-actions";
 
 type ReviewFormProps = {
   item: Beer;
@@ -15,6 +16,8 @@ type ReviewFormProps = {
 
 export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   const users = useSelector((state: RootState) => state.data.users);
+  console.log(users);
+
   const dispatch: AppDispatch = useDispatch();
   const reviewStatus = useSelector(getReviewLoadingStatus);
   const [reviewFormData, setFormData] = useState<Review>({date: (new Date()).toISOString(), user: users[0], rating: 0, review: '', id: 0 });
@@ -47,6 +50,10 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
       review: { ...reviewFormData, date: date, user: users[0] },
       item: item
     }));
+    addReviewToDatabase(item, reviewFormData)
+    setFormData({...reviewFormData, rating: 0, review: '', user: users[0]})
+    console.log(reviewFormData);
+
   };
 
   return (
@@ -78,23 +85,22 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
         </div>
         <textarea
           onChange={handleChangeData}
-          className="reviews__textarea form__textarea"
+          className="review-form__textarea"
           id="review"
           name="review"
-          placeholder="Tell how was your stay, what you like and what can be improved"
+          placeholder="Your review here..."
           value={reviewFormData.review}
           disabled={reviewStatus}
         />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
-            To submit review please make sure to set{' '}
-            <span className="reviews__star">rating</span> and describe your stay
-            with at least <b className="reviews__text-amount">50 characters</b>.
+            To submit review please make sure to set rating and describe your stay
+            with at least <b className="review-form__text-amount">15 characters</b>.
           </p>
           <button
             className="reviews__submit form__submit button"
             type="submit"
-            disabled={reviewStatus || reviewFormData.review.length < 50 || reviewFormData.rating === 0}
+            disabled={reviewStatus || reviewFormData.review.length < 15 || reviewFormData.rating === 0}
             ref={refButton}
           >
             Submit

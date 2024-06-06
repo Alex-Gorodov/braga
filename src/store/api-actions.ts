@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AppRoute, AuthorizationStatus } from "../const";
 import { AppDispatch } from "../types/state";
-import { getUserInformation, loadBeers, loadCart, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus } from "./actions";
+import { getUserInformation, loadBeers, loadCart, loadUsers, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus, setUsersDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
 import { AuthData } from "../types/auth-data";
@@ -9,6 +9,7 @@ import { AxiosInstance } from "axios";
 import { dropToken, saveToken } from "../services/token";
 import { UserAuthData } from "../types/user-auth-data";
 import { User } from "../types/user";
+import { Review } from "../types/review";
 
 type ThunkOptions = {
   dispatch: AppDispatch;
@@ -39,6 +40,23 @@ export const fetchCartAction = createAsyncThunk<void, undefined, ThunkOptions>(
     const itemsArray: BeerInCart[] = data ? Object.values(data) : [];
     dispatch(loadCart({beers: itemsArray}));
     dispatch(setCartDataLoadingStatus({isCartDataLoading: false}));
+  }
+)
+
+export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
+  'data/fetchUsers', async (_arg, { dispatch}) => {
+    try {
+      dispatch(setUsersDataLoadingStatus({isUsersDataLoading: true}));
+
+      const data = ((await database.ref(APIRoute.Users).once("value")).val());
+
+      const usersArray: User[] = data ? Object.values(data) : [];
+      dispatch(loadUsers({ users: usersArray}));
+      dispatch(setUsersDataLoadingStatus({ isUsersDataLoading: false }));
+    } catch (error) {
+      console.error('Error fetching users data:', error);
+      dispatch(setUsersDataLoadingStatus({ isUsersDataLoading: false }));
+    }
   }
 )
 
@@ -83,6 +101,40 @@ export const addNewUserToDatabase = async (user: User) => {
     await userRef.push(user);
   } catch (error) {
     console.error('Error adding new user to database:', error)
+  }
+}
+
+export const addReviewToDatabase = async (beer: Beer, review: Review) => {
+  try {
+    const beerRef = database.ref(`${APIRoute.Beers}/${beer.id}`);
+    const snapshot = await beerRef.once('value');
+    const beerData = snapshot.val();
+
+    if (!beerData.reviews) {
+      beerData.reviews = [];
+    }
+
+    const user = {
+      name: review.user.name,
+      surname: review.user.surname,
+      email: review.user.email,
+      phone: review.user.phone,
+      avatar: review.user.avatar || '/default/avatar/path' // Убедитесь, что аватар установлен
+    };
+
+    const newReview = {
+      review: review.review,
+      date: review.date,
+      id: review.id,
+      rating: review.rating,
+      user: user
+    };
+
+    beerData.reviews.push(newReview);
+
+    await beerRef.update(beerData);
+  } catch (error) {
+    console.error("Error adding review: ", error);
   }
 }
 

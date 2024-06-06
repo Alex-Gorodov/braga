@@ -22,6 +22,10 @@ export const requireAuthorization = createAction<{authorizationStatus: Authoriza
 
 export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
 
+export const setUsersDataLoadingStatus = createAction<{isUsersDataLoading: boolean}>('data/setUsersDataLoadingStatus');
+
+export const loadUsers = createAction<{users: User[]}>('data/loadUsers');
+
 export const toggleSignUpForm = createAction<{isOpened: boolean}>('page/toggleSignUpForm')
 
 export const toggleSignInForm = createAction<{isOpened: boolean}>('page/toggleSignInForm')

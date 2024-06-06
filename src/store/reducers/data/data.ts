@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addItemToCart, addReview, deleteReview, loadBeers, loadCart, removeFromCart, setBeersDataLoadingStatus } from "../../actions";
+import { addItemToCart, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -20,6 +20,9 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(loadCart, (state, action) => {
     state.cartItems = action.payload.beers;
+  })
+  .addCase(loadUsers, (state, action) => {
+    state.users = action.payload.users;
   })
   .addCase(addItemToCart, (state, action) => {
     const { item, amount } = action.payload;
@@ -47,7 +50,20 @@ export const dataReducer = createReducer(initialState, (builder) => {
     const { id } = action.payload.item;
     const { review } = action.payload;
 
-    state.beers[id].reviews?.push(review);
+    // Найти индекс пива по id
+    const index = state.beers.findIndex(beer => beer.id === id);
+
+    if (index !== -1) {
+        // Если индекс найден, проверяем наличие массива reviews
+        if (!state.beers[index].reviews) {
+            state.beers[index].reviews = [];
+        }
+        // Добавляем отзыв в массив reviews
+        state.beers[index].reviews.push(review);
+    } else {
+        // Обрабатываем случай, когда объект пива не найден
+        console.error(`Beer with id ${id} not found`);
+    }
   })
 
   .addCase(deleteReview, (state, action) => {
