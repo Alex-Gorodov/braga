@@ -10,6 +10,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type DataState = {
   beers: Beer[];
+  users: User[];
   isBeersDataLoading: boolean;
   cartItems: BeerInCart[];
   isCartDataLoading: boolean,
@@ -21,6 +22,7 @@ export type AuthState = {
 };
 
 export type PageState = {
+  uploadedNftPath: string | null,
   isSignInFormOpened: boolean;
   isSignUpFormOpened: boolean;
 }

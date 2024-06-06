@@ -4,6 +4,7 @@ import { AppRoute, AuthorizationStatus } from "../const";
 import { UserAuthData } from "../types/user-auth-data";
 import { Review } from "../types/review";
 import { RootState } from "./root-reducer";
+import { User } from "../types/user";
 
 export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boolean}>('data/setBeersDataLoadingStatus');
 
@@ -31,8 +32,12 @@ export const addReview = createAction<{item: Beer, review: Review}>('data/addRev
 
 export const deleteReview = createAction<{item: Beer, review: Review}>('data/deleteReview')
 
-export const loadReviews = createAction<{id: string; reviews: Review[]}>('data/loadReviews');
+export const loadReviews = createAction<{id: number; reviews: Review[]}>('data/loadReviews');
 
 export const setReviewsDataLoadingStatus = createAction<{isReviewsDataLoading: boolean}>('data/setReviewsDataLoadingStatus');
 
 export const getReviewLoadingStatus = (state: RootState) => state.review.isReviewSending;
+
+export const registerNewUser = createAction<{user: User}>('data/registerNewUser');
+
+export const setUploadedNftPath = createAction<{ path: string | null }>('page/getUploadedNftPath');

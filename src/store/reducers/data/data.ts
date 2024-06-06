@@ -4,6 +4,7 @@ import { addItemToCart, addReview, deleteReview, loadBeers, loadCart, removeFrom
 
 const initialState: DataState = {
   beers: [],
+  users: [],
   isBeersDataLoading: false,
   cartItems: [],
   isCartDataLoading: false,

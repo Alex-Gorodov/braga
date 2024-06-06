@@ -12,3 +12,7 @@ export type User = {
   liked: Beer[],
   avatar: string,
 };
+
+export type RegisterUser = User & {
+  confirmPassword: string;
+}

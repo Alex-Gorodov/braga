@@ -179,7 +179,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                     }
                   </div>
                 )}
-                  <ReviewForm/>
+                  <ReviewForm item={item}/>
                 </div>
               )}
 

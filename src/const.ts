@@ -16,6 +16,7 @@ export enum ScreenSizes {
 
 export enum APIRoute {
   Beers = "braga-db/beers",
+  Users = "braga-db/users",
   Cart = "braga-db/cart",
   Login = '/login',
   Logout = '/logout',
@@ -45,9 +46,4 @@ export const REVIEW_STARS = [
   { value: 3, title: 'not bad' },
   { value: 4, title: 'good' },
   { value: 5, title: 'perfect' },
-];
-
-export const MONTHS = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
 ];

@@ -8,6 +8,7 @@ import { AuthData } from "../types/auth-data";
 import { AxiosInstance } from "axios";
 import { dropToken, saveToken } from "../services/token";
 import { UserAuthData } from "../types/user-auth-data";
+import { User } from "../types/user";
 
 type ThunkOptions = {
   dispatch: AppDispatch;
@@ -68,13 +69,20 @@ export const removeItemFromDatabaseCart = async (item: BeerInCart) => {
       const existingItem = snapshot.val()[key];
 
       if (existingItem.amount) {
-      //   await cartRef.child(key).update({ amount: 0 });
-      // } else {
         await cartRef.child(key).remove();
       }
     }
   } catch (error) {
     console.error('Error removing item from database cart:', error);
+  }
+}
+
+export const addNewUserToDatabase = async (user: User) => {
+  try {
+    const userRef = database.ref(APIRoute.Users);
+    await userRef.push(user);
+  } catch (error) {
+    console.error('Error adding new user to database:', error)
   }
 }
 
@@ -105,18 +113,13 @@ ThunkOptions>
       password,
     });
     saveToken(data.token);
-    console.log(api);
     try {
-
       dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
       dispatch(redirectToRoute(AppRoute.Root));
       dispatch(getUserInformation({userInformation: data}));
-      console.log(data.password);
-
     }
-    catch {
-      console.log(data);
-
+    catch (error) {
+      console.error('Login error:', error);
     }
   }
 );
