@@ -14,7 +14,7 @@ type ReviewFormProps = {
 }
 
 export function ReviewForm({item}: ReviewFormProps): JSX.Element {
-  const users = useSelector((state: RootState) => state.data.users)
+  const users = useSelector((state: RootState) => state.data.users);
   const dispatch: AppDispatch = useDispatch();
   const reviewStatus = useSelector(getReviewLoadingStatus);
   const [reviewFormData, setFormData] = useState<Review>({date: (new Date()).toISOString(), user: users[0], rating: 0, review: '', id: 0 });
@@ -29,8 +29,9 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
     }
   }, [paramsId, reviewFormData]);
 
-  const handleRatingSelect = (star: string) => {
-    setFormData({ ...reviewFormData, rating: Number(star) });
+  const handleRatingSelect = (star: number) => {
+    setFormData({ ...reviewFormData, rating: star });
+    console.log(star);
   };
 
   const date = (new Date()).toISOString();
@@ -45,8 +46,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
     dispatch(addReview({
       review: { ...reviewFormData, date: date, user: users[0] },
       item: item
-    }))
-
+    }));
   };
 
   return (
@@ -54,29 +54,27 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
       <form action="#" method="post" ref={formRef} onSubmit={handleFormSubmit}>
         <legend>Your email address will not be published. Required fields are marked *</legend>
         <div className="review__rating-form form__rating">
-          {
-            REVIEW_STARS.map((star) => (
-              <Fragment key={star.value}>
-                <input
-                  className="review-form__rating-input visually-hidden"
-                  name="rating"
-                  value={star.value}
-                  id={`${star.value}-stars`}
-                  type="radio"
-                  disabled={reviewStatus}
-                  onChange={() => handleRatingSelect(String(star.value))}
-                  checked={reviewFormData.rating === star.value}
-                />
-                <label
-                  htmlFor={`${star.value}-stars`}
-                  className="review-form__star"
-                  title={star.title}
-                >
-                  <RatingStar />
-                </label>
-              </Fragment>
-            ))
-          }
+          {REVIEW_STARS.map((star) => (
+            <Fragment key={star.value}>
+              <input
+                className="review-form__rating-input visually-hidden"
+                name="rating"
+                value={star.value}
+                id={`${star.value}-stars`}
+                type="radio"
+                disabled={reviewStatus}
+                onChange={() => handleRatingSelect(star.value)}
+                checked={reviewFormData.rating === star.value}
+              />
+              <label
+                htmlFor={`${star.value}-stars`}
+                className="review-form__label"
+                title={star.title}
+              >
+                <RatingStar className="form__star-image" />
+              </label>
+            </Fragment>
+          ))}
         </div>
         <textarea
           onChange={handleChangeData}
@@ -86,8 +84,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
           placeholder="Tell how was your stay, what you like and what can be improved"
           value={reviewFormData.review}
           disabled={reviewStatus}
-        >
-        </textarea>
+        />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set{' '}

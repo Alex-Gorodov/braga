@@ -1,5 +1,38 @@
-.review-form
-  &__star
-    color: transparent
-    &:hover
-      color:#efc91c
+.form__star-image
+  color: transparent
+
+
+.review-form__rating-input:checked ~ .review-form__label .form__star-image,
+.review-form__rating-input:checked ~ .review-form__label ~ .review-form__label .form__star-image,
+.review-form__rating-input:focus ~ .review-form__label .form__star-image,
+.review-form__rating-input:focus ~ .review-form__label ~ .review-form__label .form__star-image,
+.review-form__label:hover .form__star-image,
+.review-form__label:hover ~ .review-form__label .form__star-image
+  color: #efc91c
+
+.form__rating
+    display: -webkit-box
+    display: -ms-flexbox
+    display: flex
+    -webkit-box-orient: horizontal
+    -webkit-box-direction: reverse
+    -ms-flex-direction: row-reverse
+    flex-direction: row-reverse
+    -webkit-box-pack: end
+    -ms-flex-pack: end
+    justify-content: flex-end
+    -webkit-box-align: start
+    -ms-flex-align: start
+    align-items: flex-start
+
+
+.form__rating-label
+    display: block
+    width: 37px
+    height: 33px
+    margin-right: 4px
+    cursor: pointer
+
+
+.form__rating-label:first-child
+    margin-right: 0
