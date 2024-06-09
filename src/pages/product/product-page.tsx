@@ -34,7 +34,10 @@ export function ProductPage(): JSX.Element {
       <Helmet>
         <title>{`Shop | ${product?.name}`}</title>
       </Helmet>
-      {product && <BeerItem item={product}/>}
+      <main className="main">
+
+      {product ? <BeerItem item={product}/> : <Spinner size={"40"}/>}
+      </main>
     </Layout>
   )
 }

@@ -153,8 +153,12 @@ body
 .page-container
   display: flex
   flex-direction: column
-  justify-content: center
   min-height: 100vh
 
 .main
+  display: flex
+  flex-direction: column
+  justify-content: center
   flex-grow: 1
+  &:not(:has(.section__container))
+    border-bottom: $section-border

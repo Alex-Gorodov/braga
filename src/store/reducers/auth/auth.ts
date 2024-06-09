@@ -6,20 +6,24 @@ import { getUserInformation, requireAuthorization } from '../../actions';
 
 const initialState: AuthState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userInfo: null,
+  userInfo: {
+    id: '',
+    email: '',
+    token: ''
+  },
 };
+
 
 export const authReducer: ReducerWithInitialState<AuthState> = createReducer(
   initialState,
   (builder: ActionReducerMapBuilder<AuthState>): void => {
     builder
-      .addCase(requireAuthorization, (state: AuthState, action): void => {
-        const {authorizationStatus} = action.payload;
-        state.authorizationStatus = authorizationStatus;
-      })
-      .addCase(getUserInformation, (state, action) => {
-        const {userInformation} = action.payload;
-        state.userInfo = userInformation;
-      });
-  }
-);
+    .addCase(requireAuthorization, (state: AuthState, action): void => {
+      const {authorizationStatus} = action.payload;
+      state.authorizationStatus = authorizationStatus;
+    })
+    .addCase(getUserInformation, (state, action) => {
+      const {userInformation} = action.payload;
+      state.userInfo = userInformation;
+    });
+})

@@ -13,6 +13,7 @@ import { ProductPage } from "../../pages/product/product-page";
 import { CartPage } from "../../pages/cart/cart-page";
 
 export function App() {
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory} basename="/">

@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-import { redirectToRoute, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
-import { AppRoute, ErrorMessage } from "../../const";
-import { loginAction } from "../../store/api-actions";
+import { setUserInformation, requireAuthorization, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { AuthorizationStatus, ErrorMessage } from "../../const";
 import { ChangeEvent, useRef, useState } from "react";
-import { AuthData } from "../../types/auth-data";
 import { AppDispatch } from "../../types/state";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { RootState } from "../../store/root-reducer";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "../../store/slices/user-slice";
+import { loginAction } from "../../store/api-actions";
+import { AuthData } from "../../types/auth-data";
 
 type FormProps = {
   value: string;
@@ -22,6 +24,8 @@ type dataProps = {
 export function AuthForm(): JSX.Element {
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const authedUser = useSelector((state: RootState) => state.user);
 
   const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
@@ -70,51 +74,66 @@ export function AuthForm(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      const authData: AuthData = {
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      };
-      dispatch(loginAction(authData));
-      dispatch(redirectToRoute(AppRoute.Root));
-    }
-  };
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, data.email.value, data.password.value)
+      .then(({user}) => {
+        dispatch(setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.getIdToken()
+        }))
+        dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}))
+        dispatch(setUserInformation({userInformation: authedUser}))
+        const authData: AuthData = {
+          login: loginRef.current?.value || "",
+          password: passwordRef.current?.value || "",
+        };
+        dispatch(loginAction(authData));
+        dispatch(toggleSignInForm({isOpened: false}))
+      })
+      .catch(console.error)
+  }
 
   return (
     isSignInOpened ?
     <div className="form__wrapper">
-      <form className="login__form form" action="#" method="post" onSubmit={handleSubmit} ref={formRef}>
-        <div className="login__input-wrapper form__input-wrapper">
-          <label className="visually-hidden">E-mail</label>
-          <input
-            className="login__input form__input"
-            type="email"
-            name="email"
-            placeholder="Email"
-            ref={loginRef}
-            required
-            value={data.email.value}
-            onChange={handleFieldChange}
-          />
+      <form className="login__form form" action="#" method="post" onSubmit={handleLogin} ref={formRef}>
+        <h3 className="title title--3 form__title">Sign in</h3>
+        <div className="form__input-wrapper">
+          <label className="form__item">
+            <span className="form__label">E-mail:</span>
+            <input
+              className="form__input"
+              type="email"
+              name="email"
+              placeholder="Email*"
+              ref={loginRef}
+              required
+              value={data.email.value}
+              onChange={handleFieldChange}
+            />
+          </label>
         </div>
-        <div className="login__input-wrapper form__input-wrapper">
-          <label className="visually-hidden">Password</label>
-          <input
-            className="login__input form__input"
-            type="password"
-            name="password"
-            placeholder="Password"
-            ref={passwordRef}
-            required
-            value={data.password.value}
-            onChange={handleFieldChange}
-          />
+        <div className="form__input-wrapper">
+          <label className="form__item">
+            <span className="form__label">Password:</span>
+            <input
+              className="form__input"
+              type="password"
+              name="password"
+              placeholder="Password*"
+              ref={passwordRef}
+              required
+              value={data.password.value}
+              onChange={handleFieldChange}
+            />
+          </label>
         </div>
         <div className="form__buttons">
           <button className="login__submit form__submit button" type="submit">Sign in</button>
-          <p>Have not account?</p>
+          <p>Have not account yet?</p>
           <button
             className="button"
             type="button"

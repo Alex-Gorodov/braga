@@ -1,18 +1,18 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { PageState } from "../../../types/state";
-import { setUploadedNftPath, toggleSignInForm, toggleSignUpForm } from "../../actions";
+import { setUploadedPath, toggleSignInForm, toggleSignUpForm } from "../../actions";
 
 const initialState: PageState = {
-  uploadedNftPath: null,
+  uploadedPath: '',
   isSignInFormOpened: false,
   isSignUpFormOpened: false,
 }
 
 export const pageReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setUploadedNftPath, (state, action) => {
+    .addCase(setUploadedPath, (state, action) => {
       const { path } = action.payload;
-      state.uploadedNftPath = path;
+      path ? state.uploadedPath = path : state.uploadedPath = 'braga/img/avatars/user-7.png';
     })
     .addCase(toggleSignInForm, (state, action) => {
       state.isSignInFormOpened = action.payload.isOpened;

@@ -16,15 +16,48 @@ type ReviewFormProps = {
 
 export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   const users = useSelector((state: RootState) => state.data.users);
-  console.log(users);
+  const authedUser = useSelector((state: RootState) => state.user)
+
+  const activeUser = users.find((user) => user.id === authedUser.id)
+
+  console.log(activeUser?.name);
 
   const dispatch: AppDispatch = useDispatch();
   const reviewStatus = useSelector(getReviewLoadingStatus);
-  const [reviewFormData, setFormData] = useState<Review>({date: (new Date()).toISOString(), user: users[0], rating: 0, review: '', id: 0 });
+  const [reviewFormData, setFormData] = useState<Review>({
+    date: (new Date()).toISOString(),
+    user: {
+      id: users.length.toString(),
+      name: 'Guest',
+      surname: '',
+      email: '',
+      phone: '',
+      password: '',
+      isAdmin: false,
+      cartItems: [],
+      subscriptions: [],
+      liked: [],
+      avatar: '',
+      token: ''
+    },
+    rating: 0,
+    review: '',
+    id: 0
+  });
+
   const formRef = useRef<HTMLFormElement>(null);
   const refButton = useRef<HTMLButtonElement | null>(null);
   const params = useParams<{ id: string }>();
   const paramsId = Number(params.id);
+
+  useEffect(() => {
+    if (activeUser) {
+      setFormData(prevData => ({
+        ...prevData,
+        user: activeUser
+      }));
+    }
+  }, [activeUser]);
 
   useEffect(() => {
     if (reviewFormData.id !== paramsId) {
@@ -34,7 +67,6 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
 
   const handleRatingSelect = (star: number) => {
     setFormData({ ...reviewFormData, rating: star });
-    console.log(star);
   };
 
   const date = (new Date()).toISOString();
@@ -46,14 +78,16 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   const handleFormSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    dispatch(addReview({
-      review: { ...reviewFormData, date: date, user: users[0] },
-      item: item
-    }));
-    addReviewToDatabase(item, reviewFormData)
-    setFormData({...reviewFormData, rating: 0, review: '', user: users[0]})
-    console.log(reviewFormData);
-
+    if (activeUser) {
+      const updatedReview = {
+        ...reviewFormData,
+        date: date,
+        user: activeUser
+      };
+      dispatch(addReview({ review: updatedReview, item: item }));
+      addReviewToDatabase(item, updatedReview);
+      setFormData({ ...updatedReview, rating: 0, review: '' });
+    }
   };
 
   return (

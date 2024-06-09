@@ -1,18 +1,21 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AppRoute, AuthorizationStatus } from "../const";
-import { AppDispatch } from "../types/state";
-import { getUserInformation, loadBeers, loadCart, loadUsers, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus, setUsersDataLoadingStatus } from "./actions";
+import { getAuthedUser, getUserInformation, loadBeers, loadCart, loadUsers, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus, setUsersDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
-import { AuthData } from "../types/auth-data";
 import { AxiosInstance } from "axios";
-import { dropToken, saveToken } from "../services/token";
-import { UserAuthData } from "../types/user-auth-data";
 import { User } from "../types/user";
 import { Review } from "../types/review";
+import { RootState } from "./root-reducer";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../types/state";
+import { AuthData } from "../types/auth-data";
+import { UserAuthData } from "../types/user-auth-data";
+import { saveToken } from "../services/token";
 
-type ThunkOptions = {
-  dispatch: AppDispatch;
+export type ThunkOptions = {
+  dispatch: ThunkDispatch<RootState, AxiosInstance, any>;
+  state: RootState;
   extra: AxiosInstance;
 };
 
@@ -51,6 +54,7 @@ export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
       const data = ((await database.ref(APIRoute.Users).once("value")).val());
 
       const usersArray: User[] = data ? Object.values(data) : [];
+
       dispatch(loadUsers({ users: usersArray}));
       dispatch(setUsersDataLoadingStatus({ isUsersDataLoading: false }));
     } catch (error) {
@@ -95,14 +99,26 @@ export const removeItemFromDatabaseCart = async (item: BeerInCart) => {
   }
 }
 
-export const addNewUserToDatabase = async (user: User) => {
+export const addNewUserToDatabase = async (user: User, dispatch: AppDispatch) => {
   try {
     const userRef = database.ref(APIRoute.Users);
     await userRef.push(user);
+    console.log('User successfully added to database');
+
+    // Получаем обновленный список пользователей
+    const snapshot = await userRef.once('value');
+    const usersArray: User[] = [];
+    snapshot.forEach(childSnapshot => {
+      usersArray.push(childSnapshot.val());
+    });
+
+    // Диспатчим экшен loadUsers с обновленным списком пользователей
+    dispatch(loadUsers({ users: usersArray }));
   } catch (error) {
-    console.error('Error adding new user to database:', error)
+    console.error('Error adding new user to database:', error);
   }
-}
+};
+
 
 export const addReviewToDatabase = async (beer: Beer, review: Review) => {
   try {
@@ -119,7 +135,7 @@ export const addReviewToDatabase = async (beer: Beer, review: Review) => {
       surname: review.user.surname,
       email: review.user.email,
       phone: review.user.phone,
-      avatar: review.user.avatar || '/default/avatar/path' // Убедитесь, что аватар установлен
+      avatar: review.user.avatar || '/default/avatar/path'
     };
 
     const newReview = {
@@ -138,51 +154,17 @@ export const addReviewToDatabase = async (beer: Beer, review: Review) => {
   }
 }
 
-export const checkAuthAction = createAsyncThunk<
-void,
-undefined,
-ThunkOptions>
-(
-  'user/checkAuth', async (_arg, { dispatch, extra: api }) => {
-    try {
-      const {data} = await api.get<UserAuthData>(APIRoute.Login);
-      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
-      dispatch(getUserInformation({userInformation: data}));
-    } catch {
-      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
-    }
-  });
-
 export const loginAction = createAsyncThunk<
 void,
 AuthData,
 ThunkOptions>
 (
   'user/login',
-  async ({ login: email, password }, { dispatch, extra: api }) => {
+  async ({ login: email, password }, { extra: api }) => {
     const { data } = await api.post<UserAuthData>(APIRoute.Login, {
       email,
       password,
     });
     saveToken(data.token);
-    try {
-      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}));
-      dispatch(redirectToRoute(AppRoute.Root));
-      dispatch(getUserInformation({userInformation: data}));
-    }
-    catch (error) {
-      console.error('Login error:', error);
-    }
   }
 );
-
-export const logoutAction = createAsyncThunk<
-  void,
-  undefined,
-  ThunkOptions>
-  (
-    'user/logout', async (_arg, { dispatch, extra: api }) => {
-      await api.delete(APIRoute.Logout);
-      dropToken();
-      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
-    });

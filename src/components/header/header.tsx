@@ -1,28 +1,24 @@
 import { Link, useLocation } from "react-router-dom";
-import { AppRoute, AuthorizationStatus } from "../../const";
+import { AppRoute } from "../../const";
 import { ReactComponent as Logo} from '../../img/icons/braga-logo.svg';
 import { ReactComponent as Cart} from '../../img/icons/cart.svg';
-import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
 import { useEffect, useState } from "react";
 import cn from 'classnames';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useIsTablet } from "../../hooks/useSizes";
 import { AuthForm } from "../auth-form/auth-form";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import CartBlock from "../cart-block/cart-block";
-import { toggleSignInForm } from "../../store/actions";
 import { RegisterForm } from "../register-form/register-form";
+import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
 
 export function Header(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
-  const user = useSelector((state: RootState) => state.auth.userInfo);
-  const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
   const [isCartOpened, setCartOpened] = useState(false);
   const location = useLocation();
-  const dispatch = useDispatch();
 
   const cartClassName = cn('cart', {
     'cart--opened': isCartOpened
@@ -33,13 +29,6 @@ export function Header(): JSX.Element {
   const mobileNavClassName = cn('navigation__mobile', {
     'navigation__mobile--opened': isMenuOpened
   })
-
-  const authorizationStatus = useSelector(
-    (state: RootState) => state.auth.authorizationStatus
-  );
-  const userInfo = useSelector(
-    (state: RootState) => state.auth.userInfo
-  );
 
   const headerClassName = cn('header', {
     'header--mobile': isTablet
@@ -103,17 +92,7 @@ export function Header(): JSX.Element {
                 </button>
               </li>
               <li className="user-navigation__item">
-                {
-                  authorizationStatus === AuthorizationStatus.Auth
-                  ?
-                  <img className="user-navigation__avatar" src={user?.avatar} alt="" width={60} height={60}/>
-                  :
-                  <div className="header__form-wrapper">
-                    <button className="header__btn" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
-                      <UserIcon/>
-                    </button>
-                  </div>
-                }
+                <HeaderUserProfile/>
               </li>
             </ul>
           </nav>
@@ -131,17 +110,7 @@ export function Header(): JSX.Element {
                 </button>
               </li>
               <li className="user-navigation__item">
-                {
-                  authorizationStatus === AuthorizationStatus.Auth
-                  ?
-                  <p>{userInfo?.name}</p>
-                  :
-                  <div className="header__form-wrapper">
-                    <button className="header__btn" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
-                      <UserIcon/>
-                    </button>
-                  </div>
-                }
+                <HeaderUserProfile/>
               </li>
             </ul>
         </div>

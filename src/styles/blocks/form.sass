@@ -5,12 +5,15 @@
   transform: translate(50%, -50%)
   display: flex
   flex-direction: column
-  gap: 10px
+  gap: 20px
   padding: 20px
+  padding-bottom: 40px
   border-radius: 4px
   background-color: $background-gray
   box-shadow: $block-shadow
   z-index: 10
+  &__title
+    text-align: center
   &__wrapper
     position: fixed
     top: 0
@@ -21,8 +24,38 @@
   &__buttons
     display: flex
     flex-direction: column
-    align-items: center
     & p
-      margin: 0
+      margin: 32px 0 16px
+      text-align: center
   &__submit
     margin-bottom: 20px
+  &__item
+    position: relative
+    display: flex
+    flex-direction: column
+    gap: 8px
+    &:not(:has(.form__input[type="file"]))::after
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 100%
+      height: 1px
+      background-color: $black
+      content: ''
+
+  &__label
+    @include inter-regular
+    display: none
+    &--visible
+      display: block
+  &__input
+    border: none
+    background-color: transparent
+    transition: 0.3s
+    &:hover
+      background-color: lighten($black, 90%)
+    &:not([type="file"])
+      padding: 12px
+    &:focus-visible
+      background-color: lighten($black, 90%)
+      outline: none

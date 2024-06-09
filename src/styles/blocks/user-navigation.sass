@@ -3,15 +3,24 @@
   display: flex
   gap: 32px
   align-items: center
-  &:has(.user-navigation__avatar)
-    position: relative
-    &::after
-      position: absolute
-      top: 0
-      right: 0
-      display: block
-      width: 12px
-      height: 12px
+  &__item
+    &:has(.user-navigation__avatar)
+      position: relative
+      &::after
+        position: absolute
+        top: 2px
+        right: 2px
+        display: block
+        width: 12px
+        height: 12px
+        border-radius: 50%
+        background-color: $online-green
+        content: ''
+  &__avatar
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+    &-wrapper
+      border: 1px solid $black
       border-radius: 50%
-      background-color: $online-green
-      content: ''

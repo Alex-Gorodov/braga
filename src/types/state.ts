@@ -3,6 +3,7 @@ import { store } from "../store";
 import { Beer, BeerInCart } from "./beer";
 import { Review } from "./review";
 import { User } from "./user";
+import { UserAuthData } from "./user-auth-data";
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -13,16 +14,16 @@ export type DataState = {
   users: User[];
   isBeersDataLoading: boolean;
   cartItems: BeerInCart[];
-  isCartDataLoading: boolean,
+  isCartDataLoading: boolean;
 }
 
 export type AuthState = {
   authorizationStatus: AuthorizationStatus;
-  userInfo: User | null;
+  userInfo: UserAuthData | null;
 };
 
 export type PageState = {
-  uploadedNftPath: string | null,
+  uploadedPath: string,
   isSignInFormOpened: boolean;
   isSignUpFormOpened: boolean;
 }

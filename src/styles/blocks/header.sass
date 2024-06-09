@@ -21,13 +21,12 @@
   &__user-navigation
     margin-left: auto
   &__cart-wrapper
-    @include link-reset
     display: block
     position: relative
     & span
       position: absolute
-      top: -5px
-      right: -16px
+      top: 0
+      right: -10px
       font-size: 20px
   &__burger
     display: flex
@@ -69,4 +68,9 @@
     border: none
     background-color: transparent
     cursor: pointer
+    transition: 0.3s
     -webkit-tap-highlight-color: transparent
+    &:hover
+      opacity: 0.6
+    &:active
+      opacity: 0.3

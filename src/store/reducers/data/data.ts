@@ -50,22 +50,17 @@ export const dataReducer = createReducer(initialState, (builder) => {
     const { id } = action.payload.item;
     const { review } = action.payload;
 
-    // Найти индекс пива по id
     const index = state.beers.findIndex(beer => beer.id === id);
 
     if (index !== -1) {
-        // Если индекс найден, проверяем наличие массива reviews
         if (!state.beers[index].reviews) {
             state.beers[index].reviews = [];
         }
-        // Добавляем отзыв в массив reviews
         state.beers[index].reviews.push(review);
     } else {
-        // Обрабатываем случай, когда объект пива не найден
         console.error(`Beer with id ${id} not found`);
     }
   })
-
   .addCase(deleteReview, (state, action) => {
     const { id } = action.payload.review;
     const { review } = action.payload;
