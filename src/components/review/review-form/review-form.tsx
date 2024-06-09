@@ -20,8 +20,6 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
 
   const activeUser = users.find((user) => user.id === authedUser.id)
 
-  console.log(activeUser?.name);
-
   const dispatch: AppDispatch = useDispatch();
   const reviewStatus = useSelector(getReviewLoadingStatus);
   const [reviewFormData, setFormData] = useState<Review>({
