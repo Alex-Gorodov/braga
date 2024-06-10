@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addItemToCart, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, setBeersDataLoadingStatus } from "../../actions";
+import { addItemToCart, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -26,13 +26,12 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(addItemToCart, (state, action) => {
     const { item, amount } = action.payload;
-    const existingItem = state.cartItems.find((cartItem) => cartItem.id === item.id);
-
-    existingItem?.id === item.id
-      ?
-      state.cartItems[item.id].amount = state.cartItems[item.id].amount + amount
-      :
-      state.cartItems.push({...item, amount: amount})
+    const existingItemIndex = state.cartItems.findIndex(cartItem => cartItem.id === item.id);
+    if (existingItemIndex !== -1) {
+      state.cartItems[existingItemIndex].amount += amount;
+    } else {
+      state.cartItems.push({...item, amount});
+    }
   })
   .addCase(removeFromCart, (state, action) => {
     const { item } = action.payload;
@@ -67,4 +66,21 @@ export const dataReducer = createReducer(initialState, (builder) => {
 
     state.beers[id].reviews = state.beers[id].reviews?.filter((reviewId) => reviewId.id !== review.id);
   })
+  .addCase(addItemToPreOrder, (state, action) => {
+    const { user, item } = action.payload;
+    const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
+
+    if (userToFind) {
+      if (!userToFind.preOrder) {
+        userToFind.preOrder = [];
+      }
+
+      const existingItemIndex = userToFind.preOrder.findIndex((i) => i.id === item.id);
+      if (existingItemIndex > -1) {
+        userToFind.preOrder[existingItemIndex].amount += item.amount;
+      } else {
+        userToFind.preOrder.push(item);
+      }
+    }
+  });
 })

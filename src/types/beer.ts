@@ -10,7 +10,7 @@ export type Beer = {
   img: string;
   previewImg: string;
   onStock: number;
-  onBrewing?: boolean;
+  onBrewing: boolean;
   reviews: Review[];
   abv: number;
   ibu: number;

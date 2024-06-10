@@ -5,10 +5,12 @@ import { RootState } from "../../store/root-reducer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
 import { useIsTablet } from "../../hooks/useSizes";
+import { logoutAction } from "../../store/api-actions";
+import { AppDispatch } from "../../types/state";
 
 
 export function HeaderUserProfile(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const authorizationStatus = useSelector(
     (state: RootState) => state.auth.authorizationStatus
   );
@@ -23,6 +25,14 @@ export function HeaderUserProfile(): JSX.Element {
     authorizationStatus === AuthorizationStatus.Auth
     ?
     <div className="user-navigation__avatar-wrapper">
+      <button
+        className="header__nav-link"
+        onClick={() => {
+          dispatch(logoutAction())
+        }}
+      >
+        <span className="header__signout">Sign out</span>
+      </button>
       <img className="user-navigation__avatar" src={user?.avatar} alt="" width={size} height={size}/>
     </div>
     :

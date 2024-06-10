@@ -3,13 +3,15 @@ import { AppRoute, AuthorizationStatus, ItemInfo } from "../../const";
 import { Beer } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../../store/actions";
-import { addItemToDatabaseCart } from "../../store/api-actions";
+import { addItemToCart, addItemToPreOrder } from "../../store/actions";
+import { addItemToDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
 import cn from 'classnames';
 import { ReviewForm } from "../review/review-form/review-form";
 import { ReviewItem } from "../review/review-item/review-item";
 import { RootState } from "../../store/root-reducer";
 import { NotAuthReview } from "../not-auth-review/not-auth-review";
+import { Soon } from "./soon";
+import { useGetUser } from "../../hooks/useGetUser";
 
 type BeerItemProps = {
   item: Beer;
@@ -21,6 +23,8 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   });
 
   const authStatus = useSelector((state: RootState) => state.auth.authorizationStatus);
+
+  const user = useGetUser();
 
   const dispatch = useDispatch();
 
@@ -82,12 +86,23 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
           </div>
         </div>
         <div className="product__details">
-          <p className="product__name">{item.name}</p>
+          <div className="product__name-wrapper">
+            <span className="product__name">
+              {item.name}
+              {
+                item.onBrewing
+                ?
+                <Soon cn="product__label"/>
+                :
+                ''
+              }
+            </span>
+          </div>
           <span className="product__price">₪ {item.price}</span>
           <p className="product__description">{item.description}</p>
           <div className="product__buttons">
             <input type="number" name="amount-to-add" id="" min={1} max={item.onStock} step={1} className="button product__amount-input" value={amount} onChange={handleChange}/>
-            <button type="button" className="button button--no-shadow product__button product__button--plus" onClick={() => handleIncrease()} disabled={!(item.onStock > amount)}>+</button>
+            <button type="button" className="button button--no-shadow product__button product__button--plus" onClick={() => handleIncrease()} disabled={!item.onBrewing && !(item.onStock > amount)}>+</button>
             <button type="button" className="button button--no-shadow product__button product__button--minus" onClick={() => handleDecrease()}>-</button>
             <button
               type="button"
@@ -98,6 +113,21 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               }}
               disabled={!(item.onStock > amount - 1)}
             >Add to cart</button>
+            {
+              item.onBrewing &&
+              <button
+                className="button produce__button product__button--preorder"
+                type="button"
+                onClick={() => {
+                  if (user) {
+                    dispatch(addItemToPreOrder({ user: user, item: { ...item, amount: amount } }));
+                    addItemToUserPreOrder(user, { ...item, amount: amount });
+                  }
+                }}
+              >
+                Preorder
+              </button>
+            }
           </div>
           <div className="product__amount">
             <p className="product__details-title">sku:</p>

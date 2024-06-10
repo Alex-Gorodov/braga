@@ -36,6 +36,7 @@ export function RegisterForm(): JSX.Element {
     avatar: '',
     password: '',
     confirmPassword: '',
+    preOrder: [],
     token: ''
   });
 
@@ -84,12 +85,9 @@ export function RegisterForm(): JSX.Element {
         subscriptions: [],
         liked: [],
         avatar: uploadedUrl || '',
-        token
+        token,
+        preOrder: []
       }, dispatch);
-
-      console.log('User added to database');
-      console.log('users length after:', users.length);
-
 
       dispatch(setUser({
         email: user.email!,
@@ -99,16 +97,11 @@ export function RegisterForm(): JSX.Element {
 
       dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
 
-      console.log('user', authedUser.email);
-
       dispatch(setUserInformation({userInformation: authedUser}))
 
 
       dispatch(setUploadedPath({ path: null }));
       dispatch(toggleSignUpForm({ isOpened: false }));
-
-      console.log('Registration process completed');
-
     } catch (error) {
       console.error('Error registering user:', error);
       alert('Error registering user: ' + error);

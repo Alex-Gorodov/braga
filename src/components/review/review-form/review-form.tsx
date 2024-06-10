@@ -24,7 +24,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   const reviewStatus = useSelector(getReviewLoadingStatus);
   const [reviewFormData, setFormData] = useState<Review>({
     date: (new Date()).toISOString(),
-    user: {
+    user: activeUser ? activeUser : {
       id: users.length.toString(),
       name: 'Guest',
       surname: '',
@@ -36,7 +36,8 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
       subscriptions: [],
       liked: [],
       avatar: '',
-      token: ''
+      token: '',
+      preOrder: []
     },
     rating: 0,
     review: '',

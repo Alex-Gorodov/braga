@@ -8,7 +8,6 @@ import { RootState } from "../../store/root-reducer";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../store/slices/user-slice";
 import { loginAction } from "../../store/api-actions";
-import { AuthData } from "../../types/auth-data";
 
 type FormProps = {
   value: string;
@@ -24,8 +23,6 @@ type dataProps = {
 export function AuthForm(): JSX.Element {
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const authedUser = useSelector((state: RootState) => state.user);
 
   const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
@@ -78,23 +75,26 @@ export function AuthForm(): JSX.Element {
     e.preventDefault();
     const auth = getAuth();
     signInWithEmailAndPassword(auth, data.email.value, data.password.value)
-      .then(({user}) => {
-        dispatch(setUser({
-          email: user.email,
+      .then(async ({ user }) => {
+        const token = await user.getIdToken();
+        const userInfo = {
+          email: user.email!,
           id: user.uid,
-          token: user.getIdToken()
-        }))
-        dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth}))
-        dispatch(setUserInformation({userInformation: authedUser}))
-        const authData: AuthData = {
+          token: token
+        };
+        localStorage.setItem('braga-user', JSON.stringify(userInfo));
+        dispatch(setUser(userInfo));
+        dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
+        dispatch(setUserInformation({ userInformation: userInfo }));
+        const authData = {
           login: loginRef.current?.value || "",
           password: passwordRef.current?.value || "",
         };
         dispatch(loginAction(authData));
-        dispatch(toggleSignInForm({isOpened: false}))
+        dispatch(toggleSignInForm({ isOpened: false }));
       })
-      .catch(console.error)
-  }
+      .catch(console.error);
+  };
 
   return (
     isSignInOpened ?

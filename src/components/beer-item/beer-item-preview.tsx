@@ -1,4 +1,3 @@
-import { ReactComponent as StarIcon } from '../../img/icons/star.svg';
 import { Link, generatePath, useLocation } from "react-router-dom";
 import { addItemToCart } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +7,8 @@ import { useState } from "react";
 import cn from 'classnames';
 import { RootState } from '../../store/root-reducer';
 import { addItemToDatabaseCart } from '../../store/api-actions';
+import { Soon } from './soon';
+import { Sold } from "./sold";
 
 type BeerItemProps = {
   item: Beer;
@@ -78,18 +79,10 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       }
       <div className="beer__picture-wrapper">
         {
-          item.onStock === 0 && showStatus &&
-            <div className="beer__label beer__label--sold">
-              <StarIcon />
-              <span>sold</span>
-            </div>
+          item.onStock === 0 && showStatus && <Sold/>
         }
         {
-          item.onStock === 0 && item.onBrewing && showStatus &&
-            <div className="beer__label beer__label--soon">
-              <StarIcon />
-              <span>soon</span>
-            </div>
+          item.onStock === 0 && item.onBrewing && showStatus && <Soon/>
         }
         {
           small ?

@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUserFromLocalStorage } from "../../services/token";
 
-const initialState = {
-  email: '',
-  token: '',
+const initialUserInfo = getUserFromLocalStorage();
+
+const initialState =
+  initialUserInfo || {
   id: '',
+  email: '',
+  token: ''
 }
+
 const userSlice = createSlice({
   name: 'user',
   initialState,

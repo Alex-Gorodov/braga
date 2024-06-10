@@ -11,6 +11,7 @@ export type User = {
   isAdmin: boolean,
   cartItems: BeerInCart[],
   subscriptions: Beer[],
+  preOrder: BeerInCart[],
   liked: Beer[],
   avatar: string
 };

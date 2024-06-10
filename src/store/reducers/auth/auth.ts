@@ -4,15 +4,26 @@ import { ActionReducerMapBuilder, createReducer } from '@reduxjs/toolkit';
 import { ReducerWithInitialState } from '@reduxjs/toolkit/dist/createReducer';
 import { getUserInformation, requireAuthorization } from '../../actions';
 
+export const getUserFromLocalStorage = () => {
+  try {
+    const user = localStorage.getItem('braga-user');
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error('Error retrieving token from localStorage', error);
+    return null;
+  }
+};
+
+const initialUserInfo = getUserFromLocalStorage();
+
 const initialState: AuthState = {
-  authorizationStatus: AuthorizationStatus.Unknown,
-  userInfo: {
+  authorizationStatus: initialUserInfo ? AuthorizationStatus.Auth : AuthorizationStatus.Unknown,
+  userInfo: initialUserInfo || {
     id: '',
     email: '',
     token: ''
   },
 };
-
 
 export const authReducer: ReducerWithInitialState<AuthState> = createReducer(
   initialState,
@@ -26,4 +37,4 @@ export const authReducer: ReducerWithInitialState<AuthState> = createReducer(
       const {userInformation} = action.payload;
       state.userInfo = userInformation;
     });
-})
+});

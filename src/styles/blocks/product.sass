@@ -63,8 +63,17 @@
         text-transform: none
   &__name
     @include inter-regular
+    position: relative
     margin: 0
     font-size: 48px
+  &__label
+    right: unset
+    left: 100%
+    top: -100%
+    display: flex
+    transform: rotateZ(-15deg)
+    & span
+      font-size: 16px
   &__price
     @include inter-semi-bold
     font-size: 24px
@@ -113,6 +122,11 @@
       grid-row: 1 / 3
       @media (max-width: $mobile)
         margin-left: 40px
+    &--preorder
+      padding: 10px
+      margin-left: 80px
+      grid-column: 3
+      grid-row: 3 / -1
   &__amount
     & span
       font-size: 22px

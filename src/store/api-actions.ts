@@ -1,17 +1,17 @@
 import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
-import { APIRoute, AppRoute, AuthorizationStatus } from "../const";
-import { getAuthedUser, getUserInformation, loadBeers, loadCart, loadUsers, redirectToRoute, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus, setUsersDataLoadingStatus } from "./actions";
+import { APIRoute, AuthorizationStatus } from "../const";
+import { loadBeers, loadCart, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
 import { AxiosInstance } from "axios";
 import { User } from "../types/user";
 import { Review } from "../types/review";
 import { RootState } from "./root-reducer";
-import { useDispatch } from "react-redux";
 import { AppDispatch } from "../types/state";
 import { AuthData } from "../types/auth-data";
 import { UserAuthData } from "../types/user-auth-data";
-import { saveToken } from "../services/token";
+import { removeUserFromLocalStorage, saveToken } from "../services/token";
+import { removeUser, setUser } from "./slices/user-slice";
 
 export type ThunkOptions = {
   dispatch: ThunkDispatch<RootState, AxiosInstance, any>;
@@ -99,20 +99,42 @@ export const removeItemFromDatabaseCart = async (item: BeerInCart) => {
   }
 }
 
+export const addItemToUserPreOrder = async (user: User, item: BeerInCart) => {
+  try {
+    const userRef = database.ref(APIRoute.Users);
+    const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
+
+    if (snapshot.exists()) {
+      const key = Object.keys(snapshot.val())[0];
+      const existingItem = snapshot.val()[key];
+      let updatedPreOrder = existingItem.preOrder || [];
+
+      const itemIndex = updatedPreOrder.findIndex((i: BeerInCart) => i.id === item.id);
+      if (itemIndex > -1) {
+        updatedPreOrder[itemIndex].amount += item.amount;
+      } else {
+        updatedPreOrder.push(item);
+      }
+
+      await userRef.child(key).update({ preOrder: updatedPreOrder });
+    }
+  } catch (error) {
+    console.log('Error adding to preorder: ', error);
+  }
+};
+
 export const addNewUserToDatabase = async (user: User, dispatch: AppDispatch) => {
   try {
     const userRef = database.ref(APIRoute.Users);
     await userRef.push(user);
     console.log('User successfully added to database');
 
-    // Получаем обновленный список пользователей
     const snapshot = await userRef.once('value');
     const usersArray: User[] = [];
     snapshot.forEach(childSnapshot => {
       usersArray.push(childSnapshot.val());
     });
 
-    // Диспатчим экшен loadUsers с обновленным списком пользователей
     dispatch(loadUsers({ users: usersArray }));
   } catch (error) {
     console.error('Error adding new user to database:', error);
@@ -155,10 +177,10 @@ export const addReviewToDatabase = async (beer: Beer, review: Review) => {
 }
 
 export const loginAction = createAsyncThunk<
-void,
-AuthData,
-ThunkOptions>
-(
+  UserAuthData,
+  AuthData,
+  ThunkOptions
+>(
   'user/login',
   async ({ login: email, password }, { extra: api }) => {
     const { data } = await api.post<UserAuthData>(APIRoute.Login, {
@@ -166,5 +188,36 @@ ThunkOptions>
       password,
     });
     saveToken(data.token);
+    localStorage.setItem('braga-user', JSON.stringify(data));
+    return data;
+  }
+);
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  ThunkOptions
+>(
+  'user/logout',
+  async (_arg, { dispatch }) => {
+    try {
+      removeUserFromLocalStorage();
+      dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
+      dispatch(setUserInformation({
+        userInformation: {
+          id: '',
+          email: '',
+          token: ''
+        }
+      }))
+      dispatch(removeUser())
+      dispatch(setUser({
+        email: '',
+        id: '',
+        token: ''
+      }))
+    } catch (error) {
+      console.error('Failed to logout', error);
+    }
   }
 );
