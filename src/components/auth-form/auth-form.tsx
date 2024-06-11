@@ -8,6 +8,7 @@ import { RootState } from "../../store/root-reducer";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../store/slices/user-slice";
 import { loginAction } from "../../store/api-actions";
+import { ReactComponent as Cross } from '../../img/icons/cross.svg'
 
 type FormProps = {
   value: string;
@@ -101,6 +102,9 @@ export function AuthForm(): JSX.Element {
     <div className="form__wrapper">
       <form className="login__form form" action="#" method="post" onSubmit={handleLogin} ref={formRef}>
         <h3 className="title title--3 form__title">Sign in</h3>
+        <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: false}))}>
+          <Cross/>
+        </button>
         <div className="form__input-wrapper">
           <label className="form__item">
             <span className="form__label">E-mail:</span>

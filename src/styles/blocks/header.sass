@@ -38,6 +38,12 @@
     height: 60px
     cursor: pointer
     -webkit-tap-highlight-color: transparent
+    &:not(.header__burger--opened):hover .header__burger-line
+      transform: translateX(-5px)
+      &::before
+        transform: translateX(10px)
+      &::after
+        transform: translateX(10px)
     &--opened .header__burger-line
       transform: translateX(-120px)
       &::before

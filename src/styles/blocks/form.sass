@@ -18,6 +18,16 @@
     padding-bottom: 20px
   &__title
     text-align: center
+  &__close-btn
+    @include button-reset
+    position: absolute
+    top: 20px
+    right: 20px
+    cursor: pointer
+    &:hover
+      opacity: 0.6
+    &:active
+      opacity: 0.3
   &__wrapper
     position: fixed
     top: 0

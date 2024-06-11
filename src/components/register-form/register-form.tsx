@@ -10,6 +10,7 @@ import { setUser } from "../../store/slices/user-slice";
 import { AuthorizationStatus } from "../../const";
 import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
 import { Upload } from "./upload-avatar";
+import { ReactComponent as Cross } from '../../img/icons/cross.svg'
 
 export function RegisterForm(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
@@ -129,6 +130,9 @@ export function RegisterForm(): JSX.Element {
           ref={formRef}
         >
           <h3 className="title title--3 form__title">Sign up</h3>
+          <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignUpForm({isOpened: false}))}>
+            <Cross/>
+          </button>
           <label className="form__item" htmlFor="name">
             <span className="form__label">Your name:</span>
             <input
