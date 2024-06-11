@@ -1,4 +1,5 @@
 import { ReactComponent as UploadIcon } from "../../img/icons/upload-icon.svg";
+import { ReactComponent as Cross } from "../../img/icons/cross.svg";
 import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
@@ -37,12 +38,15 @@ export function Upload(): JSX.Element {
     const selectedFile = event.target.files && event.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
+
       reader.onload = () => {
         const url = reader.result as string;
         setFileUrl(url);
         dispatch(setUploadedPath({ path: url }));
+        setUploadedFiles([selectedFile]);
       };
       reader.readAsDataURL(selectedFile);
+
     }
   };
 
@@ -68,19 +72,20 @@ export function Upload(): JSX.Element {
             <input {...getInputProps} className="visually-hidden" onChange={handleChange}/>
             {uploadedFiles.map((file) => (
               <div className="upload__image-wrapper" key={file.name}>
+
                 <img src={fileUrl ? fileUrl : ''} alt="Uploaded file" width={60} height={60} className="upload__preview" />
               </div>
             ))}
           </div>
         }
+        {
+          fileUrl !== null ? <button className="upload__remove-btn" onClick={() => {
+            setUploadedFiles([]);
+            dispatch(setUploadedPath({ path: null }));
+            setFileUrl(null);
+          }}><Cross/></button> : ''
+        }
       </div>
-      {
-        isMobile && fileUrl
-        ?
-        <img src={fileUrl} alt="Uploaded file" width={60} height={60} className="upload__preview" />
-        :
-        ''
-      }
       <input ref={fileInputRef} type="file" className="visually-hidden" onChange={handleChange}/>
     </div>
   );

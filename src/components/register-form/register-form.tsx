@@ -71,8 +71,6 @@ export function RegisterForm(): JSX.Element {
       const user = userCredential.user;
       const token = await user.getIdToken();
 
-      console.log('User registered:', user.uid);
-      console.log('users length before:', users.length);
 
       await addNewUserToDatabase({
         id: user.uid,
@@ -187,7 +185,7 @@ export function RegisterForm(): JSX.Element {
           </label>
           <label className="form__item" htmlFor="avatar">
             <span className="form__label form__label--visible">Choose avatar:</span>
-            <Upload />
+            <Upload/>
           </label>
           <label className="form__item" htmlFor="password">
             <span className="form__label">Create password (at least 8 symbols with at least one letter and one number):</span>

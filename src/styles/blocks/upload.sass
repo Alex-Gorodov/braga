@@ -1,5 +1,6 @@
 .upload
   &__wrapper
+    position: relative
     display: flex
     padding: 20px
     flex-direction: column
@@ -32,3 +33,10 @@
     transition: 0s
     & svg
       transition: 0s
+  &__remove-btn
+    @include button-reset
+    position: absolute
+    top: 20px
+    right: 20px
+    z-index: 10
+    cursor: pointer

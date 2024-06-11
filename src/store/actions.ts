@@ -46,6 +46,8 @@ export const getReviewLoadingStatus = (state: RootState) => state.review.isRevie
 
 export const setUploadedPath = createAction<{ path: string | null }>('page/setUploadedPath');
 
+export const getUploadedPath = (state: RootState) => state.page.uploadedPath;
+
 export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
 
 export const addItemToPreOrder = createAction<{user: User, item: BeerInCart}>('data/addItemToPreOrder');

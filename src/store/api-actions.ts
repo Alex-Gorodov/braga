@@ -74,7 +74,7 @@ export const addItemToUserDatabaseCart = async (user: User, item: BeerInCart) =>
       await userRef.child(key).update({ cartItems: updatedCartItems });
     }
   } catch (error) {
-    console.log('Error adding to preorder: ', error);
+    console.error('Error adding to preorder: ', error);
   }
 }
 
@@ -121,7 +121,7 @@ export const addItemToUserPreOrder = async (user: User, item: BeerInCart) => {
       await userRef.child(key).update({ preOrder: updatedPreOrder });
     }
   } catch (error) {
-    console.log('Error adding to preorder: ', error);
+    console.error('Error adding to preorder: ', error);
   }
 };
 
@@ -129,7 +129,6 @@ export const addNewUserToDatabase = async (user: User, dispatch: AppDispatch) =>
   try {
     const userRef = database.ref(APIRoute.Users);
     await userRef.push(user);
-    console.log('User successfully added to database');
 
     const snapshot = await userRef.once('value');
     const usersArray: User[] = [];
