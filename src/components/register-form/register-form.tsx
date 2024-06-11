@@ -124,7 +124,7 @@ export function RegisterForm(): JSX.Element {
       <div className="form__wrapper">
         <form
           action="#"
-          className="form register__form"
+          className="form form--register register-form"
           onSubmit={handleRegister}
           method="post"
           ref={formRef}

@@ -13,9 +13,16 @@
   box-shadow: $block-shadow
   transform: translate(50%, -50%)
   z-index: 10
+  &::-webkit-scrollbar
+    display: none
   @media (max-width: $mobile)
-    gap: 8px
+    width: 100%
     padding-bottom: 20px
+    gap: 8px
+  &--register
+    @media (max-width: $mobile)
+      max-height: 80vh
+      overflow-y: scroll
   &__title
     text-align: center
   &__close-btn

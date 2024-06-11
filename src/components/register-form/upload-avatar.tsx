@@ -61,7 +61,10 @@ export function Upload(): JSX.Element {
             <button className="button button--no-shadow upload__button" onClick={handleButtonClick}>
               <UploadIcon />
             </button>
-            <p className="upload__description">Drop image here or click above to upload.</p>
+            {
+              !isMobile &&
+              <p className="upload__description">Drop image here or click above to upload.</p>
+            }
             <input {...getInputProps} className="visually-hidden" onChange={handleChange}/>
             {uploadedFiles.map((file) => (
               <div className="upload__image-wrapper" key={file.name}>
