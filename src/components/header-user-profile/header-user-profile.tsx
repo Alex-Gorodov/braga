@@ -45,7 +45,6 @@ export function HeaderUserProfile(): JSX.Element {
           </li>
           <li className="user-navigation__menu-item">
             <Link className="user-navigation__menu-link" to={AppRoute.Root} onClick={(e) => {
-              e.preventDefault();
               setUserMenuOpened(!isUserMenuOpened)
               dispatch(logoutAction());
             }}>Sign out</Link>

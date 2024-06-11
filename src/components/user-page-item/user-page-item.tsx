@@ -20,7 +20,9 @@ export function UserPageItem({user}: UserProps): JSX.Element {
       <div className="user__avatar-wrapper">
         <img className="user__avatar" src={user.avatar} alt={`${user.name}-avatar`} />
       </div>
-      <div className="user__preorder-list">
+      {
+        user.preOrder &&
+        <div className="user__preorder-list">
         <h3 className="title title--3">Pre-ordered</h3>
         <table className="product__details-table preorder-table">
           <thead>
@@ -45,6 +47,7 @@ export function UserPageItem({user}: UserProps): JSX.Element {
           </tbody>
         </table>
       </div>
+      }
     </div>
   )
 }

@@ -52,22 +52,22 @@ export function Upload(): JSX.Element {
         {
           fileUrl
           ?
-          <img src={fileUrl} alt="Uploaded file" width={60} height={60} className="upload__preview" />
+          <div className="upload__image-wrapper" key={'uploaded-avatar'}>
+            <img src={fileUrl} alt="Uploaded file" width={60} height={60} className="upload__preview" />
+          </div>
+
           :
           <div className="upload__inputs">
-            <UploadIcon />
-            <button className="button button--dark upload__button" onClick={handleButtonClick}>
-              Upload
+            <button className="button button--no-shadow upload__button" onClick={handleButtonClick}>
+              <UploadIcon />
             </button>
-            {/* <p className="upload__description">PNG, GIF, WEBP, MP4 or MP3. Max 1Gb.</p> */}
+            <p className="upload__description">Drop image here or click above to upload.</p>
             <input {...getInputProps} className="visually-hidden" onChange={handleChange}/>
-            <ul>
-              {uploadedFiles.map((file) => (
-                <li key={file.name}>
-                  <img src={fileUrl ? fileUrl : ''} alt="Uploaded file" width={60} height={60} className="upload__preview" />
-                </li>
-              ))}
-            </ul>
+            {uploadedFiles.map((file) => (
+              <div className="upload__image-wrapper" key={file.name}>
+                <img src={fileUrl ? fileUrl : ''} alt="Uploaded file" width={60} height={60} className="upload__preview" />
+              </div>
+            ))}
           </div>
         }
       </div>
