@@ -25,20 +25,19 @@
     position: relative
     & span
       position: absolute
-      top: 0
-      right: -10px
+      color: $black
+      top: -5px
+      left: calc(100% + 5px)
       font-size: 20px
   &__burger
+    @include button-reset
     display: flex
     justify-content: center
     align-items: center
     width: 60px
     height: 60px
-    padding: 0
-    border: none
     cursor: pointer
     -webkit-tap-highlight-color: transparent
-    background-color: transparent
     &--opened .header__burger-line
       transform: translateX(-120px)
       &::before
@@ -65,8 +64,7 @@
   &__form-wrapper
     position: relative
   &__btn
-    border: none
-    background-color: transparent
+    @include button-reset
     cursor: pointer
     transition: 0.3s
     -webkit-tap-highlight-color: transparent

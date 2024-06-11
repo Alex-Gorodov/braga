@@ -11,6 +11,7 @@ import { BlogPage } from "../../pages/blog/blog-page";
 import { ShopPage } from "../../pages/shop/shop-page";
 import { ProductPage } from "../../pages/product/product-page";
 import { CartPage } from "../../pages/cart/cart-page";
+import { UserPage } from "../../pages/user/user-page";
 
 export function App() {
 
@@ -24,6 +25,7 @@ export function App() {
             <Route path={AppRoute.Cart} element={<CartPage/>}/>
             <Route path={AppRoute.Blog} element={<BlogPage/>}/>
             <Route path={AppRoute.ProductPage} element={<ProductPage/>}/>
+            <Route path={AppRoute.UserPage} element={<UserPage/>}/>
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </Provider>

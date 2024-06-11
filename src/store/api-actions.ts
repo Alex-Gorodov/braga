@@ -36,16 +36,6 @@ export const fetchBeersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   }
 );
 
-export const fetchCartAction = createAsyncThunk<void, undefined, ThunkOptions>(
-  'data/fetchCart', async (_arg, { dispatch }) => {
-    dispatch(setCartDataLoadingStatus({isCartDataLoading: true}));
-    const data = (await database.ref(APIRoute.Cart).once("value")).val();
-    const itemsArray: BeerInCart[] = data ? Object.values(data) : [];
-    dispatch(loadCart({beers: itemsArray}));
-    dispatch(setCartDataLoadingStatus({isCartDataLoading: false}));
-  }
-)
-
 export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   'data/fetchUsers', async (_arg, { dispatch}) => {
     try {
@@ -64,40 +54,52 @@ export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   }
 )
 
-export const addItemToDatabaseCart = async (item: BeerInCart) => {
+export const addItemToUserDatabaseCart = async (user: User, item: BeerInCart) => {
   try {
-    const cartRef = database.ref(APIRoute.Cart);
-    const snapshot = await cartRef.orderByChild('id').equalTo(item.id).once('value');
+    const userRef = database.ref(APIRoute.Users);
+    const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
 
     if (snapshot.exists()) {
       const key = Object.keys(snapshot.val())[0];
       const existingItem = snapshot.val()[key];
-      await cartRef.child(key).update({ amount: existingItem.amount + 1 });
-    } else {
-      await cartRef.push(item);
+      let updatedCartItems = existingItem.cartItems || [];
+
+      const itemIndex = updatedCartItems.findIndex((i: BeerInCart) => i.id === item.id);
+      if (itemIndex > -1) {
+        updatedCartItems[itemIndex].amount += item.amount;
+      } else {
+        updatedCartItems.push(item);
+      }
+
+      await userRef.child(key).update({ cartItems: updatedCartItems });
     }
   } catch (error) {
-    console.error('Error adding item to database cart:', error);
+    console.log('Error adding to preorder: ', error);
   }
 }
 
-export const removeItemFromDatabaseCart = async (item: BeerInCart) => {
+export const removeItemFromUserCart = async (user: User, item: BeerInCart) => {
   try {
-    const cartRef = database.ref(APIRoute.Cart);
-    const snapshot = await cartRef.orderByChild('id').equalTo(item.id).once('value');
+    const userRef = database.ref(APIRoute.Users);
+    const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
 
     if (snapshot.exists()) {
       const key = Object.keys(snapshot.val())[0];
-      const existingItem = snapshot.val()[key];
+      const userData = snapshot.val()[key];
 
-      if (existingItem.amount) {
-        await cartRef.child(key).remove();
+      const itemIndex = userData.cartItems.findIndex((i: BeerInCart) => i.id === item.id);
+
+      if (itemIndex > -1) {
+        userData.cartItems.splice(itemIndex, 1);
+
+        await userRef.child(key).update({ cartItems: userData.cartItems });
       }
     }
   } catch (error) {
-    console.error('Error removing item from database cart:', error);
+    console.error('Error removing item from user cart:', error);
   }
-}
+};
+
 
 export const addItemToUserPreOrder = async (user: User, item: BeerInCart) => {
   try {

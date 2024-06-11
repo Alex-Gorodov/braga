@@ -14,9 +14,9 @@ export const setCartDataLoadingStatus = createAction<{isCartDataLoading: boolean
 
 export const loadCart = createAction<{beers: BeerInCart[]}>('data/loadCart');
 
-export const addItemToCart = createAction<{item: BeerInCart, amount: number}>('data/addItemToCart');
+export const addItemToCart = createAction<{user: User, item: BeerInCart, amount: number}>('data/addItemToCart');
 
-export const removeFromCart = createAction<{item: BeerInCart}>('data/removeFromCart');
+export const removeFromCart = createAction<{user: User, item: BeerInCart}>('data/removeFromCart');
 
 export const requireAuthorization = createAction<{authorizationStatus: AuthorizationStatus}>('user/requireAuthorization');
 
@@ -49,3 +49,5 @@ export const setUploadedPath = createAction<{ path: string | null }>('page/setUp
 export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
 
 export const addItemToPreOrder = createAction<{user: User, item: BeerInCart}>('data/addItemToPreOrder');
+
+export const setAddingToCardStatus = createAction<{}>('data/setAddingToCardStatus');

@@ -8,7 +8,7 @@ import { RegisterUser } from "../../types/user";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../store/slices/user-slice";
 import { AuthorizationStatus } from "../../const";
-import { addNewUserToDatabase } from "../../store/api-actions";
+import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
 import { Upload } from "./upload-avatar";
 
 export function RegisterForm(): JSX.Element {
@@ -98,8 +98,18 @@ export function RegisterForm(): JSX.Element {
       dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
 
       dispatch(setUserInformation({userInformation: authedUser}))
+      const authData = {
+        login: data.email,
+        password: data.password,
+      };
+      const userInfo = {
+        email: user.email!,
+        id: user.uid,
+        token: token
+      };
+      localStorage.setItem('braga-user', JSON.stringify(userInfo));
 
-
+      dispatch(loginAction(authData));
       dispatch(setUploadedPath({ path: null }));
       dispatch(toggleSignUpForm({ isOpened: false }));
     } catch (error) {

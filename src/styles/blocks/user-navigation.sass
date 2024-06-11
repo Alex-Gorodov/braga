@@ -1,6 +1,7 @@
 .user-navigation
   @include list-reset
-  display: flex
+  display: grid
+  grid-template-columns: repeat(2, 50px)
   gap: 32px
   align-items: center
   &__item
@@ -22,5 +23,37 @@
     align-items: center
     border-radius: 50%
     &-wrapper
+      position: relative
       border: 1px solid $black
       border-radius: 50%
+  &__button
+    @include button-reset
+    display: flex
+    cursor: pointer
+    transition: 0.3s
+    &:hover
+      opacity: 0.6
+    &:active
+      opacity: 0.3
+  &__menu
+    @include list-reset
+    position: absolute
+    right: 0
+    top: calc(100% + 10px)
+    display: flex
+    flex-direction: column
+    background-color: $background-gray
+    &-item
+      border: $section-border
+      &:not(:last-of-type)
+        border-bottom: none
+    &-link
+      @include link-reset
+      @include inter-regular
+      display: block
+      padding: 12px 32px
+      text-transform: uppercase
+      white-space: nowrap
+      &:hover
+        background-color: $black
+        color: $white

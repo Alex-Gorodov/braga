@@ -49,8 +49,7 @@
     &--visible
       display: block
   &__input
-    border: none
-    background-color: transparent
+    @include button-reset
     transition: 0.3s
     &:hover
       background-color: lighten($black, 90%)

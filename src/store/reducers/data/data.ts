@@ -25,26 +25,34 @@ export const dataReducer = createReducer(initialState, (builder) => {
     state.users = action.payload.users;
   })
   .addCase(addItemToCart, (state, action) => {
-    const { item, amount } = action.payload;
-    const existingItemIndex = state.cartItems.findIndex(cartItem => cartItem.id === item.id);
-    if (existingItemIndex !== -1) {
-      state.cartItems[existingItemIndex].amount += amount;
-    } else {
-      state.cartItems.push({...item, amount});
+    const { user, item, amount } = action.payload;
+    const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
+
+    if (userToFind) {
+      if (!userToFind.cartItems) {
+        userToFind.cartItems = [];
+      }
+
+      const existingItemIndex = userToFind.cartItems.findIndex((i) => i.id === item.id)
+      if (existingItemIndex > -1) {
+        userToFind.cartItems[existingItemIndex].amount += amount;
+      } else {
+        userToFind.cartItems.push(item);
+      }
     }
   })
   .addCase(removeFromCart, (state, action) => {
-    const { item } = action.payload;
-      const existingItemIndex = state.cartItems.findIndex(cartItem => cartItem.id === item.id);
+    const { user, item } = action.payload;
+    const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
 
+    if (userToFind && userToFind.cartItems) {
+      const existingItemIndex = userToFind.cartItems.findIndex(cartItem => cartItem.id === item.id);
       if (existingItemIndex !== -1) {
-        const existingItem = state.cartItems[existingItemIndex];
-
-        if (existingItem.amount) {
-          state.cartItems.splice(existingItemIndex, 1);
-        }
+        userToFind.cartItems.splice(existingItemIndex, 1);
       }
+    }
   })
+
   .addCase(addReview, (state, action) => {
     const { id } = action.payload.item;
     const { review } = action.payload;

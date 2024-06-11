@@ -23,6 +23,7 @@ export function ProductPage(): JSX.Element {
       setProduct(null);
     }
     setIsLoading(false);
+
   }, [id, beers]);
 
   if (isLoading) {

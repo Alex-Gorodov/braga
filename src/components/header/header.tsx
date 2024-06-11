@@ -12,9 +12,12 @@ import { useOutsideClick } from "../../hooks/useOutsideClick";
 import CartBlock from "../cart-block/cart-block";
 import { RegisterForm } from "../register-form/register-form";
 import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
+import { useGetUser } from "../../hooks/useGetUser";
 
 export function Header(): JSX.Element {
-  const cartItems = useSelector((state: RootState) => state.data.cartItems);
+  const activeUser = useGetUser();
+
+  const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
   const [isCartOpened, setCartOpened] = useState(false);
@@ -44,7 +47,7 @@ export function Header(): JSX.Element {
   })
 
     useEffect(() => {
-      const validPaths: string[] = [AppRoute.Root, AppRoute.Shop, AppRoute.Blog, AppRoute.ProductPage];
+      const validPaths: string[] = [AppRoute.Root, AppRoute.Shop, AppRoute.Blog, AppRoute.ProductPage, AppRoute.UserPage];
       const pathname = location.pathname;
       setActivePage(validPaths.includes(pathname) ? pathname : '');
       if (pathname.includes('/shop/')) setActivePage(AppRoute.Shop as string);
@@ -59,7 +62,7 @@ export function Header(): JSX.Element {
     setCartOpened(false);
   }) as React.RefObject<HTMLDivElement>;
 
-  const totalAmount = cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0);
+  const totalAmount = cartItems ? cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0) : 0;
 
   const handleCartOpen = () => {
     setCartOpened(!isCartOpened)

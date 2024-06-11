@@ -4,7 +4,7 @@ import { Beer } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, addItemToPreOrder } from "../../store/actions";
-import { addItemToDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
+import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
 import cn from 'classnames';
 import { ReviewForm } from "../review/review-form/review-form";
 import { ReviewItem } from "../review/review-item/review-item";
@@ -108,8 +108,8 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               type="button"
               className="button product__button product__button--add"
               onClick={() => {
-                dispatch(addItemToCart({item: {...item, amount: amount}, amount: amount}))
-                addItemToDatabaseCart({...item, amount: amount})
+                user && dispatch(addItemToCart({user: user, item: {...item, amount: amount}, amount: amount}))
+                user && addItemToUserDatabaseCart(user, {...item, amount: amount})
               }}
               disabled={!(item.onStock > amount - 1)}
             >Add to cart</button>

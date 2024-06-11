@@ -5,6 +5,7 @@ export enum AppRoute {
   Cart = "/braga/cart",
   Login = "/braga/login",
   ProductPage = "/braga/shop/:id",
+  UserPage = "/braga/user/:id"
 }
 
 export enum ScreenSizes {
@@ -17,7 +18,6 @@ export enum ScreenSizes {
 export enum APIRoute {
   Beers = "braga-db/beers",
   Users = "braga-db/users",
-  Cart = "braga-db/cart",
   Login = '/login',
   Logout = '/logout',
 }
@@ -32,6 +32,11 @@ export enum ErrorMessage {
   EmailError = 'Please enter correct e-mail',
   PasswordError = 'Please enter at least one letter and one number',
   CommentError = 'Error! Can\'t add review, please, try again',
+}
+
+export enum SuccessMessage {
+  AddToCart = "Item successfully added to your cart!",
+  AddToPreOrder = "Item successfully added to your pre-order list!"
 }
 
 export enum ItemInfo {

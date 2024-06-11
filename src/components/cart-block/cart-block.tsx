@@ -4,19 +4,22 @@ import { AppRoute } from '../../const';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/root-reducer';
 import { CartItem } from '../cart-item/cart-item';
+import { useGetUser } from '../../hooks/useGetUser';
 
 type CartBlockProps = {
   cartClassName: string;
 };
 
 const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
-  const cartItems = useSelector((state: RootState) => state.data.cartItems);
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const activeUser = useGetUser();
+  const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
+  const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.amount, 0);
+
   return (
     <div className={props.cartClassName} ref={ref}>
       <h2 className="cart__title">My cart</h2>
       {
-        cartItems.length
+        cartItems?.length
         ?
         <>
           <ul className="cart__list">

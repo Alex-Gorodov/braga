@@ -6,9 +6,10 @@ import { AppRoute } from "../../const";
 import { useState } from "react";
 import cn from 'classnames';
 import { RootState } from '../../store/root-reducer';
-import { addItemToDatabaseCart } from '../../store/api-actions';
+import { addItemToUserDatabaseCart } from '../../store/api-actions';
 import { Soon } from './soon';
 import { Sold } from "./sold";
+import { useGetUser } from "../../hooks/useGetUser";
 
 type BeerItemProps = {
   item: Beer;
@@ -22,6 +23,8 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
   const cartItems = useSelector((state: RootState) => state.data.cartItems);
   const dispatch = useDispatch();
   const location = useLocation();
+
+  const user = useGetUser();
 
   const itemButtonWrapperClassName = cn("button__wrapper", {
     "button__wrapper--active": isCartBtnShown,
@@ -42,8 +45,8 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       ...item,
       amount: existingItem ? existingItem.amount + 1 : 1,
     };
-    dispatch(addItemToCart({ item: itemInCart, amount: 1 }));
-    addItemToDatabaseCart(itemInCart)
+    user && dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
+    user && addItemToUserDatabaseCart(user, itemInCart)
   };
 
   return (

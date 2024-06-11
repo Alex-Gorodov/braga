@@ -2,7 +2,8 @@ import { useDispatch } from "react-redux";
 import { ReactComponent as Cross} from "../../img/icons/cross.svg"
 import { BeerInCart } from "../../types/beer";
 import { removeFromCart } from "../../store/actions";
-import { removeItemFromDatabaseCart } from "../../store/api-actions";
+import { removeItemFromUserCart } from "../../store/api-actions";
+import { useGetUser } from "../../hooks/useGetUser";
 
 type CartItemProps = {
   item: BeerInCart;
@@ -10,9 +11,10 @@ type CartItemProps = {
 
 export function CartItem({item}: CartItemProps): JSX.Element {
   const dispatch = useDispatch();
+  const user = useGetUser()
   const handleRemoveItem = () => {
-    dispatch(removeFromCart({item}))
-    removeItemFromDatabaseCart(item);
+    user && dispatch(removeFromCart({user, item}))
+    user && removeItemFromUserCart(user, item);
   }
   return (
     <li className="cart__item cart-item" key={`cart-${item.name}`}>
