@@ -73,7 +73,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <source srcSet={`${item.previewImg}.webp 1x, ${item.previewImg}@2x.webp 2x`} type="image/webp" width={200} height={245}/>
               <source media="(min-width: 1170px)" srcSet={`${item.previewImg}.webp 1x, ${item.previewImg}@2x.webp 2x`} type="image/webp"/>
               <source media="(min-width: 900px)" srcSet={`${item.previewImg}.webp 1x, ${item.previewImg}@2x.webp 2x`} type="image/webp"/>
-              <img className="product__image" src={`${item.previewImg}.jpg`} width={200} height={245} alt={item.name} srcSet={`${item.previewImg}@2x.jpg 2x`}/>
+              <img className="product__image product__image--preview" src={`${item.previewImg}.jpg`} width={200} height={245} alt={item.name} srcSet={`${item.previewImg}@2x.jpg 2x`}/>
             </picture>
           </div>
           <div className="product__image-wrapper product__image-wrapper--main">
@@ -81,7 +81,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={135} height={462}/>
               <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
               <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-              <img className="product__image" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
+              <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
             </picture>
           </div>
         </div>
