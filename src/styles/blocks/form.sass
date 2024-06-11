@@ -13,6 +13,9 @@
   box-shadow: $block-shadow
   transform: translate(50%, -50%)
   z-index: 10
+  @media (max-width: $mobile)
+    gap: 8px
+    padding-bottom: 20px
   &__title
     text-align: center
   &__wrapper
@@ -30,6 +33,9 @@
       text-align: center
   &__submit
     margin-bottom: 20px
+    @media (max-width: $mobile)
+      margin-top: 20px
+      margin-bottom: 0
   &__item
     position: relative
     display: flex

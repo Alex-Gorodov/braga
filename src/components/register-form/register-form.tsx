@@ -211,7 +211,7 @@ export function RegisterForm(): JSX.Element {
               onChange={handleFieldChange}
             />
           </label>
-          <button className="button" type="submit">Create account!</button>
+          <button className="button form__submit" type="submit">Create account!</button>
         </form>
       </div>
     ) : <></>
