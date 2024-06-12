@@ -18,7 +18,7 @@ export function NotAuthReview(): JSX.Element {
     <div>
       <p>To write a review, log in or register.</p>
       <div className="buttons-wrapper" style={buttonsWrapperStyle}>
-        <button className="button" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: !login}))}>Sign in</button>
+        <button className="button button--reverse" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: !login}))}>Sign in</button>
         <button className="button" type="button" onClick={() => dispatch(toggleSignUpForm({isOpened: !register}))}>Register</button>
       </div>
     </div>

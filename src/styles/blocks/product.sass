@@ -1,4 +1,5 @@
 .product
+  position: relative
   max-width: $container-max-width
   width: 100%
   padding: 60px 80px
@@ -68,6 +69,7 @@
     position: relative
     margin: 0
     font-size: 48px
+    white-space: nowrap
   &__label
     right: unset
     left: 100%
@@ -190,3 +192,14 @@
   &__review-list
     @include list-reset
     margin-bottom: 60px
+
+  &__others-wrapper
+    grid-column: 1 / -1
+  &__others-list
+    @include list-reset
+    display: flex
+    gap: 40px
+    @media (max-width: $tablet)
+      flex-direction: column
+  &__others-swipe
+    max-width: 350px

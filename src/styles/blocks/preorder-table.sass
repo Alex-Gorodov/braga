@@ -1,9 +1,157 @@
+// .preorder-table
+//   @include inter-regular
+//   text-align: center
+//   &__head th
+//     text-align: center
+//   &.product__details-table .preorder-table__item
+//     background-color: $white
+//   &__remove-btn
+//     @include button-reset
+//     width: 100%
+//     cursor: pointer
+//     &:hover
+//       opacity: 0.6
+//     &:active
+//       opacity: 0.3
+//   & td
+//     text-align: center
+//   &__change-buttons-wrapper:has(.preorder-table__change-btn)
+//     padding: 0
+//   &__change-btn
+//     @include button-reset
+//     @include inter-semi-bold
+//     width: 50%
+//     padding: 14px
+//     transition: 0.3s
+//     cursor: pointer
+//     &:hover
+//       background-color: $black
+//       color: $white
+//   &__price
+//     @include inter-semi-bold
+//     &--sale
+//       text-decoration: line-through
+//       color: $red-star-color
+//     &--new-price
+//       color: $online-green
+
+
+
+
+.preorder-table-wrapper
+  width: 100%
+
 .preorder-table
-  @include inter-regular
+  display: grid
+  grid-template-columns: repeat(8, minmax(80px, 1fr))
   text-align: center
-  &__head th
-    text-align: center
-  &.product__details-table .preorder-table__item
+
+  &__title
+    margin-bottom: 20px
+
+  &__head,
+  &__row
+    display: contents
+
+  &__cell
+    padding: 10px
+    border: $section-border
     background-color: $white
+
+  &__cell--head
+    font-weight: bold
+    background-color: $dark-gray
+    color: $white
+    align-content: center
+
+  &__cell--wild
+    font-size: 12px
+
+  &__change-buttons-wrapper
+    display: flex
+    justify-content: center
+    padding: 0
+
+
+  &__change-btn
+    @include button-reset
+    @include inter-semi-bold
+    padding: 14px
+    width: 50%
+    cursor: pointer
+    transition: background-color 0.3s, color 0.3s
+
+    &--minus
+      background-color: #f8d7da
+      color: #721c24
+
+
+    &--plus
+      background-color: #d4edda
+      color: #155724
+
+
     &:hover
-      background-color: $background-gray
+      background-color: #000
+      color: #fff
+
+
+
+  &__price
+    @include inter-semi-bold
+
+    &--sale
+      text-decoration: line-through
+      color: $red-star-color
+
+
+    &--new-price
+      color: $online-green
+
+
+
+  &__remove-btn
+    @include button-reset
+    width: 100%
+    cursor: pointer
+
+    &:hover
+      opacity: 0.6
+
+
+    &:active
+      opacity: 0.3
+
+
+
+
+@media (max-width: $tablet)
+  .preorder-table
+    display: grid
+
+    &__head
+      display: grid
+      grid-template-columns: 1fr
+      grid-template-rows: repeat(8, 60px)
+      // display: none
+
+
+    &__row
+      display: grid
+      grid-template-columns: 1fr
+      grid-template-rows: repeat(8, 60px)
+      // margin-bottom: 1rem
+
+
+    &__cell
+      padding: 0
+      height: 100%
+      border: 1px solid #ddd
+      display: flex
+      justify-content: center
+      align-items: center
+      &--price
+        gap: 20px
+
+    &__change-buttons-wrapper
+      align-items: unset

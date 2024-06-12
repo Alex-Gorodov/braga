@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInformation, requireAuthorization, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
-import { AuthorizationStatus, ErrorMessage } from "../../const";
+import { AuthorizationStatus, ErrorMessages } from "../../const";
 import { ChangeEvent, useRef, useState } from "react";
 import { AppDispatch } from "../../types/state";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
@@ -32,13 +32,13 @@ export function AuthForm(): JSX.Element {
     email: {
       value: '',
       error: false,
-      errorValue: ErrorMessage.EmailError,
+      errorValue: ErrorMessages.EmailError,
       regexp: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
     },
     password: {
       value: '',
       error: false,
-      errorValue: ErrorMessage.PasswordError,
+      errorValue: ErrorMessages.PasswordError,
       regexp: /(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]{2,}/,
     }
   });

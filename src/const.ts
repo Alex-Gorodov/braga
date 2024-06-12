@@ -28,13 +28,14 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum ErrorMessage {
-  EmailError = 'Please enter correct e-mail',
-  PasswordError = 'Please enter at least one letter and one number',
-  CommentError = 'Error! Can\'t add review, please, try again',
+export enum ErrorMessages {
+  EmailError = 'Please enter correct e-mail.',
+  PasswordError = 'Please enter at least one letter and one number.',
+  CommentError = 'Error! Can\'t add review, please, try again.',
+  PreorderError = 'Please sign in or register to add items to your preorder.'
 }
 
-export enum SuccessMessage {
+export enum SuccessMessages {
   AddToCart = "Item successfully added to your cart!",
   AddToPreOrder = "Item successfully added to your pre-order list!"
 }

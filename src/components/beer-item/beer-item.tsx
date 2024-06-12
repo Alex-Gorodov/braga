@@ -1,5 +1,5 @@
 import { Link, generatePath } from "react-router-dom";
-import { AppRoute, AuthorizationStatus, ItemInfo } from "../../const";
+import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SuccessMessages } from "../../const";
 import { Beer } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,12 @@ import { RootState } from "../../store/root-reducer";
 import { NotAuthReview } from "../not-auth-review/not-auth-review";
 import { Soon } from "./soon";
 import { useGetUser } from "../../hooks/useGetUser";
+import { ErrorMessage } from "../error-message/error-message";
+import { SuccessMessage } from "../success-meggase/success-message";
+import { BeerItemPreview } from "./beer-item-preview";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useIsDesktop, useIsMobile, useIsTablet } from "../../hooks/useSizes";
 
 type BeerItemProps = {
   item: Beer;
@@ -22,6 +28,8 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
     id: `${item.id}`,
   });
 
+  const beers = useSelector((state: RootState) => state.data.beers)
+
   const authStatus = useSelector((state: RootState) => state.auth.authorizationStatus);
 
   const user = useGetUser();
@@ -30,6 +38,14 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
   const [amount, setAmount] = useState<number>(1);
 
+  const [isError, setIsError] = useState(false);
+
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const isMobile = useIsMobile();
+
+  const isDesktop = useIsDesktop();
+
   const handleIncrease = () => {
     setAmount(prevAmount => prevAmount + 1);
   };
@@ -37,6 +53,16 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   const handleDecrease = () => {
     setAmount(prevAmount => (prevAmount > 1 ? prevAmount - 1 : 1));
   };
+
+  const shuffleArray = (beers: Beer[]) => {
+    const newArray = beers.filter((beer) => beer.id !== item.id).slice();
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  };
+  const randomBeers = shuffleArray(beers).slice(0, 4);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
@@ -50,7 +76,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   const infoBtnClassName = (page: string) => cn('product__info-nav-link', {
     'product__info-nav-link--active': activeInfo === page
   })
-
 
   return (
     <div className="product">
@@ -120,8 +145,11 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                 type="button"
                 onClick={() => {
                   if (user) {
-                    dispatch(addItemToPreOrder({ user: user, item: { ...item, amount: amount } }));
-                    addItemToUserPreOrder(user, { ...item, amount: amount });
+                    dispatch(addItemToPreOrder({ user: user, item: { ...item, amount: amount }, amount: amount }));
+                    addItemToUserPreOrder(user, { ...item, amount: amount }, amount);
+                    setIsSuccess(true);
+                  } else {
+                    setIsError(true)
                   }
                 }}
               >
@@ -226,6 +254,12 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
           </div>
         </div>
       </div>
+      {
+        isError && <ErrorMessage message={ErrorMessages.PreorderError} fun={() => setIsError(false)}/>
+      }
+      {
+        isSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setIsSuccess(false)}/>
+      }
     </div>
   )
 }

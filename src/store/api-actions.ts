@@ -101,7 +101,7 @@ export const removeItemFromUserCart = async (user: User, item: BeerInCart) => {
 };
 
 
-export const addItemToUserPreOrder = async (user: User, item: BeerInCart) => {
+export const addItemToUserPreOrder = async (user: User, item: BeerInCart, amount: number) => {
   try {
     const userRef = database.ref(APIRoute.Users);
     const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
@@ -113,7 +113,7 @@ export const addItemToUserPreOrder = async (user: User, item: BeerInCart) => {
 
       const itemIndex = updatedPreOrder.findIndex((i: BeerInCart) => i.id === item.id);
       if (itemIndex > -1) {
-        updatedPreOrder[itemIndex].amount += item.amount;
+        updatedPreOrder[itemIndex].amount += amount;
       } else {
         updatedPreOrder.push(item);
       }
@@ -124,6 +124,27 @@ export const addItemToUserPreOrder = async (user: User, item: BeerInCart) => {
     console.error('Error adding to preorder: ', error);
   }
 };
+
+export const removeItemFromUserPreOrder = async (user: User, item: BeerInCart, dispatch: AppDispatch) => {
+  try {
+    const userRef = database.ref(APIRoute.Users);
+    const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
+
+    if (snapshot.exists()) {
+      const key = Object.keys(snapshot.val())[0];
+      const userData = snapshot.val()[key];
+
+      const itemIndex = userData.preOrder.findIndex((i: BeerInCart) => i.id === item.id);
+
+      if (itemIndex > -1) {
+        userData.preOrder.splice(itemIndex, 1);
+        await userRef.child(key).update({preOrder: userData.preOrder});
+      }
+    }
+  } catch (error) {
+    console.error('Error removing item from user pre-order list:', error);
+  }
+}
 
 export const addNewUserToDatabase = async (user: User, dispatch: AppDispatch) => {
   try {

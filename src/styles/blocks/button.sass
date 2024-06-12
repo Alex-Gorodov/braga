@@ -44,9 +44,15 @@
   &--small::after
     top: 6px
     left: 6px
+  &--reverse::after
+    left: unset
+    right: 10px
   &:hover::after
     top: 0
     left: 0
+  &--reverse:hover::after
+    left: unset
+    right: 0
   &:disabled
     background-color: lighten($background-gray, 5%)
     color:  lighten($black, 50%)

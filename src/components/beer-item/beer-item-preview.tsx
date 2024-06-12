@@ -1,12 +1,11 @@
 import { Link, generatePath, useLocation } from "react-router-dom";
-import { addItemToCart } from "../../store/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart, addItemToPreOrder } from "../../store/actions";
+import { useDispatch } from "react-redux";
 import { Beer, BeerInCart } from "../../types/beer";
 import { AppRoute } from "../../const";
 import { useState } from "react";
 import cn from 'classnames';
-import { RootState } from '../../store/root-reducer';
-import { addItemToUserDatabaseCart } from '../../store/api-actions';
+import { addItemToUserDatabaseCart, addItemToUserPreOrder } from '../../store/api-actions';
 import { Soon } from './soon';
 import { Sold } from "./sold";
 import { useGetUser } from "../../hooks/useGetUser";
@@ -20,7 +19,8 @@ type BeerItemProps = {
 
 export function BeerItemPreview({ item, showStatus, small, className }: BeerItemProps): JSX.Element {
   const [isCartBtnShown, setCartBtnShown] = useState(false);
-  const cartItems = useSelector((state: RootState) => state.data.cartItems);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -38,37 +38,69 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
     id: `${item.id}`,
   });
 
-  const handleAddToCart = () => {
-    const existingItem = cartItems.find((cartItem: BeerInCart) => cartItem && cartItem.id === item.id);
+  const handleAddToCart = async () => {
+    if (!user || isAddingToCart) {
+      console.error('User is undefined or already adding to cart');
+      return;
+    }
 
-    const itemInCart: BeerInCart = {
-      ...item,
-      amount: existingItem ? existingItem.amount + 1 : 1,
-    };
-    user && dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
-    user && addItemToUserDatabaseCart(user, itemInCart)
+    setIsAddingToCart(true);
+
+    try {
+      const itemInCart: BeerInCart = {
+        ...item,
+        amount: 1,
+      };
+
+      dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
+
+      await addItemToUserDatabaseCart(user, itemInCart);
+    } finally {
+      setIsAddingToCart(false);
+    }
+  };
+
+  const handleAddToPreOrder = async () => {
+    if (!user || isAddingToPreOrder) {
+      console.error('User is undefined or already adding to pre-order');
+      return;
+    }
+
+    setIsAddingToPreOrder(true);
+
+    try {
+      const preOrderItem: BeerInCart = {
+        ...item,
+        amount: 1,
+      };
+
+      dispatch(addItemToPreOrder({ user: user, item: preOrderItem, amount: 1 }));
+      await addItemToUserPreOrder(user, preOrderItem, 1);
+    } finally {
+      setIsAddingToPreOrder(false);
+    }
   };
 
   return (
     <div
       className={`beer__item item ${className}`}
-      onMouseEnter = {() => setCartBtnShown(true)}
-      onMouseLeave = {() => setCartBtnShown(false)}
-      onTouchStart = {() => setCartBtnShown(!isCartBtnShown)}
+      onMouseEnter={() => setCartBtnShown(true)}
+      onMouseLeave={() => setCartBtnShown(false)}
+      onTouchStart={() => setCartBtnShown(!isCartBtnShown)}
     >
       {
         small
         ?
           ''
-          :
+        :
           !location.pathname.includes(AppRoute.Shop)
             ?
               item.onStock === 0
               ?
-                item.onBrewing
+                item.onBrewing && user
                 ?
                   <div className={itemButtonWrapperClassName}>
-                    <button className={itemButtonClassName} type="button">Pre-order</button>
+                    <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
                   </div>
                 :
                   <div className={itemButtonWrapperClassName}>

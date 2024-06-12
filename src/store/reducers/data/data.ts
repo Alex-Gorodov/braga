@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addItemToCart, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, setBeersDataLoadingStatus } from "../../actions";
+import { addItemToCart, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -75,7 +75,7 @@ export const dataReducer = createReducer(initialState, (builder) => {
     state.beers[id].reviews = state.beers[id].reviews?.filter((reviewId) => reviewId.id !== review.id);
   })
   .addCase(addItemToPreOrder, (state, action) => {
-    const { user, item } = action.payload;
+    const { user, item, amount } = action.payload;
     const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
 
     if (userToFind) {
@@ -85,10 +85,21 @@ export const dataReducer = createReducer(initialState, (builder) => {
 
       const existingItemIndex = userToFind.preOrder.findIndex((i) => i.id === item.id);
       if (existingItemIndex > -1) {
-        userToFind.preOrder[existingItemIndex].amount += item.amount;
+        userToFind.preOrder[existingItemIndex].amount += amount;
       } else {
         userToFind.preOrder.push(item);
       }
     }
-  });
+  })
+  .addCase(removeItemFromPreOrder, (state, action) => {
+    const { user, item } = action.payload;
+    const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
+
+    if (userToFind && userToFind.preOrder) {
+      const existingItemIndex = userToFind.preOrder.findIndex(itemToRemove => itemToRemove.id === item.id);
+      if (existingItemIndex !== -1) {
+        userToFind.preOrder.splice(existingItemIndex, 1);
+      }
+    }
+  })
 })
