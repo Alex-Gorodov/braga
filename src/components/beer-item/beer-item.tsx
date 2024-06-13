@@ -14,10 +14,6 @@ import { Soon } from "./soon";
 import { useGetUser } from "../../hooks/useGetUser";
 import { ErrorMessage } from "../error-message/error-message";
 import { SuccessMessage } from "../success-meggase/success-message";
-import { BeerItemPreview } from "./beer-item-preview";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useIsDesktop, useIsMobile, useIsTablet } from "../../hooks/useSizes";
 
 type BeerItemProps = {
   item: Beer;
@@ -27,8 +23,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   const link = generatePath(AppRoute.ProductPage, {
     id: `${item.id}`,
   });
-
-  const beers = useSelector((state: RootState) => state.data.beers)
 
   const authStatus = useSelector((state: RootState) => state.auth.authorizationStatus);
 
@@ -42,10 +36,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const isMobile = useIsMobile();
-
-  const isDesktop = useIsDesktop();
-
   const handleIncrease = () => {
     setAmount(prevAmount => prevAmount + 1);
   };
@@ -53,16 +43,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   const handleDecrease = () => {
     setAmount(prevAmount => (prevAmount > 1 ? prevAmount - 1 : 1));
   };
-
-  const shuffleArray = (beers: Beer[]) => {
-    const newArray = beers.filter((beer) => beer.id !== item.id).slice();
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  };
-  const randomBeers = shuffleArray(beers).slice(0, 4);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);

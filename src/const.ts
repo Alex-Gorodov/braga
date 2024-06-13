@@ -46,6 +46,24 @@ export enum ItemInfo {
   Reviews = "Reviews",
 }
 
+export const SHOP_SORTING = [
+  {name: "default", value: "Default sorting"}, //no sorting
+  {name: "popular", value: "Sort by popularity"}, // sorting by reviews count
+  {name: "rating", value: "Sort by rating"}, // sorting by reviews rating
+  {name: "newest", value: "Sort by latest"},
+  {name: "price", value: "Sort by price: high to low"},
+  {name: "price reverse", value: "Sort by price: low to high"},
+]
+
+export enum SortingNames {
+  Default = "default",
+  Popular = "popular",
+  Rating = "rating",
+  Newest = "newest",
+  Price = "price",
+  PriceReverse = "price reverse",
+}
+
 export const REVIEW_STARS = [
   { value: 5, title: 'perfect' },
   { value: 4, title: 'good' },
