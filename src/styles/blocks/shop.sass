@@ -4,22 +4,28 @@
   width: 100%
   margin: 0 auto
   padding: 40px 60px
+  @media (max-width: 490px)
+    padding: 40px 20px
   &__top-wrapper
-    display: flex
+    display: grid
+    grid-template-columns: max-content auto
     align-items: center
     justify-content: space-between
     grid-column: 1 / 2
+    gap: 20px
     &--sort
       display: grid
       grid-template-columns: auto 300px
       gap: 20px
-      @media (max-width: $tablet)
-        grid-template-columns: 1fr
-        grid-column: 1 / -1
+    @media (max-width: $tablet)
+      grid-column: 1 / -1
+      grid-template-columns: 1fr
   &__content
     display: grid
     grid-template-columns: 3fr 1fr
     padding-top: 40px
+    @media (max-width: $tablet)
+      padding-top: 60px
   &__sorting-wrapper
     position: relative
     background-image: url("../../img/icons/select.svg")
@@ -72,6 +78,10 @@
     gap: 80px
     justify-content: space-between
     grid-column: 1 / 2
+    @media (max-width: $tablet)
+      gap: 40px
+      grid-column: 1 / -1
+      justify-content: center
   &__item
     display: flex
     flex-direction: column

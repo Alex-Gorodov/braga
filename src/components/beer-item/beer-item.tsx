@@ -67,6 +67,9 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             <Link className="breadcrumbs__link" to={AppRoute.Root}>Home</Link>
           </li>
           <li className="breadcrumbs__item">
+            <Link className="breadcrumbs__link" to={AppRoute.Shop}>Shop</Link>
+          </li>
+          <li className="breadcrumbs__item">
             <Link className="breadcrumbs__link" to={link}>{item.name}</Link>
           </li>
         </ul>
@@ -92,7 +95,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
         </div>
         <div className="product__details">
           <div className="product__name-wrapper">
-            <span className="product__name">
+            <span className="product__name beer__item-name">
               {item.name}
               {
                 item.onBrewing

@@ -7,9 +7,11 @@ import { Beer } from "../../types/beer";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { sortByRating } from "../../utils/sortByRating";
+import { Spinner } from "../spinner/spinner";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
+  const isBeersLoaded = useSelector((state: RootState) => state.data.isBeersDataLoading);
   const [isSortingOpened, setSortingOpened] = useState(false);
   const [sorting, setSorting] = useState(SortingNames.Default);
   const [initialBeers, setInitialBeers] = useState<Beer[]>([]);
@@ -86,24 +88,31 @@ export function Shop(): JSX.Element {
           </div>
         </div>
         <ul className="shop__items-list">
-          {initialBeers.map((item) => (
-            <li className="shop__item" key={`shop-item-${item.name}`}>
-              <Link className="shop__item-link" to={link(item)}>
-                <div className="shop__item-img-wrapper">
-                  <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
-                </div>
-                {item.name}
-              </Link>
-              <div>
-                {item.categories.map((i) => (
-                  <span key={`${item.name}-category-${i}`}>
-                    {`${i}${item.categories.indexOf(i) === item.categories.length - 1 ? '' : ', '}`}
+          {
+            !isBeersLoaded
+            ?
+            initialBeers.map((item) => (
+              <li className="shop__item" key={`shop-item-${item.name}`}>
+                <Link className="shop__item-link" to={link(item)}>
+                  <div className="shop__item-img-wrapper">
+                    <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
+                  </div>
+                  <span className="beer__item-name">
+                    {item.name}
                   </span>
-                ))}
-              </div>
-              {item.price}
-            </li>
-          ))}
+                </Link>
+                <span className="product__price">₪ {item.price}</span>
+                <div>
+                  {item.categories.map((i) => (
+                    <span key={`${item.name}-category-${i}`}>
+                      {`${i}${item.categories.indexOf(i) === item.categories.length - 1 ? '' : ', '}`}
+                    </span>
+                  ))}
+                </div>
+              </li>))
+            :
+            <Spinner size="40"/>
+          }
         </ul>
       </div>
     </section>
