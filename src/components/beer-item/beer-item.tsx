@@ -196,7 +196,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                     </tr>
                     <tr>
                       <td>Calories:</td>
-                      <td>{item.calories}/per 0.33l</td>
+                      <td>{item.calories} per 0.33l</td>
                     </tr>
                   </tbody>
                 </table>
