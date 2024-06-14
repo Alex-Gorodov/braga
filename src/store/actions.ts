@@ -5,6 +5,7 @@ import { Review } from "../types/review";
 import { RootState } from "./root-reducer";
 import { User } from "../types/user";
 import { UserAuthData } from "../types/user-auth-data";
+import { Guest } from "../types/guest";
 
 export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boolean}>('data/setBeersDataLoadingStatus');
 
@@ -29,6 +30,8 @@ export const loadUsers = createAction<{users: User[]}>('data/loadUsers');
 export const toggleSignUpForm = createAction<{isOpened: boolean}>('page/toggleSignUpForm');
 
 export const toggleSignInForm = createAction<{isOpened: boolean}>('page/toggleSignInForm');
+
+export const toggleGuestNotificationForm = createAction<{isOpened: boolean}>('page/toggleGuestNotificationForm')
 
 export const redirectToRoute = createAction<AppRoute>('page/redirectToRoute');
 
@@ -58,4 +61,4 @@ export const addItemToNotifications = createAction<{user: User, item: Beer}>('da
 
 export const removeItemFromNotifications = createAction<{user: User, item: Beer}>('data/removeItemFromNotifications');
 
-export const setAddingToCardStatus = createAction<{}>('data/setAddingToCardStatus');
+export const addGuestNotification = createAction<{guest: Guest, item: Beer}>('data/addGuestNotification')

@@ -1,12 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
   users: [],
   isBeersDataLoading: false,
   cartItems: [],
+  guests: [],
   isCartDataLoading: false,
 }
 
@@ -130,4 +131,35 @@ export const dataReducer = createReducer(initialState, (builder) => {
       }
     }
   })
+  .addCase(addGuestNotification, (state, action) => {
+    const { guest, item } = action.payload;
+    const userToFind = state.users.find(
+      (user) => guest.email === user.email || guest.phone === user.phone
+    );
+
+    if (userToFind) {
+      addItemToNotifications({ user: userToFind, item: item });
+    }
+
+    // Проверка и инициализация гостя в state.guests, если он не определен
+    if (!state.guests[guest.id]) {
+      state.guests[guest.id] = {
+        ...guest,
+        notifications: []
+      };
+    }
+
+    // Проверка и инициализация массива уведомлений, если он отсутствует
+    if (!state.guests[guest.id].notifications) {
+      state.guests[guest.id].notifications = [];
+    }
+
+    const existingItemIndex = state.guests[guest.id].notifications.findIndex((i) => i.id === item.id);
+
+    if (existingItemIndex !== -1) {
+      console.error("You're already subscribed to notifications for this item.");
+    } else {
+      state.guests[guest.id].notifications.push(item);
+    }
+  });
 })

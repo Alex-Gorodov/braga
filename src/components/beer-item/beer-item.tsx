@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SuccessMessages
 import { Beer } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, addItemToNotifications, addItemToPreOrder } from "../../store/actions";
+import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm } from "../../store/actions";
 import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
 import cn from 'classnames';
 import { ReviewForm } from "../review/review-form/review-form";
@@ -16,6 +16,7 @@ import { ErrorMessage } from "../error-message/error-message";
 import { SuccessMessage } from "../success-meggase/success-message";
 import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
+import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
 
 type BeerItemProps = {
   item: Beer;
@@ -40,7 +41,9 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
   const [isNotificationAdding, setNotificationAdding] = useState(false);
 
-  const isNotificationAdded = user?.notifications?.some((beer) => beer.id === item.id)
+  const isNotificationAdded = user?.notifications?.some((beer) => beer.id === item.id);
+
+  const isGuestNotificationFormOpened = useSelector((state: RootState) => state.page.isGuestNotificationFormOpened);
 
   const handleIncrease = () => {
     setAmount(prevAmount => prevAmount + 1);
@@ -71,6 +74,23 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
       isNotificationAdded && setNotificationAdding(false)
     }
   }
+
+  const handleGuestNotificationListUpdate = () => {
+    dispatch(toggleGuestNotificationForm({isOpened: !isGuestNotificationFormOpened}));
+  }
+
+  const renderNotificationText = () => {
+    if (isNotificationAdding && !isNotificationAdded && isGuestNotificationFormOpened) {
+      return <Spinner size={"13"} />;
+    }
+    if (isNotificationAdded) {
+      return 'Got it!';
+    }
+    if (isGuestNotificationFormOpened) {
+      return <Spinner size={"13"} />;
+    }
+    return 'Get Notified';
+  };
 
   return (
     <div className="product">
@@ -171,15 +191,10 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             <button className="button button--small"
               onClick={() => {
                 setNotificationAdding(true);
-
-                if (user) {
-                  handleNotificationListUpdate(user)
-                  } else {
-                    setIsError(true)
-                  }
+                user ? handleNotificationListUpdate(user) : handleGuestNotificationListUpdate();
               }}
             >
-              { isNotificationAdding && !isNotificationAdded ? <Spinner size={"13"}/> : isNotificationAdded ? 'Got it!' : 'Get Notified' }
+              { renderNotificationText() }
             </button>
           </div>
           <div>
@@ -275,6 +290,9 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
       }
       {
         isSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setIsSuccess(false)}/>
+      }
+      {
+        isGuestNotificationFormOpened && <GuestNotificationForm item={item}/>
       }
     </div>
   )
