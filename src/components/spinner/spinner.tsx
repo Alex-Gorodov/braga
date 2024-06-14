@@ -3,9 +3,10 @@ import { Oval } from "react-loader-spinner";
 type SpinnerProps = {
   size: string;
   color?: string;
+  wrapper?: boolean;
 }
 
-export function Spinner({size, color}: SpinnerProps): JSX.Element {
+export function Spinner({size, color, wrapper}: SpinnerProps): JSX.Element {
   return (
     <Oval
       visible={true}
@@ -15,7 +16,7 @@ export function Spinner({size, color}: SpinnerProps): JSX.Element {
       secondaryColor="rgba(45,52,64, 40%)"
       ariaLabel="oval-loading"
       wrapperStyle={{}}
-      wrapperClass="spinner-wrapper"
+      wrapperClass={wrapper ? 'spinner-wrapper' : ''}
     />
   )
 }

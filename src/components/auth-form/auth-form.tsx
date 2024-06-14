@@ -9,17 +9,18 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../store/slices/user-slice";
 import { loginAction } from "../../store/api-actions";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { Spinner } from "../spinner/spinner";
 
 type FormProps = {
   value: string;
   error: boolean;
   errorValue: string;
   regexp: RegExp;
-  };
+};
 
-  type dataProps = {
-    [key: string]: FormProps;
-    };
+type dataProps = {
+  [key: string]: FormProps;
+};
 
 type AuthFormProps = {
   className?: string;
@@ -31,6 +32,10 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
 
   const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
+
+  const authStatus = useSelector((state: RootState) => state.auth.authorizationStatus);
+
+  const [isAuthing, setIsAuthing] = useState(false);
 
   const [data, setData] = useState<dataProps>({
     email: {
@@ -76,29 +81,36 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsAuthing(true);
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, data.email.value, data.password.value)
-      .then(async ({ user }) => {
-        const token = await user.getIdToken();
-        const userInfo = {
-          email: user.email!,
-          id: user.uid,
-          token: token
-        };
-        localStorage.setItem('braga-user', JSON.stringify(userInfo));
-        dispatch(setUser(userInfo));
-        dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
-        dispatch(setUserInformation({ userInformation: userInfo }));
-        const authData = {
-          login: loginRef.current?.value || "",
-          password: passwordRef.current?.value || "",
-        };
-        dispatch(loginAction(authData));
-        dispatch(toggleSignInForm({ isOpened: false }));
-      })
-      .catch(console.error);
+
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, data.email.value, data.password.value);
+      const token = await user.getIdToken();
+      const userInfo = {
+        email: user.email!,
+        id: user.uid,
+        token: token
+      };
+      localStorage.setItem('braga-user', JSON.stringify(userInfo));
+
+      dispatch(setUser(userInfo));
+      dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
+      dispatch(setUserInformation({ userInformation: userInfo }));
+      const authData = {
+        login: loginRef.current?.value || "",
+        password: passwordRef.current?.value || "",
+      };
+      dispatch(loginAction(authData));
+
+      dispatch(toggleSignInForm({ isOpened: false }));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsAuthing(false);
+    }
   };
 
   return (
@@ -109,48 +121,56 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
         <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: false}))}>
           <Cross/>
         </button>
-        <div className="form__input-wrapper">
-          <label className="form__item">
-            <span className="form__label">E-mail:</span>
-            <input
-              className="form__input"
-              type="email"
-              name="email"
-              placeholder="Email*"
-              ref={loginRef}
-              required
-              value={data.email.value}
-              onChange={handleFieldChange}
-            />
-          </label>
-        </div>
-        <div className="form__input-wrapper">
-          <label className="form__item">
-            <span className="form__label">Password:</span>
-            <input
-              className="form__input"
-              type="password"
-              name="password"
-              placeholder="Password*"
-              ref={passwordRef}
-              required
-              value={data.password.value}
-              onChange={handleFieldChange}
-            />
-          </label>
-        </div>
-        <div className="form__buttons">
-          <button className="login__submit form__submit button" type="submit">Sign in</button>
-          <p>Have not account yet?</p>
-          <button
-            className="button"
-            type="button"
-            onClick={() => {
-              dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
-              dispatch(toggleSignUpForm({isOpened: !isSignUpOpened}));
-            }}
-          >Sign up</button>
-        </div>
+        {
+          <>
+            <div className="form__input-wrapper">
+              <label className="form__item">
+                <span className="form__label">E-mail:</span>
+                <input
+                  className="form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email*"
+                  ref={loginRef}
+                  required
+                  value={data.email.value}
+                  onChange={handleFieldChange}
+                />
+              </label>
+            </div>
+            <div className="form__input-wrapper">
+              <label className="form__item">
+                <span className="form__label">Password:</span>
+                <input
+                  className="form__input"
+                  type="password"
+                  name="password"
+                  placeholder="Password*"
+                  ref={passwordRef}
+                  required
+                  value={data.password.value}
+                  onChange={handleFieldChange}
+                />
+              </label>
+            </div>
+            <div className="form__buttons">
+              <button className="login__submit form__submit button" type="submit" disabled={isAuthing}>
+                {isAuthing
+                  ? <Spinner size={"16"}/>
+                  : 'Sign in'}
+              </button>
+              <p>Have not account yet?</p>
+              <button
+                className="button"
+                type="button"
+                onClick={() => {
+                  dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
+                  dispatch(toggleSignUpForm({isOpened: !isSignUpOpened}));
+                }}
+              >Sign up</button>
+            </div>
+          </>
+        }
       </form>
     </div>
     : <></>
