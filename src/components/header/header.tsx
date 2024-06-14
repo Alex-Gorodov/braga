@@ -115,6 +115,7 @@ export function Header(): JSX.Element {
         <div className="header__container">
           <button className={burgerClassName} onClick={() => {
             setMenuOpened(!isMenuOpened);
+            setCartOpened(false);
             dispatch(toggleSignInForm({isOpened: false}))
             dispatch(toggleSignUpForm({isOpened: false}))
           }}
