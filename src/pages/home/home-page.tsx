@@ -6,6 +6,7 @@ import { SwiperClassics } from "../../components/swiper-classics/swiper-classics
 import { SignUp } from "../../components/subscribe/subscribe";
 
 export function HomePage(): JSX.Element {
+
   return (
     <Layout>
       <Helmet>

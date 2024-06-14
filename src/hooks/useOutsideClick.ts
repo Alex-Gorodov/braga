@@ -11,7 +11,8 @@ export const useOutsideClick = (callback: () => void) => {
         target.closest('button')?.classList.contains('header__burger') ||
         target.closest('div')?.classList.contains('header__burger') ||
         target.closest('button')?.classList.contains('header__cart-wrapper') ||
-        target.closest('button')?.classList.contains('user-navigation__button');
+        target.closest('button')?.classList.contains('user-navigation__button') ||
+        target.closest('li')?.classList.contains('shop__sorting-item');
 
       if (!isFalseTrigger && ref.current && !ref.current.contains(target)) {
         callback();

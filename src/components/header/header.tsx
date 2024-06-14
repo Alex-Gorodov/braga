@@ -13,6 +13,7 @@ import CartBlock from "../cart-block/cart-block";
 import { RegisterForm } from "../register-form/register-form";
 import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
 import { useGetUser } from "../../hooks/useGetUser";
+import { SaleBanner } from "../sale-banner/sale-banner";
 
 export function Header(): JSX.Element {
   const activeUser = useGetUser();
@@ -21,6 +22,7 @@ export function Header(): JSX.Element {
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
   const [isCartOpened, setCartOpened] = useState(false);
+  const [isBannerClosed, setBannerClosed] = useState(false);
   const location = useLocation();
 
   const cartClassName = cn('cart', {
@@ -30,7 +32,8 @@ export function Header(): JSX.Element {
   const isTablet = useIsTablet();
 
   const mobileNavClassName = cn('navigation__mobile', {
-    'navigation__mobile--opened': isMenuOpened
+    'navigation__mobile--opened-with-banner': !isBannerClosed && isMenuOpened,
+    'navigation__mobile--opened': isMenuOpened,
   })
 
   const headerClassName = cn('header', {
@@ -46,13 +49,14 @@ export function Header(): JSX.Element {
     "header__burger--opened" : isMenuOpened,
   })
 
-    useEffect(() => {
-      const validPaths: string[] = [AppRoute.Root, AppRoute.Shop, AppRoute.Blog, AppRoute.ProductPage, AppRoute.UserPage];
-      const pathname = location.pathname;
-      setActivePage(validPaths.includes(pathname) ? pathname : '');
-      if (pathname.includes('/shop/')) setActivePage(AppRoute.Shop as string);
 
-    }, [location.pathname]);
+  useEffect(() => {
+    const validPaths: string[] = [AppRoute.Root, AppRoute.Shop, AppRoute.Blog, AppRoute.ProductPage, AppRoute.UserPage];
+    const pathname = location.pathname;
+    setActivePage(validPaths.includes(pathname) ? pathname : '');
+    if (pathname.includes('/shop/')) setActivePage(AppRoute.Shop as string);
+
+  }, [location.pathname]);
 
   const menuRef = useOutsideClick(() => {
     isTablet && setMenuOpened(false);
@@ -70,6 +74,7 @@ export function Header(): JSX.Element {
 
   return (
     <header className={headerClassName}>
+      {!isBannerClosed && <SaleBanner fun={() => setBannerClosed(true)}/>}
       {
         !isTablet ?
           <nav className="header__navigation navigation">

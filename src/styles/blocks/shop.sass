@@ -47,7 +47,7 @@
     cursor: pointer
     color: $black
     &:hover
-      text-decoration: underline
+      opacity: 0.6
   &__sorting-list
     @include list-reset
     position: absolute
@@ -63,9 +63,10 @@
     gap: 10px
     background-color: $background-gray
     overflow-y: scroll
+    z-index: 1
     &::-webkit-scrollbar
       background-color: transparent
-      width: 5px
+      width: 3px
     &::-webkit-scrollbar-thumb
       background-color: $dark-gray
       border-radius: 8px
@@ -87,11 +88,16 @@
     flex-direction: column
     gap: 20px
     &-img-wrapper
+      position: relative
       display: flex
       justify-content: center
       align-items: center
       padding: 40px
       border: $section-border
+    &-label
+      top: 5px
+      right: 5px
+      scale: 0.75
   &__item-link
     @include link-reset
     @include inter-semi-bold

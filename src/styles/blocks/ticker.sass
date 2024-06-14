@@ -1,0 +1,39 @@
+.ticker
+  padding: 4px 0
+  width: 100%
+  background-color: $black
+  display: flex
+  justify-content: space-between
+  align-items: center
+  z-index: 10
+  &__message
+    @include inter-semi-bold
+    margin: 0
+    color: $white
+    animation-name: ticker
+    animation-duration: 16s
+    animation-iteration-count: infinite
+    animation-timing-function: linear
+    white-space: nowrap
+    @media (max-width: $tablet)
+      animation-duration: 12s
+    @media (max-width: $mobile)
+      animation-duration: 8s
+  &__close-btn
+    @include button-reset
+    position: absolute
+    top: 4px
+    right: 4px
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 20px
+    width: 20px
+    color: $white
+    cursor: pointer
+    transition: 0.3s
+    &:hover
+      opacity: 0.6
+    & svg
+      width: 10px
+      height: 10px

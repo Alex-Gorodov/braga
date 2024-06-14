@@ -8,6 +8,9 @@ import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { sortByRating } from "../../utils/sortByRating";
 import { Spinner } from "../spinner/spinner";
+import { Soon } from "../beer-item/soon";
+import { Sold } from "../beer-item/sold";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -46,6 +49,10 @@ export function Shop(): JSX.Element {
   const link = (item: Beer) => generatePath(AppRoute.ProductPage, {
     id: `${item.id}`,
   });
+
+  const sortRef = useOutsideClick(() => {
+    setSortingOpened(false);
+  }) as React.RefObject<HTMLUListElement>;
 
   return (
     <section className="section shop">
@@ -87,7 +94,7 @@ export function Shop(): JSX.Element {
             )}
           </div>
         </div>
-        <ul className="shop__items-list">
+        <ul className="shop__items-list" ref={sortRef}>
           {
             !isBeersLoaded
             ?
@@ -96,6 +103,12 @@ export function Shop(): JSX.Element {
                 <Link className="shop__item-link" to={link(item)}>
                   <div className="shop__item-img-wrapper">
                     <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
+                    {
+                      item.onBrewing && <Soon cn="shop__item-label"/>
+                    }
+                    {
+                      !item.onStock && !item.onBrewing && <Sold cn="shop__item-label"/>
+                    }
                   </div>
                   <span className="beer__item-name">
                     {item.name}
