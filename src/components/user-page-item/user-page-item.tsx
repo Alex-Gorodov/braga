@@ -1,7 +1,7 @@
 import { User } from "../../types/user";
 import { useDispatch } from "react-redux";
-import { addItemToPreOrder, removeItemFromPreOrder } from "../../store/actions";
-import { addItemToUserPreOrder, removeItemFromUserPreOrder } from "../../store/api-actions";
+import { addItemToPreOrder, removeItemFromNotifications, removeItemFromPreOrder } from "../../store/actions";
+import { addItemToUserPreOrder, removeItemFromUserNotifications, removeItemFromUserPreOrder } from "../../store/api-actions";
 import { useIsMobile } from "../../hooks/useSizes";
 
 type UserProps = {
@@ -27,7 +27,7 @@ export function UserPageItem({user}: UserProps): JSX.Element {
         user.preOrder &&
         <div className="user__preorder-list">
           <h3 className="title title--3 preorder-table__title">My pre-order list</h3>
-          <div className="preorder-table-wrapper">
+          <div className="preorder-table__wrapper">
             <div className="preorder-table" style={{gridTemplateColumns: isMobile ? `repeat(${user.preOrder.length + 1}, 1fr)` : 'repeat(8, minmax(80px, 1fr))'}}>
               <div className="preorder-table__head">
                 <div className="preorder-table__cell preorder-table__cell--head">Name</div>
@@ -91,6 +91,43 @@ export function UserPageItem({user}: UserProps): JSX.Element {
                         item.amount * item.price
                       )}
                     </div>
+                    <div className="preorder-table__cell preorder-table__cell--remove">
+                      <button className="preorder-table__remove-btn" onClick={handleRemove}>
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      }
+      {
+        user.notifications &&
+        <div className="user__notifications-list">
+          <h3 className="title title--3 preorder-table__title">My notifications list</h3>
+          <div className="preorder-table__wrapper">
+            <div className="preorder-table" style={{gridTemplateColumns: isMobile ? `repeat(${user.notifications.length + 1}, 1fr)` : 'repeat(5, minmax(80px, 1fr))'}}>
+              <div className="preorder-table__head">
+                <div className="preorder-table__cell preorder-table__cell--head">Name</div>
+                <div className="preorder-table__cell preorder-table__cell--head" title="Alcohol by Volume">ABV</div>
+                <div className="preorder-table__cell preorder-table__cell--head" title="International Bitterness Units">IBU</div>
+                <div className="preorder-table__cell preorder-table__cell--head" title="Standard Reference Method (color)">SRM</div>
+                <div className="preorder-table__cell preorder-table__cell--empty"></div>
+              </div>
+              {user.notifications.map((item) => {
+                const handleRemove = () => {
+                  dispatch(removeItemFromNotifications({ user: user, item: item }));
+                  removeItemFromUserNotifications(user, item, dispatch);
+                };
+
+                return (
+                  <div className="preorder-table__row" key={item.id}>
+                    <div className="preorder-table__cell">{item.name}</div>
+                    <div className="preorder-table__cell">{item.abv}%</div>
+                    <div className="preorder-table__cell">{item.ibu}</div>
+                    <div className="preorder-table__cell">{item.srm}</div>
                     <div className="preorder-table__cell preorder-table__cell--remove">
                       <button className="preorder-table__remove-btn" onClick={handleRemove}>
                         Remove
