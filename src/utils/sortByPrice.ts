@@ -5,5 +5,5 @@ export function sortByPrice(beers: Beer[]): Beer[] {
 }
 
 export function sortByPriceReverse(beers: Beer[]): Beer[] {
-  return beers.slice().sort((a, b) => a.price - b.price);
+  return sortByPrice(beers).reverse();
 }

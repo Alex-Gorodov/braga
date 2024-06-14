@@ -152,6 +152,9 @@ body
       pointer-events: none
   &::-webkit-scrollbar
     display: none
+  &:has(.ticker)
+    .main
+      margin-top: 110px
 
 .visually-hidden
   position: absolute
@@ -178,6 +181,7 @@ body
   flex-direction: column
   flex-grow: 1
   margin-top: 85px
+  transition: 0.3s
   &:has(.header--mobile)
     margin-top: 61px
   &:not(:has(.section__container))

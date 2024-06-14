@@ -35,6 +35,7 @@ export enum ErrorMessages {
   CommentError = 'Error! Can\'t add review, please, try again.',
   PreorderError = 'Please sign in or register to add items to your preorder.',
   NotificationError = 'Please sign in or register to add items to get notification.',
+  GuestNotificationError = 'Please enter either a phone number or an email address.',
 }
 
 export enum SuccessMessages {

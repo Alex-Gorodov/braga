@@ -7,6 +7,8 @@ import { addGuestNotification, toggleGuestNotificationForm, toggleSignInForm, to
 import { Beer } from "../../types/beer";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
 import { addGuestNotificationToDatabase } from "../../store/api-actions";
+import { ErrorMessage } from "../error-message/error-message";
+import { ErrorMessages } from "../../const";
 
 type GuestNotificationFormProps = {
   item: Beer;
@@ -26,7 +28,7 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
     notifications: []
   });
 
-  const [error, setError] = useState<string | null>(null);
+  const [isError, setIsError] = useState(false);
 
   const formRef = useOutsideClick(() => {
     dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
@@ -44,11 +46,11 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
     e.preventDefault();
 
     if (!data.phone && !data.email) {
-      setError('Please enter either a phone number or an email address.');
+      setIsError(true);
       return;
     }
 
-    setError(null); // Clear any previous errors
+    setIsError(false);
     addGuestNotificationToDatabase(data, item);
     dispatch(addGuestNotification({ guest: data, item: item }));
     dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
@@ -83,15 +85,18 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
           <span className="form__label">Email:</span>
           <input className="form__input" type="email" name="email" placeholder="Email" value={data.email || ''} onChange={handleFieldChange} />
         </label>
-        {error && <p className="error">{error}</p>}
         <button className="button form__submit form__submit--guest" type="submit">Submit</button>
         <h3 className="title title--3 form__title">Or</h3>
         <div className="form__buttons-wrapper">
           <button className="button button--reverse" type="button" onClick={() => handleSignIn()}>Sign in</button>
           <button className="button" type="button" onClick={() => handleSignUp()}>Sign up</button>
         </div>
-
       </form>
+      {
+        isError && <ErrorMessage message={ErrorMessages.GuestNotificationError} fun={() => {
+          setIsError(false)
+        }}/>
+      }
     </div>
   );
 }
