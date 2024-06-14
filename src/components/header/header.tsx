@@ -36,6 +36,10 @@ export function Header(): JSX.Element {
     'navigation__mobile--opened': isMenuOpened,
   })
 
+  const loginFormClassName = cn({
+    'form--banner-opened': !isBannerClosed,
+  })
+
   const headerClassName = cn('header', {
     'header--mobile': isTablet
   })
@@ -138,8 +142,8 @@ export function Header(): JSX.Element {
       </>
       }
       <CartBlock ref={cartRef} cartClassName={cartClassName}/>
-      <AuthForm/>
-      <RegisterForm/>
+      <AuthForm className={loginFormClassName}/>
+      <RegisterForm className={loginFormClassName}/>
     </header>
   )
 }

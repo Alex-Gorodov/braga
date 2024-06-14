@@ -54,7 +54,7 @@ export function HeaderUserProfile(): JSX.Element {
     </div>
     :
     <div className="header__form-wrapper">
-      <button className="header__btn" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
+      <button className="header__btn user-navigation__button" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
         <UserIcon/>
       </button>
     </div>

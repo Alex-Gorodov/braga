@@ -15,13 +15,17 @@ type FormProps = {
   error: boolean;
   errorValue: string;
   regexp: RegExp;
-};
+  };
 
-type dataProps = {
-  [key: string]: FormProps;
-};
+  type dataProps = {
+    [key: string]: FormProps;
+    };
 
-export function AuthForm(): JSX.Element {
+type AuthFormProps = {
+  className?: string;
+}
+
+export function AuthForm({className}: AuthFormProps): JSX.Element {
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -100,7 +104,7 @@ export function AuthForm(): JSX.Element {
   return (
     isSignInOpened ?
     <div className="form__wrapper">
-      <form className="login__form form" action="#" method="post" onSubmit={handleLogin} ref={formRef}>
+      <form className={`login__form form ${className}`} action="#" method="post" onSubmit={handleLogin} ref={formRef}>
         <h3 className="title title--3 form__title">Sign in</h3>
         <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: false}))}>
           <Cross/>

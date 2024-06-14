@@ -12,7 +12,11 @@ import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
 import { Upload } from "./upload-avatar";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
 
-export function RegisterForm(): JSX.Element {
+type RegisterFormProps = {
+  className?: string;
+}
+
+export function RegisterForm({className}: RegisterFormProps): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
   const formRef = useOutsideClick(() => {
@@ -122,7 +126,7 @@ export function RegisterForm(): JSX.Element {
       <div className="form__wrapper">
         <form
           action="#"
-          className="form form--register register-form"
+          className={`form form--register register-form ${className}`}
           onSubmit={handleRegister}
           method="post"
           ref={formRef}
