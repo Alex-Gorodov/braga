@@ -170,6 +170,8 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             </span>
             <button className="button button--small"
               onClick={() => {
+                setNotificationAdding(true);
+
                 if (user) {
                   handleNotificationListUpdate(user)
                   } else {
