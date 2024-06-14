@@ -12,6 +12,7 @@ import { AuthData } from "../types/auth-data";
 import { UserAuthData } from "../types/user-auth-data";
 import { removeUserFromLocalStorage, saveToken } from "../services/token";
 import { removeUser, setUser } from "./slices/user-slice";
+import { Guest } from "../types/guest";
 
 export type ThunkOptions = {
   dispatch: ThunkDispatch<RootState, AxiosInstance, any>;
@@ -99,7 +100,6 @@ export const removeItemFromUserCart = async (user: User, item: BeerInCart) => {
     console.error('Error removing item from user cart:', error);
   }
 };
-
 
 export const addItemToUserPreOrder = async (user: User, item: BeerInCart, amount: number) => {
   try {
@@ -190,6 +190,36 @@ export const removeItemFromUserNotifications = async (user: User, item: Beer, di
     console.error('Error removing item from user notifications list:', error);
   }
 }
+
+export const addGuestNotificationToDatabase = async (guest: Guest, item: Beer) => {
+  try {
+    const guestRef = database.ref(APIRoute.Guests);
+    const snapshot = await guestRef.orderByChild('id').equalTo(guest.id).once('value');
+
+    if (snapshot.exists()) {
+      const key = Object.keys(snapshot.val())[0];
+      const existingGuest = snapshot.val()[key];
+      let updatedNotifications = existingGuest.notifications || [];
+      const itemIndex = updatedNotifications.findIndex((i: Beer) => i.id === item.id);
+
+      if (itemIndex > -1) {
+        console.error('You\'re already subscribed to notifications for this item.');
+      } else {
+        updatedNotifications.push(item);
+        await guestRef.child(key).update({ notifications: updatedNotifications });
+      }
+    } else {
+      const newGuestRef = guestRef.push();
+      await newGuestRef.set({
+        ...guest,
+        notifications: [item]
+      });
+    }
+  } catch (error) {
+    console.error('Error adding to notifications: ', error);
+  }
+};
+
 
 export const addNewUserToDatabase = async (user: User, dispatch: AppDispatch) => {
   try {

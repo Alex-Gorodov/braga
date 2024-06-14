@@ -14,7 +14,7 @@ import { RegisterForm } from "../register-form/register-form";
 import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
 import { useGetUser } from "../../hooks/useGetUser";
 import { SaleBanner } from "../sale-banner/sale-banner";
-import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 
 export function Header(): JSX.Element {
   const activeUser = useGetUser();
@@ -118,6 +118,7 @@ export function Header(): JSX.Element {
             setCartOpened(false);
             dispatch(toggleSignInForm({isOpened: false}))
             dispatch(toggleSignUpForm({isOpened: false}))
+            dispatch(toggleGuestNotificationForm({isOpened: false}))
           }}
           type="button"
           >

@@ -18,8 +18,9 @@ export enum ScreenSizes {
 export enum APIRoute {
   Beers = "braga-db/beers",
   Users = "braga-db/users",
-  Login = '/login',
-  Logout = '/logout',
+  Login = 'braga-db/login',
+  Logout = 'braga-db/logout',
+  Guests = 'braga-db/guests'
 }
 
 export enum AuthorizationStatus {

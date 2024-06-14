@@ -3,15 +3,17 @@ import { Guest } from "../../types/guest";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { addGuestNotification, toggleGuestNotificationForm } from "../../store/actions";
+import { addGuestNotification, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 import { Beer } from "../../types/beer";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { addGuestNotificationToDatabase } from "../../store/api-actions";
 
 type GuestNotificationFormProps = {
   item: Beer;
+  className?: string;
 };
 
-export function GuestNotificationForm({ item }: GuestNotificationFormProps): JSX.Element {
+export function GuestNotificationForm({ item, className }: GuestNotificationFormProps): JSX.Element {
   const dispatch = useDispatch();
   const isGuestNotificationFormOpened = useSelector((state: RootState) => state.page.isGuestNotificationFormOpened);
   const guests = useSelector((state: RootState) => state.data.guests);
@@ -47,13 +49,25 @@ export function GuestNotificationForm({ item }: GuestNotificationFormProps): JSX
     }
 
     setError(null); // Clear any previous errors
+    addGuestNotificationToDatabase(data, item);
     dispatch(addGuestNotification({ guest: data, item: item }));
     dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
   };
 
+  const handleSignIn = () => {
+    dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
+    dispatch(toggleSignInForm({isOpened: true}))
+  }
+
+  const handleSignUp = () => {
+    dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
+    dispatch(toggleSignUpForm({isOpened: true}))
+  }
+
   return (
     <div className="form__wrapper">
-      <form action="#" method="post" className="form form--guest" ref={formRef} onSubmit={handlePost}>
+      <form action="#" method="post" className={`form form--guest ${className}`} ref={formRef} onSubmit={handlePost}>
+        <h3 className="title title--3 form__title">Get notification as guest</h3>
         <button className="form__close-btn" type="button" onClick={() => dispatch(toggleGuestNotificationForm({isOpened: false}))}>
           <Cross/>
         </button>
@@ -70,7 +84,13 @@ export function GuestNotificationForm({ item }: GuestNotificationFormProps): JSX
           <input className="form__input" type="email" name="email" placeholder="Email" value={data.email || ''} onChange={handleFieldChange} />
         </label>
         {error && <p className="error">{error}</p>}
-        <button type="submit">Submit</button>
+        <button className="button form__submit form__submit--guest" type="submit">Submit</button>
+        <h3 className="title title--3 form__title">Or</h3>
+        <div className="form__buttons-wrapper">
+          <button className="button button--reverse" type="button" onClick={() => handleSignIn()}>Sign in</button>
+          <button className="button" type="button" onClick={() => handleSignUp()}>Sign up</button>
+        </div>
+
       </form>
     </div>
   );

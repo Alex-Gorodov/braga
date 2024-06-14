@@ -292,7 +292,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
         isSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setIsSuccess(false)}/>
       }
       {
-        isGuestNotificationFormOpened && <GuestNotificationForm item={item}/>
+        isGuestNotificationFormOpened && <GuestNotificationForm item={item} className="form--banner-opened"/>
       }
     </div>
   )
