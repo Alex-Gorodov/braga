@@ -30,18 +30,28 @@ export function ErrorMessage({message, fun}: ErrorMessageProps): JSX.Element {
     dispatch(toggleSignUpForm({isOpened: !signUpStatus}));
   }
 
+  const handleGuestNotificationClick = () => {
+    fun(false);
+  }
+
   return (
-    <div className="message message--error" ref={messageRef}>
+    <div className='message message--error' ref={messageRef}>
       <button className="message__close-btn" onClick={() => fun(false)}>
         <Cross/>
       </button>
       <p>
         {message}
       </p>
-      <div className="message__buttons-wrapper">
-        <button className="button button--reverse message__btn" onClick={handleSignInClick}>Sign in</button>
-        <button className="button message__btn" onClick={handleSignUpClick}>Sign up</button>
-      </div>
+      {
+        message !== ErrorMessages.GuestNotificationError
+        ?
+        <div className="message__buttons-wrapper">
+          <button className="button button--reverse message__btn" onClick={handleSignInClick}>Sign in</button>
+          <button className="button message__btn" onClick={handleSignUpClick}>Sign up</button>
+        </div>
+        :
+        <button className="button button--narrow" onClick={handleGuestNotificationClick}>Ok</button>
+      }
     </div>
   )
 }

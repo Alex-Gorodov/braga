@@ -31,7 +31,7 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
   const [isError, setIsError] = useState(false);
 
   const formRef = useOutsideClick(() => {
-    dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
+    !isError && dispatch(toggleGuestNotificationForm({ isOpened: !isGuestNotificationFormOpened }));
   }) as React.RefObject<HTMLFormElement>;
 
   const handleFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +94,7 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
       </form>
       {
         isError && <ErrorMessage message={ErrorMessages.GuestNotificationError} fun={() => {
-          setIsError(false)
+          setIsError(false);
         }}/>
       }
     </div>
