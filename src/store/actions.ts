@@ -54,4 +54,8 @@ export const addItemToPreOrder = createAction<{user: User, item: BeerInCart, amo
 
 export const removeItemFromPreOrder = createAction<{user: User, item: BeerInCart}>('data/removeItemFromPreOrder');
 
+export const addItemToNotifications = createAction<{user: User, item: Beer}>('data/addItemToNotifications');
+
+export const removeItemFromNotifications = createAction<{user: User, item: Beer}>('data/removeItemFromNotifications');
+
 export const setAddingToCardStatus = createAction<{}>('data/setAddingToCardStatus');

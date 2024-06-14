@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addItemToCart, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
+import { addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -99,6 +99,34 @@ export const dataReducer = createReducer(initialState, (builder) => {
       const existingItemIndex = userToFind.preOrder.findIndex(itemToRemove => itemToRemove.id === item.id);
       if (existingItemIndex !== -1) {
         userToFind.preOrder.splice(existingItemIndex, 1);
+      }
+    }
+  })
+  .addCase(addItemToNotifications, (state, action) => {
+    const { user, item } = action.payload;
+    const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
+
+    if (userToFind) {
+      if (!userToFind.notifications) {
+        userToFind.notifications = [];
+      }
+
+      const existingItemIndex = userToFind.notifications.findIndex((i) => i.id === item.id);
+      if (existingItemIndex > -1) {
+        console.error('You\'re already subscribed to notifications for this item.');
+      } else {
+        userToFind.notifications.push(item);
+      }
+    }
+  })
+  .addCase(removeItemFromNotifications, (state, action) => {
+    const { user, item } = action.payload;
+    const userToFind = state.users.find((userToFind) => user.id === userToFind.id);
+
+    if (userToFind && userToFind.notifications) {
+      const existingItemIndex = userToFind.notifications.findIndex(itemToRemove => itemToRemove.id === item.id);
+      if (existingItemIndex !== -1) {
+        userToFind.notifications.splice(existingItemIndex, 1);
       }
     }
   })

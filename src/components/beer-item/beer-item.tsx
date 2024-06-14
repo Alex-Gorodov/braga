@@ -3,8 +3,8 @@ import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SuccessMessages
 import { Beer } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, addItemToPreOrder } from "../../store/actions";
-import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
+import { addItemToCart, addItemToNotifications, addItemToPreOrder } from "../../store/actions";
+import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
 import cn from 'classnames';
 import { ReviewForm } from "../review/review-form/review-form";
 import { ReviewItem } from "../review/review-item/review-item";
@@ -14,6 +14,8 @@ import { Soon } from "./soon";
 import { useGetUser } from "../../hooks/useGetUser";
 import { ErrorMessage } from "../error-message/error-message";
 import { SuccessMessage } from "../success-meggase/success-message";
+import { Spinner } from "../spinner/spinner";
+import { User } from "../../types/user";
 
 type BeerItemProps = {
   item: Beer;
@@ -36,6 +38,10 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
   const [isSuccess, setIsSuccess] = useState(false);
 
+  const [isNotificationAdding, setNotificationAdding] = useState(false);
+
+  const isNotificationAdded = user?.notifications?.some((beer) => beer.id === item.id)
+
   const handleIncrease = () => {
     setAmount(prevAmount => prevAmount + 1);
   };
@@ -56,6 +62,15 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   const infoBtnClassName = (page: string) => cn('product__info-nav-link', {
     'product__info-nav-link--active': activeInfo === page
   })
+
+  const handleNotificationListUpdate = (user: User) => {
+    setNotificationAdding(true)
+    if (user) {
+      addItemToUserNotifications(user, item)
+      dispatch(addItemToNotifications({user: user, item: item}))
+      isNotificationAdded && setNotificationAdding(false)
+    }
+  }
 
   return (
     <div className="product">
@@ -124,9 +139,10 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             {
               item.onBrewing &&
               <button
-                className="button produce__button product__button--preorder"
+                className="button product__button product__button--preorder"
                 type="button"
                 onClick={() => {
+                  setNotificationAdding(false);
                   if (user) {
                     dispatch(addItemToPreOrder({ user: user, item: { ...item, amount: amount }, amount: amount }));
                     addItemToUserPreOrder(user, { ...item, amount: amount }, amount);
@@ -150,7 +166,19 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                   :
                 `${item.onStock}`
               }
+              {item.onStock === 0 || !item.onStock ? <> &#128553;</> : ''}
             </span>
+            <button className="button button--small"
+              onClick={() => {
+                if (user) {
+                  handleNotificationListUpdate(user)
+                  } else {
+                    setIsError(true)
+                  }
+              }}
+            >
+              { isNotificationAdding && !isNotificationAdded ? <Spinner size={"13"}/> : isNotificationAdded ? 'Got it!' : 'Get Notified' }
+            </button>
           </div>
           <div>
             <p className="product__details-title">Categories:</p>
@@ -238,7 +266,10 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
         </div>
       </div>
       {
-        isError && <ErrorMessage message={ErrorMessages.PreorderError} fun={() => setIsError(false)}/>
+        isError && <ErrorMessage message={isNotificationAdding ? ErrorMessages.NotificationError : ErrorMessages.PreorderError} fun={() => {
+          setIsError(false)
+          setNotificationAdding(false)
+        }}/>
       }
       {
         isSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setIsSuccess(false)}/>

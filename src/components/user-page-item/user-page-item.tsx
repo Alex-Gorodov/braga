@@ -1,5 +1,4 @@
 import { User } from "../../types/user";
-import { ReactComponent as Cross } from '../../img/icons/cross.svg';
 import { useDispatch } from "react-redux";
 import { addItemToPreOrder, removeItemFromPreOrder } from "../../store/actions";
 import { addItemToUserPreOrder, removeItemFromUserPreOrder } from "../../store/api-actions";

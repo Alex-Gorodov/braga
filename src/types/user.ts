@@ -10,7 +10,7 @@ export type User = {
   password: string,
   isAdmin: boolean,
   cartItems: BeerInCart[],
-  subscriptions: Beer[],
+  notifications: Beer[],
   preOrder: BeerInCart[],
   liked: Beer[],
   avatar: string

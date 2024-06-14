@@ -1,6 +1,6 @@
 import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AuthorizationStatus } from "../const";
-import { loadBeers, loadCart, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setCartDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
+import { loadBeers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
 import { AxiosInstance } from "axios";
@@ -143,6 +143,51 @@ export const removeItemFromUserPreOrder = async (user: User, item: BeerInCart, d
     }
   } catch (error) {
     console.error('Error removing item from user pre-order list:', error);
+  }
+}
+
+export const addItemToUserNotifications = async (user: User, item: Beer) => {
+  try {
+    const userRef = database.ref(APIRoute.Users);
+    const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
+
+    if (snapshot.exists()) {
+      const key = Object.keys(snapshot.val())[0];
+      const existingItem = snapshot.val()[key];
+      let updatedNotifications = existingItem.notifications || [];
+      const itemIndex = updatedNotifications.findIndex((i: BeerInCart) => i.id === item.id);
+
+      if (itemIndex > -1) {
+        console.error('You\'re already subscribed to notifications for this item.');
+      } else {
+        updatedNotifications.push(item);
+      }
+
+      await userRef.child(key).update({ notifications: updatedNotifications });
+    }
+  } catch (error) {
+    console.error('Error adding to notifications: ', error);
+  }
+}
+
+export const removeItemFromUserNotifications = async (user: User, item: Beer, dispatch: AppDispatch) => {
+  try {
+    const userRef = database.ref(APIRoute.Users);
+    const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
+
+    if (snapshot.exists()) {
+      const key = Object.keys(snapshot.val())[0];
+      const userData = snapshot.val()[key];
+
+      const itemIndex = userData.notifications.findIndex((i: Beer) => i.id === item.id);
+
+      if (itemIndex > -1) {
+        userData.notifications.splice(itemIndex, 1);
+        await userRef.child(key).update({notifications: userData.notifications});
+      }
+    }
+  } catch (error) {
+    console.error('Error removing item from user notifications list:', error);
   }
 }
 

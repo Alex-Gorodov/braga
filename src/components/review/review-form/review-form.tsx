@@ -33,7 +33,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
       password: '',
       isAdmin: false,
       cartItems: [],
-      subscriptions: [],
+      notifications: [],
       liked: [],
       avatar: '',
       token: '',
