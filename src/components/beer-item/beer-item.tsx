@@ -177,7 +177,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             }
           </div>
           <div className="product__amount">
-            <p className="product__details-title">sku:</p>
+            <p className="product__details-title">in stock:</p>
             <span>
               {
                 item.onStock < 100 ?
