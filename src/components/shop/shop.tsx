@@ -124,7 +124,7 @@ export function Shop(): JSX.Element {
                 </div>
               </li>))
             :
-            <Spinner size="40"/>
+            <Spinner wrapper size="40"/>
           }
         </ul>
       </div>

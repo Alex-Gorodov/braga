@@ -23,7 +23,7 @@ export function SuccessMessage({message, fun}: SuccessMessageProps): JSX.Element
     <div className="message message--success" ref={messageRef}>
       <div>
         {
-          !isSuccess ? <Spinner size="40"/> : message
+          !isSuccess ? <Spinner size="40" wrapper/> : message
         }
       </div>
       {

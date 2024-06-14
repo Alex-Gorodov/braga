@@ -26,7 +26,7 @@ export function UserPage(): JSX.Element {
   }, [id, users])
 
   if (isLoading) {
-    return <Spinner size={"40"}/>
+    return <Spinner size={"40"} wrapper/>
   }
 
   return (
@@ -36,7 +36,7 @@ export function UserPage(): JSX.Element {
       </Helmet>
       <main className="main">
         {
-          user ? <UserPageItem user={user}/> : <Spinner size={"40"}/>
+          user ? <UserPageItem user={user}/> : <Spinner size={"40"} wrapper/>
         }
       </main>
     </Layout>

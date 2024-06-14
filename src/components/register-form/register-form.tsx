@@ -11,6 +11,7 @@ import { AuthorizationStatus } from "../../const";
 import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
 import { Upload } from "./upload-avatar";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { Spinner } from "../spinner/spinner";
 
 type RegisterFormProps = {
   className?: string;
@@ -24,7 +25,7 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
   const formRef = useOutsideClick(() => {
     dispatch(toggleSignUpForm({ isOpened: !isSignUpOpened }));
   }) as React.RefObject<HTMLFormElement>;
-  
+
   const uploadedUrl = useSelector((state: RootState) => state.page.uploadedPath);
 
   const authedUser = useSelector((state: RootState) => state.user);
@@ -62,8 +63,11 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     }
   };
 
+  const [isAuthing, setIsAuthing] = useState(false);
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsAuthing(true);
     const auth = getAuth();
 
     if (data.password !== data.confirmPassword) {
@@ -119,6 +123,8 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     } catch (error) {
       console.error('Error registering user:', error);
       alert('Error registering user: ' + error);
+    } finally {
+      setIsAuthing(false);
     }
   };
 
@@ -218,7 +224,11 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
               onChange={handleFieldChange}
             />
           </label>
-          <button className="button form__submit" type="submit">Create account!</button>
+          <button className="button form__submit" type="submit" disabled={isAuthing}>
+            {isAuthing
+              ? <Spinner size={"16"}/>
+              : 'Create account!'
+            }</button>
         </form>
       </div>
     ) : <></>

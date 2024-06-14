@@ -33,8 +33,6 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
-  const authStatus = useSelector((state: RootState) => state.auth.authorizationStatus);
-
   const [isAuthing, setIsAuthing] = useState(false);
 
   const [data, setData] = useState<dataProps>({

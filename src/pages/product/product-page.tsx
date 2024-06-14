@@ -27,7 +27,7 @@ export function ProductPage(): JSX.Element {
   }, [id, beers]);
 
   if (isLoading) {
-    return <Spinner size={"40"}/>
+    return <Spinner size={"40"} wrapper/>
   }
 
   return (
@@ -37,7 +37,7 @@ export function ProductPage(): JSX.Element {
       </Helmet>
       <main className="main">
 
-      {product ? <BeerItem item={product}/> : <Spinner size={"40"}/>}
+      {product ? <BeerItem item={product}/> : <Spinner size={"40"} wrapper/>}
       </main>
     </Layout>
   )

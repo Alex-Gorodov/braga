@@ -16,7 +16,7 @@ export function CartPage(): JSX.Element {
       </Helmet>
       <div>
         {
-          isCartLoading ? <Spinner size={"40"}/> :
+          isCartLoading ? <Spinner size={"40"} wrapper/> :
           cartItems.map((item) => {
             return (
               <CartItem item={item} key={`${item.name}`}/>

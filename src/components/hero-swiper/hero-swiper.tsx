@@ -15,7 +15,7 @@ export function HeroSwiper(): JSX.Element {
 
   return (
 
-      isLoading ? <Spinner size={'80'}/> :
+      isLoading ? <Spinner wrapper size={'80'}/> :
       <div className='hero__wrapper beer'>
         <Swiper
           loop={true}

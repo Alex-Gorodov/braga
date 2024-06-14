@@ -56,7 +56,7 @@ export function SwiperClassics(): JSX.Element {
             </button>
           </div>
         </div>
-        : <Spinner size={"40"}/>
+        : <Spinner size={"40"} wrapper/>
       }
     </section>
   )

@@ -49,7 +49,7 @@ export function SubscribeForm(): JSX.Element {
         <div className="subscribe__form-wrapper">
           {isSending ? (
             <div style={{paddingTop: '60px'}}>
-              <Spinner size={'40'} color={'#000c24'} />
+              <Spinner size={'40'} color={'#000c24'} wrapper/>
             </div>
           ) : (
             <form className="subscribe__form" onSubmit={sendForm}>
