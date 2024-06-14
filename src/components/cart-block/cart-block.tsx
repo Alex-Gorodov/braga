@@ -7,7 +7,7 @@ import { CartItem } from '../cart-item/cart-item';
 import { useGetUser } from '../../hooks/useGetUser';
 
 type CartBlockProps = {
-  cartClassName: string;
+  className: string;
 };
 
 const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
@@ -16,7 +16,7 @@ const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
   const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.amount, 0);
 
   return (
-    <div className={props.cartClassName} ref={ref}>
+    <div className={props.className} ref={ref}>
       <h2 className="cart__title">My cart</h2>
       {
         cartItems?.length

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppRoute, AuthorizationStatus } from "../../const";
-import { toggleSignInForm } from "../../store/actions";
+import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 import { RootState } from "../../store/root-reducer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
@@ -19,6 +19,7 @@ export function HeaderUserProfile(): JSX.Element {
   const [isUserMenuOpened, setUserMenuOpened] = useState(false);
   const user = useGetUser();
   const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
+  const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
   const link = generatePath(AppRoute.UserPage, {
     id: `${user?.id}`,
@@ -54,7 +55,10 @@ export function HeaderUserProfile(): JSX.Element {
     </div>
     :
     <div className="header__form-wrapper">
-      <button className="header__btn user-navigation__button" onClick={() => dispatch(toggleSignInForm({isOpened: !isSignInOpened}))} type="button">
+      <button className="header__btn user-navigation__button" onClick={() => {
+        dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
+        isSignUpOpened && dispatch(toggleSignUpForm({isOpened: false})) && dispatch(toggleSignInForm({isOpened: false}))
+      }} type="button">
         <UserIcon/>
       </button>
     </div>

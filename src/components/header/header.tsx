@@ -4,7 +4,7 @@ import { ReactComponent as Logo} from '../../img/icons/braga-logo.svg';
 import { ReactComponent as Cart} from '../../img/icons/cart.svg';
 import { useEffect, useState } from "react";
 import cn from 'classnames';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useIsTablet } from "../../hooks/useSizes";
 import { AuthForm } from "../auth-form/auth-form";
@@ -14,9 +14,11 @@ import { RegisterForm } from "../register-form/register-form";
 import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
 import { useGetUser } from "../../hooks/useGetUser";
 import { SaleBanner } from "../sale-banner/sale-banner";
+import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 
 export function Header(): JSX.Element {
   const activeUser = useGetUser();
+  const dispatch = useDispatch();
 
   const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
   const [activePage, setActivePage] = useState('Home');
@@ -111,7 +113,13 @@ export function Header(): JSX.Element {
       :
       <>
         <div className="header__container">
-          <button className={burgerClassName} onClick={() => setMenuOpened(!isMenuOpened)} type="button">
+          <button className={burgerClassName} onClick={() => {
+            setMenuOpened(!isMenuOpened);
+            dispatch(toggleSignInForm({isOpened: false}))
+            dispatch(toggleSignUpForm({isOpened: false}))
+          }}
+          type="button"
+          >
             <span className="header__burger-line"></span>
           </button>
           <ul className="header__user-navigation user-navigation">
@@ -121,7 +129,7 @@ export function Header(): JSX.Element {
                   <span>{totalAmount}</span>
                 </button>
               </li>
-              <li className="user-navigation__item">
+              <li className="user-navigation__item" onClick={() => setMenuOpened(false)}>
                 <HeaderUserProfile/>
               </li>
             </ul>
@@ -141,7 +149,7 @@ export function Header(): JSX.Element {
         </nav>
       </>
       }
-      <CartBlock ref={cartRef} cartClassName={cartClassName}/>
+      <CartBlock ref={cartRef} className={cartClassName}/>
       <AuthForm className={loginFormClassName}/>
       <RegisterForm className={loginFormClassName}/>
     </header>

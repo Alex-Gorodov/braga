@@ -18,13 +18,14 @@ type RegisterFormProps = {
 
 export function RegisterForm({className}: RegisterFormProps): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
+
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
+
   const formRef = useOutsideClick(() => {
     dispatch(toggleSignUpForm({ isOpened: !isSignUpOpened }));
   }) as React.RefObject<HTMLFormElement>;
+  
   const uploadedUrl = useSelector((state: RootState) => state.page.uploadedPath);
-
-  const users = useSelector((state: RootState) => state.data.users)
 
   const authedUser = useSelector((state: RootState) => state.user);
 
