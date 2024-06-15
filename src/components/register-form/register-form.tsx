@@ -10,23 +10,17 @@ import { setUser } from "../../store/slices/user-slice";
 import { AuthorizationStatus, ErrorMessages } from "../../const";
 import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
 import { Upload } from "./upload-avatar";
-import { ReactComponent as Cross } from '../../img/icons/cross.svg'
-import { ReactComponent as Showed } from '../../img/icons/showed-password.svg'
-import { ReactComponent as Hidden } from '../../img/icons/hidden-password.svg'
+import { ReactComponent as Cross } from '../../img/icons/cross.svg';
+import { ReactComponent as Showed } from '../../img/icons/showed-password.svg';
+import { ReactComponent as Hidden } from '../../img/icons/hidden-password.svg';
 import { Spinner } from "../spinner/spinner";
 
 type RegisterFormProps = {
   className?: string;
 }
 
-export function RegisterForm({className}: RegisterFormProps): JSX.Element {
+export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
-
-  const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
-
-  const formRef = useOutsideClick(() => {
-    dispatch(toggleSignUpForm({ isOpened: !isSignUpOpened }));
-  }) as React.RefObject<HTMLFormElement>;
 
   const uploadedUrl = useSelector((state: RootState) => state.page.uploadedPath);
 
@@ -49,6 +43,12 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     token: ''
   });
 
+  const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
+
+  const formRef = useOutsideClick(() => {
+    handleCloseForm();
+  }) as React.RefObject<HTMLFormElement>;
+
   const handleFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = event.target;
 
@@ -65,12 +65,32 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     }
   };
 
-
-
   const [isPassShowed, setPassShowed] = useState(false);
   const [isConfirmPassShowed, setConfirmPassShowed] = useState(false);
   const [formError, setFormError] = useState<ErrorMessages | null>(null);
   const [isAuthing, setIsAuthing] = useState(false);
+
+  const handleCloseForm = () => {
+    dispatch(toggleSignUpForm({ isOpened: false }));
+    setData({
+      id: '',
+      name: '',
+      surname: '',
+      email: '',
+      phone: '',
+      isAdmin: false,
+      cartItems: [],
+      notifications: [],
+      liked: [],
+      avatar: '',
+      password: '',
+      confirmPassword: '',
+      preOrder: [],
+      token: ''
+    })
+    setFormError(null);
+    setConfirmPassShowed(false);
+  }
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,12 +103,17 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
       return;
     }
 
+    const passwordValidationRegex = /^(?=.*\d).{8,}$/;
+    if (!passwordValidationRegex.test(data.password)) {
+      setFormError(ErrorMessages.PasswordError);
+      setIsAuthing(false);
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
       const user = userCredential.user;
       const token = await user.getIdToken();
-
 
       await addNewUserToDatabase({
         id: user.uid,
@@ -114,7 +139,7 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
 
       dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
 
-      dispatch(setUserInformation({userInformation: authedUser}))
+      dispatch(setUserInformation({ userInformation: authedUser }));
       const authData = {
         login: data.email,
         password: data.password,
@@ -128,7 +153,7 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
 
       dispatch(loginAction(authData));
       dispatch(setUploadedPath({ path: null }));
-      dispatch(toggleSignUpForm({ isOpened: false }));
+      handleCloseForm();
     } catch (error) {
       console.error('Error registering user:', error);
       alert('Error registering user: ' + error);
@@ -139,14 +164,14 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
 
   const handleFormError = () => {
     if (data.name === '' || data.surname === '' || data.email === '' || data.phone.length < 8) {
-      setFormError(ErrorMessages.RegisterEmptyFields)
+      setFormError(ErrorMessages.RegisterEmptyFields);
       setIsAuthing(false);
       setTimeout(() => {
-        setFormError(null)
+        setFormError(null);
       }, 3000);
       return;
     }
-  }
+  };
 
   return (
     isSignUpOpened ? (
@@ -159,8 +184,8 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
           ref={formRef}
         >
           <h3 className="title title--3 form__title">Sign up</h3>
-          <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignUpForm({isOpened: false}))}>
-            <Cross/>
+          <button className="form__close-btn" type="button" onClick={() => handleCloseForm()}>
+            <Cross />
           </button>
           <label className="form__item" htmlFor="name">
             <span className="form__label">Your name:</span>
@@ -216,7 +241,7 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
           </label>
           <label className="form__item" htmlFor="avatar">
             <span className="form__label form__label--visible">Choose avatar:</span>
-            <Upload/>
+            <Upload />
           </label>
           <label className="form__item" htmlFor="password">
             <span className="form__label">Create password (at least 8 symbols with at least one letter and one number):</span>
@@ -231,9 +256,8 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
               onChange={handleFieldChange}
             />
             <span className="form__show-pass-btn" role="button" onClick={() => setPassShowed(!isPassShowed)}>
-              {
-                isPassShowed ? <Showed/> : <Hidden/>
-              }
+              <span className="visually-hidden">{isPassShowed ? 'hide password' : 'show password'}</span>
+              {isPassShowed ? <Showed /> : <Hidden />}
             </span>
           </label>
           <label className="form__item" htmlFor="confirm-password">
@@ -249,17 +273,16 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
               onChange={handleFieldChange}
             />
             <span className="form__show-pass-btn" role="button" onClick={() => setConfirmPassShowed(!isConfirmPassShowed)}>
-              {
-                isConfirmPassShowed ? <Showed/> : <Hidden/>
-              }
+              <span className="visually-hidden">{isConfirmPassShowed ? 'hide password' : 'show password'}</span>
+              {isConfirmPassShowed ? <Showed /> : <Hidden />}
             </span>
           </label>
           <button className="button form__submit" type="submit" disabled={isAuthing} onClick={() => handleFormError()}>
             {isAuthing
-              ? <Spinner size={"16"}/>
+              ? <Spinner size={"16"} />
               : 'Create account!'
             }</button>
-            <p className={`form__error-message ${formError ? 'form__error-message--opened' : ''}`}>{formError}</p>
+          <p className={`form__error-message ${formError ? 'form__error-message--opened' : ''}`}>{formError}</p>
         </form>
       </div>
     ) : <></>

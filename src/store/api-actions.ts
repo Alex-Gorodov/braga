@@ -220,6 +220,17 @@ export const addGuestNotificationToDatabase = async (guest: Guest, item: Beer) =
   }
 };
 
+export const addSubscriberToDatabase = async (subscriber: string) => {
+  try {
+    const subscriberRef = database.ref(APIRoute.Subscribers);
+    const newSubscriberRef = subscriberRef.push();
+    await newSubscriberRef.set({ email: subscriber });
+    console.log(`New subscriber ${subscriber} added.`);
+  } catch (error) {
+    console.error('Error adding to subscribers: ', error);
+  }
+};
+
 
 export const addNewUserToDatabase = async (user: User, dispatch: AppDispatch) => {
   try {

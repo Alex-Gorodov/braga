@@ -2,8 +2,12 @@ import { Spinner } from '../spinner/spinner';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ReactComponent as Arrow } from '../../img/icons/form-arrow.svg';
+import { useDispatch } from 'react-redux';
+import { addSubscriber } from '../../store/actions';
+import { addSubscriberToDatabase } from '../../store/api-actions';
 
 export function SubscribeForm(): JSX.Element {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
   });
@@ -44,8 +48,10 @@ export function SubscribeForm(): JSX.Element {
     }
   };
 
-  console.log(isError);
-
+  const handleAddSubscriber = () => {
+    dispatch(addSubscriber({subscriber: formData.email}));
+    addSubscriberToDatabase(formData.email);
+  }
 
   return (
     <div className="subscribe__wrapper">
@@ -73,6 +79,7 @@ export function SubscribeForm(): JSX.Element {
               </label>
               <button className="subscribe__submit" type="submit" onClick={() => {
                 if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) setError(true)
+                else handleAddSubscriber();
               }}>
                 <Arrow/>
               </button>

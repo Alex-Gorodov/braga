@@ -14,7 +14,8 @@ export type DataState = {
   beers: Beer[];
   users: User[];
   isBeersDataLoading: boolean;
-  guests: Guest[],
+  guests: Guest[];
+  subscribers: (User | string)[];
 }
 
 export type AuthState = {

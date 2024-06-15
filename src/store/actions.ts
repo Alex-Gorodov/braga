@@ -62,3 +62,5 @@ export const addItemToNotifications = createAction<{user: User, item: Beer}>('da
 export const removeItemFromNotifications = createAction<{user: User, item: Beer}>('data/removeItemFromNotifications');
 
 export const addGuestNotification = createAction<{guest: Guest, item: Beer}>('data/addGuestNotification')
+
+export const addSubscriber = createAction<{subscriber: string}>('data/addSubscriber');

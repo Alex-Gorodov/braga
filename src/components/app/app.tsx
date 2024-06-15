@@ -13,6 +13,7 @@ import { ProductPage } from "../../pages/product/product-page";
 import { CartPage } from "../../pages/cart/cart-page";
 import { UserPage } from "../../pages/user/user-page";
 import PrivateRoute from "../private-route/private-route";
+import { AdminPage } from "../../pages/admin/admin-page";
 
 export function App() {
 
@@ -27,6 +28,7 @@ export function App() {
             <Route path={AppRoute.Blog} element={<BlogPage/>}/>
             <Route path={AppRoute.ProductPage} element={<ProductPage/>}/>
             <Route path={AppRoute.UserPage} element={<PrivateRoute element={<UserPage />} />}/>
+            <Route path={AppRoute.AdminPage} element={<PrivateRoute element={<AdminPage />} isAdminRoute />} />
             <Route path="*" element={<NotFound/>}/>
           </Routes>
         </Provider>

@@ -1,12 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
   users: [],
   isBeersDataLoading: false,
   guests: [],
+  subscribers: []
 }
 
 export const dataReducer = createReducer(initialState, (builder) => {
@@ -154,5 +155,21 @@ export const dataReducer = createReducer(initialState, (builder) => {
     } else {
       state.guests[guest.id].notifications.push(item);
     }
-  });
+  })
+  .addCase(addSubscriber, (state, action) => {
+    const { subscriber } = action.payload;
+    const userToFind = state.users.find(
+      (user) => subscriber === user.email
+    );
+
+    if (!state.subscribers) {
+      state.subscribers = [];
+    }
+
+    if (userToFind) {
+      state.subscribers.push(userToFind)
+    } else {
+      state.subscribers.push(subscriber);
+    }
+  })
 })

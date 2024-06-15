@@ -44,6 +44,12 @@ export function HeaderUserProfile(): JSX.Element {
           <li className="user-navigation__menu-item">
             <Link className="user-navigation__menu-link" to={link}>Profile</Link>
           </li>
+          {
+            user?.isAdmin &&
+            <li className="user-navigation__menu-item">
+              <Link className="user-navigation__menu-link" to={AppRoute.AdminPage}>Admin page</Link>
+            </li>
+          }
           <li className="user-navigation__menu-item">
             <Link className="user-navigation__menu-link" to={AppRoute.Root} onClick={(e) => {
               setUserMenuOpened(!isUserMenuOpened)

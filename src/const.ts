@@ -5,7 +5,8 @@ export enum AppRoute {
   Cart = "/braga/cart",
   Login = "/braga/login",
   ProductPage = "/braga/shop/:id",
-  UserPage = "/braga/user/:id"
+  UserPage = "/braga/user/:id",
+  AdminPage = "/braga/admin"
 }
 
 export enum ScreenSizes {
@@ -20,7 +21,8 @@ export enum APIRoute {
   Users = "braga-db/users",
   Login = 'braga-db/login',
   Logout = 'braga-db/logout',
-  Guests = 'braga-db/guests'
+  Guests = 'braga-db/guests',
+  Subscribers = 'braga-db/subscribers',
 }
 
 export enum AuthorizationStatus {
@@ -31,7 +33,7 @@ export enum AuthorizationStatus {
 
 export enum ErrorMessages {
   EmailError = 'Please enter correct e-mail.',
-  PasswordError = 'Please enter at least one letter and one number.',
+  PasswordError = 'Password must have at least one letter, one number, and be 8+ characters long.',
   CommentError = 'Error! Can\'t add review, please, try again.',
   PreOrderError = 'Please sign in or register to add items to your preorder.',
   NotificationError = 'Please sign in or register to add items to get notification.',

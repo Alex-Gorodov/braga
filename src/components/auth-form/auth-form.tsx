@@ -35,7 +35,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
 
   const [isAuthing, setIsAuthing] = useState(false);
 
-  const [data, setData] = useState<dataProps>({
+  const initialData: dataProps = {
     email: {
       value: '',
       error: false,
@@ -48,7 +48,9 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
       errorValue: ErrorMessages.PasswordError,
       regexp: /(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]{2,}/,
     }
-  });
+  };
+
+  const [data, setData] = useState<dataProps>(initialData);
 
   const handleFieldChange = ({
     target,
@@ -72,8 +74,13 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
     });
   };
 
-  const formRef = useOutsideClick(() => {
+  const handleCloseForm = () => {
     dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
+    setData(initialData);
+  }
+
+  const formRef = useOutsideClick(() => {
+    handleCloseForm();
   }) as React.RefObject<HTMLFormElement>;
 
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -103,7 +110,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
       };
       dispatch(loginAction(authData));
 
-      dispatch(toggleSignInForm({ isOpened: false }));
+      handleCloseForm();
     } catch (error) {
       console.error(error);
     } finally {
@@ -116,7 +123,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
     <div className="form__wrapper ">
       <form className={`login__form form ${className}`} action="#" method="post" onSubmit={handleLogin} ref={formRef}>
         <h3 className="title title--3 form__title">Sign in</h3>
-        <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: false}))}>
+        <button className="form__close-btn" type="button" onClick={() => handleCloseForm()}>
           <Cross/>
         </button>
         {
