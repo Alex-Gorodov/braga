@@ -7,10 +7,12 @@ import { AppDispatch } from "../../types/state";
 import { RegisterUser } from "../../types/user";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUser } from "../../store/slices/user-slice";
-import { AuthorizationStatus } from "../../const";
+import { AuthorizationStatus, ErrorMessages } from "../../const";
 import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
 import { Upload } from "./upload-avatar";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { ReactComponent as Showed } from '../../img/icons/showed-password.svg'
+import { ReactComponent as Hidden } from '../../img/icons/hidden-password.svg'
 import { Spinner } from "../spinner/spinner";
 
 type RegisterFormProps = {
@@ -63,6 +65,11 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     }
   };
 
+
+
+  const [isPassShowed, setPassShowed] = useState(false);
+  const [isConfirmPassShowed, setConfirmPassShowed] = useState(false);
+  const [formError, setFormError] = useState<ErrorMessages | null>(null);
   const [isAuthing, setIsAuthing] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -71,9 +78,11 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     const auth = getAuth();
 
     if (data.password !== data.confirmPassword) {
-      alert('Passwords do not match');
+      setFormError(ErrorMessages.RegisterPasswordNotMatch);
+      setIsAuthing(false);
       return;
     }
+
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -128,12 +137,23 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
     }
   };
 
+  const handleFormError = () => {
+    if (data.name === '' || data.surname === '' || data.email === '' || data.phone.length < 8) {
+      setFormError(ErrorMessages.RegisterEmptyFields)
+      setIsAuthing(false);
+      setTimeout(() => {
+        setFormError(null)
+      }, 3000);
+      return;
+    }
+  }
+
   return (
     isSignUpOpened ? (
       <div className="form__wrapper">
         <form
           action="#"
-          className={`form form--register register-form ${className}`}
+          className={`form form--register register-form ${className} ${isSignUpOpened ? '' : 'form--animated'}`}
           onSubmit={handleRegister}
           method="post"
           ref={formRef}
@@ -202,7 +222,7 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
             <span className="form__label">Create password (at least 8 symbols with at least one letter and one number):</span>
             <input
               className="form__input"
-              type="password"
+              type={isPassShowed ? 'text' : 'password'}
               name="password"
               id="password"
               required
@@ -210,12 +230,17 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
               value={data.password}
               onChange={handleFieldChange}
             />
+            <span className="form__show-pass-btn" role="button" onClick={() => setPassShowed(!isPassShowed)}>
+              {
+                isPassShowed ? <Showed/> : <Hidden/>
+              }
+            </span>
           </label>
           <label className="form__item" htmlFor="confirm-password">
             <span className="form__label">Confirm password:</span>
             <input
               className="form__input"
-              type="password"
+              type={isConfirmPassShowed ? 'text' : 'password'}
               name="confirmPassword"
               id="confirm-password"
               required
@@ -223,12 +248,18 @@ export function RegisterForm({className}: RegisterFormProps): JSX.Element {
               value={data.confirmPassword}
               onChange={handleFieldChange}
             />
+            <span className="form__show-pass-btn" role="button" onClick={() => setConfirmPassShowed(!isConfirmPassShowed)}>
+              {
+                isConfirmPassShowed ? <Showed/> : <Hidden/>
+              }
+            </span>
           </label>
-          <button className="button form__submit" type="submit" disabled={isAuthing}>
+          <button className="button form__submit" type="submit" disabled={isAuthing} onClick={() => handleFormError()}>
             {isAuthing
               ? <Spinner size={"16"}/>
               : 'Create account!'
             }</button>
+            <p className={`form__error-message ${formError ? 'form__error-message--opened' : ''}`}>{formError}</p>
         </form>
       </div>
     ) : <></>

@@ -79,8 +79,6 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const [formChange, setFormChange] = useState(false);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsAuthing(true);
@@ -116,7 +114,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   return (
     isSignInOpened ?
     <div className="form__wrapper ">
-      <form className={`login__form form ${className} ${formChange ? 'form--animated' : ''}`} action="#" method="post" onSubmit={handleLogin} ref={formRef}>
+      <form className={`login__form form ${className}`} action="#" method="post" onSubmit={handleLogin} ref={formRef}>
         <h3 className="title title--3 form__title">Sign in</h3>
         <button className="form__close-btn" type="button" onClick={() => dispatch(toggleSignInForm({isOpened: false}))}>
           <Cross/>
@@ -164,14 +162,8 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
                 className="button"
                 type="button"
                 onClick={() => {
-                  setFormChange(true);
-                  setTimeout(() => {
-                    dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
-                    setFormChange(false);
-                  }, 5000);
-                  setTimeout(() => {
-                    dispatch(toggleSignUpForm({isOpened: !isSignUpOpened}));
-                  }, 5000);
+                  dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
+                  dispatch(toggleSignUpForm({isOpened: !isSignUpOpened}));
                 }}
               >Sign up</button>
             </div>

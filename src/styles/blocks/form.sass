@@ -13,12 +13,15 @@
   box-shadow: $block-shadow
   transform: translate(50%, -50%)
   z-index: 10
-  &--animated
-    animation-name: rotate-popup
-    animation-duration: 5s
-    animation-iteration-count: 1
-    animation-fill-mode: forwards
-    animation-timing-function: cubic-bezier(0.48, 0.07, 0.45, 0.86)
+  // &--animated
+  //   animation-name: rotate-popup
+  //   animation-duration: 0.5s
+  //   animation-iteration-count: 1
+  //   animation-fill-mode: forwards
+  //   animation-timing-function: cubic-bezier(0.48, 0.07, 0.45, 0.86)
+  //   &.form--register
+  //     animation-duration: 1s
+  //     animation-iteration-count: 2
   &--guest
     padding-top: 50px
   &::-webkit-scrollbar
@@ -110,3 +113,18 @@
     &:focus-visible
       background-color: lighten($black, 90%)
       outline: none
+  &__show-pass-btn
+    position: absolute
+    top: 50%
+    right: 0
+    transform: translateY(-25%)
+  &__error-message
+    position: absolute
+    bottom: 60px
+    left: 20px
+    color: red
+    margin: 0
+    z-index: -2
+    transition: 0.3s
+    &--opened
+      bottom: 20px

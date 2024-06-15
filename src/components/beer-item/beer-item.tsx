@@ -283,7 +283,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
         </div>
       </div>
       {
-        isError && <ErrorMessage message={isNotificationAdding ? ErrorMessages.NotificationError : ErrorMessages.PreorderError} fun={() => {
+        isError && <ErrorMessage message={isNotificationAdding ? ErrorMessages.NotificationError : ErrorMessages.PreOrderError} fun={() => {
           setIsError(false)
           setNotificationAdding(false)
         }}/>
