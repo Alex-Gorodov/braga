@@ -4,10 +4,11 @@ import { Spinner } from "../../components/spinner/spinner";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
 import { CartItem } from "../../components/cart-item/cart-item";
+import { useGetUser } from "../../hooks/useGetUser";
 
 export function CartPage(): JSX.Element {
-  const cartItems = useSelector((state: RootState) => state.data.cartItems)
-  const isCartLoading = useSelector((state: RootState) => state.data.isCartDataLoading);
+  const isBeersLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);
+  const user = useGetUser();
 
   return (
     <Layout>
@@ -16,8 +17,8 @@ export function CartPage(): JSX.Element {
       </Helmet>
       <div>
         {
-          isCartLoading ? <Spinner size={"40"} wrapper/> :
-          cartItems.map((item) => {
+          isBeersLoading ? <Spinner size={"40"} wrapper/> :
+          user?.cartItems.map((item) => {
             return (
               <CartItem item={item} key={`${item.name}`}/>
             )

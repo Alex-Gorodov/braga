@@ -1,6 +1,7 @@
 import { Spinner } from '../spinner/spinner';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ReactComponent as Arrow } from '../../img/icons/form-arrow.svg';
 
 export function SubscribeForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -43,6 +44,9 @@ export function SubscribeForm(): JSX.Element {
     }
   };
 
+  console.log(isError);
+
+
   return (
     <div className="subscribe__wrapper">
       {!isSuccess && (
@@ -67,6 +71,9 @@ export function SubscribeForm(): JSX.Element {
                   onChange={handleInputChange}
                 />
               </label>
+              <button className="subscribe__submit" type="submit" >
+                <Arrow/>
+              </button>
               <p className={`subscribe__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'subscribe__error-message--opened'}`}>Please fill in the required fields.</p>
             </form>
           )}

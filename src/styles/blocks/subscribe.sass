@@ -48,22 +48,13 @@
     margin: 0
     border-bottom: $section-border
     border-radius: 0
-    background-image: url("../../img/icons/form-arrow.svg")
-    background-repeat: no-repeat
-    background-position: calc(100% - 10px) 50%
     font-size: 18px
     transition: 0.4s
-    &--message
-      resize: vertical
     &::placeholder
       color: fade($black, 50%)
-    &:hover
-      background-position: calc(100%) 50%
     &:focus
-      background-position: calc(100%) 50%
       outline: none
     &:focus-visible
-      background-position: calc(100%) 50%
       outline: none
     &--error
       border: 2px solid red
@@ -112,3 +103,14 @@
   &__image
     width: 100%
     height: auto
+
+  &__submit
+    @include button-reset
+    position: absolute
+    top: 50%
+    right: 10px
+    transform: translateY(-50%)
+    cursor: pointer
+    transition: 0.3s
+    &:hover
+      right: 5px

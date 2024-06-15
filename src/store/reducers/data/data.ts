@@ -6,9 +6,7 @@ const initialState: DataState = {
   beers: [],
   users: [],
   isBeersDataLoading: false,
-  cartItems: [],
   guests: [],
-  isCartDataLoading: false,
 }
 
 export const dataReducer = createReducer(initialState, (builder) => {
@@ -18,9 +16,6 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(setBeersDataLoadingStatus, (state, action) => {
     state.isBeersDataLoading = action.payload.isBeersDataLoading;
-  })
-  .addCase(loadCart, (state, action) => {
-    state.cartItems = action.payload.beers;
   })
   .addCase(loadUsers, (state, action) => {
     state.users = action.payload.users;
@@ -141,7 +136,6 @@ export const dataReducer = createReducer(initialState, (builder) => {
       addItemToNotifications({ user: userToFind, item: item });
     }
 
-    // Проверка и инициализация гостя в state.guests, если он не определен
     if (!state.guests[guest.id]) {
       state.guests[guest.id] = {
         ...guest,
@@ -149,7 +143,6 @@ export const dataReducer = createReducer(initialState, (builder) => {
       };
     }
 
-    // Проверка и инициализация массива уведомлений, если он отсутствует
     if (!state.guests[guest.id].notifications) {
       state.guests[guest.id].notifications = [];
     }

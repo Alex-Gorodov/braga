@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from "../const";
 import { store } from "../store";
-import { Beer, BeerInCart } from "./beer";
+import { Beer } from "./beer";
 import { Guest } from "./guest";
 import { Review } from "./review";
 import { User } from "./user";
@@ -14,9 +14,7 @@ export type DataState = {
   beers: Beer[];
   users: User[];
   isBeersDataLoading: boolean;
-  cartItems: BeerInCart[];
   guests: Guest[],
-  isCartDataLoading: boolean;
 }
 
 export type AuthState = {
