@@ -71,7 +71,9 @@ export function SubscribeForm(): JSX.Element {
                   onChange={handleInputChange}
                 />
               </label>
-              <button className="subscribe__submit" type="submit" >
+              <button className="subscribe__submit" type="submit" onClick={() => {
+                if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) setError(true)
+              }}>
                 <Arrow/>
               </button>
               <p className={`subscribe__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'subscribe__error-message--opened'}`}>Please fill in the required fields.</p>
