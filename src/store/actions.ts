@@ -11,6 +11,8 @@ export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boole
 
 export const loadBeers = createAction<{beers: Beer[]}>('data/loadBeers');
 
+export const updateBeersAmount = createAction<{beerToUpdate: Beer, numToUpdate: number}>('data/updateBeersAmount')
+
 export const setUsersDataLoadingStatus = createAction<{isUsersDataLoading: boolean}>('data/setUsersDataLoadingStatus');
 
 export const loadUsers = createAction<{users: User[]}>('data/loadUsers');

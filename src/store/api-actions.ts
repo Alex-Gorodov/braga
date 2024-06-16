@@ -316,6 +316,19 @@ export const addReviewToDatabase = async (beer: Beer, review: Review) => {
   }
 }
 
+export const adminChangeBeerCount = async (beer: Beer, num: number) => {
+  try {
+    const beerRef = database.ref(`${APIRoute.Beers}/${beer.id}`);
+    const snapshot = await beerRef.once('value');
+    const beerData = snapshot.val();
+
+    beerData.onStock = num;
+    await beerRef.update(beerData);
+  } catch (error) {
+    console.error("Error update beer amount: ", error)
+  }
+}
+
 export const loginAction = createAsyncThunk<
   UserAuthData,
   AuthData,

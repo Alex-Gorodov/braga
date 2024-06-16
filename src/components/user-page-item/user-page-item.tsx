@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { addItemToPreOrder, removeItemFromNotifications, removeItemFromPreOrder } from "../../store/actions";
 import { addItemToUserPreOrder, removeItemFromUserNotifications, removeItemFromUserPreOrder } from "../../store/api-actions";
 import { useIsTablet } from "../../hooks/useSizes";
+import { generatePath, Link } from "react-router-dom";
+import { AppRoute } from "../../const";
 
 type UserProps = {
   user: User;
@@ -26,13 +28,11 @@ export function UserPageItem({user}: UserProps): JSX.Element {
         <div className="user__preorder-list">
           <h3 className="title title--3 preorder-table__title">My pre-order list</h3>
           <div className="preorder-table__wrapper">
-            <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.preOrder.length + 1}, 1fr)` : 'repeat(2, minmax(0, 1fr)) 55px minmax(0, 1fr) 55px repeat(5, minmax(0, 1fr))'}}>
+            <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.preOrder.length + 1}, 1fr)` : 'repeat(8, 1fr)'}}>
               <div className="preorder-table__head">
                 <div className="preorder-table__cell preorder-table__cell--head">Name</div>
                 <div className="preorder-table__cell preorder-table__cell--head">Style</div>
-                <div className="preorder-table__cell preorder-table__cell--head preorder-table__cell--narrow">{isTablet ? 'Increase' : 'Decrease'}</div>
                 <div className="preorder-table__cell preorder-table__cell--head">Amount</div>
-                <div className="preorder-table__cell preorder-table__cell--head preorder-table__cell--narrow">{isTablet ? 'Decrease' : 'Increase'}</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Alcohol by Volume">ABV</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="International Bitterness Units">IBU</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Standard Reference Method (color)">SRM</div>
@@ -40,6 +40,9 @@ export function UserPageItem({user}: UserProps): JSX.Element {
                 <div className="preorder-table__cell preorder-table__cell--empty"></div>
               </div>
               {user.preOrder.map((item) => {
+                const link = generatePath(AppRoute.ProductPage, {
+                  id: `${item.id}`,
+                });
                 const handleRemove = () => {
                   dispatch(removeItemFromPreOrder({ user: user, item: item }));
                   removeItemFromUserPreOrder(user, item, dispatch);
@@ -66,39 +69,24 @@ export function UserPageItem({user}: UserProps): JSX.Element {
                 };
                 return (
                   <div className="preorder-table__row" key={item.id}>
-                    <div className="preorder-table__cell">{item.name}</div>
-                    <div className="preorder-table__cell">{item.style}</div>
-                    <div className="preorder-table__cell preorder-table__cell--btn">
-                      {
-                        isTablet
-                        ?
-                        <button
-                          className="preorder-table__change-btn preorder-table__change-btn--plus"
-                          onClick={handleIncrease}
-                        >+</button>
-                        :
-                        <button
-                          className="preorder-table__change-btn preorder-table__change-btn--minus"
-                          onClick={handleDecrease}
-                        >-</button>
-                      }
-
+                    <div className="preorder-table__cell">
+                      <Link className="preorder-table__link" to={link}>
+                        {item.name}
+                      </Link>
                     </div>
-                    <div className="preorder-table__cell">{item.amount}</div>
-                    <div className="preorder-table__cell preorder-table__cell--btn">
-                      {
-                        isTablet
-                        ?
-                        <button
-                          className="preorder-table__change-btn preorder-table__change-btn--minus"
-                          onClick={handleDecrease}
-                        >-</button>
-                        :
-                        <button
+                    <div className="preorder-table__cell">{item.style}</div>
+                    <div className="preorder-table__cell preorder-table__cell--amount">
+                      <button
+                        className="preorder-table__change-btn preorder-table__change-btn--minus"
+                        onClick={handleDecrease}
+                      >-</button>
+                      <span>
+                        {item.amount}
+                      </span>
+                      <button
                           className="preorder-table__change-btn preorder-table__change-btn--plus"
                           onClick={handleIncrease}
                         >+</button>
-                      }
                     </div>
                     <div className="preorder-table__cell">{item.abv}%</div>
                     <div className="preorder-table__cell">{item.ibu}</div>
@@ -130,15 +118,19 @@ export function UserPageItem({user}: UserProps): JSX.Element {
         <div className="user__notifications-list">
           <h3 className="title title--3 preorder-table__title">My notifications list</h3>
           <div className="preorder-table__wrapper">
-            <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.notifications.length + 1}, 1fr)` : 'repeat(5, minmax(80px, 1fr))'}}>
+            <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.notifications.length + 1}, 1fr)` : 'repeat(6, minmax(80px, 1fr))'}}>
               <div className="preorder-table__head">
                 <div className="preorder-table__cell preorder-table__cell--head">Name</div>
+                <div className="preorder-table__cell preorder-table__cell--head">Style</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Alcohol by Volume">ABV</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="International Bitterness Units">IBU</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Standard Reference Method (color)">SRM</div>
                 <div className="preorder-table__cell preorder-table__cell--empty"></div>
               </div>
               {user.notifications.map((item) => {
+                const link = generatePath(AppRoute.ProductPage, {
+                  id: `${item.id}`,
+                });
                 const handleRemove = () => {
                   dispatch(removeItemFromNotifications({ user: user, item: item }));
                   removeItemFromUserNotifications(user, item, dispatch);
@@ -146,7 +138,12 @@ export function UserPageItem({user}: UserProps): JSX.Element {
 
                 return (
                   <div className="preorder-table__row" key={item.id}>
-                    <div className="preorder-table__cell">{item.name}</div>
+                    <div className="preorder-table__cell">
+                      <Link className="preorder-table__link" to={link}>
+                        {item.name}
+                      </Link>
+                    </div>
+                    <div className="preorder-table__cell">{item.style}</div>
                     <div className="preorder-table__cell">{item.abv}%</div>
                     <div className="preorder-table__cell">{item.ibu}</div>
                     <div className="preorder-table__cell">{item.srm}</div>

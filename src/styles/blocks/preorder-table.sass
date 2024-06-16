@@ -24,9 +24,6 @@
     color: $white
     align-content: center
 
-  &__cell--narrow
-    font-size: 10px
-
   &__cell--empty
     border: none
     background-color: transparent
@@ -35,8 +32,15 @@
     display: flex
     padding: 0
 
-  &__cell--btn
+  &__cell--amount
+    display: grid
     padding: 0
+    grid-template-columns: repeat(3, minmax(10px, 1fr))
+    align-items: center
+    align-content: stretch
+    justify-items: center
+    & span
+      padding-inline: 10px
 
   &__change-buttons-wrapper
     display: flex
@@ -54,10 +58,11 @@
     &--minus
       background-color: #f8d7da
       color: #721c24
-      // border-right: 2px solid $black
+      border-right: 2px solid $black
     &--plus
       background-color: #d4edda
       color: #155724
+      border-left: 2px solid $black
     &:hover
       background-color: #000
       color: #fff
@@ -82,6 +87,15 @@
     &:active
       opacity: 0.3
 
+  &__link
+    @include link-reset
+    @include inter-semi-bold
+    font-size: 22px
+    text-decoration: underline
+    text-underline-offset: 2px
+    &:hover
+      opacity: 0.6
+
 @media (max-width: $tablet)
   .preorder-table
     display: grid
@@ -104,9 +118,8 @@
       align-items: center
       &--price
         gap: 20px
+      &--amount
+        display: grid
 
     &__cell--remove
       align-items: stretch
-
-    &__change-buttons-wrapper
-      align-items: unset

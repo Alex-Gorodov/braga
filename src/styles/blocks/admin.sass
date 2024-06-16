@@ -5,11 +5,75 @@
       font-size: 24px
   &__list
     @include list-reset
-    display: flex
-    flex-direction: column
-    gap: 20px
+    display: grid
+    grid-template-columns: 1fr
     &-item
       display: grid
-      grid-template-columns: repeat(auto-fit, minmax(50px, 250px))
-      justify-content: space-between
+      grid-template-columns: repeat(2, 1fr)
+      border: $section-border
+      &--notification
+        grid-template-columns: 1fr 2fr 1fr
+        &:nth-of-type(2n)
+          background-color: lighten($dark-gray, 25%)
+        &:nth-of-type(2n-1)
+          background-color: lighten($dark-gray, 15%)
+      &--preorders
+        grid-template-columns: 1fr 1fr 1fr
+      &--subscriber
+        grid-template-columns: 1fr
+  &__table-cell
+    height: 100%
+    padding: 0
+    &--name
+      display: flex
+      padding-left: 10px
       align-items: center
+      background-color: $dark-gray
+      @media (max-width: $tablet)
+        border-bottom: none
+        border-right: $section-border
+    &--notification,
+    &--preorders
+      padding: 10px
+      &:not(:last-of-type)
+        border-right: $section-border
+    &--subscriber
+      padding: 10px
+      &:nth-of-type(2n)
+        background-color: lighten($dark-gray, 25%)
+      &:nth-of-type(2n-1)
+        background-color: lighten($dark-gray, 15%)
+
+    &--value
+      background-color: lighten($dark-gray, 25%)
+  &__form-item
+    display: grid
+    height: 100%
+    grid-template-columns: repeat(2, 50%)
+  &__input
+    width: 100%
+    padding: 10px 0
+    border: none
+    text-align: center
+    background-color: transparent
+    border-radius: 0
+    transition: 0.3s
+    &::-webkit-inner-spin-button
+      display: none
+    &:hover
+      background-color: $black
+      color: $white
+    &:focus-visible
+      outline: none
+      background-color: $black
+      color: $white
+  &__submit-btn
+    border: none
+    border-left: $section-border
+    background-color: lighten($dark-gray, 14%)
+    color: $black
+    transition: 0.3s
+    cursor: pointer
+    &:hover
+      background-color: $black
+      color: $white

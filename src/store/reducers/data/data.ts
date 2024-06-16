@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, updateBeersAmount } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -20,6 +20,10 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(setBeersDataLoadingStatus, (state, action) => {
     state.isBeersDataLoading = action.payload.isBeersDataLoading;
+  })
+  .addCase(updateBeersAmount, (state, action) => {
+    const { beerToUpdate, numToUpdate } = action.payload;
+    state.beers[beerToUpdate.id].onStock = numToUpdate;
   })
   .addCase(loadUsers, (state, action) => {
     state.users = action.payload.users;
