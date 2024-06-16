@@ -1,7 +1,7 @@
 import { AuthorizationStatus } from "../const";
 import { store } from "../store";
 import { Beer } from "./beer";
-import { Guest } from "./guest";
+import { Guest, Subscriber } from "./guest";
 import { Review } from "./review";
 import { User } from "./user";
 import { UserAuthData } from "./user-auth-data";
@@ -13,9 +13,12 @@ export type AppDispatch = typeof store.dispatch;
 export type DataState = {
   beers: Beer[];
   users: User[];
-  isBeersDataLoading: boolean;
   guests: Guest[];
-  subscribers: (User | string)[];
+  isBeersDataLoading: boolean;
+  subscribers: Subscriber[];
+  isUsersDataLoading: boolean;
+  isGuestsDataLoading: boolean;
+  isSubscribersDataLoading: boolean;
 }
 
 export type AuthState = {

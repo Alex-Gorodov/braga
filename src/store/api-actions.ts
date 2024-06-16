@@ -1,6 +1,6 @@
 import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
 import { APIRoute, AuthorizationStatus } from "../const";
-import { loadBeers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
+import { loadBeers, loadGuests, loadSubscribers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
 import { AxiosInstance } from "axios";
@@ -12,7 +12,7 @@ import { AuthData } from "../types/auth-data";
 import { UserAuthData } from "../types/user-auth-data";
 import { removeUserFromLocalStorage, saveToken } from "../services/token";
 import { removeUser, setUser } from "./slices/user-slice";
-import { Guest } from "../types/guest";
+import { Guest, Subscriber } from "../types/guest";
 
 export type ThunkOptions = {
   dispatch: ThunkDispatch<RootState, AxiosInstance, any>;
@@ -38,7 +38,7 @@ export const fetchBeersAction = createAsyncThunk<void, undefined, ThunkOptions>(
 );
 
 export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
-  'data/fetchUsers', async (_arg, { dispatch}) => {
+  'data/fetchUsers', async (_arg, { dispatch }) => {
     try {
       dispatch(setUsersDataLoadingStatus({isUsersDataLoading: true}));
 
@@ -51,6 +51,38 @@ export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
     } catch (error) {
       console.error('Error fetching users data:', error);
       dispatch(setUsersDataLoadingStatus({ isUsersDataLoading: false }));
+    }
+  }
+)
+
+export const fetchGuestsAction = createAsyncThunk<void, undefined, ThunkOptions>(
+  'data/fetchGuests', async (_arg, { dispatch }) => {
+    try {
+      dispatch(setGuestsDataLoadingStatus({isGuestsDataLoading: false}))
+      const data = ((await database.ref(APIRoute.Guests).once("value")).val());
+      const guestsArray: Guest[] = data ? Object.values(data) : [];
+
+      dispatch(loadGuests({guests: guestsArray}));
+      dispatch(setGuestsDataLoadingStatus({isGuestsDataLoading: false}));
+    } catch (error) {
+      console.error('Error fetching guests data: ', error);
+      dispatch(setGuestsDataLoadingStatus({ isGuestsDataLoading: false }))
+    }
+  }
+)
+
+export const fetchSubscribersAction = createAsyncThunk<void, undefined, ThunkOptions>(
+  'data/fetchSubscribers', async (_arg, { dispatch }) => {
+    try {
+      dispatch(setSubscribersDataLoadingStatus({isSubscribersDataLoading: false}))
+      const data = ((await database.ref(APIRoute.Subscribers).once("value")).val());
+      const subscribersArray: Subscriber[] = data ? Object.values(data) : [];
+
+      dispatch(loadSubscribers({ subscribersEmails: subscribersArray }));
+      dispatch(setSubscribersDataLoadingStatus({ isSubscribersDataLoading: false }));
+    } catch (error) {
+      console.error('Error fetching subscribers data: ', error);
+      dispatch(setSubscribersDataLoadingStatus({ isSubscribersDataLoading: false }))
     }
   }
 )

@@ -5,15 +5,23 @@ import { Review } from "../types/review";
 import { RootState } from "./root-reducer";
 import { User } from "../types/user";
 import { UserAuthData } from "../types/user-auth-data";
-import { Guest } from "../types/guest";
+import { Guest, Subscriber } from "../types/guest";
 
 export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boolean}>('data/setBeersDataLoadingStatus');
 
 export const loadBeers = createAction<{beers: Beer[]}>('data/loadBeers');
 
-export const setCartDataLoadingStatus = createAction<{isCartDataLoading: boolean}>('data/setCartDataLoadingStatus');
+export const setUsersDataLoadingStatus = createAction<{isUsersDataLoading: boolean}>('data/setUsersDataLoadingStatus');
 
-export const loadCart = createAction<{beers: BeerInCart[]}>('data/loadCart');
+export const loadUsers = createAction<{users: User[]}>('data/loadUsers');
+
+export const setGuestsDataLoadingStatus = createAction<{isGuestsDataLoading: boolean}>('data/setGuestsDataLoadingStatus');
+
+export const loadGuests = createAction<{guests: Guest[]}>('data/loadGuests');
+
+export const setSubscribersDataLoadingStatus = createAction<{isSubscribersDataLoading: boolean}>('data/setSubscribersDataLoadingStatus');
+
+export const loadSubscribers = createAction<{subscribersEmails: Subscriber[]}>('data/loadSubscribers');
 
 export const addItemToCart = createAction<{user: User, item: BeerInCart, amount: number}>('data/addItemToCart');
 
@@ -22,10 +30,6 @@ export const removeFromCart = createAction<{user: User, item: BeerInCart}>('data
 export const requireAuthorization = createAction<{authorizationStatus: AuthorizationStatus}>('user/requireAuthorization');
 
 export const setUserInformation = createAction<{userInformation: UserAuthData}>('user/setUserInformation');
-
-export const setUsersDataLoadingStatus = createAction<{isUsersDataLoading: boolean}>('data/setUsersDataLoadingStatus');
-
-export const loadUsers = createAction<{users: User[]}>('data/loadUsers');
 
 export const toggleSignUpForm = createAction<{isOpened: boolean}>('page/toggleSignUpForm');
 
@@ -63,4 +67,4 @@ export const removeItemFromNotifications = createAction<{user: User, item: Beer}
 
 export const addGuestNotification = createAction<{guest: Guest, item: Beer}>('data/addGuestNotification')
 
-export const addSubscriber = createAction<{subscriber: string}>('data/addSubscriber');
+export const addSubscriber = createAction<{subscriber: Subscriber}>('data/addSubscriber');

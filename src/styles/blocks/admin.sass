@@ -1,0 +1,15 @@
+.admin
+  &__container
+    &-title
+      margin-bottom: 20px
+      font-size: 24px
+  &__list
+    @include list-reset
+    display: flex
+    flex-direction: column
+    gap: 20px
+    &-item
+      display: grid
+      grid-template-columns: repeat(auto-fit, minmax(50px, 250px))
+      justify-content: space-between
+      align-items: center

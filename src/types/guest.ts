@@ -7,3 +7,7 @@ export type Guest = {
   phone?: string | null;
   notifications: Beer[];
 }
+
+export type Subscriber = {
+  email: string;
+}

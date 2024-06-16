@@ -1,13 +1,16 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadCart, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
   users: [],
-  isBeersDataLoading: false,
   guests: [],
-  subscribers: []
+  subscribers: [],
+  isBeersDataLoading: false,
+  isUsersDataLoading: false,
+  isGuestsDataLoading: false,
+  isSubscribersDataLoading: false
 }
 
 export const dataReducer = createReducer(initialState, (builder) => {
@@ -20,6 +23,21 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(loadUsers, (state, action) => {
     state.users = action.payload.users;
+  })
+  .addCase(setUsersDataLoadingStatus, (state, action) => {
+    state.isUsersDataLoading = action.payload.isUsersDataLoading;
+  })
+  .addCase(loadGuests, (state, action) => {
+    state.guests = action.payload.guests;
+  })
+  .addCase(setGuestsDataLoadingStatus, (state, action) => {
+    state.isGuestsDataLoading = action.payload.isGuestsDataLoading;
+  })
+  .addCase(loadSubscribers, (state, action) => {
+    state.subscribers = action.payload.subscribersEmails;
+  })
+  .addCase(setSubscribersDataLoadingStatus, (state, action) => {
+    state.isSubscribersDataLoading = action.payload.isSubscribersDataLoading;
   })
   .addCase(addItemToCart, (state, action) => {
     const { user, item, amount } = action.payload;
@@ -158,18 +176,11 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(addSubscriber, (state, action) => {
     const { subscriber } = action.payload;
-    const userToFind = state.users.find(
-      (user) => subscriber === user.email
-    );
 
     if (!state.subscribers) {
       state.subscribers = [];
     }
 
-    if (userToFind) {
-      state.subscribers.push(userToFind)
-    } else {
-      state.subscribers.push(subscriber);
-    }
+    state.subscribers.push(subscriber);
   })
 })

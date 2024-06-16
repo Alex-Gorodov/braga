@@ -2,7 +2,7 @@ import { User } from "../../types/user";
 import { useDispatch } from "react-redux";
 import { addItemToPreOrder, removeItemFromNotifications, removeItemFromPreOrder } from "../../store/actions";
 import { addItemToUserPreOrder, removeItemFromUserNotifications, removeItemFromUserPreOrder } from "../../store/api-actions";
-import { useIsMobile } from "../../hooks/useSizes";
+import { useIsTablet } from "../../hooks/useSizes";
 
 type UserProps = {
   user: User;
@@ -10,16 +10,14 @@ type UserProps = {
 
 export function UserPageItem({user}: UserProps): JSX.Element {
   const dispatch = useDispatch();
-  const isMobile = useIsMobile();
+  const isTablet = useIsTablet();
 
   return (
     <div className="user">
       <h1 className="visually-hidden">Hello, {user.name}!</h1>
-      {
-        <h2 className="title title--2">
-          Hello, {user.name}!
-        </h2>
-      }
+      <h2 className="title title--2">
+        Hello, {user.name}!
+      </h2>
       <div className="user__avatar-wrapper">
         <img className="user__avatar" src={user.avatar} alt={`${user.name}-avatar`} />
       </div>
@@ -28,11 +26,13 @@ export function UserPageItem({user}: UserProps): JSX.Element {
         <div className="user__preorder-list">
           <h3 className="title title--3 preorder-table__title">My pre-order list</h3>
           <div className="preorder-table__wrapper">
-            <div className="preorder-table" style={{gridTemplateColumns: isMobile ? `repeat(${user.preOrder.length + 1}, 1fr)` : 'repeat(8, minmax(80px, 1fr))'}}>
+            <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.preOrder.length + 1}, 1fr)` : 'repeat(2, minmax(0, 1fr)) 55px minmax(0, 1fr) 55px repeat(5, minmax(0, 1fr))'}}>
               <div className="preorder-table__head">
                 <div className="preorder-table__cell preorder-table__cell--head">Name</div>
+                <div className="preorder-table__cell preorder-table__cell--head">Style</div>
+                <div className="preorder-table__cell preorder-table__cell--head preorder-table__cell--narrow">{isTablet ? 'Increase' : 'Decrease'}</div>
                 <div className="preorder-table__cell preorder-table__cell--head">Amount</div>
-                <div className="preorder-table__cell preorder-table__cell--head preorder-table__cell--wild">Decrease / Increase</div>
+                <div className="preorder-table__cell preorder-table__cell--head preorder-table__cell--narrow">{isTablet ? 'Decrease' : 'Increase'}</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Alcohol by Volume">ABV</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="International Bitterness Units">IBU</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Standard Reference Method (color)">SRM</div>
@@ -67,16 +67,38 @@ export function UserPageItem({user}: UserProps): JSX.Element {
                 return (
                   <div className="preorder-table__row" key={item.id}>
                     <div className="preorder-table__cell">{item.name}</div>
+                    <div className="preorder-table__cell">{item.style}</div>
+                    <div className="preorder-table__cell preorder-table__cell--btn">
+                      {
+                        isTablet
+                        ?
+                        <button
+                          className="preorder-table__change-btn preorder-table__change-btn--plus"
+                          onClick={handleIncrease}
+                        >+</button>
+                        :
+                        <button
+                          className="preorder-table__change-btn preorder-table__change-btn--minus"
+                          onClick={handleDecrease}
+                        >-</button>
+                      }
+
+                    </div>
                     <div className="preorder-table__cell">{item.amount}</div>
-                    <div className="preorder-table__cell preorder-table__change-buttons-wrapper">
-                      <button
-                        className="preorder-table__change-btn preorder-table__change-btn--minus"
-                        onClick={handleDecrease}
-                      >-</button>
-                      <button
-                        className="preorder-table__change-btn preorder-table__change-btn--plus"
-                        onClick={handleIncrease}
-                      >+</button>
+                    <div className="preorder-table__cell preorder-table__cell--btn">
+                      {
+                        isTablet
+                        ?
+                        <button
+                          className="preorder-table__change-btn preorder-table__change-btn--minus"
+                          onClick={handleDecrease}
+                        >-</button>
+                        :
+                        <button
+                          className="preorder-table__change-btn preorder-table__change-btn--plus"
+                          onClick={handleIncrease}
+                        >+</button>
+                      }
                     </div>
                     <div className="preorder-table__cell">{item.abv}%</div>
                     <div className="preorder-table__cell">{item.ibu}</div>
@@ -108,7 +130,7 @@ export function UserPageItem({user}: UserProps): JSX.Element {
         <div className="user__notifications-list">
           <h3 className="title title--3 preorder-table__title">My notifications list</h3>
           <div className="preorder-table__wrapper">
-            <div className="preorder-table" style={{gridTemplateColumns: isMobile ? `repeat(${user.notifications.length + 1}, 1fr)` : 'repeat(5, minmax(80px, 1fr))'}}>
+            <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.notifications.length + 1}, 1fr)` : 'repeat(5, minmax(80px, 1fr))'}}>
               <div className="preorder-table__head">
                 <div className="preorder-table__cell preorder-table__cell--head">Name</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Alcohol by Volume">ABV</div>

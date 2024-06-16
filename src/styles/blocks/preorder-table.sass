@@ -1,6 +1,5 @@
 .preorder-table
   display: grid
-  grid-template-columns: repeat(8, minmax(80px, 1fr))
   text-align: center
 
   &__wrapper
@@ -25,16 +24,18 @@
     color: $white
     align-content: center
 
-  &__cell--wild
-    font-size: 12px
+  &__cell--narrow
+    font-size: 10px
 
   &__cell--empty
     border: none
     background-color: transparent
 
-
   &__cell--remove
     display: flex
+    padding: 0
+
+  &__cell--btn
     padding: 0
 
   &__change-buttons-wrapper
@@ -45,14 +46,15 @@
   &__change-btn
     @include button-reset
     @include inter-semi-bold
+    width: 100%
+    height: 100%
     padding: 14px
-    width: 50%
     cursor: pointer
     transition: background-color 0.3s, color 0.3s
     &--minus
       background-color: #f8d7da
       color: #721c24
-      border-right: 2px solid $black
+      // border-right: 2px solid $black
     &--plus
       background-color: #d4edda
       color: #155724
@@ -87,12 +89,12 @@
     &__head
       display: grid
       grid-template-columns: 1fr
-      grid-template-rows: repeat(8, 60px)
+      grid-template-rows: repeat(10, 60px)
 
     &__row
       display: grid
       grid-template-columns: 1fr
-      grid-template-rows: repeat(8, 60px)
+      grid-template-rows: repeat(10, 60px)
 
     &__cell
       padding: 0

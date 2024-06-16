@@ -49,7 +49,7 @@ export function SubscribeForm(): JSX.Element {
   };
 
   const handleAddSubscriber = () => {
-    dispatch(addSubscriber({subscriber: formData.email}));
+    dispatch(addSubscriber({subscriber: formData}));
     addSubscriberToDatabase(formData.email);
   }
 
