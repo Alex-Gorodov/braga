@@ -14,7 +14,7 @@ import { RegisterForm } from "../register-form/register-form";
 import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
 import { useGetUser } from "../../hooks/useGetUser";
 import { SaleBanner } from "../sale-banner/sale-banner";
-import { toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 
 export function Header(): JSX.Element {
   const activeUser = useGetUser();
@@ -23,7 +23,7 @@ export function Header(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
-  const [isCartOpened, setCartOpened] = useState(false);
+  const isCartOpened = useSelector((state: RootState) => state.page.isCartOpened)
   const [isBannerClosed, setBannerClosed] = useState(false);
   const location = useLocation();
 
@@ -69,13 +69,13 @@ export function Header(): JSX.Element {
   }) as React.RefObject<HTMLDivElement>;
 
   const cartRef = useOutsideClick(() => {
-    setCartOpened(false);
+    dispatch(toggleCart({isCartOpened: false}))
   }) as React.RefObject<HTMLDivElement>;
 
   const totalAmount = cartItems ? cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0) : 0;
 
   const handleCartOpen = () => {
-    setCartOpened(!isCartOpened)
+    dispatch(toggleCart({isCartOpened: !isCartOpened}))
   }
 
   return (
@@ -115,7 +115,7 @@ export function Header(): JSX.Element {
         <div className="header__container">
           <button className={burgerClassName} onClick={() => {
             setMenuOpened(!isMenuOpened);
-            setCartOpened(false);
+            dispatch(toggleCart({isCartOpened: false}))
             dispatch(toggleSignInForm({isOpened: false}))
             dispatch(toggleSignUpForm({isOpened: false}))
             dispatch(toggleGuestNotificationForm({isOpened: false}))

@@ -72,3 +72,5 @@ export const removeItemFromNotifications = createAction<{user: User, item: Beer}
 export const addGuestNotification = createAction<{guest: Guest, item: Beer}>('data/addGuestNotification')
 
 export const addSubscriber = createAction<{subscriber: Subscriber}>('data/addSubscriber');
+
+export const toggleCart = createAction<{isCartOpened: boolean}>('page/toggleCart');

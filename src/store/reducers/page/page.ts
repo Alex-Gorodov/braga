@@ -1,12 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { PageState } from "../../../types/state";
-import { setUploadedPath, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../actions";
+import { setUploadedPath, toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../actions";
 
 const initialState: PageState = {
   uploadedPath: '',
   isSignInFormOpened: false,
   isSignUpFormOpened: false,
   isGuestNotificationFormOpened: false,
+  isCartOpened: false,
 }
 
 export const pageReducer = createReducer(initialState, (builder) => {
@@ -23,5 +24,8 @@ export const pageReducer = createReducer(initialState, (builder) => {
     })
     .addCase(toggleGuestNotificationForm, (state, action) => {
       state.isGuestNotificationFormOpened = action.payload.isOpened
+    })
+    .addCase(toggleCart, (state, action) => {
+      state.isCartOpened = action.payload.isCartOpened;
     })
 })

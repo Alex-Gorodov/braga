@@ -12,16 +12,30 @@
   border-left: $section-border
   transition: 0.5s
   z-index: 20
+  @media (max-width: $mobile)
+    padding: 20px 10px
   &--opened
     right: 0
   &__title
     @include inter-semi-bold
     text-align: right
+  &__close-btn
+    @include button-reset
+    position: absolute
+    top: 65px
+    left: 40px
+    cursor: pointer
+    color: $black
+    @media (max-width: $mobile)
+      top: 45px
+      left: 20px
   &__list
     @include list-reset
     display: flex
     flex-direction: column
     gap: 20px
+    &--page
+      margin: 40px 0
   &__total
     @include inter-semi-bold
     margin: 0
