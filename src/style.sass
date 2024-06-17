@@ -163,9 +163,11 @@ body
     display: none
   &:has(.ticker)
     .main
-      margin-top: 119px
+      margin-top: 118px
       @media (max-width: $mobile)
         margin-top: 95px
+  &:has(.header--mobile):not(:has(.ticker)) .main
+    margin-top: 61px
 
 .visually-hidden
   position: absolute
@@ -191,9 +193,7 @@ body
   display: flex
   flex-direction: column
   flex-grow: 1
-  margin-top: 85px
+  margin-top: 84px
   transition: 0.3s
-  &:has(.header--mobile)
-    margin-top: 61px
   &:not(:has(.section__container))
     border-bottom: $section-border

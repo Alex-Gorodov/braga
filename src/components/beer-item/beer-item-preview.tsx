@@ -22,7 +22,6 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const user = useGetUser();
 
@@ -93,24 +92,21 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         ?
           ''
         :
-          !location.pathname.includes(AppRoute.Shop)
+          item.onStock === 0
+          ?
+            item.onBrewing && user
             ?
-              item.onStock === 0
-              ?
-                item.onBrewing && user
-                ?
-                  <div className={itemButtonWrapperClassName}>
-                    <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
-                  </div>
-                :
-                  <div className={itemButtonWrapperClassName}>
-                    <Link className={itemButtonClassName} to={link}>Read more</Link>
-                  </div>
-              :
-                <div className={itemButtonWrapperClassName}>
-                  <button className={itemButtonClassName} onClick={handleAddToCart} type="button">Add to cart</button>
-                </div>
-           : ''
+              <div className={itemButtonWrapperClassName}>
+                <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
+              </div>
+            :
+              <div className={itemButtonWrapperClassName}>
+                <Link className={itemButtonClassName} to={link}>Read more</Link>
+              </div>
+          :
+            <div className={itemButtonWrapperClassName}>
+              <button className={itemButtonClassName} onClick={handleAddToCart} type="button">Add to cart</button>
+            </div>
       }
       <div className="beer__picture-wrapper">
         {

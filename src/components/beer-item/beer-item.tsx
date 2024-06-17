@@ -1,6 +1,6 @@
 import { Link, generatePath } from "react-router-dom";
 import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SuccessMessages } from "../../const";
-import { Beer } from "../../types/beer"
+import { Beer, BeerInCart } from "../../types/beer"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm } from "../../store/actions";
