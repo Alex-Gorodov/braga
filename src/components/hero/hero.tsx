@@ -16,7 +16,7 @@ export function Hero(): JSX.Element {
             <Star/>
           </div>
           <p className='hero__text'>
-            The journey of our <span className='hero__text hero__text--bold'>successful</span> craft <span className='hero__text hero__text--bold'>microbrewery</span>
+            The <span className='hero__text hero__text--bold'>journey</span> of our craft <span className='hero__text hero__text--bold'>microbrewery</span>
           </p>
           <Link className='button button--reverse' to={AppRoute.Blog}>Learn more</Link>
         </div>

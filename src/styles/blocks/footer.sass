@@ -29,6 +29,7 @@
         animation-delay: 0.25s
         animation-duration: 1s
         letter-spacing: -10px
+        color: $accent-yellow
       &--3
         padding-left: 10px
         grid-column: 2
@@ -44,9 +45,32 @@
   &__address
     margin-top: 40px
     font-style: normal
-  &__phone
+  &__contacts
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 40px
+  &__link
     @include link-reset
+    position: relative
+    color: $black
     &:hover
-      opacity: 0.6
+      color: $accent-yellow
+    &:active
+      opacity: 0.3
+    &:focus-visible
+      outline: none
+      color: $accent-yellow
+    &:not(:last-of-type)::after
+      position: absolute
+      top: 0
+      left: calc(100% + 19px)
+      display: block
+      width: 2px
+      height: 100%
+      background-color: $black
+      content: ''
+
   &__copyrights
     margin: 0

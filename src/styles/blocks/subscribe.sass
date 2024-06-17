@@ -59,25 +59,25 @@
     &--error
       border-bottom: 2px solid red
 
-  &__submit
-    @include link-reset
-    padding: 10px
-    border: none
-    border-radius: 0
-    grid-column: 1/-1
-    margin: 0
-    position: relative
-    background-color: $black
-    color: $white
-    white-space: nowrap
-    font-size: 16px
-    font-family: inherit
-    overflow: hidden
-    &:active
-      background-color: rgba($black, 50%)
-    &:focus-visible
-      background-color: $black
-      color: $white
+  // &__submit
+  //   @include link-reset
+  //   padding: 10px
+  //   border: none
+  //   border-radius: 0
+  //   grid-column: 1/-1
+  //   margin: 0
+  //   position: relative
+  //   background-color: $black
+  //   color: $white
+  //   white-space: nowrap
+  //   font-size: 16px
+  //   font-family: inherit
+  //   overflow: hidden
+  //   &:active
+  //     background-color: rgba($black, 50%)
+  //   &:focus-visible
+  //     background-color: $black
+  //     color: $white
 
   &__success-message
     width: 100%
@@ -114,3 +114,6 @@
     transition: 0.3s
     &:hover
       right: 5px
+    &:focus-visible
+      right: 5px
+      outline: none
