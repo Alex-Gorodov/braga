@@ -1,14 +1,17 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.ddcdf90b.css",
-    "main.js": "/braga/static/js/main.097a3877.js",
+    "main.css": "/braga/static/css/main.809e4d8d.css",
+    "main.js": "/braga/static/js/main.8d428c49.js",
     "static/media/hand.png": "/braga/static/media/hand.9c02734d030b38801843.png",
     "static/media/beer-video-poster.jpg": "/braga/static/media/beer-video-poster.d2d6f9741418c795656d.jpg",
     "static/media/braga-logo.svg": "/braga/static/media/braga-logo.0dd70711429a888c1a6a22df0c39f8d5.svg",
     "static/media/hidden-password.svg": "/braga/static/media/hidden-password.7220172149990f5c34b1bc09aebf5137.svg",
     "static/media/showed-password.svg": "/braga/static/media/showed-password.715a3d24a5a66ad45b899cf3d816f168.svg",
+    "static/media/whatsapp.svg": "/braga/static/media/whatsapp.4b0dc2d7ef8eb3090dcc75e7536e940c.svg",
     "static/media/upload-icon.svg": "/braga/static/media/upload-icon.39623dca42b579a21299dd86b5716928.svg",
     "index.html": "/braga/index.html",
+    "static/media/telegram.svg": "/braga/static/media/telegram.1e6ada1aa16e7663a8544864df22f649.svg",
+    "static/media/phone.svg": "/braga/static/media/phone.4806e03fc5014cbd22363db3a5713e3b.svg",
     "static/media/rating-star.svg": "/braga/static/media/rating-star.04a40ec491e4f530de07e6a12d5b4df8.svg",
     "static/media/user.svg": "/braga/static/media/user.dda1f80c63b2a52d27c54ca34ceeab28.svg",
     "static/media/star.svg": "/braga/static/media/star.ca7bbd642402fb8859e6ea1436961f8a.svg",
@@ -17,11 +20,11 @@
     "static/media/cross.svg": "/braga/static/media/cross.303f2d6a5e0d26e8bb5876a37b0407b9.svg",
     "static/media/select.svg": "/braga/static/media/select.dd8e8f67e6cf7fb0c759.svg",
     "static/media/form-arrow.svg": "/braga/static/media/form-arrow.5df1ec287b210d4425f705cea3b93940.svg",
-    "main.ddcdf90b.css.map": "/braga/static/css/main.ddcdf90b.css.map",
-    "main.097a3877.js.map": "/braga/static/js/main.097a3877.js.map"
+    "main.809e4d8d.css.map": "/braga/static/css/main.809e4d8d.css.map",
+    "main.8d428c49.js.map": "/braga/static/js/main.8d428c49.js.map"
   },
   "entrypoints": [
-    "static/css/main.ddcdf90b.css",
-    "static/js/main.097a3877.js"
+    "static/css/main.809e4d8d.css",
+    "static/js/main.8d428c49.js"
   ]
 }
