@@ -4,6 +4,7 @@
   width: 100%
   margin: 0 auto
   padding: 40px 60px
+  flex-grow: 1
   @media (max-width: 490px)
     padding: 40px 20px
   &__top-wrapper
@@ -75,7 +76,7 @@
     @include list-reset
     display: grid
     padding-top: 40px
-    grid-template-columns: repeat(auto-fit, minmax(140px, 220px))
+    grid-template-columns: repeat(auto-fit, minmax(100px, 220px))
     gap: 2%
     justify-content: space-between
     grid-column: 1 / 2
@@ -83,6 +84,8 @@
       gap: 40px
       grid-column: 1 / -1
       justify-content: center
+    &:has(.spinner-wrapper)
+      grid-template-columns: 1fr
   &__item
     display: flex
     flex-direction: column

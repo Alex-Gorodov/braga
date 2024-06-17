@@ -18,7 +18,7 @@ import cn from 'classnames';
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
-  const isBeersLoaded = useSelector((state: RootState) => state.data.isBeersDataLoading);
+  const isBeersLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);
   const [isSortingOpened, setSortingOpened] = useState(false);
   const [sorting, setSorting] = useState(SortingNames.Default);
   const [initialBeers, setInitialBeers] = useState<Beer[]>([]);
@@ -103,110 +103,110 @@ export function Shop(): JSX.Element {
         </div>
         <ul className="shop__items-list" ref={sortRef}>
           {
-            !isBeersLoaded
-            ?
-            initialBeers.map((item) => {
+            // !isBeersLoading
+            // ?
+            // initialBeers.map((item) => {
 
-              const link = generatePath(AppRoute.ProductPage, {
-                id: `${item.id}`,
-              });
+            //   const link = generatePath(AppRoute.ProductPage, {
+            //     id: `${item.id}`,
+            //   });
 
-              const handleAddToCart = async () => {
-                if (!user || isAddingToCart) {
-                  console.error('User is undefined or already adding to cart');
-                  return;
-                }
+            //   const handleAddToCart = async () => {
+            //     if (!user || isAddingToCart) {
+            //       console.error('User is undefined or already adding to cart');
+            //       return;
+            //     }
 
-                setIsAddingToCart(true);
+            //     setIsAddingToCart(true);
 
-                try {
-                  const itemInCart: BeerInCart = {
-                    ...item,
-                    amount: 1,
-                  };
+            //     try {
+            //       const itemInCart: BeerInCart = {
+            //         ...item,
+            //         amount: 1,
+            //       };
 
-                  dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
+            //       dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
 
-                  await addItemToUserDatabaseCart(user, itemInCart);
-                } finally {
-                  setIsAddingToCart(false);
-                }
-              };
+            //       await addItemToUserDatabaseCart(user, itemInCart);
+            //     } finally {
+            //       setIsAddingToCart(false);
+            //     }
+            //   };
 
-              const handleAddToPreOrder = async () => {
-                if (!user || isAddingToPreOrder) {
-                  console.error('User is undefined or already adding to pre-order');
-                  return;
-                }
+            //   const handleAddToPreOrder = async () => {
+            //     if (!user || isAddingToPreOrder) {
+            //       console.error('User is undefined or already adding to pre-order');
+            //       return;
+            //     }
 
-                setIsAddingToPreOrder(true);
+            //     setIsAddingToPreOrder(true);
 
-                try {
-                  const preOrderItem: BeerInCart = {
-                    ...item,
-                    amount: 1,
-                  };
+            //     try {
+            //       const preOrderItem: BeerInCart = {
+            //         ...item,
+            //         amount: 1,
+            //       };
 
-                  dispatch(addItemToPreOrder({ user: user, item: preOrderItem, amount: 1 }));
-                  await addItemToUserPreOrder(user, preOrderItem, 1);
-                } finally {
-                  setIsAddingToPreOrder(false);
-                }
-              };
+            //       dispatch(addItemToPreOrder({ user: user, item: preOrderItem, amount: 1 }));
+            //       await addItemToUserPreOrder(user, preOrderItem, 1);
+            //     } finally {
+            //       setIsAddingToPreOrder(false);
+            //     }
+            //   };
 
-              const itemButtonWrapperClassName = cn("button__wrapper", {
-                "button__wrapper--active": isCartBtnShown.item === item,
-              });
+            //   const itemButtonWrapperClassName = cn("button__wrapper", {
+            //     "button__wrapper--active": isCartBtnShown.item === item,
+            //   });
 
-              return (
-                <li
-                  className="shop__item"
-                  key={`shop-item-${item.name}`}
-                  onMouseEnter={() => setCartBtnShown({item: item, isButtonShowed: true})}
-                  onMouseLeave={() => setCartBtnShown({item: null, isButtonShowed: false})}
-                  onTouchStart={() => setCartBtnShown({item: isCartBtnShown.isButtonShowed ? item : null, isButtonShowed: !isCartBtnShown.isButtonShowed})}
-                >
-                  <Link className="shop__item-link" to={link}>
-                    <div className="shop__item-img-wrapper">
-                      <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
-                      {
-                        item.onStock === 0
-                        ?
-                          item.onBrewing && user
-                          ?
-                            <div className={itemButtonWrapperClassName}>
-                              <button className="button beer__cart-btn" onClick={handleAddToPreOrder} type="button">Pre-order</button>
-                            </div>
-                          :
-                            ''
-                        :
-                          <div className={itemButtonWrapperClassName}>
-                            <button className="button beer__cart-btn" onClick={handleAddToCart} type="button">Add to cart</button>
-                          </div>
-                      }
-                      {
-                        item.onBrewing && <Soon cn="shop__item-label"/>
-                      }
-                      {
-                        !item.onStock && !item.onBrewing && <Sold cn="shop__item-label"/>
-                      }
-                    </div>
-                    <span className="beer__item-name">
-                      {item.name}
-                    </span>
-                  </Link>
-                  <span className="product__price">₪ {item.price}</span>
-                  <div>
-                    {item.categories.map((i) => (
-                      <span key={`${item.name}-category-${i}`}>
-                        {`${i}${item.categories.indexOf(i) === item.categories.length - 1 ? '' : ', '}`}
-                      </span>
-                    ))}
-                  </div>
-                </li>
-              )}
-            )
-            :
+            //   return (
+            //     <li
+            //       className="shop__item"
+            //       key={`shop-item-${item.name}`}
+            //       onMouseEnter={() => setCartBtnShown({item: item, isButtonShowed: true})}
+            //       onMouseLeave={() => setCartBtnShown({item: null, isButtonShowed: false})}
+            //       onTouchStart={() => setCartBtnShown({item: isCartBtnShown.isButtonShowed ? item : null, isButtonShowed: !isCartBtnShown.isButtonShowed})}
+            //     >
+            //       <Link className="shop__item-link" to={link}>
+            //         <div className="shop__item-img-wrapper">
+            //           <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
+            //           {
+            //             item.onStock === 0
+            //             ?
+            //               item.onBrewing && user
+            //               ?
+            //                 <div className={itemButtonWrapperClassName}>
+            //                   <button className="button beer__cart-btn" onClick={handleAddToPreOrder} type="button">Pre-order</button>
+            //                 </div>
+            //               :
+            //                 ''
+            //             :
+            //               <div className={itemButtonWrapperClassName}>
+            //                 <button className="button beer__cart-btn" onClick={handleAddToCart} type="button">Add to cart</button>
+            //               </div>
+            //           }
+            //           {
+            //             item.onBrewing && <Soon cn="shop__item-label"/>
+            //           }
+            //           {
+            //             !item.onStock && !item.onBrewing && <Sold cn="shop__item-label"/>
+            //           }
+            //         </div>
+            //         <span className="beer__item-name">
+            //           {item.name}
+            //         </span>
+            //       </Link>
+            //       <span className="product__price">₪ {item.price}</span>
+            //       <div>
+            //         {item.categories.map((i) => (
+            //           <span key={`${item.name}-category-${i}`}>
+            //             {`${i}${item.categories.indexOf(i) === item.categories.length - 1 ? '' : ', '}`}
+            //           </span>
+            //         ))}
+            //       </div>
+            //     </li>
+            //   )}
+            // )
+            // :
             <Spinner wrapper size="40"/>
           }
         </ul>
