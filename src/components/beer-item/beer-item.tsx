@@ -188,14 +188,17 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               }
               {item.onStock === 0 || !item.onStock ? <> &#128553;</> : ''}
             </span>
-            <button className="button button--small"
-              onClick={() => {
-                setNotificationAdding(true);
-                user ? handleNotificationListUpdate(user) : handleGuestNotificationListUpdate();
-              }}
-            >
-              { renderNotificationText() }
-            </button>
+            {
+              !item.onStock &&
+              <button className="button button--small"
+                onClick={() => {
+                  setNotificationAdding(true);
+                  user ? handleNotificationListUpdate(user) : handleGuestNotificationListUpdate();
+                }}
+              >
+                { renderNotificationText() }
+              </button>
+            }
           </div>
           <div>
             <p className="product__details-title">Categories:</p>
