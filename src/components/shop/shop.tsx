@@ -166,7 +166,7 @@ export function Shop(): JSX.Element {
                   onMouseLeave={() => setCartBtnShown({item: null, isButtonShowed: false})}
                   onTouchStart={() => setCartBtnShown({item: isCartBtnShown.isButtonShowed ? item : null, isButtonShowed: !isCartBtnShown.isButtonShowed})}
                 >
-                  <Link className="shop__item-link" to={link}>
+                  <Link className="shop__item-link shop__item-link--image" to={link}>
                     <div className="shop__item-img-wrapper">
                       <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
                       {
@@ -191,11 +191,13 @@ export function Shop(): JSX.Element {
                         !item.onStock && !item.onBrewing && <Sold cn="shop__item-label"/>
                       }
                     </div>
+                  </Link>
+                  <Link className="shop__item-link" to={link}>
                     <span className="beer__item-name">
                       {item.name}
                     </span>
                   </Link>
-                  <span className="product__price">₪ {item.price}</span>
+                  <span className="product__price shop__price">₪ {item.price}</span>
                   <div>
                     {item.categories.map((i) => (
                       <span key={`${item.name}-category-${i}`}>

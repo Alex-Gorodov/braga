@@ -13,7 +13,7 @@ export enum ScreenSizes {
   Mobile = 490,
   Tablet = 768,
   Desktop = 1280,
-  ContainerMaxWidth = 1250
+  ContainerMaxWidth = 1440
 }
 
 export enum APIRoute {

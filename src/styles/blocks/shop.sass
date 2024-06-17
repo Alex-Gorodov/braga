@@ -1,6 +1,6 @@
 .shop
   @include inter-regular
-  max-width: 1250px
+  max-width: $container-max-width
   width: 100%
   margin: 0 auto
   padding: 40px 60px
@@ -76,7 +76,7 @@
     @include list-reset
     display: grid
     padding-top: 40px
-    grid-template-columns: repeat(auto-fit, minmax(100px, 220px))
+    grid-template-columns: repeat(auto-fit, minmax(100px, 300px))
     gap: 2%
     justify-content: space-between
     grid-column: 1 / 2
@@ -87,11 +87,14 @@
     &:has(.spinner-wrapper)
       grid-template-columns: 1fr
   &__item
-    display: flex
-    flex-direction: column
+    display: grid
+    grid-template-columns: repeat(2, auto)
+    grid-template-rows: repeat(2, auto)
+    align-items: center
     gap: 20px
     &-img-wrapper
       position: relative
+      grid-column: 1 / -1
       display: flex
       justify-content: center
       align-items: center
@@ -101,11 +104,19 @@
       top: 5px
       right: 5px
       scale: 0.75
+  &__price
+    grid-column: 2
+    grid-row: 2
+    justify-self: end
   &__item-link
     @include link-reset
     @include inter-semi-bold
     display: flex
     flex-direction: column
+    grid-column: 1 / -1
+    grid-row: 2
     gap: 20px
     &:hover
       color: $link-hover
+    &--image
+      grid-row: 1
