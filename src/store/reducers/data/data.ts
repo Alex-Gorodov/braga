@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, updateBeersAmount } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerOnBrewing, updateBeersAmount } from "../../actions";
 
 const initialState: DataState = {
   beers: [],
@@ -24,6 +24,10 @@ export const dataReducer = createReducer(initialState, (builder) => {
   .addCase(updateBeersAmount, (state, action) => {
     const { beerToUpdate, numToUpdate } = action.payload;
     state.beers[beerToUpdate.id].onStock = numToUpdate;
+  })
+  .addCase(toggleBeerOnBrewing, (state, action) => {
+    const { beer, isOnBrewing } = action.payload;
+    state.beers[beer.id].onBrewing = isOnBrewing;
   })
   .addCase(loadUsers, (state, action) => {
     state.users = action.payload.users;

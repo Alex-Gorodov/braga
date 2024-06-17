@@ -329,6 +329,19 @@ export const adminChangeBeerCount = async (beer: Beer, num: number) => {
   }
 }
 
+export const adminToggleBeerOnBrewing = async (beer: Beer, isOnBrewing: boolean) => {
+  try {
+    const beerRef = database.ref(`${APIRoute.Beers}/${beer.id}`);
+    const snapshot = await beerRef.once('value');
+    const beerData = snapshot.val();
+
+    beerData.onBrewing = isOnBrewing;
+    await beerRef.update(beerData);
+  } catch (error) {
+    console.error("Error updating beer on brewing: ", error);
+  }
+}
+
 export const loginAction = createAsyncThunk<
   UserAuthData,
   AuthData,

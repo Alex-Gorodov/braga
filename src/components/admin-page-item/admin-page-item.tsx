@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useIsTablet } from "../../hooks/useSizes";
-import { updateBeersAmount } from "../../store/actions";
-import { adminChangeBeerCount } from "../../store/api-actions";
+import { toggleBeerOnBrewing, updateBeersAmount } from "../../store/actions";
+import { adminChangeBeerCount, adminToggleBeerOnBrewing } from "../../store/api-actions";
 import { useState } from "react";
 import { Beer } from "../../types/beer";
+import { FormCheckbox } from "../checkbox/checkbox";
 
 export function AdminPageItem(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
   const subscribers = useSelector((state: RootState) => state.data.subscribers);
   const guests = useSelector((state: RootState) => state.data.guests);
   const users = useSelector((state: RootState) => state.data.users);
-  const isTablet = useIsTablet();
   const dispatch = useDispatch();
 
   const [beerAmounts, setBeerAmounts] = useState<{ [key: number]: number }>(
@@ -38,6 +38,11 @@ export function AdminPageItem(): JSX.Element {
     adminChangeBeerCount(beer, Number(value));
   };
 
+  const handleUpdateIsOnBreewing = (beer: Beer, isOnBrew: boolean) => {
+    dispatch(toggleBeerOnBrewing({beer: beer, isOnBrewing: isOnBrew}));
+    adminToggleBeerOnBrewing(beer, isOnBrew);
+  }
+
   return (
     <div className="user admin user--admin">
       <h1 className="visually-hidden">Admin page</h1>
@@ -45,10 +50,26 @@ export function AdminPageItem(): JSX.Element {
       <div className="admin__container">
         <h3 className="title title--3 admin__container-title">Beers</h3>
         <ul className="admin__list">
-          {beers && beers.map((i) => (
-            <li className="admin__list-item" key={`admin-beer-${i.name}`}>
+            <li className="admin__list-item admin__list-item--beer admin__list-item--head" key={`admin-beer-table`}>
               <div className="admin__table-cell admin__table-cell--name">
-                <span>{i.name}</span>
+                <span>Name</span>
+              </div>
+              <div className="admin__table-cell admin__table-cell--name">
+                <span>Brew</span>
+              </div>
+              <div className="admin__table-cell admin__table-cell--name admin__table-cell--amount">
+                <span>Amount</span>
+              </div>
+            </li>
+          {beers && beers.map((i) => (
+            <li className="admin__list-item admin__list-item--beer" key={`admin-beer-${i.name}`}>
+              <div className="admin__table-cell admin__table-cell--name">
+                <span>{i.style}</span>
+              </div>
+              <div className="admin__table-cell admin__table-cell--on-brewing">
+                <span>
+                  <FormCheckbox id={i.name} checked={i.onBrewing} onChange={() => handleUpdateIsOnBreewing(i, !i.onBrewing)}/>
+                </span>
               </div>
               <div className="admin__table-cell admin__table-cell--value">
                 <form className="admin__form-item" action="#" method="post" onSubmit={(e) => handleUpdateBeerAmount(e, i)}>

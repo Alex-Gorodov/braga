@@ -9,8 +9,17 @@
     grid-template-columns: 1fr
     &-item
       display: grid
-      grid-template-columns: repeat(2, 1fr)
+      grid-template-columns: repeat(3, 1fr)
       border: $section-border
+      &--head
+        border: none
+        grid-template-columns: 0.5fr 60px 1fr
+        & .admin__table-cell--name
+          padding: 10px
+        & .admin__table-cell--amount
+          width: 50%
+      &--beer
+        grid-template-columns: 0.5fr 60px 1fr
       &--notification
         grid-template-columns: 1fr 2fr 1fr
         &:nth-of-type(2n)
@@ -29,9 +38,13 @@
       padding-left: 10px
       align-items: center
       background-color: $dark-gray
+      border-right: $section-border
       @media (max-width: $tablet)
         border-bottom: none
-        border-right: $section-border
+    &--on-brewing
+      // padding: 2px 0
+      border-right: $section-border
+      background-color: lighten($dark-gray,25%)
     &--notification,
     &--preorders
       padding: 10px
