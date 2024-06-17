@@ -35,6 +35,8 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
 
   const [isAuthing, setIsAuthing] = useState(false);
 
+  const [error, setError] = useState<ErrorMessages | null>(null);
+
   const initialData: dataProps = {
     email: {
       value: '',
@@ -112,6 +114,10 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
 
       handleCloseForm();
     } catch (error) {
+      setError(ErrorMessages.AuthError);
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
       console.error(error);
     } finally {
       setIsAuthing(false);
@@ -176,6 +182,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
             </div>
           </>
         }
+        <p className={`form__error-message ${error ? 'form__error-message--opened' : ''}`}>{error}</p>
       </form>
     </div>
     : <></>

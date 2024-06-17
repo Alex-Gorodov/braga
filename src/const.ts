@@ -32,6 +32,7 @@ export enum AuthorizationStatus {
 }
 
 export enum ErrorMessages {
+  AuthError = 'Invalid username or password. Please try again.',
   EmailError = 'Please enter correct e-mail.',
   PasswordError = 'Password must have at least one letter, one number, and be 8+ characters long.',
   CommentError = 'Error! Can\'t add review, please, try again.',

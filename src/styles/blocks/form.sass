@@ -120,8 +120,15 @@
     border-top: 2px solid $off-red
     color: $off-red
     margin: 0
-    z-index: 1
     transition: 0.3s
     background-color: $white
+    @media (max-width: $mobile)
+      bottom: unset
+      top: -40px
+      border-top: none
+      border-bottom: 2px solid $off-red
     &--opened
       bottom: 0px
+      @media (max-width: $mobile)
+        bottom: unset
+        top: 0
