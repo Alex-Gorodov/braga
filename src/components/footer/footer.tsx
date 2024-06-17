@@ -1,6 +1,7 @@
 import { ReactComponent as Whatsapp } from '../../img/icons/whatsapp.svg'
 import { ReactComponent as Telegram } from '../../img/icons/telegram.svg'
 import { ReactComponent as Phone } from '../../img/icons/phone.svg'
+import { ReactComponent as Location } from '../../img/icons/location.svg'
 
 export function Footer(): JSX.Element {
   return (
@@ -10,7 +11,12 @@ export function Footer(): JSX.Element {
         <span className="footer__logo-part footer__logo-part--2">AGA</span>
         <span className="footer__logo-part footer__logo-part--3">ewery</span>
       </div>
-      <address className="footer__text footer__address">Peer St, Haifa, IL</address>
+      <address className="footer__address">
+        <Location/>
+        <span className="footer__text">
+          Peer St, Haifa, IL
+        </span>
+      </address>
       <div className="footer__contacts">
         <a className="footer__link" href="tel:0543955573">
           <span className="visually-hidden">Call us</span>
