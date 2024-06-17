@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.1a7bdf36.css",
-    "main.js": "/braga/static/js/main.de044236.js",
+    "main.css": "/braga/static/css/main.ddcdf90b.css",
+    "main.js": "/braga/static/js/main.2f81ec8d.js",
     "static/media/hand.png": "/braga/static/media/hand.9c02734d030b38801843.png",
     "static/media/beer-video-poster.jpg": "/braga/static/media/beer-video-poster.d2d6f9741418c795656d.jpg",
     "static/media/braga-logo.svg": "/braga/static/media/braga-logo.0dd70711429a888c1a6a22df0c39f8d5.svg",
@@ -17,11 +17,11 @@
     "static/media/cross.svg": "/braga/static/media/cross.303f2d6a5e0d26e8bb5876a37b0407b9.svg",
     "static/media/select.svg": "/braga/static/media/select.dd8e8f67e6cf7fb0c759.svg",
     "static/media/form-arrow.svg": "/braga/static/media/form-arrow.5df1ec287b210d4425f705cea3b93940.svg",
-    "main.1a7bdf36.css.map": "/braga/static/css/main.1a7bdf36.css.map",
-    "main.de044236.js.map": "/braga/static/js/main.de044236.js.map"
+    "main.ddcdf90b.css.map": "/braga/static/css/main.ddcdf90b.css.map",
+    "main.2f81ec8d.js.map": "/braga/static/js/main.2f81ec8d.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a7bdf36.css",
-    "static/js/main.de044236.js"
+    "static/css/main.ddcdf90b.css",
+    "static/js/main.2f81ec8d.js"
   ]
 }
