@@ -29,7 +29,7 @@
       top: 90px
   &--register
     @media (max-width: $mobile)
-      max-height: 80vh
+      max-height: 60vh
       overflow-y: scroll
   &__title
     text-align: center
@@ -111,11 +111,16 @@
     transform: translateY(-25%)
   &__error-message
     position: absolute
-    bottom: 60px
-    left: 20px
-    color: red
+    bottom: -160px
+    left: 0px
+    padding: 10px
+    display: block
+    width: 100%
+    border-top: 2px solid $off-red
+    color: $off-red
     margin: 0
-    z-index: -2
+    z-index: 1
     transition: 0.3s
+    background-color: $white
     &--opened
-      bottom: 10px
+      bottom: 0px

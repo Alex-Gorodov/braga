@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { useIsTablet } from "../../hooks/useSizes";
 import { toggleBeerOnBrewing, updateBeersAmount } from "../../store/actions";
 import { adminChangeBeerCount, adminToggleBeerOnBrewing } from "../../store/api-actions";
 import { useState } from "react";
