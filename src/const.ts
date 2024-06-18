@@ -79,3 +79,10 @@ export const REVIEW_STARS = [
   { value: 2, title: 'terribly' },
   { value: 1, title: 'badly' },
 ];
+
+export enum StockEmojis {
+  NotInStock = '128553',
+  LessThenTen = '128556',
+  LessThenTwenty = '128523',
+  OnStock = '129321',
+}

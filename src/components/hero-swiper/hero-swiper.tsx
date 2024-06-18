@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-
 export function HeroSwiper(): JSX.Element {
 
   const isLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);

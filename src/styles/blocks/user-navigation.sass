@@ -18,23 +18,21 @@
         background-color: $online-green
         content: ''
   &__avatar
-    display: flex
-    justify-content: center
-    align-items: center
     border-radius: 50%
+    transition: 0.3s
+    &:hover
+      box-shadow: 0px 0px 8px 4px $black
+    &:active
+      box-shadow: 0px 0px 2px 1px $black
     &-wrapper
       position: relative
-      border: 1px solid $black
+      outline: 1px solid $black
       border-radius: 50%
   &__button
     @include button-reset
     display: flex
     cursor: pointer
-    transition: 0.3s
-    &:hover
-      opacity: 0.6
-    &:active
-      opacity: 0.3
+    border-radius: 50%
   &__menu
     @include list-reset
     position: absolute

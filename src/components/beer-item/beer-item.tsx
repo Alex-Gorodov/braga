@@ -1,7 +1,7 @@
 import { Link, generatePath } from "react-router-dom";
-import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SuccessMessages } from "../../const";
-import { Beer, BeerInCart } from "../../types/beer"
-import { useState } from "react";
+import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SortingNames, StockEmojis, SuccessMessages } from "../../const";
+import { Beer } from "../../types/beer"
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm } from "../../store/actions";
 import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
@@ -17,6 +17,9 @@ import { SuccessMessage } from "../success-meggase/success-message";
 import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
 import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
+import { sortByPopularity } from "../../utils/sortByPopularity";
+import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
+import { sortByRating } from "../../utils/sortByRating";
 
 type BeerItemProps = {
   item: Beer;
@@ -91,6 +94,23 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
     }
     return 'Get Notified';
   };
+
+  const getStockEmoji = (stock: number) => {
+    switch (true) {
+        case stock === 0 || !stock:
+            return StockEmojis.NotInStock;
+        case stock > 0 && stock < 10:
+            return StockEmojis.LessThenTen;
+        case stock >= 10 && stock < 20:
+            return StockEmojis.LessThenTwenty;
+        case stock >= 20:
+            return StockEmojis.OnStock;
+        default:
+            return '';
+    }
+  };
+
+  const emojiCode = getStockEmoji(item.onStock);
 
   return (
     <div className="product">
@@ -186,7 +206,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                   :
                 `${item.onStock}`
               }
-              {item.onStock === 0 || !item.onStock ? <> &#128553;</> : ''}
+              <span dangerouslySetInnerHTML={{ __html: ` &#${emojiCode};` }} />
             </span>
             {
               !item.onStock &&

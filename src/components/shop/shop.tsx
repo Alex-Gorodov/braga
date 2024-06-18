@@ -20,7 +20,6 @@ export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
   const isBeersLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);
   const [isSortingOpened, setSortingOpened] = useState(false);
-  const [sorting, setSorting] = useState(SortingNames.Default);
   const [initialBeers, setInitialBeers] = useState<Beer[]>([]);
   const user = useGetUser();
   const dispatch = useDispatch();
@@ -29,6 +28,7 @@ export function Shop(): JSX.Element {
     setInitialBeers(beers);
   }, [beers]);
 
+  const [sorting, setSorting] = useState(SortingNames.Default);
   useEffect(() => {
     switch (sorting) {
       case SortingNames.Default:
