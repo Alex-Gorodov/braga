@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { useGetUser } from "../../hooks/useGetUser";
 import { RootState } from "../../store/root-reducer";
+import { useGetUser } from "../../hooks/useGetUser";
 import { CartItem } from "../cart-item/cart-item";
 import { Spinner } from "../spinner/spinner";
+import { useSelector } from "react-redux";
 
 export function CartPageItem(): JSX.Element {
   const isBeersLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);

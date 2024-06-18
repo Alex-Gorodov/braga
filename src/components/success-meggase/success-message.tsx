@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { SuccessMessages } from "../../const"
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { SuccessMessages } from "../../const"
 import { Spinner } from "../spinner/spinner";
+import { useState } from "react";
 
 type SuccessMessageProps = {
   message: SuccessMessages;

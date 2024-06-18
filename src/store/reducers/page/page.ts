@@ -1,6 +1,6 @@
+import { setUploadedPath, toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../actions";
 import { createReducer } from "@reduxjs/toolkit";
 import { PageState } from "../../../types/state";
-import { setUploadedPath, toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../actions";
 
 const initialState: PageState = {
   uploadedPath: '',

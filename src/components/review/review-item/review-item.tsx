@@ -1,7 +1,7 @@
-import dayjs from "dayjs";
+import { ReactComponent as RatingStar } from '../../../img/icons/rating-star.svg';
 import { Review } from "../../../types/review";
 import { REVIEW_STARS } from "../../../const";
-import { ReactComponent as RatingStar } from '../../../img/icons/rating-star.svg';
+import dayjs from "dayjs";
 
 type ReviewProps = {
   item: Review;

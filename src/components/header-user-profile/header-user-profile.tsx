@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppRoute, AuthorizationStatus } from "../../const";
 import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { AppRoute, AuthorizationStatus } from "../../const";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutAction } from "../../store/api-actions";
+import { Link, generatePath } from "react-router-dom";
 import { RootState } from "../../store/root-reducer";
 import { useGetUser } from "../../hooks/useGetUser";
-import { ReactComponent as UserIcon} from '../../img/icons/user.svg';
-import { logoutAction } from "../../store/api-actions";
 import { AppDispatch } from "../../types/state";
 import { useState } from "react";
-import { Link, generatePath } from "react-router-dom";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 
 export function HeaderUserProfile(): JSX.Element {

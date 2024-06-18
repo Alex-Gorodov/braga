@@ -1,6 +1,6 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { ReviewState } from "../../../types/state";
 import { loadReviews, setReviewsDataLoadingStatus } from "../../actions";
+import { ReviewState } from "../../../types/state";
+import { createReducer } from "@reduxjs/toolkit";
 
 const initialState: ReviewState = {
   reviews: {},

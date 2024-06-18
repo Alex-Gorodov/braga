@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { getUserFromLocalStorage } from "../../services/token";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialUserInfo = getUserFromLocalStorage();
 

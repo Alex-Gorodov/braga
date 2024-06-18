@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
 import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 
 export function NotAuthReview(): JSX.Element {

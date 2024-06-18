@@ -1,10 +1,10 @@
 import { AuthorizationStatus } from "../const";
-import { store } from "../store";
-import { Beer } from "./beer";
+import { UserAuthData } from "./user-auth-data";
 import { Guest, Subscriber } from "./guest";
 import { Review } from "./review";
+import { store } from "../store";
+import { Beer } from "./beer";
 import { User } from "./user";
-import { UserAuthData } from "./user-auth-data";
 
 export type State = ReturnType<typeof store.getState>;
 

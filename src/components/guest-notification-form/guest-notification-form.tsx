@@ -1,14 +1,14 @@
-import { ChangeEvent, useState } from "react";
-import { Guest } from "../../types/guest";
+import { addGuestNotification, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { addGuestNotificationToDatabase } from "../../store/api-actions";
+import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { ErrorMessage } from "../error-message/error-message";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { addGuestNotification, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
-import { Beer } from "../../types/beer";
-import { ReactComponent as Cross } from '../../img/icons/cross.svg'
-import { addGuestNotificationToDatabase } from "../../store/api-actions";
-import { ErrorMessage } from "../error-message/error-message";
+import { ChangeEvent, useState } from "react";
 import { ErrorMessages } from "../../const";
+import { Guest } from "../../types/guest";
+import { Beer } from "../../types/beer";
 
 type GuestNotificationFormProps = {
   item: Beer;

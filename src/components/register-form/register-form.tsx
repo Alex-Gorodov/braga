@@ -1,19 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/root-reducer";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { setUserInformation, requireAuthorization, toggleSignUpForm, setUploadedPath } from "../../store/actions";
-import { ChangeEvent, useState } from "react";
-import { AppDispatch } from "../../types/state";
-import { RegisterUser } from "../../types/user";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { setUser } from "../../store/slices/user-slice";
-import { AuthorizationStatus, ErrorMessages } from "../../const";
-import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
-import { Upload } from "./upload-avatar";
-import { ReactComponent as Cross } from '../../img/icons/cross.svg';
 import { ReactComponent as Showed } from '../../img/icons/showed-password.svg';
 import { ReactComponent as Hidden } from '../../img/icons/hidden-password.svg';
+import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { ReactComponent as Cross } from '../../img/icons/cross.svg';
+import { AuthorizationStatus, ErrorMessages } from "../../const";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { setUser } from "../../store/slices/user-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/root-reducer";
+import { AppDispatch } from "../../types/state";
+import { RegisterUser } from "../../types/user";
+import { ChangeEvent, useState } from "react";
 import { Spinner } from "../spinner/spinner";
+import { Upload } from "./upload-avatar";
 
 type RegisterFormProps = {
   className?: string;

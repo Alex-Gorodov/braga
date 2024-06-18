@@ -1,19 +1,19 @@
-import browserHistory from "../../browser-history";
 import { HistoryRouter } from "../history-route/history-route";
-import { HelmetProvider } from "react-helmet-async";
-import { Route, Routes } from "react-router-dom";
-import { store } from "../../store";
-import { AppRoute } from "../../const";
-import { HomePage } from "../../pages/home/home-page";
-import { NotFound } from "../../pages/not-found/not-found";
-import { Provider } from "react-redux";
-import { BlogPage } from "../../pages/blog/blog-page";
-import { ShopPage } from "../../pages/shop/shop-page";
 import { ProductPage } from "../../pages/product/product-page";
-import { CartPage } from "../../pages/cart/cart-page";
-import { UserPage } from "../../pages/user/user-page";
+import { NotFound } from "../../pages/not-found/not-found";
 import PrivateRoute from "../private-route/private-route";
 import { AdminPage } from "../../pages/admin/admin-page";
+import { HomePage } from "../../pages/home/home-page";
+import { BlogPage } from "../../pages/blog/blog-page";
+import { ShopPage } from "../../pages/shop/shop-page";
+import { CartPage } from "../../pages/cart/cart-page";
+import { UserPage } from "../../pages/user/user-page";
+import { HelmetProvider } from "react-helmet-async";
+import browserHistory from "../../browser-history";
+import { Route, Routes } from "react-router-dom";
+import { AppRoute } from "../../const";
+import { Provider } from "react-redux";
+import { store } from "../../store";
 
 export function App() {
 

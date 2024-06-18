@@ -1,25 +1,22 @@
-import { Link, generatePath } from "react-router-dom";
-import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, SortingNames, StockEmojis, SuccessMessages } from "../../const";
-import { Beer } from "../../types/beer"
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm } from "../../store/actions";
 import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
-import cn from 'classnames';
+import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, StockEmojis, SuccessMessages } from "../../const";
+import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
+import { SuccessMessage } from "../success-meggase/success-message";
+import { NotAuthReview } from "../not-auth-review/not-auth-review";
 import { ReviewForm } from "../review/review-form/review-form";
 import { ReviewItem } from "../review/review-item/review-item";
-import { RootState } from "../../store/root-reducer";
-import { NotAuthReview } from "../not-auth-review/not-auth-review";
-import { Soon } from "./soon";
-import { useGetUser } from "../../hooks/useGetUser";
 import { ErrorMessage } from "../error-message/error-message";
-import { SuccessMessage } from "../success-meggase/success-message";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, generatePath } from "react-router-dom";
+import { RootState } from "../../store/root-reducer";
+import { useGetUser } from "../../hooks/useGetUser";
 import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
-import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
-import { sortByPopularity } from "../../utils/sortByPopularity";
-import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
-import { sortByRating } from "../../utils/sortByRating";
+import { Beer } from "../../types/beer";
+import { useState } from "react";
+import { Soon } from "./soon";
+import cn from 'classnames';
 
 type BeerItemProps = {
   item: Beer;

@@ -1,9 +1,9 @@
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { ReactElement } from 'react';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { RootState } from '../../store/root-reducer';
 import { useGetUser } from '../../hooks/useGetUser';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { ReactElement } from 'react';
 
 interface PrivateRouteProps {
   element: ReactElement;

@@ -1,9 +1,9 @@
-import { User } from "../../types/user";
-import { useDispatch } from "react-redux";
-import { addItemToPreOrder, removeItemFromNotifications, removeItemFromPreOrder } from "../../store/actions";
 import { addItemToUserPreOrder, removeItemFromUserNotifications, removeItemFromUserPreOrder } from "../../store/api-actions";
-import { useIsTablet } from "../../hooks/useSizes";
+import { addItemToPreOrder, removeItemFromNotifications, removeItemFromPreOrder } from "../../store/actions";
 import { generatePath, Link } from "react-router-dom";
+import { useIsTablet } from "../../hooks/useSizes";
+import { useDispatch } from "react-redux";
+import { User } from "../../types/user";
 import { AppRoute } from "../../const";
 
 type UserProps = {

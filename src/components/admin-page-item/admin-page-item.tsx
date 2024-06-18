@@ -1,10 +1,10 @@
+import { adminChangeBeerCount, adminToggleBeerOnBrewing } from "../../store/api-actions";
+import { toggleBeerOnBrewing, updateBeersAmount } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { toggleBeerOnBrewing, updateBeersAmount } from "../../store/actions";
-import { adminChangeBeerCount, adminToggleBeerOnBrewing } from "../../store/api-actions";
-import { useState } from "react";
-import { Beer } from "../../types/beer";
 import { FormCheckbox } from "../checkbox/checkbox";
+import { Beer } from "../../types/beer";
+import { useState } from "react";
 
 export function AdminPageItem(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -107,7 +107,7 @@ export function AdminPageItem(): JSX.Element {
               user.preOrder.length > 0 ? (
                 <li className="admin__list-item admin__list-item--preorders" key={`user-${user.email}`}>
                   <div className="admin__table-cell admin__table-cell--preorders admin__table-cell--value">
-                    <span>{`${user.name} ${user.surname.slice(0, 1)}.`}</span>
+                    <span>{`${user.name} ${user.surname.slice(0, 1)}. (${user.email})`}</span>
                   </div>
                   <div className="admin__table-cell admin__table-cell--preorders admin__table-cell--value">
                     {user.preOrder.map((item) => (

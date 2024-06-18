@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ErrorMessages } from "../../const"
-import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { ReactComponent as Cross } from '../../img/icons/cross.svg';
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { ErrorMessages } from "../../const"
 
 type ErrorMessageProps = {
   message: ErrorMessages;

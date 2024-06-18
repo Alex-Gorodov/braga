@@ -1,10 +1,11 @@
+import { ReactComponent as Arrow } from '../../img/icons/form-arrow.svg';
+import { addSubscriberToDatabase } from '../../store/api-actions';
+import { addSubscriber } from '../../store/actions';
 import { Spinner } from '../spinner/spinner';
+import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { ReactComponent as Arrow } from '../../img/icons/form-arrow.svg';
-import { useDispatch } from 'react-redux';
-import { addSubscriber } from '../../store/actions';
-import { addSubscriberToDatabase } from '../../store/api-actions';
+import { SuccessMessages } from '../../const';
 
 export function SubscribeForm(): JSX.Element {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ export function SubscribeForm(): JSX.Element {
         </div>
       )}
       {isSuccess && (
-        <p className="subscribe__success-message">Successfully sent!</p>
+        <p className="subscribe__success-message">{SuccessMessages.Subscription}</p>
       )}
     </div>
   )

@@ -1,19 +1,19 @@
-import { Link, generatePath } from "react-router-dom";
-import { AppRoute, SHOP_SORTING, SortingNames } from "../../const";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/root-reducer";
-import { useState, useEffect } from "react";
-import { Beer, BeerInCart } from "../../types/beer";
+import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
+import { addItemToCart, addItemToPreOrder } from "../../store/actions";
+import { AppRoute, SHOP_SORTING, SortingNames } from "../../const";
 import { sortByPopularity } from "../../utils/sortByPopularity";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { sortByRating } from "../../utils/sortByRating";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, generatePath } from "react-router-dom";
+import { RootState } from "../../store/root-reducer";
+import { useGetUser } from "../../hooks/useGetUser";
+import { Beer, BeerInCart } from "../../types/beer";
+import { useState, useEffect } from "react";
 import { Spinner } from "../spinner/spinner";
 import { Soon } from "../beer-item/soon";
 import { Sold } from "../beer-item/sold";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
-import { useGetUser } from "../../hooks/useGetUser";
-import { addItemToCart, addItemToPreOrder } from "../../store/actions";
-import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
 import cn from 'classnames';
 
 export function Shop(): JSX.Element {
@@ -193,12 +193,12 @@ export function Shop(): JSX.Element {
                     </div>
                   </Link>
                   <Link className="shop__item-link" to={link}>
-                    <span className="beer__item-name">
+                    <span className="beer__item-name shop__item-name">
                       {item.name}
                     </span>
                   </Link>
                   <span className="product__price shop__price">₪ {item.price}</span>
-                  <div>
+                  <div className="shop__item-categories">
                     {item.categories.map((i) => (
                       <span key={`${item.name}-category-${i}`}>
                         {`${i}${item.categories.indexOf(i) === item.categories.length - 1 ? '' : ', '}`}

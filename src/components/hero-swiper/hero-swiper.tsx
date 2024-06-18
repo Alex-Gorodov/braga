@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { BeerItemPreview } from "../beer-item/beer-item-preview";
 import { Autoplay, Navigation } from "swiper/modules";
 import { RootState } from "../../store/root-reducer";
-import { BeerItemPreview } from "../beer-item/beer-item-preview";
-import { Spinner } from "../spinner/spinner";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import { Spinner } from "../spinner/spinner";
+import { useSelector } from "react-redux";
 import 'swiper/css/navigation';
+import 'swiper/css';
 
 export function HeroSwiper(): JSX.Element {
 

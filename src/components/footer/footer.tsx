@@ -1,7 +1,7 @@
-import { ReactComponent as Whatsapp } from '../../img/icons/whatsapp.svg'
-import { ReactComponent as Telegram } from '../../img/icons/telegram.svg'
-import { ReactComponent as Phone } from '../../img/icons/phone.svg'
-import { ReactComponent as Location } from '../../img/icons/location.svg'
+import { ReactComponent as Whatsapp } from '../../img/icons/whatsapp.svg';
+import { ReactComponent as Telegram } from '../../img/icons/telegram.svg';
+import { ReactComponent as Location } from '../../img/icons/location.svg';
+import { ReactComponent as Phone } from '../../img/icons/phone.svg';
 
 export function Footer(): JSX.Element {
   return (

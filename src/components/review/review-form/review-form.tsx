@@ -1,14 +1,14 @@
 import { Fragment, useEffect, useRef, useState, ChangeEvent, FormEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { REVIEW_STARS } from "../../../const";
 import { ReactComponent as RatingStar } from '../../../img/icons/rating-star.svg';
-import { Review } from "../../../types/review";
-import { AppDispatch } from "../../../types/state";
 import { addReview, getReviewLoadingStatus } from "../../../store/actions";
-import { RootState } from "../../../store/root-reducer";
-import { Beer } from "../../../types/beer";
 import { addReviewToDatabase } from "../../../store/api-actions";
+import { RootState } from "../../../store/root-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../types/state";
+import { Review } from "../../../types/review";
+import { REVIEW_STARS } from "../../../const";
+import { useParams } from "react-router-dom";
+import { Beer } from "../../../types/beer";
 
 type ReviewFormProps = {
   item: Beer;

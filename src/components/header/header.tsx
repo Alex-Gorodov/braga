@@ -1,20 +1,20 @@
-import { Link, useLocation } from "react-router-dom";
-import { AppRoute } from "../../const";
+import { toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
 import { ReactComponent as Logo} from '../../img/icons/braga-logo.svg';
 import { ReactComponent as Cart} from '../../img/icons/cart.svg';
-import { useEffect, useState } from "react";
-import cn from 'classnames';
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { RegisterForm } from "../register-form/register-form";
+import { SaleBanner } from "../sale-banner/sale-banner";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
+import { Link, useLocation } from "react-router-dom";
+import { useGetUser } from "../../hooks/useGetUser";
 import { useIsTablet } from "../../hooks/useSizes";
 import { AuthForm } from "../auth-form/auth-form";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
 import CartBlock from "../cart-block/cart-block";
-import { RegisterForm } from "../register-form/register-form";
-import { HeaderUserProfile } from "../header-user-profile/header-user-profile";
-import { useGetUser } from "../../hooks/useGetUser";
-import { SaleBanner } from "../sale-banner/sale-banner";
-import { toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { useEffect, useState } from "react";
+import { AppRoute } from "../../const";
+import cn from 'classnames';
 
 export function Header(): JSX.Element {
   const activeUser = useGetUser();

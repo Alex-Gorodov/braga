@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
 import { setUserInformation, requireAuthorization, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
-import { AuthorizationStatus, ErrorMessages } from "../../const";
-import { ChangeEvent, useRef, useState } from "react";
-import { AppDispatch } from "../../types/state";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
-import { RootState } from "../../store/root-reducer";
+import { ReactComponent as Cross } from '../../img/icons/cross.svg';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { AuthorizationStatus, ErrorMessages } from "../../const";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { setUser } from "../../store/slices/user-slice";
+import { useDispatch, useSelector } from "react-redux";
 import { loginAction } from "../../store/api-actions";
-import { ReactComponent as Cross } from '../../img/icons/cross.svg'
+import { ChangeEvent, useRef, useState } from "react";
+import { RootState } from "../../store/root-reducer";
+import { AppDispatch } from "../../types/state";
 import { Spinner } from "../spinner/spinner";
 
 type FormProps = {

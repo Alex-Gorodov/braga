@@ -1,4 +1,6 @@
 .admin
+  @media (max-width: $mobile)
+    padding: 10px
   &__container
     &-title
       margin-bottom: 20px
@@ -27,7 +29,7 @@
         &:nth-of-type(2n-1)
           background-color: lighten($dark-gray, 15%)
       &--preorders
-        grid-template-columns: 1fr 1fr 1fr
+        grid-template-columns: repeat(2, minmax(100px, 1fr)) 70px
       &--subscriber
         grid-template-columns: 1fr
   &__table-cell
@@ -42,11 +44,13 @@
       @media (max-width: $tablet)
         border-bottom: none
     &--on-brewing
-      // padding: 2px 0
       border-right: $section-border
       background-color: lighten($dark-gray,25%)
     &--notification,
     &--preorders
+      display: flex
+      flex-direction: column
+      gap: 12px
       padding: 10px
       &:not(:last-of-type)
         border-right: $section-border
@@ -65,7 +69,7 @@
     grid-template-columns: repeat(2, 50%)
   &__input
     width: 100%
-    padding: 10px 0
+    padding: 16px 0
     border: none
     text-align: center
     background-color: transparent

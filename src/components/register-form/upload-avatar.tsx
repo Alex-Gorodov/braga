@@ -1,10 +1,10 @@
 import { ReactComponent as UploadIcon } from "../../img/icons/upload-icon.svg";
 import { ReactComponent as Cross } from "../../img/icons/cross.svg";
+import { setUploadedPath } from "../../store/actions";
+import { useIsMobile } from "../../hooks/useSizes";
 import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
-import { setUploadedPath } from "../../store/actions";
-import { useIsMobile } from "../../hooks/useSizes";
 
 export function Upload(): JSX.Element {
   const fileInputRef = useRef<HTMLInputElement>(null);

@@ -1,8 +1,8 @@
-import { AuthorizationStatus } from '../../../const';
-import { AuthState } from '../../../types/state';
-import { ActionReducerMapBuilder, createReducer } from '@reduxjs/toolkit';
 import { ReducerWithInitialState } from '@reduxjs/toolkit/dist/createReducer';
 import { getUserInformation, requireAuthorization } from '../../actions';
+import { ActionReducerMapBuilder, createReducer } from '@reduxjs/toolkit';
+import { AuthorizationStatus } from '../../../const';
+import { AuthState } from '../../../types/state';
 
 export const getUserFromLocalStorage = () => {
   try {

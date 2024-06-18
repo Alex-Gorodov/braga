@@ -1,88 +1,89 @@
-export enum AppRoute {
-  Root = "/braga",
-  Shop = "/braga/shop",
-  Blog = "/braga/blog",
-  Cart = "/braga/cart",
-  Login = "/braga/login",
-  ProductPage = "/braga/shop/:id",
-  UserPage = "/braga/user/:id",
-  AdminPage = "/braga/admin"
-}
-
-export enum ScreenSizes {
-  Mobile = 490,
-  Tablet = 768,
-  Desktop = 1280,
-  ContainerMaxWidth = 1440
-}
-
-export enum APIRoute {
-  Beers = "braga-db/beers",
-  Users = "braga-db/users",
-  Login = 'braga-db/login',
-  Logout = 'braga-db/logout',
-  Guests = 'braga-db/guests',
-  Subscribers = 'braga-db/subscribers',
-}
-
-export enum AuthorizationStatus {
-  Auth = 'AUTH',
-  NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
-}
-
 export enum ErrorMessages {
-  AuthError = 'Invalid username or password. Please try again.',
-  EmailError = 'Please enter correct e-mail.',
   PasswordError = 'Password must have at least one letter, one number, and be 8+ characters long.',
-  CommentError = 'Error! Can\'t add review, please, try again.',
-  PreOrderError = 'Please sign in or register to add items to your preorder.',
   NotificationError = 'Please sign in or register to add items to get notification.',
   GuestNotificationError = 'Please enter either a phone number or an email address.',
+  PreOrderError = 'Please sign in or register to add items to your preorder.',
+  AuthError = 'Invalid username or password. Please try again.',
+  CommentError = 'Error! Can\'t add review, please, try again.',
+  RegisterEmptyFields = 'Fill the required fields, please.',
   RegisterPasswordNotMatch = 'Passwords do not match',
-  RegisterEmptyFields = 'Fill the required fields, please.'
+  EmailError = 'Please enter correct e-mail.',
 }
 
 export enum SuccessMessages {
+  AddToPreOrder = "Item successfully added to your pre-order list!",
   AddToCart = "Item successfully added to your cart!",
-  AddToPreOrder = "Item successfully added to your pre-order list!"
-}
-
-export enum ItemInfo {
-  Description = "Description",
-  Additional = "Additional information",
-  Reviews = "Reviews",
+  Subscription = "Thank You for Subscribing!",
 }
 
 export const SHOP_SORTING = [
-  {name: "default", value: "Default sorting"}, //no sorting
-  {name: "popular", value: "Sort by popularity"}, // sorting by reviews count
-  {name: "rating", value: "Sort by rating"}, // sorting by reviews rating
-  {name: "newest", value: "Sort by latest"},
-  {name: "price", value: "Sort by price: high to low"},
   {name: "price reverse", value: "Sort by price: low to high"},
+  {name: "price", value: "Sort by price: high to low"},
+  {name: "popular", value: "Sort by popularity"},
+  {name: "default", value: "Default sorting"},
+  {name: "rating", value: "Sort by rating"},
+  {name: "newest", value: "Sort by latest"},
 ]
 
+export enum AppRoute {
+  ProductPage = "/braga/shop/:id",
+  UserPage = "/braga/user/:id",
+  AdminPage = "/braga/admin",
+  Login = "/braga/login",
+  Cart = "/braga/cart",
+  Shop = "/braga/shop",
+  Blog = "/braga/blog",
+  Root = "/braga",
+}
+
+export enum APIRoute {
+  Subscribers = 'braga-db/subscribers',
+  Logout = 'braga-db/logout',
+  Guests = 'braga-db/guests',
+  Beers = "braga-db/beers",
+  Users = "braga-db/users",
+  Login = 'braga-db/login',
+}
+
+export enum ItemInfo {
+  Additional = "Additional information",
+  Description = "Description",
+  Reviews = "Reviews",
+}
+
+export const REVIEW_STARS = [
+  { value: 2, title: 'terribly' },
+  { value: 3, title: 'not bad' },
+  { value: 5, title: 'perfect' },
+  { value: 1, title: 'badly' },
+  { value: 4, title: 'good' },
+];
+
+export enum StockEmojis {
+  LessThenTwenty = '128523',
+  LessThenTen = '128556',
+  NotInStock = '128553',
+  OnStock = '129321',
+}
+
 export enum SortingNames {
+  PriceReverse = "price reverse",
   Default = "default",
   Popular = "popular",
   Rating = "rating",
   Newest = "newest",
   Price = "price",
-  PriceReverse = "price reverse",
 }
 
-export const REVIEW_STARS = [
-  { value: 5, title: 'perfect' },
-  { value: 4, title: 'good' },
-  { value: 3, title: 'not bad' },
-  { value: 2, title: 'terribly' },
-  { value: 1, title: 'badly' },
-];
+export enum AuthorizationStatus {
+  Unknown = 'UNKNOWN',
+  NoAuth = 'NO_AUTH',
+  Auth = 'AUTH',
+}
 
-export enum StockEmojis {
-  NotInStock = '128553',
-  LessThenTen = '128556',
-  LessThenTwenty = '128523',
-  OnStock = '129321',
+export enum ScreenSizes {
+  ContainerMaxWidth = 1440,
+  Desktop = 1280,
+  Mobile = 490,
+  Tablet = 768,
 }

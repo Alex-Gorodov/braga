@@ -1,11 +1,11 @@
-import { createAction } from "@reduxjs/toolkit";
-import { Beer, BeerInCart } from "../types/beer";
 import { AppRoute, AuthorizationStatus } from "../const";
-import { Review } from "../types/review";
-import { RootState } from "./root-reducer";
-import { User } from "../types/user";
 import { UserAuthData } from "../types/user-auth-data";
 import { Guest, Subscriber } from "../types/guest";
+import { Beer, BeerInCart } from "../types/beer";
+import { createAction } from "@reduxjs/toolkit";
+import { RootState } from "./root-reducer";
+import { Review } from "../types/review";
+import { User } from "../types/user";
 
 export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boolean}>('data/setBeersDataLoadingStatus');
 

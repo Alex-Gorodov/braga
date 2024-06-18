@@ -1,14 +1,14 @@
-import { Link, generatePath, useLocation } from "react-router-dom";
+import { addItemToUserDatabaseCart, addItemToUserPreOrder } from '../../store/api-actions';
 import { addItemToCart, addItemToPreOrder } from "../../store/actions";
-import { useDispatch } from "react-redux";
+import { Link, generatePath } from "react-router-dom";
 import { Beer, BeerInCart } from "../../types/beer";
+import { useGetUser } from "../../hooks/useGetUser";
+import { useDispatch } from "react-redux";
 import { AppRoute } from "../../const";
 import { useState } from "react";
-import cn from 'classnames';
-import { addItemToUserDatabaseCart, addItemToUserPreOrder } from '../../store/api-actions';
 import { Soon } from './soon';
 import { Sold } from "./sold";
-import { useGetUser } from "../../hooks/useGetUser";
+import cn from 'classnames';
 
 type BeerItemProps = {
   item: Beer;

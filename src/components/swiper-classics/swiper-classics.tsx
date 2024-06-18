@@ -1,12 +1,12 @@
+import { BeerItemPreview } from "../beer-item/beer-item-preview";
+import { useIsDesktop, useIsMobile } from "../../hooks/useSizes";
+import { Autoplay, Navigation } from "swiper/modules";
+import { RootState } from "../../store/root-reducer";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Spinner } from "../spinner/spinner";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AppRoute } from "../../const";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/root-reducer";
-import { Autoplay, Navigation } from "swiper/modules";
-import { BeerItemPreview } from "../beer-item/beer-item-preview";
-import { Spinner } from "../spinner/spinner";
-import { useIsDesktop, useIsMobile } from "../../hooks/useSizes";
 
 export function SwiperClassics(): JSX.Element {
   const items = useSelector((state: RootState) => state.data.beers);

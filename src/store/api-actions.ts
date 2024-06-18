@@ -1,18 +1,18 @@
-import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
-import { APIRoute, AuthorizationStatus } from "../const";
 import { loadBeers, loadGuests, loadSubscribers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
+import { removeUserFromLocalStorage, saveToken } from "../services/token";
+import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
+import { removeUser, setUser } from "./slices/user-slice";
+import { APIRoute, AuthorizationStatus } from "../const";
+import { UserAuthData } from "../types/user-auth-data";
+import { Guest, Subscriber } from "../types/guest";
 import { Beer, BeerInCart } from "../types/beer";
 import { database } from "../services/database";
+import { AuthData } from "../types/auth-data";
+import { AppDispatch } from "../types/state";
+import { RootState } from "./root-reducer";
+import { Review } from "../types/review";
 import { AxiosInstance } from "axios";
 import { User } from "../types/user";
-import { Review } from "../types/review";
-import { RootState } from "./root-reducer";
-import { AppDispatch } from "../types/state";
-import { AuthData } from "../types/auth-data";
-import { UserAuthData } from "../types/user-auth-data";
-import { removeUserFromLocalStorage, saveToken } from "../services/token";
-import { removeUser, setUser } from "./slices/user-slice";
-import { Guest, Subscriber } from "../types/guest";
 
 export type ThunkOptions = {
   dispatch: ThunkDispatch<RootState, AxiosInstance, any>;

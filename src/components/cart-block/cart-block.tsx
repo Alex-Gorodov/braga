@@ -1,12 +1,12 @@
-import { forwardRef } from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { ReactComponent as Cross } from '../../img/icons/cross.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/root-reducer';
-import { CartItem } from '../cart-item/cart-item';
 import { useGetUser } from '../../hooks/useGetUser';
+import { CartItem } from '../cart-item/cart-item';
 import { toggleCart } from '../../store/actions';
-import { ReactComponent as Cross } from '../../img/icons/cross.svg';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { forwardRef } from 'react';
 
 type CartBlockProps = {
   className: string;

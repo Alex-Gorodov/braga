@@ -1,9 +1,9 @@
-import { useDispatch } from "react-redux";
 import { ReactComponent as Cross} from "../../img/icons/cross.svg"
-import { BeerInCart } from "../../types/beer";
-import { removeFromCart } from "../../store/actions";
 import { removeItemFromUserCart } from "../../store/api-actions";
+import { removeFromCart } from "../../store/actions";
 import { useGetUser } from "../../hooks/useGetUser";
+import { BeerInCart } from "../../types/beer";
+import { useDispatch } from "react-redux";
 
 type CartItemProps = {
   item: BeerInCart;

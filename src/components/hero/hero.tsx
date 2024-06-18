@@ -1,10 +1,10 @@
 import { ReactComponent as Star} from '../../img/icons/star.svg';
-import 'swiper/css';
-import 'swiper/css/navigation';
 import { HeroSwiper } from '../hero-swiper/hero-swiper';
 import { useIsMobile } from '../../hooks/useSizes';
-import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import 'swiper/css/navigation';
+import 'swiper/css';
 
 export function Hero(): JSX.Element {
   const isMobile = useIsMobile();
