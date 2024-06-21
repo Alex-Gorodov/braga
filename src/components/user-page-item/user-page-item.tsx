@@ -119,7 +119,7 @@ export function UserPageItem({user}: UserProps): JSX.Element {
           <h3 className="title title--3 preorder-table__title">My notifications list</h3>
           <div className="preorder-table__wrapper">
             <div className="preorder-table" style={{gridTemplateColumns: isTablet ? `repeat(${user.notifications.length + 1}, 1fr)` : 'repeat(6, minmax(80px, 1fr))'}}>
-              <div className="preorder-table__head">
+              <div className="preorder-table__head preorder-table__head--notification">
                 <div className="preorder-table__cell preorder-table__cell--head">Name</div>
                 <div className="preorder-table__cell preorder-table__cell--head">Style</div>
                 <div className="preorder-table__cell preorder-table__cell--head" title="Alcohol by Volume">ABV</div>
@@ -137,7 +137,7 @@ export function UserPageItem({user}: UserProps): JSX.Element {
                 };
 
                 return (
-                  <div className="preorder-table__row" key={item.id}>
+                  <div className="preorder-table__row preorder-table__row--notification" key={item.id}>
                     <div className="preorder-table__cell">
                       <Link className="preorder-table__link" to={link}>
                         {item.name}
