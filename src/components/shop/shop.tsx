@@ -209,7 +209,7 @@ export function Shop(): JSX.Element {
               )}
             )
             :
-            <Spinner wrapper size="40"/>
+            <Spinner wrapper size="80"/>
           }
         </ul>
       </div>

@@ -7,6 +7,7 @@ import { Spinner } from "../../components/spinner/spinner";
 import { Beer } from "../../types/beer";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
+import { PageNotFound } from "../page-not-found/page-not-found";
 
 export function ProductPage(): JSX.Element {
   const { id } = useParams();
@@ -28,6 +29,10 @@ export function ProductPage(): JSX.Element {
 
   if (isLoading) {
     return <Spinner size={"40"} wrapper/>
+  }
+
+  if (!product) {
+    return <PageNotFound/>
   }
 
   return (
