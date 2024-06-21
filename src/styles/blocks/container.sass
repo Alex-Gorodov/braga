@@ -1,12 +1,16 @@
 .container
-  display: flex
   padding: 24px 56px
-  justify-content: space-between
-  align-items: center
   border-top: $section-border
   border-bottom: $section-border
   @media (max-width: $mobile)
     padding: 16px
+  &__wrapper
+    max-width: $container-max-width
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin: auto
+
   &--swiper
     position: relative
     border-top: none

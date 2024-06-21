@@ -16,8 +16,10 @@ export function SwiperClassics(): JSX.Element {
   return (
     <section className="section section--swiper">
       <div className="container">
-        <h2 className="title title--2">Our unrivaled classics</h2>
-        <Link className="button" to={AppRoute.Shop}>Order now</Link>
+        <div className="container__wrapper">
+          <h2 className="title title--2">Our unrivaled classics</h2>
+          <Link className="button" to={AppRoute.Shop}>Order now</Link>
+        </div>
       </div>
       {
         items.length ?
