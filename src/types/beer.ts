@@ -16,6 +16,8 @@ export type Beer = {
   ibu: number;
   srm: number;
   calories: number;
+  brewingDate?: Date;
+  brewingTimeDays?: number;
 }
 
 export type BeerInCart = Beer & {

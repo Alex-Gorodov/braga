@@ -17,6 +17,7 @@ import { Beer } from "../../types/beer";
 import { useState } from "react";
 import { Soon } from "./soon";
 import cn from 'classnames';
+import { BeerTimer } from "../beer-timer/beer-timer";
 
 type BeerItemProps = {
   item: Beer;
@@ -143,6 +144,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
               <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
             </picture>
+            {item.brewingDate && <BeerTimer item={item}/>}
           </div>
         </div>
         <div className="product__details">
