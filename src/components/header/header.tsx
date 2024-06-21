@@ -61,7 +61,6 @@ export function Header(): JSX.Element {
     const pathname = location.pathname;
     setActivePage(validPaths.includes(pathname) ? pathname : '');
     if (pathname.includes('/shop/')) setActivePage(AppRoute.Shop as string);
-
   }, [location.pathname]);
 
   const menuRef = useOutsideClick(() => {
@@ -139,13 +138,13 @@ export function Header(): JSX.Element {
         <nav className={mobileNavClassName} ref={menuRef}>
           <ul className="navigation__list">
             <li className="navigation__item">
-              <Link className={pageClassName(AppRoute.Root)} to={AppRoute.Root}>Home</Link>
+              <Link className={pageClassName(AppRoute.Root)} to={AppRoute.Root} onClick={() => setMenuOpened(!isMenuOpened)}>Home</Link>
             </li>
             <li className="navigation__item">
-              <Link className={pageClassName(AppRoute.Shop)} to={AppRoute.Shop}>Shop</Link>
+              <Link className={pageClassName(AppRoute.Shop)} to={AppRoute.Shop} onClick={() => setMenuOpened(!isMenuOpened)}>Shop</Link>
             </li>
             <li className="navigation__item">
-              <Link className={pageClassName(AppRoute.Blog)} to={AppRoute.Blog}>Blog</Link>
+              <Link className={pageClassName(AppRoute.Blog)} to={AppRoute.Blog} onClick={() => setMenuOpened(!isMenuOpened)}>Blog</Link>
             </li>
           </ul>
         </nav>

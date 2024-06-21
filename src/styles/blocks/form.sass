@@ -16,6 +16,12 @@
   overflow: hidden
   &--guest
     padding-top: 50px
+    & p
+      @include inter-regular
+      margin-bottom: 0
+      padding-left: 12px
+      text-align: center
+      color: darken($dark-gray, 50%)
   &::-webkit-scrollbar
     display: none
   @media (max-width: $mobile)

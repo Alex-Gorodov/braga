@@ -103,7 +103,7 @@ export function AdminPageItem(): JSX.Element {
                 <span>Amount</span>
               </div>
             </li>
-            {users && users.map((user) => (
+            {users ? users.map((user) => (
               user.preOrder.length > 0 ? (
                 <li className="admin__list-item admin__list-item--preorders" key={`user-${user.email}`}>
                   <div className="admin__table-cell admin__table-cell--preorders admin__table-cell--value">
@@ -127,20 +127,19 @@ export function AdminPageItem(): JSX.Element {
               ) : (
                 <li className="admin__list-item" key={`user-no-preorder-${user.email}`}>No pre-orders</li>
               )
-            ))}
-
+            )) : "No users with pre-orders yet"}
         </ul>
       </div>
       <div className="admin__container">
         <h3 className="title title--3 admin__container-title">Subscribers</h3>
         <ul className="admin__list">
-          {subscribers && subscribers.map((i) => (
+          {subscribers ? subscribers.map((i) => (
             <li className="admin__list-item admin__list-item--subscriber" key={`subscriber-${i.email}`}>
               <div className="admin__table-cell admin__table-cell--subscriber">
                 <span>{i.email}</span>
               </div>
             </li>
-          ))}
+          )) : 'No subscribers yet'}
         </ul>
       </div>
       <div className="admin__container">
@@ -157,7 +156,7 @@ export function AdminPageItem(): JSX.Element {
               <span>Beer</span>
               </div>
             </li>
-          {guests && guests.map((guest) => (
+          {guests ? guests.map((guest) => (
             <li className="admin__list-item admin__list-item--notification" key={`guest-${guest.name}`}>
               <div className="admin__table-cell admin__table-cell--notification admin__table-cell--value">
                 <span>{guest.name}</span>
@@ -171,7 +170,7 @@ export function AdminPageItem(): JSX.Element {
               ))}</span>
               </div>
             </li>
-          ))}
+          )) : 'No guests yet'}
         </ul>
       </div>
     </div>

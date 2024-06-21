@@ -1,7 +1,6 @@
 import { addGuestNotification, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 import { addGuestNotificationToDatabase } from "../../store/api-actions";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg'
-import { ErrorMessage } from "../error-message/error-message";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
@@ -47,6 +46,9 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
 
     if (!data.phone && !data.email) {
       setIsError(true);
+      setTimeout(() => {
+        setIsError(false);
+      }, 2000);
       return;
     }
 
@@ -77,6 +79,7 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
           <span className="form__label">Name:</span>
           <input className="form__input" type="text" name="name" placeholder="Name*" value={data.name} onChange={handleFieldChange} required />
         </label>
+        <p>Please enter the phone or email:</p>
         <label className="form__item">
           <span className="form__label">Phone:</span>
           <input className="form__input" type="tel" name="phone" placeholder="Phone" value={data.phone || ''} onChange={handleFieldChange} />
@@ -91,12 +94,8 @@ export function GuestNotificationForm({ item, className }: GuestNotificationForm
           <button className="button button--reverse" type="button" onClick={() => handleSignIn()}>Sign in</button>
           <button className="button" type="button" onClick={() => handleSignUp()}>Sign up</button>
         </div>
+        <p className={`form__error-message ${isError ? 'form__error-message--opened' : ''}`}>{ErrorMessages.GuestNotificationError}</p>
       </form>
-      {
-        isError && <ErrorMessage message={ErrorMessages.GuestNotificationError} fun={() => {
-          setIsError(false);
-        }}/>
-      }
     </div>
   );
 }
