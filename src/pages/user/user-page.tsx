@@ -34,11 +34,9 @@ export function UserPage(): JSX.Element {
       <Helmet>
         <title>{`User | ${user?.name}`}</title>
       </Helmet>
-      <main className="main">
-        {
-          user ? <UserPageItem user={user}/> : <Spinner size={"40"} wrapper/>
-        }
-      </main>
+      {
+        user ? <UserPageItem user={user}/> : <Spinner size={"40"} wrapper/>
+      }
     </Layout>
   )
 }

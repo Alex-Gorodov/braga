@@ -1,6 +1,6 @@
 import { HistoryRouter } from "../history-route/history-route";
 import { ProductPage } from "../../pages/product/product-page";
-import { NotFound } from "../../pages/not-found/not-found";
+import { PageNotFound } from "../../pages/page-not-found/page-not-found";
 import PrivateRoute from "../private-route/private-route";
 import { AdminPage } from "../../pages/admin/admin-page";
 import { HomePage } from "../../pages/home/home-page";
@@ -29,7 +29,7 @@ export function App() {
             <Route path={AppRoute.ProductPage} element={<ProductPage/>}/>
             <Route path={AppRoute.UserPage} element={<PrivateRoute element={<UserPage />} />}/>
             <Route path={AppRoute.AdminPage} element={<PrivateRoute element={<AdminPage />} isAdminRoute />} />
-            <Route path="*" element={<NotFound/>}/>
+            <Route path="*" element={<PageNotFound/>}/>
           </Routes>
         </Provider>
       </HistoryRouter>

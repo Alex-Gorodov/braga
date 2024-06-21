@@ -8,9 +8,7 @@ export function ShopPage(): JSX.Element {
       <Helmet>
         <title>Braga | Shop</title>
       </Helmet>
-      <main className="main">
-        <Shop/>
-      </main>
+      <Shop/>
     </Layout>
   );
 }

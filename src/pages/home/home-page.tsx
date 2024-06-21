@@ -12,12 +12,10 @@ export function HomePage(): JSX.Element {
       <Helmet>
         <title>Braga | Home</title>
       </Helmet>
-      <main className="main">
-        <Hero/>
-        <Video/>
-        <SwiperClassics/>
-        <SignUp/>
-      </main>
+      <Hero/>
+      <Video/>
+      <SwiperClassics/>
+      <SignUp/>
     </Layout>
   );
 }

@@ -9,9 +9,7 @@ export function CartPage(): JSX.Element {
       <Helmet>
         <title>Braga | Cart</title>
       </Helmet>
-      <main className="main">
-        <CartPageItem/>
-      </main>
+      <CartPageItem/>
     </Layout>
   )
 }

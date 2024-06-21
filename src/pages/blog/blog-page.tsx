@@ -7,9 +7,6 @@ export function BlogPage(): JSX.Element {
       <Helmet>
         <title>Braga | Blog</title>
       </Helmet>
-      <main className="main">
-
-      </main>
     </Layout>
   );
 }

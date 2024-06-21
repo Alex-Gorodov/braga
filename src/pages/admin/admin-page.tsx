@@ -8,9 +8,7 @@ export function AdminPage(): JSX.Element {
       <Helmet>
         <title>Braga | Admin</title>
       </Helmet>
-      <main className="main">
-        <AdminPageItem/>
-      </main>
+      <AdminPageItem/>
     </Layout>
   )
 }
