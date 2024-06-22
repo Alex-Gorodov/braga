@@ -8,7 +8,7 @@ export function Footer(): JSX.Element {
     <footer className="footer">
       <div className="footer__logo">
         <span className="footer__logo-part footer__logo-part--1">BR</span>
-        <span className="footer__logo-part footer__logo-part--2">AGA</span>
+        <span className="footer__logo-part footer__logo-part--2">AG<span className='rotate-z'>A</span></span>
         <span className="footer__logo-part footer__logo-part--3">ewery</span>
       </div>
       <address className="footer__address">

@@ -7,7 +7,7 @@
   padding-bottom: 40px
   &__logo
     display: grid
-    grid-template-columns: 113px 153px
+    grid-template-columns: 113px 153px min-content
     grid-template-rows: 185px 42px
     &-part
       @include amatic-bold
@@ -22,13 +22,15 @@
         animation-duration: 1.4s
         letter-spacing: -20px
       &--2
+        display: flex
+        gap: 20px
         grid-column: 2
         grid-row: 1
         font-size: 180px
         line-height: 1.4
         animation-delay: 0.25s
         animation-duration: 1s
-        letter-spacing: -10px
+        letter-spacing: -16px
         color: $accent-yellow
       &--3
         padding-left: 10px
@@ -76,3 +78,9 @@
 
   &__copyrights
     margin: 0
+
+.rotate-z
+  display: block
+  transform: rotateY(180deg)
+  grid-column: -1
+  grid-row: 1

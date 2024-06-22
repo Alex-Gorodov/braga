@@ -41,7 +41,7 @@ export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [timeLeft]);
+  });
 
   const formatTime = (time: number | undefined): string => {
     return time !== undefined && time < 10 ? `0${time}` : `${time}`;
@@ -54,7 +54,6 @@ export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
       timerComponents.push(
         <span key={interval} className={`beer-timer__interval`}>
           {formatTime(timeLeft[interval as keyof TimeLeft])}{interval.charAt(0)}
-          {/* {formatTime(timeLeft[interval as keyof TimeLeft])}{interval === 'days' ? ` ${interval}` : interval !== 'seconds' ? ':' : '' } */}
         </span>
       );
     }
