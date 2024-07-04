@@ -35,6 +35,7 @@ export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
 
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
@@ -60,7 +61,7 @@ export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
   });
 
   return (
-    <div className="product__timer beer-timer">
+    <div className={`product__timer beer-timer ${timerComponents.length < 1 ? 'beer-timer--ready' : ''}`}>
       {timerComponents.length ? timerComponents : <span>Beer is ready!</span>}
     </div>
   );

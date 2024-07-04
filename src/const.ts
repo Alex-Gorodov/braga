@@ -51,6 +51,13 @@ export enum ItemInfo {
   Reviews = "Reviews",
 }
 
+export enum BeerStatus {
+  Unavailable = "Unavailable",
+  Fermentation = "Fermentation",
+  Maturation = "Maturation",
+  Brewing = "Brewing",
+}
+
 export const REVIEW_STARS = [
   { value: 2, title: 'terribly' },
   { value: 3, title: 'not bad' },

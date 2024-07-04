@@ -1,4 +1,4 @@
-import { AppRoute, AuthorizationStatus } from "../const";
+import { AppRoute, AuthorizationStatus, BeerStatus } from "../const";
 import { UserAuthData } from "../types/user-auth-data";
 import { Guest, Subscriber } from "../types/guest";
 import { Beer, BeerInCart } from "../types/beer";
@@ -13,7 +13,7 @@ export const loadBeers = createAction<{beers: Beer[]}>('data/loadBeers');
 
 export const updateBeersAmount = createAction<{beerToUpdate: Beer, numToUpdate: number}>('data/updateBeersAmount');
 
-export const toggleBeerOnBrewing = createAction<{beer: Beer, isOnBrewing: boolean}>('data/toggleBeerOnBrewing');
+export const toggleBeerStatus = createAction<{beer: Beer, status: BeerStatus}>('data/toggleBeerStatus');
 
 export const setUsersDataLoadingStatus = createAction<{isUsersDataLoading: boolean}>('data/setUsersDataLoadingStatus');
 

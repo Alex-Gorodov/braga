@@ -1,3 +1,4 @@
+import { BeerStatus } from "../const";
 import { Review } from "./review";
 
 export type Beer = {
@@ -10,7 +11,8 @@ export type Beer = {
   img: string;
   previewImg: string;
   onStock: number;
-  onBrewing: boolean;
+  // onBrewing: boolean;
+  status:BeerStatus;
   reviews: Review[];
   abv: number;
   ibu: number;

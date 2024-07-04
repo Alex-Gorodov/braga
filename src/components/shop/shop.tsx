@@ -1,7 +1,7 @@
 import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
 import { addItemToCart, addItemToPreOrder } from "../../store/actions";
-import { AppRoute, SHOP_SORTING, SortingNames } from "../../const";
+import { AppRoute, BeerStatus, SHOP_SORTING, SortingNames } from "../../const";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { sortByRating } from "../../utils/sortByRating";
@@ -172,7 +172,7 @@ export function Shop(): JSX.Element {
                       {
                         item.onStock === 0
                         ?
-                          item.onBrewing && user
+                          item.status !== BeerStatus.Unavailable && item.onStock === 0 && user
                           ?
                             <div className={itemButtonWrapperClassName}>
                               <button className="button beer__cart-btn" onClick={handleAddToPreOrder} type="button">Pre-order</button>
@@ -185,10 +185,10 @@ export function Shop(): JSX.Element {
                           </div>
                       }
                       {
-                        item.onBrewing && <Soon cn="shop__item-label"/>
+                        item.status !== BeerStatus.Unavailable && item.onStock === 0 && <Soon addedClass="shop__item-label" beer={item}/>
                       }
                       {
-                        !item.onStock && !item.onBrewing && <Sold cn="shop__item-label"/>
+                        item.onStock === 0 && item.status === BeerStatus.Unavailable && <Sold cn="shop__item-label"/>
                       }
                     </div>
                   </Link>

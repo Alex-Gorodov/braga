@@ -11,7 +11,7 @@ export function PageNotFound(): JSX.Element {
       </Helmet>
       <div className="not-found">
         <h1 className="title title--1">
-          Page nof found
+          Page not found
         </h1>
         <Link to={AppRoute.Root} className="button">
           Go to main

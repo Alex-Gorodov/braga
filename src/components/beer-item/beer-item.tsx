@@ -1,6 +1,6 @@
 import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm } from "../../store/actions";
 import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
-import { AppRoute, AuthorizationStatus, ErrorMessages, ItemInfo, StockEmojis, SuccessMessages } from "../../const";
+import { AppRoute, AuthorizationStatus, BeerStatus, ErrorMessages, ItemInfo, StockEmojis, SuccessMessages } from "../../const";
 import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
 import { SuccessMessage } from "../success-meggase/success-message";
 import { NotAuthReview } from "../not-auth-review/not-auth-review";
@@ -9,6 +9,7 @@ import { ReviewItem } from "../review/review-item/review-item";
 import { ErrorMessage } from "../error-message/error-message";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, generatePath } from "react-router-dom";
+import { BeerTimer } from "../beer-timer/beer-timer";
 import { RootState } from "../../store/root-reducer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { Spinner } from "../spinner/spinner";
@@ -17,7 +18,6 @@ import { Beer } from "../../types/beer";
 import { useState } from "react";
 import { Soon } from "./soon";
 import cn from 'classnames';
-import { BeerTimer } from "../beer-timer/beer-timer";
 
 type BeerItemProps = {
   item: Beer;
@@ -152,9 +152,9 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
             <span className="product__name beer__item-name">
               {item.name}
               {
-                item.onBrewing
+                item.status !== BeerStatus.Unavailable && item.onStock === 0
                 ?
-                <Soon cn="product__label"/>
+                <Soon beer={item} addedClass="product__label"/>
                 :
                 ''
               }
@@ -164,7 +164,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
           <p className="product__description">{item.description}</p>
           <div className="product__buttons">
             <input type="number" name="amount-to-add" id="" min={1} max={item.onStock} step={1} className="button product__amount-input" value={amount} onChange={handleChange}/>
-            <button type="button" className="button button--no-shadow product__button product__button--plus" onClick={() => handleIncrease()} disabled={!item.onBrewing && !(item.onStock > amount)}>+</button>
+            <button type="button" className="button button--no-shadow product__button product__button--plus" onClick={() => handleIncrease()} disabled={item.status === BeerStatus.Unavailable && !(item.onStock > amount)}>+</button>
             <button type="button" className="button button--no-shadow product__button product__button--minus" onClick={() => handleDecrease()}>-</button>
             <button
               type="button"
@@ -176,7 +176,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               disabled={!(item.onStock > amount - 1)}
             >Add to cart</button>
             {
-              item.onBrewing &&
+              item.status !== BeerStatus.Unavailable && item.onStock < 1 &&
               <button
                 className="button product__button product__button--preorder"
                 type="button"
@@ -197,7 +197,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
           </div>
           <div className="product__amount">
             <p className="product__details-title">in stock:</p>
-            <span>
+            <span className="product__amount-wrapper">
               {
                 item.onStock < 100 ?
                   item.onStock < 10 ?
@@ -206,6 +206,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                 `${item.onStock}`
               }
               <span dangerouslySetInnerHTML={{ __html: ` &#${emojiCode};` }} />
+              <span>({item.status})</span>
             </span>
             {
               !item.onStock &&

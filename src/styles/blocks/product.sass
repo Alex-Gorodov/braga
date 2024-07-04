@@ -73,6 +73,8 @@
     margin: 0
     font-size: 48px
     white-space: nowrap
+    &:hover
+      color: unset
   &__label
     right: unset
     left: 100%
@@ -144,6 +146,10 @@
   &__amount
     & span
       font-size: 22px
+    &-wrapper
+      display: flex
+      gap: 8px
+      align-items: center
   &__categories
     @include list-reset
     display: flex

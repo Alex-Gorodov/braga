@@ -12,38 +12,48 @@ import { PageNotFound } from "../page-not-found/page-not-found";
 export function ProductPage(): JSX.Element {
   const { id } = useParams();
   const beers = useSelector((state: RootState) => state.data.beers);
-  const [state, setState] = useState<{ product: Beer | null, isLoading: boolean }>({
-    product: null,
-    isLoading: true,
-  });
+  const [product, setProduct] = useState<Beer | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const isBeerExists = beers.some(b => b.id === Number(id));
+  console.log(isBeerExists);
+
 
   useEffect(() => {
-    setState({ product: null, isLoading: true });
+    setIsLoading(true);
 
-    const timer = setTimeout(() => {
-      const itemId = Number(id);
-      const foundProduct = beers.find((beer) => beer.id === itemId);
-      setState({
-        product: foundProduct || null,
-        isLoading: false,
-      });
-    }, 800);
+    const itemId = Number(id);
+    const foundProduct = beers.find((beer) => beer.id === itemId);
 
-    return () => clearTimeout(timer);
+    if (foundProduct) {
+      setProduct(foundProduct);
+      setIsLoading(false);
+    } else {
+      setTimeout(() => {
+
+        setIsLoading(false)
+      }, 1200);
+    }
+
   }, [id, beers]);
 
-  const { product, isLoading } = state;
-
-  if (!product && !isLoading) {
-    return <PageNotFound/>;
-  }
+  // console.log('product', product);
+  // console.log('loading', isLoading);
 
   return (
     <Layout>
       <Helmet>
-        <title>{`Shop | ${product?.name}`}</title>
+        <title>{`Shop | ${product ? product.name : 'Not found'}`}</title>
       </Helmet>
-      {product ? <BeerItem item={product} /> : <Spinner size={"40"} wrapper />}
+      {isLoading ? (
+        <Spinner size={"40"} wrapper />
+      ) : (
+        product ? (
+          <BeerItem item={product} />
+        ) : (
+          <PageNotFound />
+        )
+      )}
     </Layout>
   );
 }

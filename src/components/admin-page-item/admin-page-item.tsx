@@ -1,10 +1,10 @@
 import { adminChangeBeerCount, adminToggleBeerOnBrewing } from "../../store/api-actions";
-import { toggleBeerOnBrewing, updateBeersAmount } from "../../store/actions";
+import { toggleBeerStatus, updateBeersAmount } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { FormCheckbox } from "../checkbox/checkbox";
 import { Beer } from "../../types/beer";
 import { useState } from "react";
+import { BeerStatus } from "../../const";
 
 export function AdminPageItem(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -12,6 +12,8 @@ export function AdminPageItem(): JSX.Element {
   const guests = useSelector((state: RootState) => state.data.guests);
   const users = useSelector((state: RootState) => state.data.users);
   const dispatch = useDispatch();
+
+  const statuses: string[] = Object.values(BeerStatus);
 
   const [beerAmounts, setBeerAmounts] = useState<{ [key: number]: number }>(
     beers.reduce((acc: { [key: number]: number }, beer: Beer) => {
@@ -37,9 +39,9 @@ export function AdminPageItem(): JSX.Element {
     adminChangeBeerCount(beer, Number(value));
   };
 
-  const handleUpdateIsOnBreewing = (beer: Beer, isOnBrew: boolean) => {
-    dispatch(toggleBeerOnBrewing({beer: beer, isOnBrewing: isOnBrew}));
-    adminToggleBeerOnBrewing(beer, isOnBrew);
+  const handleUpdateStatus = (beer: Beer, status: BeerStatus) => {
+    dispatch(toggleBeerStatus({beer: beer, status: status}));
+    adminToggleBeerOnBrewing(beer, status);
   }
 
   return (
@@ -54,7 +56,7 @@ export function AdminPageItem(): JSX.Element {
                 <span>Name</span>
               </div>
               <div className="admin__table-cell admin__table-cell--name">
-                <span>Brew</span>
+                <span>Status</span>
               </div>
               <div className="admin__table-cell admin__table-cell--name admin__table-cell--amount">
                 <span>Amount</span>
@@ -67,7 +69,18 @@ export function AdminPageItem(): JSX.Element {
               </div>
               <div className="admin__table-cell admin__table-cell--on-brewing">
                 <span>
-                  <FormCheckbox id={i.name} checked={i.onBrewing} onChange={() => handleUpdateIsOnBreewing(i, !i.onBrewing)}/>
+                  <label htmlFor={`status-${i.id}`}>
+                    <select
+                      name="status"
+                      id={`status-${i.id}`}
+                      value={i.status}
+                      onChange={(e) => handleUpdateStatus(i, e.target.value as BeerStatus)}
+                    >
+                      {statuses.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </label>
                 </span>
               </div>
               <div className="admin__table-cell admin__table-cell--value">
@@ -104,7 +117,7 @@ export function AdminPageItem(): JSX.Element {
               </div>
             </li>
             {users ? users.map((user) => (
-              user.preOrder.length > 0 ? (
+              user.preOrder?.length > 0 ? (
                 <li className="admin__list-item admin__list-item--preorders" key={`user-${user.email}`}>
                   <div className="admin__table-cell admin__table-cell--preorders admin__table-cell--value">
                     <span>{`${user.name} ${user.surname.slice(0, 1)}. (${user.email})`}</span>

@@ -4,7 +4,7 @@ import { Link, generatePath } from "react-router-dom";
 import { Beer, BeerInCart } from "../../types/beer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { useDispatch } from "react-redux";
-import { AppRoute } from "../../const";
+import { AppRoute, BeerStatus } from "../../const";
 import { useState } from "react";
 import { Soon } from './soon';
 import { Sold } from "./sold";
@@ -94,7 +94,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         :
           item.onStock === 0
           ?
-            item.onBrewing && user
+            item.status !== BeerStatus.Unavailable && item.onStock === 0 && user
             ?
               <div className={itemButtonWrapperClassName}>
                 <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
@@ -110,10 +110,10 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       }
       <div className="beer__picture-wrapper">
         {
-          item.onStock === 0 && showStatus && <Sold/>
+          item.onStock === 0 && item.status === BeerStatus.Unavailable && showStatus && <Sold/>
         }
         {
-          item.onStock === 0 && item.onBrewing && showStatus && <Soon/>
+          item.status !== BeerStatus.Unavailable && item.onStock === 0 && showStatus && <Soon beer={item}/>
         }
         {
           small ?

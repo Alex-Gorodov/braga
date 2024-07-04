@@ -3,6 +3,7 @@
     "beers": [
       {
         "abv": 6.3,
+        "brewingTimeDays": 28,
         "calories": 201,
         "categories": [
           "Fruity",
@@ -14,16 +15,17 @@
         "id": 0,
         "img": "/braga/img/bottles/neipa",
         "name": "Juicy bomb",
-        "onBrewing": false,
+        "status": "Unavailable",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/neipa",
         "price": 14,
         "srm": 5.6,
-        "style": "NEIPA",
-        "brewingTimeDays": 28
+        "style": "NEIPA"
       },
       {
         "abv": 6.3,
+        "brewingDate": "2024-06-10T18:00:00.000Z",
+        "brewingTimeDays": 28,
         "calories": 192,
         "categories": [
           "Fruity",
@@ -35,17 +37,16 @@
         "id": 1,
         "img": "/braga/img/bottles/ipa",
         "name": "Hey mango",
-        "onBrewing": true,
+        "status": "Maturation",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/ipa",
         "price": 13,
         "srm": 4.4,
-        "style": "IPA",
-        "brewingTimeDays": 28,
-        "brewingDate": "2024-06-10T18:00:00.000Z"
+        "style": "IPA"
       },
       {
         "abv": 5.6,
+        "brewingTimeDays": 28,
         "calories": 182,
         "categories": [
           "Coffee",
@@ -57,16 +58,17 @@
         "id": 2,
         "img": "/braga/img/bottles/stout",
         "name": "Therapist’s breakfast",
-        "onBrewing": false,
+        "status": "Unavailable",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/stout",
         "price": 11,
         "srm": 49,
-        "style": "stout",
-        "brewingTimeDays": 28
+        "style": "stout"
       },
       {
         "abv": 4.8,
+        "brewingDate": "2024-06-16T18:00:00.000Z",
+        "brewingTimeDays": 28,
         "calories": 143,
         "categories": [
           "Wheat",
@@ -79,17 +81,16 @@
         "id": 3,
         "img": "/braga/img/bottles/wheat",
         "name": "Witbier",
-        "onBrewing": true,
+        "status": "Maturation",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/wheat",
         "price": 12,
         "srm": 3.1,
-        "style": "wheat beer",
-        "brewingTimeDays": 28,
-        "brewingDate": "2024-06-16T18:00:00.000Z"
+        "style": "wheat beer"
       },
       {
         "abv": 5,
+        "brewingTimeDays": 28,
         "calories": 146,
         "categories": [
           "Malty",
@@ -100,16 +101,16 @@
         "id": 4,
         "img": "/braga/img/bottles/lager",
         "name": "Desert vagabond",
-        "onBrewing": false,
+        "status": "Unavailable",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/lager",
         "price": 11,
         "srm": 4,
-        "style": "light lager",
-        "brewingTimeDays": 28
+        "style": "light lager"
       },
       {
         "abv": 7.2,
+        "brewingTimeDays": 28,
         "calories": 211,
         "categories": [
           "Coconut",
@@ -120,72 +121,15 @@
         "id": 5,
         "img": "/braga/img/bottles/porter",
         "name": "Bounty injection",
-        "onBrewing": false,
+        "status": "Fermentation",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/porter",
         "price": 14,
         "srm": 41.6,
-        "style": "porter",
-        "brewingTimeDays": 28
+        "style": "porter"
       }
     ],
     "guests": {
-      "-O-M5qn4TVehBCh_Xu7A": {
-        "id": 0,
-        "name": "Zozo",
-        "notifications": [
-          {
-            "abv": 4.8,
-            "calories": 143,
-            "categories": [
-              "Wheat",
-              "Citrusy",
-              "Herbal",
-              "Spicy"
-            ],
-            "description": "Belgian-style witbier is brewed using unmalted wheat, sometimes oats and malted barley. Witbiers are spiced with coriander and orange peel. A style that dates back hundreds of years, it fell into relative obscurity until it was revived by Belgian brewer Pierre Celis in the 1960s. This style is currently enjoying a renaissance, especially in the American market. “Wit” means “white.”",
-            "ibu": 12.6,
-            "id": 3,
-            "img": "/braga/img/bottles/wheat",
-            "name": "Witbier",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/wheat",
-            "price": 12,
-            "srm": 3.1,
-            "style": "wheat beer"
-          }
-        ],
-        "phone": "98765432"
-      },
-      "-O-M5x39k9k7wxMnklsK": {
-        "email": "merab@mail.com",
-        "id": 1,
-        "name": "Merab",
-        "notifications": [
-          {
-            "abv": 4.8,
-            "calories": 143,
-            "categories": [
-              "Wheat",
-              "Citrusy",
-              "Herbal",
-              "Spicy"
-            ],
-            "description": "Belgian-style witbier is brewed using unmalted wheat, sometimes oats and malted barley. Witbiers are spiced with coriander and orange peel. A style that dates back hundreds of years, it fell into relative obscurity until it was revived by Belgian brewer Pierre Celis in the 1960s. This style is currently enjoying a renaissance, especially in the American market. “Wit” means “white.”",
-            "ibu": 12.6,
-            "id": 3,
-            "img": "/braga/img/bottles/wheat",
-            "name": "Witbier",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/wheat",
-            "price": 12,
-            "srm": 3.1,
-            "style": "wheat beer"
-          }
-        ]
-      }
     },
     "subscribers": {
       "-O-TXpzFZUPmz85mhOWL": {
@@ -209,186 +153,14 @@
         "isAdmin": true,
         "name": "Alexandr",
         "notifications": [
-          {
-            "abv": 6.3,
-            "calories": 192,
-            "categories": [
-              "Fruity",
-              "Hoppy",
-              "Bitter"
-            ],
-            "description": "While IPA stands for India Pale Ale, India was not the country that created it. However, it has a lot to do with it. During their efforts to colonize India, the British made several failed attempts to send beer to their troops overseas. Extreme temperatures and lack of refri-geration caused spoilage every time.",
-            "ibu": 47.1,
-            "id": 1,
-            "img": "/braga/img/bottles/ipa",
-            "name": "Hey mango",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/ipa",
-            "price": 13,
-            "srm": 4.4,
-            "style": "IPA"
-          },
-          {
-            "abv": 4.8,
-            "calories": 143,
-            "categories": [
-              "Wheat",
-              "Citrusy",
-              "Herbal",
-              "Spicy"
-            ],
-            "description": "Belgian-style witbier is brewed using unmalted wheat, sometimes oats and malted barley. Witbiers are spiced with coriander and orange peel. A style that dates back hundreds of years, it fell into relative obscurity until it was revived by Belgian brewer Pierre Celis in the 1960s. This style is currently enjoying a renaissance, especially in the American market. “Wit” means “white.”",
-            "ibu": 12.6,
-            "id": 3,
-            "img": "/braga/img/bottles/wheat",
-            "name": "Witbier",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/wheat",
-            "price": 12,
-            "srm": 3.1,
-            "style": "wheat beer"
-          }
+
         ],
         "password": "A2242838",
         "phone": "0543955573",
         "preOrder": [
-          {
-            "abv": 6.3,
-            "amount": 10,
-            "calories": 192,
-            "categories": [
-              "Fruity",
-              "Hoppy",
-              "Bitter"
-            ],
-            "description": "While IPA stands for India Pale Ale, India was not the country that created it. However, it has a lot to do with it. During their efforts to colonize India, the British made several failed attempts to send beer to their troops overseas. Extreme temperatures and lack of refri-geration caused spoilage every time.",
-            "ibu": 47.1,
-            "id": 1,
-            "img": "/braga/img/bottles/ipa",
-            "name": "Hey mango",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/ipa",
-            "price": 13,
-            "srm": 4.4,
-            "style": "IPA"
-          },
-          {
-            "abv": 4.8,
-            "amount": 6,
-            "calories": 143,
-            "categories": [
-              "Wheat",
-              "Citrusy",
-              "Herbal",
-              "Spicy"
-            ],
-            "description": "Belgian-style witbier is brewed using unmalted wheat, sometimes oats and malted barley. Witbiers are spiced with coriander and orange peel. A style that dates back hundreds of years, it fell into relative obscurity until it was revived by Belgian brewer Pierre Celis in the 1960s. This style is currently enjoying a renaissance, especially in the American market. “Wit” means “white.”",
-            "ibu": 12.6,
-            "id": 3,
-            "img": "/braga/img/bottles/wheat",
-            "name": "Witbier",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/wheat",
-            "price": 12,
-            "srm": 3.1,
-            "style": "wheat beer"
-          }
+
         ],
         "surname": "Gorodov"
-      },
-      "-O-cs8yETujx2UdbE_is": {
-        "avatar": "",
-        "email": "markov@gmail.com",
-        "id": "M1i35hbb7jQUZhu7F4cdkeBwtBO2",
-        "isAdmin": false,
-        "name": "Denis",
-        "password": "qweqwe12",
-        "phone": "12312312311",
-        "preOrder": [
-          {
-            "abv": 6.3,
-            "amount": 4,
-            "calories": 192,
-            "categories": [
-              "Fruity",
-              "Hoppy",
-              "Bitter"
-            ],
-            "description": "While IPA stands for India Pale Ale, India was not the country that created it. However, it has a lot to do with it. During their efforts to colonize India, the British made several failed attempts to send beer to their troops overseas. Extreme temperatures and lack of refri-geration caused spoilage every time.",
-            "ibu": 47.1,
-            "id": 1,
-            "img": "/braga/img/bottles/ipa",
-            "name": "Hey mango",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/ipa",
-            "price": 13,
-            "srm": 4.4,
-            "style": "IPA"
-          }
-        ],
-        "surname": "Markov",
-        "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImRmOGIxNTFiY2Q5MGQ1YjMwMjBlNTNhMzYyZTRiMzA3NTYzMzdhNjEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYnJhZ2EtNjdlNmQiLCJhdWQiOiJicmFnYS02N2U2ZCIsImF1dGhfdGltZSI6MTcxODY3MjcyNywidXNlcl9pZCI6Ik0xaTM1aGJiN2pRVVpodTdGNGNka2VCd3RCTzIiLCJzdWIiOiJNMWkzNWhiYjdqUVVaaHU3RjRjZGtlQnd0Qk8yIiwiaWF0IjoxNzE4NjcyNzI3LCJleHAiOjE3MTg2NzYzMjcsImVtYWlsIjoibWFya292QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJtYXJrb3ZAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.GuL8oCYM7ICIU0hQUBf3-b1_KpAx6CLAgbFOL5Iz0hObcyY8ZqA4qat4fdZj-icLxM9Rbh7--RYwsDeOvyPhmXK1lg8jO26Ta8na6-bMuQEAaa5zqTMhVlS2mdBBvOygeckr9YdXE7LolU7NiQkM_6DyCJTfHSHI0wmiPxNwlvFJ7916hiI0ip26IEXgmsfqJ_IRz1XO_h115nNsF4lZF6pCKjPAyUW3xdPKI9ZwSSK6vy3zQOD6OYD1mQk80ULr66nGJySxz2XhThE7v-TJYFBsW_IYK6fgRz66v1EF87Cp5aYAklsoLwlJYCFmo-Ft8aGYk6vlnKQgB7LaLaKF5Q"
-      },
-      "-O-kIYtQkRCaebogqaVa": {
-        "avatar": "",
-        "email": "afas@gmail.com",
-        "id": "XeJrNf0m4jOByC7JuahvyTA753f2",
-        "isAdmin": false,
-        "name": "Amit",
-        "password": "qwerty12",
-        "phone": "0543988847",
-        "preOrder": [
-          {
-            "abv": 6.3,
-            "amount": 12,
-            "calories": 192,
-            "categories": [
-              "Fruity",
-              "Hoppy",
-              "Bitter"
-            ],
-            "description": "While IPA stands for India Pale Ale, India was not the country that created it. However, it has a lot to do with it. During their efforts to colonize India, the British made several failed attempts to send beer to their troops overseas. Extreme temperatures and lack of refri-geration caused spoilage every time.",
-            "ibu": 47.1,
-            "id": 1,
-            "img": "/braga/img/bottles/ipa",
-            "name": "Hey mango",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/ipa",
-            "price": 13,
-            "srm": 4.4,
-            "style": "IPA"
-          },
-          {
-            "abv": 4.8,
-            "amount": 5,
-            "calories": 143,
-            "categories": [
-              "Wheat",
-              "Citrusy",
-              "Herbal",
-              "Spicy"
-            ],
-            "description": "Belgian-style witbier is brewed using unmalted wheat, sometimes oats and malted barley. Witbiers are spiced with coriander and orange peel. A style that dates back hundreds of years, it fell into relative obscurity until it was revived by Belgian brewer Pierre Celis in the 1960s. This style is currently enjoying a renaissance, especially in the American market. “Wit” means “white.”",
-            "ibu": 12.6,
-            "id": 3,
-            "img": "/braga/img/bottles/wheat",
-            "name": "Witbier",
-            "onBrewing": true,
-            "onStock": 0,
-            "previewImg": "/braga/img/beers-preview/wheat",
-            "price": 12,
-            "srm": 3.1,
-            "style": "wheat beer"
-          }
-        ],
-        "surname": "Zohar",
-        "token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImYwOGU2ZTNmNzg4ZDYwMTk0MDA1ZGJiYzE5NDc0YmY5Mjg5ZDM5ZWEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYnJhZ2EtNjdlNmQiLCJhdWQiOiJicmFnYS02N2U2ZCIsImF1dGhfdGltZSI6MTcxODc5NzM1MiwidXNlcl9pZCI6IlhlSnJOZjBtNGpPQnlDN0p1YWh2eVRBNzUzZjIiLCJzdWIiOiJYZUpyTmYwbTRqT0J5QzdKdWFodnlUQTc1M2YyIiwiaWF0IjoxNzE4Nzk3MzUyLCJleHAiOjE3MTg4MDA5NTIsImVtYWlsIjoiYWZhc0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiYWZhc0BnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.eWChTCCzCDMtZwLat9Qk9p26Pnr1254tONX_LPddtJ_t7uMW_2EuB5_12DIIK2-p51hj7qaEjOTjC_Pbuw8uwmgDR-M9bcplBIooQXV1PymnZtzkd3u7F9575BXMqvcUIl4wGB2-b7ohbCuQGDMIuYMKVDxDM03t2UVgn-jpgsm5DUIbGdPqbIuGNq3WeRdIuw723mtSVhC12F6J2iDriCqzzmmfytAdqvuxF6vStygTnlNf_eLMLaurfsaWSgDOfaE1V-KEYHIFYR_wIgHBV1weRCJA_bYWkDrsPZx4P7XyNHav2H11Cfd0TJiqoFsCMRTKPf7UhkiRl10uwcoBcQ"
       }
     }
   }

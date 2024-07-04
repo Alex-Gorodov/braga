@@ -2,7 +2,7 @@ import { loadBeers, loadGuests, loadSubscribers, loadUsers, requireAuthorization
 import { removeUserFromLocalStorage, saveToken } from "../services/token";
 import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
 import { removeUser, setUser } from "./slices/user-slice";
-import { APIRoute, AuthorizationStatus } from "../const";
+import { APIRoute, AuthorizationStatus, BeerStatus } from "../const";
 import { UserAuthData } from "../types/user-auth-data";
 import { Guest, Subscriber } from "../types/guest";
 import { Beer, BeerInCart } from "../types/beer";
@@ -329,13 +329,13 @@ export const adminChangeBeerCount = async (beer: Beer, num: number) => {
   }
 }
 
-export const adminToggleBeerOnBrewing = async (beer: Beer, isOnBrewing: boolean) => {
+export const adminToggleBeerOnBrewing = async (beer: Beer, status: BeerStatus) => {
   try {
     const beerRef = database.ref(`${APIRoute.Beers}/${beer.id}`);
     const snapshot = await beerRef.once('value');
     const beerData = snapshot.val();
 
-    beerData.onBrewing = isOnBrewing;
+    beerData.status = status;
     await beerRef.update(beerData);
   } catch (error) {
     console.error("Error updating beer on brewing: ", error);
