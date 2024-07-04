@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { ReactComponent as InfoIcon } from "../../img/icons/info.svg";
 import { BeerStatus, BeerStatusColor } from "../../const";
+import { useState } from "react";
 
 type LabelProps = {
   status: BeerStatus;
@@ -13,6 +14,7 @@ export function BeerStatusLabel({status, className}: LabelProps): JSX.Element {
     <div className="product__status-wrapper">
       <span className={className} role="button" onClick={() => setInfoShowed(!infoShowed)}>
         {status}
+        {(status === BeerStatus.Fermentation || status === BeerStatus.Maturation) && <InfoIcon/>}
       </span>
       {
         status !== BeerStatus.Unavailable &&
@@ -30,10 +32,10 @@ export function BeerStatusLabel({status, className}: LabelProps): JSX.Element {
           {
             status === BeerStatus.Fermentation
               ?
-              "During fermentation, yeast converts sugars into alcohol and carbon dioxide, creating beer's flavor and alcohol content. You can preorder at this stage."
+              "During fermentation, yeast converts sugars into alcohol, creating beer's flavor and alcohol content. You can preorder at this stage."
               : status === BeerStatus.Maturation
                 ?
-                "In maturation, beer ages to refine flavors and smooth out taste. You can preorder at this stage."
+                "During the maturation process, the beer develops carbonation, aroma and smoothes out the taste. You can preorder at this stage."
                 : ''
           }
         </span>
