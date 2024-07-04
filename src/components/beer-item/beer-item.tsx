@@ -144,7 +144,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
               <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
             </picture>
-            {item.brewingDate && <BeerTimer item={item}/>}
+            {item.brewingDate && item.status !== BeerStatus.Ready && <BeerTimer item={item}/>}
           </div>
         </div>
         <div className="product__details">
@@ -173,10 +173,10 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                 user && dispatch(addItemToCart({user: user, item: {...item, amount: amount}, amount: amount}))
                 user && addItemToUserDatabaseCart(user, {...item, amount: amount})
               }}
-              disabled={!(item.onStock > amount - 1)}
+              disabled={item.status !== BeerStatus.Ready}
             >Add to cart</button>
             {
-              item.status !== BeerStatus.Unavailable && item.onStock < 1 &&
+              item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready &&
               <button
                 className="button product__button product__button--preorder"
                 type="button"

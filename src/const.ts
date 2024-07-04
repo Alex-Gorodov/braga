@@ -56,6 +56,7 @@ export enum BeerStatus {
   Fermentation = "Fermentation",
   Maturation = "Maturation",
   Brewing = "Brewing",
+  Ready = "Ready",
 }
 
 export const REVIEW_STARS = [

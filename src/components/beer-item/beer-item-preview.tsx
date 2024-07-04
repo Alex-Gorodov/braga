@@ -92,9 +92,9 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         ?
           ''
         :
-          item.onStock === 0
+          item.status !== BeerStatus.Ready
           ?
-            item.status !== BeerStatus.Unavailable && item.onStock === 0 && user
+            item.status !== BeerStatus.Unavailable && user
             ?
               <div className={itemButtonWrapperClassName}>
                 <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
@@ -110,10 +110,10 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       }
       <div className="beer__picture-wrapper">
         {
-          item.onStock === 0 && item.status === BeerStatus.Unavailable && showStatus && <Sold/>
+          item.onStock === 0 && showStatus && <Sold/>
         }
         {
-          item.status !== BeerStatus.Unavailable && item.onStock === 0 && showStatus && <Soon beer={item}/>
+          item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready && showStatus && <Soon beer={item}/>
         }
         {
           small ?

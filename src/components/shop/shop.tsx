@@ -170,9 +170,9 @@ export function Shop(): JSX.Element {
                     <div className="shop__item-img-wrapper">
                       <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
                       {
-                        item.onStock === 0
+                        item.status !== BeerStatus.Ready
                         ?
-                          item.status !== BeerStatus.Unavailable && item.onStock === 0 && user
+                          item.status !== BeerStatus.Unavailable && user
                           ?
                             <div className={itemButtonWrapperClassName}>
                               <button className="button beer__cart-btn" onClick={handleAddToPreOrder} type="button">Pre-order</button>
@@ -185,7 +185,7 @@ export function Shop(): JSX.Element {
                           </div>
                       }
                       {
-                        item.status !== BeerStatus.Unavailable && item.onStock === 0 && <Soon addedClass="shop__item-label" beer={item}/>
+                        item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready && <Soon addedClass="shop__item-label" beer={item}/>
                       }
                       {
                         item.onStock === 0 && item.status === BeerStatus.Unavailable && <Sold cn="shop__item-label"/>

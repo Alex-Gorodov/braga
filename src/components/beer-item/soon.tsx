@@ -10,7 +10,7 @@ type LabelProps = {
 
 export function Soon({addedClass, beer}: LabelProps): JSX.Element {
   const labelClassName = cn('beer__label', {
-    'beer__label--soon': beer.status !== BeerStatus.Unavailable && beer.onStock === 0,
+    'beer__label--soon': beer.status !== BeerStatus.Unavailable && beer.status !== BeerStatus.Ready,
   })
   return (
     <span className={`${labelClassName} ${addedClass} ${addedClass}--soon`}>

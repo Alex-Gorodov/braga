@@ -37,9 +37,6 @@ export function ProductPage(): JSX.Element {
 
   }, [id, beers]);
 
-  // console.log('product', product);
-  // console.log('loading', isLoading);
-
   return (
     <Layout>
       <Helmet>
