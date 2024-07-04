@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.6600c14d.css",
-    "main.js": "/braga/static/js/main.c6975b1f.js",
+    "main.css": "/braga/static/css/main.50f2440e.css",
+    "main.js": "/braga/static/js/main.642f10c5.js",
     "static/media/hand.png": "/braga/static/media/hand.9c02734d030b38801843.png",
     "static/media/beer-video-poster.jpg": "/braga/static/media/beer-video-poster.d2d6f9741418c795656d.jpg",
     "static/media/hand-mobile.png": "/braga/static/media/hand-mobile.f3329d754ddacf2590d0.png",
     "static/media/braga-logo.svg": "/braga/static/media/braga-logo.3c6f413e9ba29d631addb47fc05d9646.svg",
     "static/media/hidden-password.svg": "/braga/static/media/hidden-password.7220172149990f5c34b1bc09aebf5137.svg",
     "static/media/showed-password.svg": "/braga/static/media/showed-password.715a3d24a5a66ad45b899cf3d816f168.svg",
+    "static/media/info.svg": "/braga/static/media/info.06418eb5cd1f679efd6235df677112d2.svg",
     "static/media/whatsapp.svg": "/braga/static/media/whatsapp.4b0dc2d7ef8eb3090dcc75e7536e940c.svg",
     "static/media/upload-icon.svg": "/braga/static/media/upload-icon.39623dca42b579a21299dd86b5716928.svg",
     "static/media/location.svg": "/braga/static/media/location.1e9221dc92713ec73dfe4beea600bb8b.svg",
@@ -22,11 +23,11 @@
     "static/media/cross.svg": "/braga/static/media/cross.303f2d6a5e0d26e8bb5876a37b0407b9.svg",
     "static/media/select.svg": "/braga/static/media/select.dd8e8f67e6cf7fb0c759.svg",
     "static/media/form-arrow.svg": "/braga/static/media/form-arrow.131d86b864c40a8e3b421bc39fd27742.svg",
-    "main.6600c14d.css.map": "/braga/static/css/main.6600c14d.css.map",
-    "main.c6975b1f.js.map": "/braga/static/js/main.c6975b1f.js.map"
+    "main.50f2440e.css.map": "/braga/static/css/main.50f2440e.css.map",
+    "main.642f10c5.js.map": "/braga/static/js/main.642f10c5.js.map"
   },
   "entrypoints": [
-    "static/css/main.6600c14d.css",
-    "static/js/main.c6975b1f.js"
+    "static/css/main.50f2440e.css",
+    "static/js/main.642f10c5.js"
   ]
 }
