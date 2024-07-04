@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Beer } from "../../types/beer";
-import { toggleBeerStatus } from "../../store/actions";
-import { BeerStatus } from "../../const";
+import { toggleBeerStatus } from "../../../store/actions";
+import { Beer } from "../../../types/beer";
+import { BeerStatus } from "../../../const";
 
 type BeerTimerProps = {
   item: Beer;

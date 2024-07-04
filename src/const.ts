@@ -59,6 +59,11 @@ export enum BeerStatus {
   Ready = "Ready",
 }
 
+export const BeerStatusColor = {
+  Fermentation: ["#e7c942", "#000000"],
+  Maturation: ["#258815", "#ffffff"]
+}
+
 export const REVIEW_STARS = [
   { value: 2, title: 'terribly' },
   { value: 3, title: 'not bad' },

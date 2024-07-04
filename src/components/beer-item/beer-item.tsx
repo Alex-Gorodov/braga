@@ -8,9 +8,10 @@ import { ReviewForm } from "../review/review-form/review-form";
 import { ReviewItem } from "../review/review-item/review-item";
 import { ErrorMessage } from "../error-message/error-message";
 import { useDispatch, useSelector } from "react-redux";
+import { BeerStatusLabel } from "./beer-status-label";
 import { Link, generatePath } from "react-router-dom";
-import { BeerTimer } from "../beer-timer/beer-timer";
 import { RootState } from "../../store/root-reducer";
+import { BeerTimer } from "./beer-timer/beer-timer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
@@ -145,6 +146,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
             </picture>
             {item.brewingDate && item.status !== BeerStatus.Ready && <BeerTimer item={item}/>}
+            {item.status !== BeerStatus.Unavailable && <BeerStatusLabel status={item.status} className="product__status-label"/>}
           </div>
         </div>
         <div className="product__details">
@@ -206,7 +208,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                 `${item.onStock}`
               }
               <span dangerouslySetInnerHTML={{ __html: ` &#${emojiCode};` }} />
-              <span>({item.status})</span>
             </span>
             {
               !item.onStock &&

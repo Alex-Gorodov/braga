@@ -16,6 +16,7 @@ import { Soon } from "../beer-item/soon";
 import { Sold } from "../beer-item/sold";
 import cn from 'classnames';
 import { sortByDate } from "../../utils/sortByDate";
+import { BeerStatusLabel } from "../beer-item/beer-status-label";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -166,12 +167,12 @@ export function Shop(): JSX.Element {
                 <li
                   className="shop__item"
                   key={`shop-item-${item.name}`}
-                  onMouseEnter={() => setCartBtnShown({item: item, isButtonShowed: true})}
-                  onMouseLeave={() => setCartBtnShown({item: null, isButtonShowed: false})}
-                  onTouchStart={() => setCartBtnShown({item: isCartBtnShown.isButtonShowed ? item : null, isButtonShowed: !isCartBtnShown.isButtonShowed})}
+                  // onMouseEnter={() => setCartBtnShown({item: item, isButtonShowed: true})}
+                  // onMouseLeave={() => setCartBtnShown({item: null, isButtonShowed: false})}
+                  // onTouchStart={() => setCartBtnShown({item: isCartBtnShown.isButtonShowed ? item : null, isButtonShowed: !isCartBtnShown.isButtonShowed})}
                 >
-                  <Link className="shop__item-link shop__item-link--image" to={link}>
-                    <div className="shop__item-img-wrapper">
+                  <div className="shop__item-img-wrapper">
+                    <Link className="shop__item-link shop__item-link--image" to={link}>
                       <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
                       {
                         item.status !== BeerStatus.Ready
@@ -194,8 +195,11 @@ export function Shop(): JSX.Element {
                       {
                         item.onStock === 0 && item.status === BeerStatus.Unavailable && <Sold cn="shop__item-label"/>
                       }
-                    </div>
-                  </Link>
+                    </Link>
+                    {
+                      item.status !== BeerStatus.Ready && <BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`}/>
+                    }
+                  </div>
                   <Link className="shop__item-link" to={link}>
                     <span className="beer__item-name shop__item-name">
                       {item.name}
