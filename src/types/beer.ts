@@ -11,7 +11,6 @@ export type Beer = {
   img: string;
   previewImg: string;
   onStock: number;
-  // onBrewing: boolean;
   status:BeerStatus;
   reviews: Review[];
   abv: number;

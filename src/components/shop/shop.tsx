@@ -15,6 +15,7 @@ import { Spinner } from "../spinner/spinner";
 import { Soon } from "../beer-item/soon";
 import { Sold } from "../beer-item/sold";
 import cn from 'classnames';
+import { sortByDate } from "../../utils/sortByDate";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -45,6 +46,9 @@ export function Shop(): JSX.Element {
         break;
       case SortingNames.Rating:
         setInitialBeers(sortByRating([...beers]));
+        break;
+      case SortingNames.Newest:
+        setInitialBeers(sortByDate([...beers]));
         break;
       default:
         setInitialBeers(beers);
