@@ -2,13 +2,11 @@
   @include inter-regular
   display: flex
   flex-direction: column
-  gap: 60px
+  gap: 20px
   max-width: $container-max-width
   width: 100%
   margin: 0 auto
   padding: 40px 60px
   flex-grow: 1
-  @media (max-width: 490px)
-    padding: 40px 20px
-  &__container
-    // &:has()
+  @media (max-width: $mobile)
+    padding: 20px 30px
