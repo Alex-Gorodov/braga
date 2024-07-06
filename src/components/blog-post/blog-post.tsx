@@ -46,12 +46,14 @@ export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
 
       }
       <article className="post">
-        <picture className="post__image-wrapper">
-          <source srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp" width={384} height={475}/>
-          <source media="(min-width: 1170px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
-          <source media="(min-width: 900px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
-          <img className="post__image" src={`${post.img}.png`} width={384} height={475} alt={post.title} srcSet={`${post.img}@2x.png 2x`}/>
-        </picture>
+        <Link to={link}>
+          <picture className="post__image-wrapper">
+            <source srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp" width={384} height={475}/>
+            <source media="(min-width: 1170px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
+            <source media="(min-width: 900px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
+            <img className="post__image" src={`${post.img}.png`} width={384} height={475} alt={post.title} srcSet={`${post.img}@2x.png 2x`}/>
+          </picture>
+        </Link>
         <p className="post__date-wrapper">
           <span>{renderedDate()}</span> /&nbsp;
           {post.tags.map((t, index) => (
