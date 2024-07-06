@@ -7,6 +7,16 @@
     padding: 40px
     @media (max-width: $mobile)
       padding: 10px
+  &__top-wrapper
+    display: grid
+    grid-template-columns: max-content auto
+    align-items: center
+    justify-content: space-between
+    grid-column: 1 / 2
+    gap: 20px
+    @media (max-width: $shop-grid)
+      grid-column: 1 / -1
+      grid-template-columns: 1fr
   &__container
     border-bottom: $section-border
     transition: 0.3s

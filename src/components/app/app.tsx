@@ -14,6 +14,7 @@ import { Route, Routes } from "react-router-dom";
 import { AppRoute } from "../../const";
 import { Provider } from "react-redux";
 import { store } from "../../store";
+import { PostPage } from "../../pages/post/post-page";
 
 export function App() {
 
@@ -27,6 +28,7 @@ export function App() {
             <Route path={AppRoute.Cart} element={<CartPage/>}/>
             <Route path={AppRoute.Blog} element={<BlogPage/>}/>
             <Route path={AppRoute.ProductPage} element={<ProductPage/>}/>
+            <Route path={AppRoute.PostPage} element={<PostPage/>}/>
             <Route path={AppRoute.UserPage} element={<PrivateRoute element={<UserPage />} />}/>
             <Route path={AppRoute.AdminPage} element={<PrivateRoute element={<AdminPage />} isAdminRoute />} />
             <Route path="*" element={<PageNotFound/>}/>

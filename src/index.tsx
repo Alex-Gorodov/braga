@@ -1,4 +1,4 @@
-import { fetchBeersAction, fetchGuestsAction, fetchSubscribersAction, fetchUsersAction } from './store/api-actions';
+import { fetchBeersAction, fetchBlogPostsAction, fetchGuestsAction, fetchSubscribersAction, fetchUsersAction } from './store/api-actions';
 import { App } from './components/app/app';
 import ReactDOM from 'react-dom/client';
 import { store } from './store';
@@ -13,6 +13,7 @@ store.dispatch(fetchSubscribersAction());
 store.dispatch(fetchGuestsAction());
 store.dispatch(fetchBeersAction());
 store.dispatch(fetchUsersAction());
+store.dispatch(fetchBlogPostsAction());
 
 root.render(
   <React.StrictMode>

@@ -26,6 +26,7 @@ export const SHOP_SORTING = [
 ]
 
 export enum AppRoute {
+  PostPage = "/braga/blog/:id",
   ProductPage = "/braga/shop/:id",
   UserPage = "/braga/user/:id",
   AdminPage = "/braga/admin",
@@ -43,6 +44,7 @@ export enum APIRoute {
   Beers = "braga-db/beers",
   Users = "braga-db/users",
   Login = 'braga-db/login',
+  Blog = 'braga-db/blog',
 }
 
 export enum ItemInfo {

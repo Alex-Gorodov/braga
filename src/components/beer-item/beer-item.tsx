@@ -146,7 +146,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
             </picture>
             {item.brewingDate && item.status !== BeerStatus.Ready && <BeerTimer item={item}/>}
-            {item.status !== BeerStatus.Unavailable && <BeerStatusLabel status={item.status} className="product__status-label"/>}
+            {<BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`}/>}
           </div>
         </div>
         <div className="product__details">
@@ -273,7 +273,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
             ) : (
               <div className="product__review-wrapper">
-                <p className="product__details-title product__details-title--small">Reviews</p>
                 {item.reviews && item.reviews.length > 0 ? (
                   <>
                     <ul className="product__review-list">

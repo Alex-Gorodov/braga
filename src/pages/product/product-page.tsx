@@ -15,10 +15,6 @@ export function ProductPage(): JSX.Element {
   const [product, setProduct] = useState<Beer | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const isBeerExists = beers.some(b => b.id === Number(id));
-  console.log(isBeerExists);
-
-
   useEffect(() => {
     setIsLoading(true);
 

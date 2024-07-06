@@ -90,10 +90,10 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   };
 
   return (
-    <div className="review-form">
-      <form action="#" method="post" ref={formRef} onSubmit={handleFormSubmit}>
-        <legend>Your email address will not be published. Required fields are marked *</legend>
-        <div className="review__rating-form form__rating">
+    <div className="review-form__wrapper">
+      <form className="review-form" action="#" method="post" ref={formRef} onSubmit={handleFormSubmit}>
+        <legend>Please indicate your rating and fill out the review form</legend>
+        <div className="review__rating-form review-form__rating">
           {REVIEW_STARS.map((star) => (
             <Fragment key={star.value}>
               <input
@@ -111,7 +111,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
                 className="review-form__label"
                 title={star.title}
               >
-                <RatingStar className="form__star-image" />
+                <RatingStar className="review-form__star-image" />
               </label>
             </Fragment>
           ))}
@@ -121,6 +121,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
           className="review-form__textarea"
           id="review"
           name="review"
+          rows={5}
           placeholder="Your review here..."
           value={reviewFormData.review}
           disabled={reviewStatus}
@@ -131,7 +132,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
             with at least <b className="review-form__text-amount">15 characters</b>.
           </p>
           <button
-            className="reviews__submit form__submit button"
+            className="reviews__submit review-form__submit button"
             type="submit"
             disabled={reviewStatus || reviewFormData.review.length < 15 || reviewFormData.rating === 0}
             ref={refButton}

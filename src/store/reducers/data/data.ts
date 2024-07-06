@@ -1,4 +1,4 @@
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerStatus, updateBeersAmount } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerStatus, updateBeersAmount } from "../../actions";
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
 
@@ -7,10 +7,12 @@ const initialState: DataState = {
   users: [],
   guests: [],
   subscribers: [],
+  blog: [],
   isBeersDataLoading: false,
   isUsersDataLoading: false,
   isGuestsDataLoading: false,
-  isSubscribersDataLoading: false
+  isSubscribersDataLoading: false,
+  isBlogPostsDataLoading: false,
 }
 
 export const dataReducer = createReducer(initialState, (builder) => {
@@ -46,6 +48,12 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(setSubscribersDataLoadingStatus, (state, action) => {
     state.isSubscribersDataLoading = action.payload.isSubscribersDataLoading;
+  })
+  .addCase(loadBlogPosts, (state, action) => {
+    state.blog = action.payload.posts
+  })
+  .addCase(setBlogPostsDataLoadingStatus, (state, action) => {
+    state.isBlogPostsDataLoading = action.payload.isBlogPostsDataLoading;
   })
   .addCase(addItemToCart, (state, action) => {
     const { user, item, amount } = action.payload;

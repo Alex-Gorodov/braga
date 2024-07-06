@@ -15,11 +15,11 @@
         "id": 0,
         "img": "/braga/img/bottles/neipa",
         "name": "Juicy bomb",
-        "status": "Unavailable",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/neipa",
         "price": 14,
         "srm": 5.6,
+        "status": "Unavailable",
         "style": "NEIPA"
       },
       {
@@ -37,11 +37,12 @@
         "id": 1,
         "img": "/braga/img/bottles/ipa",
         "name": "Hey mango",
-        "status": "Maturation",
-        "onStock": 0,
+        "onBrewing": "Maturation",
+        "onStock": 44,
         "previewImg": "/braga/img/beers-preview/ipa",
         "price": 13,
         "srm": 4.4,
+        "status": "Maturation",
         "style": "IPA"
       },
       {
@@ -58,11 +59,12 @@
         "id": 2,
         "img": "/braga/img/bottles/stout",
         "name": "Therapist’s breakfast",
-        "status": "Unavailable",
+        "onBrewing": "Unavailable",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/stout",
         "price": 11,
         "srm": 49,
+        "status": "Unavailable",
         "style": "stout"
       },
       {
@@ -81,11 +83,12 @@
         "id": 3,
         "img": "/braga/img/bottles/wheat",
         "name": "Witbier",
-        "status": "Maturation",
-        "onStock": 0,
+        "onBrewing": "Fermentation",
+        "onStock": 47,
         "previewImg": "/braga/img/beers-preview/wheat",
         "price": 12,
         "srm": 3.1,
+        "status": "Maturation",
         "style": "wheat beer"
       },
       {
@@ -101,15 +104,16 @@
         "id": 4,
         "img": "/braga/img/bottles/lager",
         "name": "Desert vagabond",
-        "status": "Unavailable",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/lager",
         "price": 11,
         "srm": 4,
+        "status": "Unavailable",
         "style": "light lager"
       },
       {
         "abv": 7.2,
+        "brewingDate": "2024-06-30T18:00:00.000Z",
         "brewingTimeDays": 28,
         "calories": 211,
         "categories": [
@@ -121,47 +125,65 @@
         "id": 5,
         "img": "/braga/img/bottles/porter",
         "name": "Bounty injection",
-        "status": "Fermentation",
         "onStock": 0,
         "previewImg": "/braga/img/beers-preview/porter",
         "price": 14,
         "srm": 41.6,
+        "status": "Fermentation",
         "style": "porter"
       }
     ],
-    "guests": {
-    },
     "subscribers": {
-      "-O-TXpzFZUPmz85mhOWL": {
-        "email": "qwe@gmail.com"
-      },
-      "-O-crRiX8JgEYqicmL9H": {
-        "email": "ad@gmail.com"
-      },
-      "-O-csCCSGs3SxAu_gJEZ": {
-        "email": "markov@gmail.com"
-      },
       "-O-kYe9qXknZsxbyqCyQ": {
         "email": "tamirlozo@yahoo.com"
       }
     },
-    "users": {
-      "0": {
+    "users": [
+      {
         "avatar": "/braga/img/avatars/user-0.png",
         "email": "a.gorodov.22@gmail.com",
         "id": "kSL4qLIw6TXvbwAwC1eQX6GiAGf1",
         "isAdmin": true,
         "name": "Alexandr",
-        "notifications": [
-
-        ],
         "password": "A2242838",
         "phone": "0543955573",
         "preOrder": [
-
+          {
+            "abv": 7.2,
+            "amount": 1,
+            "brewingDate": "2024-06-30T18:00:00.000Z",
+            "brewingTimeDays": 28,
+            "calories": 211,
+            "categories": [
+              "Coconut",
+              "Chocolate"
+            ],
+            "description": "Porters were first brewed in the late 17th century and the “birth” of this beer style is still known as one of the most significant brewing matter in the past 300 years. Porter was the first beer style to gain popularity during the Industrial Revolution in England.",
+            "ibu": 48.7,
+            "id": 5,
+            "img": "/braga/img/bottles/porter",
+            "name": "Bounty injection",
+            "onStock": 0,
+            "previewImg": "/braga/img/beers-preview/porter",
+            "price": 14,
+            "srm": 41.6,
+            "status": "Fermentation",
+            "style": "porter"
+          }
         ],
         "surname": "Gorodov"
       }
-    }
+    ],
+    "blog": [
+      {
+        "id": 0,
+        "name": "Malt",
+        "title": "You are about to meet an important ingredient: MALT",
+        "post": "<p>When it comes to brewing beer, baking bread, or even crafting whiskey, there's a key player that often goes unnoticed. Malt is a grain that has been germinated and dried through a process known as malting. The most common grain used for malting is barley, though other grains like wheat, rye, and oats can also be used. The malting process involves soaking the grains in water to allow them to sprout, then drying them to halt the germination process. This transformation activates enzymes in the grain, which convert the starches into fermentable sugars.</p><h2>The Malting Process</h2><ol><li><strong>Steeping</strong>: The grains are soaked in water to begin the germination process. This typically lasts between 24 to 48 hours, during which the moisture content of the grain increases.</li><li><strong>Germination</strong>: After steeping, the grains are spread out and allowed to sprout. This stage lasts about 4 to 6 days. During germination, enzymes break down the starches in the grain into simpler sugars.</li><li><strong>Kilning</strong>: The germinated grains are then dried in a kiln to stop the sprouting process. The temperature and duration of kilning can vary, producing different types of malt with unique flavors and colors.</li></ol><h2>Types of Malt</h2><p>Malt comes in various forms, each contributing distinct characteristics to the final product. Here are a few common types:</p><ul><li><strong>Base Malts</strong>: These are the backbone of most beer recipes, providing the majority of the fermentable sugars. Examples include pale malt and pilsner malt.</li><li><strong>Specialty Malts</strong>: These malts add color, flavor, and complexity to beer. Examples include caramel malt, chocolate malt, and roasted malt.</li><li><strong>Malted Wheat and Rye</strong>: These grains are used to create specific styles of beer and add unique flavors and textures.</li></ul><h2>The Role of Malt in Brewing</h2><p>In brewing, malt serves several crucial functions:</p><ul><li><strong>Source of Fermentable Sugars</strong>: The enzymes activated during malting break down the grain's starches into fermentable sugars. During brewing, these sugars are consumed by yeast to produce alcohol and carbon dioxide.</li><li><strong>Flavor and Color</strong>: Different malts contribute various flavors, from sweet and biscuity to rich and roasted. They also influence the color of the beer, ranging from pale gold to deep brown.</li><li><strong>Body and Mouthfeel</strong>: Malt provides the body and mouthfeel of the beer, giving it a certain level of viscosity and smoothness.</li></ul><h2>Beyond Brewing: Malt in Food</h2><p>While malt is predominantly associated with brewing, it also plays a significant role in the culinary world. Malt extracts and malted flours are used in baking to enhance the flavor, texture, and color of bread and other baked goods. Malted milk powder is a key ingredient in milkshakes, malted beverages, and even some candies.</p><h2>The Nutritional Benefits of Malt</h2><p>Malt is not just about flavor; it also offers several nutritional benefits. It is a good source of essential nutrients such as B vitamins, amino acids, and minerals like magnesium and potassium. Additionally, the malting process increases the bioavailability of these nutrients, making them easier for our bodies to absorb.</p><h2>Conclusion</h2><p>Next time you sip a refreshing beer, enjoy a slice of hearty bread, or savor a rich malted milkshake, take a moment to appreciate the role of malt. This humble ingredient is a cornerstone of many culinary delights, providing flavor, nutrition, and a touch of magic to our favorite foods and drinks. Embrace the world of malt and discover the depth and richness it brings to your table. Cheers to malt!</p>",
+        "img": "/braga/img/blog/malt-crushing",
+        "date": "2024-07-02T14:36:00.000Z",
+        "tags": ["Brewery", "Craft"]
+      }
+    ]
   }
 }

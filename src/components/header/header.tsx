@@ -61,6 +61,7 @@ export function Header(): JSX.Element {
     const pathname = location.pathname;
     setActivePage(validPaths.includes(pathname) ? pathname : '');
     if (pathname.includes('/shop/')) setActivePage(AppRoute.Shop as string);
+    if (pathname.includes('/blog/')) setActivePage(AppRoute.Blog as string);
   }, [location.pathname]);
 
   const menuRef = useOutsideClick(() => {

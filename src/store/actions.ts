@@ -6,6 +6,7 @@ import { createAction } from "@reduxjs/toolkit";
 import { RootState } from "./root-reducer";
 import { Review } from "../types/review";
 import { User } from "../types/user";
+import { Post } from "../types/post";
 
 export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boolean}>('data/setBeersDataLoadingStatus');
 
@@ -26,6 +27,10 @@ export const loadGuests = createAction<{guests: Guest[]}>('data/loadGuests');
 export const setSubscribersDataLoadingStatus = createAction<{isSubscribersDataLoading: boolean}>('data/setSubscribersDataLoadingStatus');
 
 export const loadSubscribers = createAction<{subscribersEmails: Subscriber[]}>('data/loadSubscribers');
+
+export const setBlogPostsDataLoadingStatus = createAction<{isBlogPostsDataLoading: boolean}>('data/setBlogPostsDataLoadingStatus');
+
+export const loadBlogPosts = createAction<{posts: Post[]}>('data/loadBlogPosts');
 
 export const addItemToCart = createAction<{user: User, item: BeerInCart, amount: number}>('data/addItemToCart');
 

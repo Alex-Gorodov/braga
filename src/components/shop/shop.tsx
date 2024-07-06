@@ -68,7 +68,7 @@ export function Shop(): JSX.Element {
 
   return (
     <section className="section shop">
-      <div className="shop__top-wrapper">
+      <div className="section__top-wrapper shop__top-wrapper">
         <h2 className="title title--2">Shop</h2>
         <ul className="breadcrumbs shop__breadcrumbs">
           <li className="breadcrumbs__item">
@@ -167,9 +167,6 @@ export function Shop(): JSX.Element {
                 <li
                   className="shop__item"
                   key={`shop-item-${item.name}`}
-                  // onMouseEnter={() => setCartBtnShown({item: item, isButtonShowed: true})}
-                  // onMouseLeave={() => setCartBtnShown({item: null, isButtonShowed: false})}
-                  // onTouchStart={() => setCartBtnShown({item: isCartBtnShown.isButtonShowed ? item : null, isButtonShowed: !isCartBtnShown.isButtonShowed})}
                 >
                   <div className="shop__item-img-wrapper">
                     <Link className="shop__item-link shop__item-link--image" to={link}>

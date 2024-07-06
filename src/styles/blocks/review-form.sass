@@ -1,16 +1,18 @@
-.form__star-image
-  color: transparent
-
-
-.review-form__rating-input:checked ~ .review-form__label .form__star-image,
-.review-form__rating-input:checked ~ .review-form__label ~ .review-form__label .form__star-image,
-.review-form__rating-input:focus ~ .review-form__label .form__star-image,
-.review-form__rating-input:focus ~ .review-form__label ~ .review-form__label .form__star-image,
-.review-form__label:hover .form__star-image,
-.review-form__label:hover ~ .review-form__label .form__star-image
+.review-form__rating-input:checked ~ .review-form__label .review-form__star-image,
+.review-form__rating-input:checked ~ .review-form__label ~ .review-form__label .review-form__star-image,
+.review-form__rating-input:focus ~ .review-form__label .review-form__star-image,
+.review-form__rating-input:focus ~ .review-form__label ~ .review-form__label .review-form__star-image,
+.review-form__label:hover .review-form__star-image,
+.review-form__label:hover ~ .review-form__label .review-form__star-image
   color: #efc91c
 
-.form__rating
+.review-form
+  display: flex
+  flex-direction: column
+  gap: 20px
+  &__star-image
+    color: transparent
+  &__rating
     display: -webkit-box
     display: -ms-flexbox
     display: flex
@@ -24,15 +26,21 @@
     -webkit-box-align: start
     -ms-flex-align: start
     align-items: flex-start
-
-
-.form__rating-label
+  &__rating-label
     display: block
     width: 37px
     height: 33px
     margin-right: 4px
     cursor: pointer
-
-
-.form__rating-label:first-child
+  &__rating-label:first-child
     margin-right: 0
+  &__textarea
+    max-width: 100%
+    width: 100%
+    padding: 10px
+    border-radius: 4px
+    resize: both
+    &:focus-visible,
+    &:hover
+      outline: 1px solid $black
+      background-color: lighten($black, 95%)

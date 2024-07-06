@@ -1,4 +1,4 @@
-import { loadBeers, loadGuests, loadSubscribers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
+import { loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
 import { removeUserFromLocalStorage, saveToken } from "../services/token";
 import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
 import { removeUser, setUser } from "./slices/user-slice";
@@ -13,6 +13,7 @@ import { RootState } from "./root-reducer";
 import { Review } from "../types/review";
 import { AxiosInstance } from "axios";
 import { User } from "../types/user";
+import { Post } from "../types/post";
 
 export type ThunkOptions = {
   dispatch: ThunkDispatch<RootState, AxiosInstance, any>;
@@ -58,7 +59,7 @@ export const fetchUsersAction = createAsyncThunk<void, undefined, ThunkOptions>(
 export const fetchGuestsAction = createAsyncThunk<void, undefined, ThunkOptions>(
   'data/fetchGuests', async (_arg, { dispatch }) => {
     try {
-      dispatch(setGuestsDataLoadingStatus({isGuestsDataLoading: false}))
+      dispatch(setGuestsDataLoadingStatus({isGuestsDataLoading: true}))
       const data = ((await database.ref(APIRoute.Guests).once("value")).val());
       const guestsArray: Guest[] = data ? Object.values(data) : [];
 
@@ -74,7 +75,7 @@ export const fetchGuestsAction = createAsyncThunk<void, undefined, ThunkOptions>
 export const fetchSubscribersAction = createAsyncThunk<void, undefined, ThunkOptions>(
   'data/fetchSubscribers', async (_arg, { dispatch }) => {
     try {
-      dispatch(setSubscribersDataLoadingStatus({isSubscribersDataLoading: false}))
+      dispatch(setSubscribersDataLoadingStatus({isSubscribersDataLoading: true}))
       const data = ((await database.ref(APIRoute.Subscribers).once("value")).val());
       const subscribersArray: Subscriber[] = data ? Object.values(data) : [];
 
@@ -83,6 +84,22 @@ export const fetchSubscribersAction = createAsyncThunk<void, undefined, ThunkOpt
     } catch (error) {
       console.error('Error fetching subscribers data: ', error);
       dispatch(setSubscribersDataLoadingStatus({ isSubscribersDataLoading: false }))
+    }
+  }
+)
+
+export const fetchBlogPostsAction = createAsyncThunk<void, undefined, ThunkOptions>(
+  'data/fetchBlogPosts', async (_arg, {dispatch}) => {
+    try {
+      dispatch(setBlogPostsDataLoadingStatus({isBlogPostsDataLoading: true}))
+      const data = ((await database.ref(APIRoute.Blog).once("value")).val());
+      const blogPostsArray: Post[] = data ? Object.values(data) : [];
+
+      dispatch(loadBlogPosts({posts: blogPostsArray}));
+      dispatch(setBlogPostsDataLoadingStatus({isBlogPostsDataLoading: false}));
+    } catch (error) {
+      console.error("Error fetching blog posts: ", error);
+      dispatch(setBlogPostsDataLoadingStatus({isBlogPostsDataLoading: false}));
     }
   }
 )
