@@ -17,7 +17,6 @@ import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
 import { Beer } from "../../types/beer";
 import { useState } from "react";
-import { Soon } from "./soon";
 import cn from 'classnames';
 
 type BeerItemProps = {
@@ -146,20 +145,13 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
             </picture>
             {item.brewingDate && item.status !== BeerStatus.Ready && <BeerTimer item={item}/>}
-            {<BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`}/>}
+            {item.status !== BeerStatus.Ready && <BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`}/>}
           </div>
         </div>
         <div className="product__details">
           <div className="product__name-wrapper">
             <span className="product__name beer__item-name">
               {item.name}
-              {
-                item.status !== BeerStatus.Unavailable && item.onStock === 0
-                ?
-                <Soon beer={item} addedClass="product__label"/>
-                :
-                ''
-              }
             </span>
           </div>
           <span className="product__price">₪ {item.price}</span>

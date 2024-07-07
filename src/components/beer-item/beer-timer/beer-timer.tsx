@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toggleBeerStatus } from "../../../store/actions";
 import { Beer } from "../../../types/beer";
 import { BeerStatus } from "../../../const";
+import { adminToggleBeerOnBrewing } from "../../../store/api-actions";
 
 type BeerTimerProps = {
   item: Beer;
@@ -37,6 +38,7 @@ export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
         beer: item,
         status: BeerStatus.Ready
       })
+      adminToggleBeerOnBrewing(item, BeerStatus.Ready)
     }
 
     return timeLeft;

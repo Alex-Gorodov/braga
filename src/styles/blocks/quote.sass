@@ -1,0 +1,51 @@
+.quote
+  display: grid
+  grid-template-columns: 80px auto
+  padding: 60px
+  column-gap: 40px
+  flex-direction: column
+  background-color: $link-hover
+  border: $section-border
+  @media (max-width: $tablet)
+    padding: 20px
+    grid-template-columns: 1fr
+    grid-template-rows: 100px min-content min-content
+  &::before
+    display: block
+    width: 80px
+    height: 60px
+    margin-top: 20px
+    grid-row: 1 / -1
+    background-image: url("../../img/icons/quote.svg")
+    background-size: initial
+    background-position: center
+    background-repeat: no-repeat
+    content: ''
+    @media (max-width: $tablet)
+      grid-row: 1
+      grid-column: 1
+  &__content
+    margin: 0
+    font-weight: 600
+    line-height: 1.5
+    font-size: clamp(1.25rem, 0.7979rem + 2.1277vw, 2.5rem)
+    quotes: none
+    margin-bottom: 40px
+    @media (max-width: $tablet)
+      grid-row: 2 / 3
+      grid-column: 1
+      margin-bottom: 20px
+  &__author
+    margin-bottom: 10px
+    grid-column: 2
+    font-weight: 600
+    font-size: clamp(0.75rem, 0.4787rem + 1.2766vw, 1.5rem)
+    @media (max-width: $tablet)
+      grid-column: 1
+      grid-row: 4
+    &-description
+      grid-column: 2
+      font-size: clamp(0.75rem, 0.4787rem + 1.2766vw, 1.5rem)
+      @media (max-width: $tablet)
+        grid-column: 1
+        grid-row: 5

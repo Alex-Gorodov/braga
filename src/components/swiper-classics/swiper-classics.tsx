@@ -1,6 +1,6 @@
 import { BeerItemPreview } from "../beer-item/beer-item-preview";
 import { useIsDesktop, useIsMobile } from "../../hooks/useSizes";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { RootState } from "../../store/root-reducer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Spinner } from "../spinner/spinner";
@@ -31,10 +31,7 @@ export function SwiperClassics(): JSX.Element {
               prevEl: '.beer__btn--prev',
               nextEl: '.beer__btn--next'
             }}
-            modules={[Autoplay, Navigation]}
-            autoplay={{
-              delay: 2000
-            }}
+            modules={[ Navigation]}
             speed={1000}
             slidesPerView={isMobile ? 2 : isDesktop ? 3 : 4}
             slidesPerGroup={1}
