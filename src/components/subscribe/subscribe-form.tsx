@@ -85,7 +85,6 @@ export function SubscribeForm(): JSX.Element {
                 <Arrow/>
               </button>
               <p className={`subscribe__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'subscribe__error-message--opened'}`}>Please fill your email.</p>
-              {/* <p className={`form__error-message subscribe__error-message ${isError ? 'form__error-message--opened' : ''}`}>Please fill your email.</p> */}
 
             </form>
           )}

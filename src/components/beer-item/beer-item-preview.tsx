@@ -1,14 +1,16 @@
 import { addItemToUserDatabaseCart, addItemToUserPreOrder } from '../../store/api-actions';
-import { addItemToCart, addItemToPreOrder } from "../../store/actions";
+import { addItemToCart, addItemToPreOrder, noUserAddToCart } from "../../store/actions";
 import { Link, generatePath } from "react-router-dom";
 import { Beer, BeerInCart } from "../../types/beer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { useDispatch } from "react-redux";
-import { AppRoute, BeerStatus } from "../../const";
+import { AppRoute, BeerStatus, ErrorMessages, SuccessMessages } from "../../const";
 import { useState } from "react";
 import { Soon } from './soon';
 import { Sold } from "./sold";
 import cn from 'classnames';
+import { SuccessMessage } from '../success-meggase/success-message';
+import { ErrorMessage } from '../error-message/error-message';
 
 type BeerItemProps = {
   item: Beer;
@@ -21,6 +23,8 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
   const [isCartBtnShown, setCartBtnShown] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
+  const [isAddingToCartSuccess, setAddingToCartSuccess] = useState(false);
+
   const dispatch = useDispatch();
 
   const user = useGetUser();
@@ -39,6 +43,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
 
   const handleAddToCart = async () => {
     if (!user || isAddingToCart) {
+      dispatch(noUserAddToCart({isNotUser: true}));
       console.error('User is undefined or already adding to cart');
       return;
     }
@@ -52,10 +57,11 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       };
 
       dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
-
+      setAddingToCartSuccess(true);
       await addItemToUserDatabaseCart(user, itemInCart);
     } finally {
       setIsAddingToCart(false);
+      setAddingToCartSuccess(false);
     }
   };
 
@@ -105,7 +111,11 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
               </div>
           :
             <div className={itemButtonWrapperClassName}>
-              <button className={itemButtonClassName} onClick={handleAddToCart} type="button">Add to cart</button>
+              <button className={itemButtonClassName} onClick={handleAddToCart} type="button">
+                {
+                  isAddingToCartSuccess ? <SuccessMessage message={SuccessMessages.AddToCart} fun={() => setAddingToCartSuccess(false)}/> : 'Add to cart'
+                }
+              </button>
             </div>
       }
       <div className="beer__picture-wrapper">

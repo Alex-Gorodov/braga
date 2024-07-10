@@ -35,6 +35,7 @@ export type PageState = {
   isSignUpFormOpened: boolean;
   isGuestNotificationFormOpened: boolean;
   isCartOpened: boolean;
+  isUserError: boolean;
 }
 
 export type ReviewState = {

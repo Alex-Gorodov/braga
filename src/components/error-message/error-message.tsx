@@ -7,10 +7,11 @@ import { ErrorMessages } from "../../const"
 
 type ErrorMessageProps = {
   message: ErrorMessages;
+  className?: string;
   fun: (arg: boolean) => void;
 }
 
-export function ErrorMessage({message, fun}: ErrorMessageProps): JSX.Element {
+export function ErrorMessage({message, fun, className}: ErrorMessageProps): JSX.Element {
   const messageRef = useOutsideClick(() => {
     fun(false);
   }) as React.RefObject<HTMLDivElement>;
@@ -35,7 +36,7 @@ export function ErrorMessage({message, fun}: ErrorMessageProps): JSX.Element {
   }
 
   return (
-    <div className='message message--error' ref={messageRef}>
+    <div className={`message message--error ${className}`} ref={messageRef}>
       <button className="message__close-btn" onClick={() => fun(false)}>
         <Cross/>
       </button>

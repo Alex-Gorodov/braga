@@ -15,7 +15,11 @@ type CartBlockProps = {
 const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
   const activeUser = useGetUser();
   const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
-  const totalPrice = cartItems?.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const totalPrice = cartItems?.reduce((acc, item) =>
+    acc + (item.amount >= 6 ? Number((item.price * 0.9).toFixed(1)) : item.price) * item.amount,
+    0
+  );
+
   const dispatch = useDispatch();
 
   return (
@@ -35,7 +39,7 @@ const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
           </ul>
           <p className="cart__total">
             <span>Total:</span>
-            <span>₪{totalPrice}</span>
+            <span>₪{totalPrice?.toFixed(2)}</span>
           </p>
           <Link className="button" to={AppRoute.Cart} onClick={() => {
             dispatch(toggleCart({isCartOpened: false}))

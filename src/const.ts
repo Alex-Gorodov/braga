@@ -3,6 +3,7 @@ export enum ErrorMessages {
   NotificationError = 'Please sign in or register to add items to get notification.',
   GuestNotificationError = 'Please enter either a phone number or an email address.',
   PreOrderError = 'Please sign in or register to add items to your preorder.',
+  AddingToCartError = "Please login or register to add item to cart.",
   AuthError = 'Invalid username or password. Please try again.',
   CommentError = 'Error! Can\'t add review, please, try again.',
   RegisterEmptyFields = 'Fill the required fields, please.',

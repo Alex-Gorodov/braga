@@ -1,5 +1,5 @@
-import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm } from "../../store/actions";
-import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
+import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm, updateBeersAmount } from "../../store/actions";
+import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder, adminChangeBeerCount } from "../../store/api-actions";
 import { AppRoute, AuthorizationStatus, BeerStatus, ErrorMessages, ItemInfo, StockEmojis, SuccessMessages } from "../../const";
 import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
 import { SuccessMessage } from "../success-meggase/success-message";
@@ -38,7 +38,11 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
   const [isError, setIsError] = useState(false);
 
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isNotificationSuccess, setNotificationSuccess] = useState(false);
+
+  const [addingToCart, setAddingToCart] = useState(false);
+
+  const [isAddingToCartSuccess, setAddingToCartSuccess] = useState(false);
 
   const [isNotificationAdding, setNotificationAdding] = useState(false);
 
@@ -164,8 +168,12 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               type="button"
               className="button product__button product__button--add"
               onClick={() => {
+                setAddingToCart(true)
                 user && dispatch(addItemToCart({user: user, item: {...item, amount: amount}, amount: amount}))
                 user && addItemToUserDatabaseCart(user, {...item, amount: amount})
+                user && updateBeersAmount({beerToUpdate: item, numToUpdate: amount})
+                user && setAddingToCartSuccess(true)
+                // user && adminChangeBeerCount(item, item.onStock - amount)
               }}
               disabled={item.status !== BeerStatus.Ready}
             >Add to cart</button>
@@ -179,7 +187,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                   if (user) {
                     dispatch(addItemToPreOrder({ user: user, item: { ...item, amount: amount }, amount: amount }));
                     addItemToUserPreOrder(user, { ...item, amount: amount }, amount);
-                    setIsSuccess(true);
+                    setNotificationSuccess(true);
                   } else {
                     setIsError(true)
                   }
@@ -304,10 +312,16 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
         }}/>
       }
       {
-        isSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setIsSuccess(false)}/>
+        isNotificationSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setNotificationSuccess(false)}/>
+      }
+      {
+        user && isAddingToCartSuccess && <SuccessMessage message={SuccessMessages.AddToCart} fun={() => setAddingToCartSuccess(false)}/>
       }
       {
         isGuestNotificationFormOpened && <GuestNotificationForm item={item} className="form--banner-opened"/>
+      }
+      {
+        addingToCart && !isAddingToCartSuccess && !user && <ErrorMessage message={ErrorMessages.AddingToCartError} fun={() => {setAddingToCartSuccess(false); setAddingToCart(false)}}/>
       }
     </div>
   )

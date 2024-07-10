@@ -1,4 +1,4 @@
-import { setUploadedPath, toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../actions";
+import { noUserAddToCart, setUploadedPath, toggleCart, toggleGuestNotificationForm, toggleSignInForm, toggleSignUpForm } from "../../actions";
 import { createReducer } from "@reduxjs/toolkit";
 import { PageState } from "../../../types/state";
 
@@ -8,6 +8,7 @@ const initialState: PageState = {
   isSignUpFormOpened: false,
   isGuestNotificationFormOpened: false,
   isCartOpened: false,
+  isUserError: false,
 }
 
 export const pageReducer = createReducer(initialState, (builder) => {
@@ -27,5 +28,8 @@ export const pageReducer = createReducer(initialState, (builder) => {
     })
     .addCase(toggleCart, (state, action) => {
       state.isCartOpened = action.payload.isCartOpened;
+    })
+    .addCase(noUserAddToCart, (state, action) => {
+      state.isUserError = action.payload.isNotUser;
     })
 })

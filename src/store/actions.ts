@@ -79,3 +79,5 @@ export const addGuestNotification = createAction<{guest: Guest, item: Beer}>('da
 export const addSubscriber = createAction<{subscriber: Subscriber}>('data/addSubscriber');
 
 export const toggleCart = createAction<{isCartOpened: boolean}>('page/toggleCart');
+
+export const noUserAddToCart = createAction<{isNotUser: boolean}>('page/noUserAddToCart');

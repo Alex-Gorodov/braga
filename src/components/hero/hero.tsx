@@ -2,12 +2,19 @@ import { ReactComponent as Star} from '../../img/icons/star.svg';
 import { HeroSwiper } from '../hero-swiper/hero-swiper';
 import { useIsMobile } from '../../hooks/useSizes';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, ErrorMessages } from '../../const';
 import 'swiper/css/navigation';
 import 'swiper/css';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/root-reducer';
+import { ErrorMessage } from '../error-message/error-message';
+import { noUserAddToCart } from '../../store/actions';
 
 export function Hero(): JSX.Element {
   const isMobile = useIsMobile();
+  const isUserError = useSelector((state: RootState) => state.page.isUserError);
+  const dispatch = useDispatch();
+
   return (
     <section className='section'>
       <div className='hero section__container'>
@@ -39,6 +46,9 @@ export function Hero(): JSX.Element {
             <Link className='button' to={AppRoute.Blog}>Learn more</Link>
           </div>
         </div>
+        {
+            isUserError && <ErrorMessage message={ErrorMessages.AddingToCartError} fun={() => dispatch(noUserAddToCart({isNotUser: false}))}/>
+        }
       </div>
     </section>
   )
