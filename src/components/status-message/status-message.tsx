@@ -1,51 +1,54 @@
-import { toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { setStatusMessage, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg';
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { ErrorMessages, SuccessMessages } from "../../const"
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
-import { ErrorMessages } from "../../const"
 
-type ErrorMessageProps = {
-  message: ErrorMessages;
-  className?: string;
-  fun: (arg: boolean) => void;
+
+type StatusMessageProps = {
+  message: ErrorMessages | SuccessMessages | null;
 }
 
-export function ErrorMessage({message, fun, className}: ErrorMessageProps): JSX.Element {
+export function StatusMessage({message}: StatusMessageProps): JSX.Element {
   const messageRef = useOutsideClick(() => {
-    fun(false);
+    dispatch(setStatusMessage({message: null}))
   }) as React.RefObject<HTMLDivElement>;
 
+  const requiresAuth = message === ErrorMessages.GuestNotificationError
+  || message === ErrorMessages.PreOrderError
+  || message === ErrorMessages.AddingToCartError;
+
   const dispatch = useDispatch();
+
 
   const signInStatus = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const signUpStatus = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
   const handleSignInClick = () => {
-    fun(false);
+    dispatch(setStatusMessage({message: null}))
     dispatch(toggleSignInForm({isOpened: !signInStatus}));
   }
 
   const handleSignUpClick = () => {
-    fun(false);
+    dispatch(setStatusMessage({message: null}))
     dispatch(toggleSignUpForm({isOpened: !signUpStatus}));
   }
 
   const handleGuestNotificationClick = () => {
-    fun(false);
+    dispatch(setStatusMessage({message: null}))
   }
 
   return (
-    <div className={`message message--error ${className}`} ref={messageRef}>
-      <button className="message__close-btn" onClick={() => fun(false)}>
+    <div className={`message`} ref={messageRef}>
+      <button className="message__close-btn" onClick={() => (dispatch(setStatusMessage({message: null})))}>
         <Cross/>
       </button>
       <p>
         {message}
       </p>
       {
-        message !== ErrorMessages.GuestNotificationError
-        ?
+        requiresAuth ?
         <div className="message__buttons-wrapper">
           <button className="button button--reverse message__btn" onClick={handleSignInClick}>Sign in</button>
           <button className="button message__btn" onClick={handleSignUpClick}>Sign up</button>

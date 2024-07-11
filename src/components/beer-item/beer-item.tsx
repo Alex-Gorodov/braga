@@ -1,12 +1,10 @@
-import { addItemToCart, addItemToNotifications, addItemToPreOrder, toggleGuestNotificationForm, updateBeersAmount } from "../../store/actions";
-import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder, adminChangeBeerCount } from "../../store/api-actions";
+import { addItemToCart, addItemToNotifications, addItemToPreOrder, setStatusMessage, toggleGuestNotificationForm, updateBeersAmount } from "../../store/actions";
 import { AppRoute, AuthorizationStatus, BeerStatus, ErrorMessages, ItemInfo, StockEmojis, SuccessMessages } from "../../const";
+import { addItemToUserDatabaseCart, addItemToUserNotifications, addItemToUserPreOrder } from "../../store/api-actions";
 import { GuestNotificationForm } from "../guest-notification-form/guest-notification-form";
-import { SuccessMessage } from "../success-meggase/success-message";
 import { NotAuthReview } from "../not-auth-review/not-auth-review";
 import { ReviewForm } from "../review/review-form/review-form";
 import { ReviewItem } from "../review/review-item/review-item";
-import { ErrorMessage } from "../error-message/error-message";
 import { useDispatch, useSelector } from "react-redux";
 import { BeerStatusLabel } from "./beer-status-label";
 import { Link, generatePath } from "react-router-dom";
@@ -35,14 +33,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
   const dispatch = useDispatch();
 
   const [amount, setAmount] = useState<number>(1);
-
-  const [isError, setIsError] = useState(false);
-
-  const [isNotificationSuccess, setNotificationSuccess] = useState(false);
-
-  const [addingToCart, setAddingToCart] = useState(false);
-
-  const [isAddingToCartSuccess, setAddingToCartSuccess] = useState(false);
 
   const [isNotificationAdding, setNotificationAdding] = useState(false);
 
@@ -168,12 +158,11 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               type="button"
               className="button product__button product__button--add"
               onClick={() => {
-                setAddingToCart(true)
                 user && dispatch(addItemToCart({user: user, item: {...item, amount: amount}, amount: amount}))
                 user && addItemToUserDatabaseCart(user, {...item, amount: amount})
                 user && updateBeersAmount({beerToUpdate: item, numToUpdate: amount})
-                user && setAddingToCartSuccess(true)
-                // user && adminChangeBeerCount(item, item.onStock - amount)
+                user && dispatch(setStatusMessage({message: SuccessMessages.AddToCart}))
+                !user && dispatch(setStatusMessage({message: ErrorMessages.AddingToCartError}))
               }}
               disabled={item.status !== BeerStatus.Ready}
             >Add to cart</button>
@@ -187,9 +176,10 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                   if (user) {
                     dispatch(addItemToPreOrder({ user: user, item: { ...item, amount: amount }, amount: amount }));
                     addItemToUserPreOrder(user, { ...item, amount: amount }, amount);
-                    setNotificationSuccess(true);
+                    dispatch(setStatusMessage({message: SuccessMessages.AddToPreOrder}))
                   } else {
-                    setIsError(true)
+
+                    dispatch(setStatusMessage({message: ErrorMessages.PreOrderError}))
                   }
                 }}
               >
@@ -306,22 +296,7 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
         </div>
       </div>
       {
-        isError && <ErrorMessage message={isNotificationAdding ? ErrorMessages.NotificationError : ErrorMessages.PreOrderError} fun={() => {
-          setIsError(false)
-          setNotificationAdding(false)
-        }}/>
-      }
-      {
-        isNotificationSuccess && <SuccessMessage message={SuccessMessages.AddToPreOrder} fun={() => setNotificationSuccess(false)}/>
-      }
-      {
-        user && isAddingToCartSuccess && <SuccessMessage message={SuccessMessages.AddToCart} fun={() => setAddingToCartSuccess(false)}/>
-      }
-      {
         isGuestNotificationFormOpened && <GuestNotificationForm item={item} className="form--banner-opened"/>
-      }
-      {
-        addingToCart && !isAddingToCartSuccess && !user && <ErrorMessage message={ErrorMessages.AddingToCartError} fun={() => {setAddingToCartSuccess(false); setAddingToCart(false)}}/>
       }
     </div>
   )

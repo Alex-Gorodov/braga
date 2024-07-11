@@ -1,5 +1,5 @@
 import { addItemToUserDatabaseCart, addItemToUserPreOrder } from '../../store/api-actions';
-import { addItemToCart, addItemToPreOrder, noUserAddToCart } from "../../store/actions";
+import { addItemToCart, addItemToPreOrder, setStatusMessage } from "../../store/actions";
 import { Link, generatePath } from "react-router-dom";
 import { Beer, BeerInCart } from "../../types/beer";
 import { useGetUser } from "../../hooks/useGetUser";
@@ -9,8 +9,6 @@ import { useState } from "react";
 import { Soon } from './soon';
 import { Sold } from "./sold";
 import cn from 'classnames';
-import { SuccessMessage } from '../success-meggase/success-message';
-import { ErrorMessage } from '../error-message/error-message';
 
 type BeerItemProps = {
   item: Beer;
@@ -23,7 +21,6 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
   const [isCartBtnShown, setCartBtnShown] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
-  const [isAddingToCartSuccess, setAddingToCartSuccess] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -43,8 +40,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
 
   const handleAddToCart = async () => {
     if (!user || isAddingToCart) {
-      dispatch(noUserAddToCart({isNotUser: true}));
-      console.error('User is undefined or already adding to cart');
+      dispatch(setStatusMessage({message: ErrorMessages.AddingToCartError}));
       return;
     }
 
@@ -57,16 +53,16 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       };
 
       dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
-      setAddingToCartSuccess(true);
+      dispatch(setStatusMessage({message: SuccessMessages.AddToCart}))
       await addItemToUserDatabaseCart(user, itemInCart);
     } finally {
       setIsAddingToCart(false);
-      setAddingToCartSuccess(false);
     }
   };
 
   const handleAddToPreOrder = async () => {
     if (!user || isAddingToPreOrder) {
+      dispatch(setStatusMessage({message: ErrorMessages.PreOrderError}))
       console.error('User is undefined or already adding to pre-order');
       return;
     }
@@ -80,6 +76,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
       };
 
       dispatch(addItemToPreOrder({ user: user, item: preOrderItem, amount: 1 }));
+      dispatch(setStatusMessage({message: SuccessMessages.AddToPreOrder}))
       await addItemToUserPreOrder(user, preOrderItem, 1);
     } finally {
       setIsAddingToPreOrder(false);
@@ -100,7 +97,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         :
           item.status !== BeerStatus.Ready
           ?
-            item.status !== BeerStatus.Unavailable && user
+            item.status !== BeerStatus.Unavailable
             ?
               <div className={itemButtonWrapperClassName}>
                 <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
@@ -112,9 +109,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
           :
             <div className={itemButtonWrapperClassName}>
               <button className={itemButtonClassName} onClick={handleAddToCart} type="button">
-                {
-                  isAddingToCartSuccess ? <SuccessMessage message={SuccessMessages.AddToCart} fun={() => setAddingToCartSuccess(false)}/> : 'Add to cart'
-                }
+                Add to cart
               </button>
             </div>
       }

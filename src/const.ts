@@ -2,7 +2,7 @@ export enum ErrorMessages {
   PasswordError = 'Password must have at least one letter, one number, and be 8+ characters long.',
   NotificationError = 'Please sign in or register to add items to get notification.',
   GuestNotificationError = 'Please enter either a phone number or an email address.',
-  PreOrderError = 'Please sign in or register to add items to your preorder.',
+  PreOrderError = 'Please sign in or register to add items to your pre-order list.',
   AddingToCartError = "Please login or register to add item to cart.",
   AuthError = 'Invalid username or password. Please try again.',
   CommentError = 'Error! Can\'t add review, please, try again.',
@@ -27,9 +27,9 @@ export const SHOP_SORTING = [
 ]
 
 export enum AppRoute {
-  PostPage = "/braga/blog/:id",
   ProductPage = "/braga/shop/:id",
   UserPage = "/braga/user/:id",
+  PostPage = "/braga/blog/:id",
   AdminPage = "/braga/admin",
   Login = "/braga/login",
   Cart = "/braga/cart",

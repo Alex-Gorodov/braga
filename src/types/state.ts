@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from "../const";
+import { AuthorizationStatus, ErrorMessages, SuccessMessages } from "../const";
 import { UserAuthData } from "./user-auth-data";
 import { Guest, Subscriber } from "./guest";
 import { Review } from "./review";
@@ -12,16 +12,16 @@ export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export type DataState = {
-  beers: Beer[];
-  users: User[];
-  guests: Guest[];
-  subscribers: Subscriber[];
-  blog: Post[];
-  isBeersDataLoading: boolean;
-  isUsersDataLoading: boolean;
-  isGuestsDataLoading: boolean;
   isSubscribersDataLoading: boolean;
   isBlogPostsDataLoading: boolean;
+  isGuestsDataLoading: boolean;
+  isBeersDataLoading: boolean;
+  isUsersDataLoading: boolean;
+  subscribers: Subscriber[];
+  guests: Guest[];
+  beers: Beer[];
+  users: User[];
+  blog: Post[];
 }
 
 export type AuthState = {
@@ -30,16 +30,16 @@ export type AuthState = {
 };
 
 export type PageState = {
-  uploadedPath: string,
+  statusMessage: ErrorMessages | SuccessMessages | null;
+  isGuestNotificationFormOpened: boolean;
   isSignInFormOpened: boolean;
   isSignUpFormOpened: boolean;
-  isGuestNotificationFormOpened: boolean;
   isCartOpened: boolean;
-  isUserError: boolean;
+  uploadedPath: string;
 }
 
 export type ReviewState = {
   reviews: Record<string, Review[]>;
-  reviewsList: Review[];
   isReviewSending: boolean;
+  reviewsList: Review[];
 };
