@@ -1,0 +1,26 @@
+.checkout
+  position: relative
+  &__popup-wrapper
+    position: fixed
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    display: flex
+    padding: 20px 60px 20px 20px
+    flex-direction: column
+    gap: 20px
+    border: $section-border
+    border-radius: 12px
+    background-color: $background-gray
+    z-index: 10
+  &__popup
+    display: flex
+    align-items: center
+    gap: 16px
+  &__close-btn
+    @include button-reset
+    position: absolute
+    top: 14px
+    right: 14px
+  &__copy-btn
+    @include button-reset

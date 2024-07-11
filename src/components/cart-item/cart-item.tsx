@@ -31,7 +31,7 @@ export function CartItem({item}: CartItemProps): JSX.Element {
       <div className="cart-item__wrapper">
         <span className="cart-item__text cart-item__name">{item.name}</span>
         <span className="cart-item__text cart-item__amount">
-          {item.amount} x ₪{item.amount >= 6 ? (item.price * 0.9).toFixed(1) : item.price}
+          {item.amount} x ₪{item.amount >= 6 ? (item.price * 0.9).toFixed(2) : item.price}
         </span>
         <button className="cart-item__remove-btn" onClick={handleRemoveItem} type="button">
           <Cross/>

@@ -15,6 +15,7 @@ export enum SuccessMessages {
   AddToPreOrder = "Item successfully added to your pre-order list!",
   AddToCart = "Item successfully added to your cart!",
   Subscription = "Thank You for Subscribing!",
+  CopiedToClipboard = "Copied to clipboard!",
 }
 
 export const SHOP_SORTING = [
