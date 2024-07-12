@@ -91,7 +91,7 @@ export const fetchSubscribersAction = createAsyncThunk<void, undefined, ThunkOpt
 export const fetchBlogPostsAction = createAsyncThunk<void, undefined, ThunkOptions>(
   'data/fetchBlogPosts', async (_arg, {dispatch}) => {
     try {
-      dispatch(setBlogPostsDataLoadingStatus({isBlogPostsDataLoading: true}))
+      dispatch(setBlogPostsDataLoadingStatus({isBlogPostsDataLoading: true}));
       const data = ((await database.ref(APIRoute.Blog).once("value")).val());
       const blogPostsArray: Post[] = data ? Object.values(data) : [];
 

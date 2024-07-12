@@ -4,7 +4,7 @@ interface CheckboxProps {
   id: string;
   checked: boolean;
   className?: string;
-  onChange: (checked: boolean) => void; // добавили пропс для обработки изменения состояния
+  onChange: (checked: boolean) => void;
 }
 
 export function FormCheckbox({ id, checked, className, onChange }: CheckboxProps): JSX.Element {
@@ -13,7 +13,7 @@ export function FormCheckbox({ id, checked, className, onChange }: CheckboxProps
   const handleCheckboxChange = () => {
     const newCheckedState = !isChecked;
     setChecked(newCheckedState);
-    onChange(newCheckedState); // вызываем коллбэк для передачи нового состояния
+    onChange(newCheckedState);
   };
 
   return (
