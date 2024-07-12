@@ -50,10 +50,10 @@ export function CartPageItem(): JSX.Element {
         }
       </ul>
       {
-        user?.cartItems.length ? <p>Total: ₪ {totalPrice?.toFixed(2)}</p> : ''
+        user?.cartItems?.length ? <p>Total: ₪ {totalPrice ? totalPrice.toFixed(2) : ''}</p> : ''
       }
       {
-        user?.cartItems.length
+        user?.cartItems?.length
         ?
         <button className="button" onClick={() => setCheckoutOpened(!isCheckoutOpened)}>Checkout</button>
         :
