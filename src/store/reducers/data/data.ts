@@ -1,4 +1,4 @@
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerStatus, updateBeersAmount } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeerBrewingDate, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerStatus, updateBeersAmount } from "../../actions";
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
 
@@ -54,6 +54,11 @@ export const dataReducer = createReducer(initialState, (builder) => {
   })
   .addCase(setBlogPostsDataLoadingStatus, (state, action) => {
     state.isBlogPostsDataLoading = action.payload.isBlogPostsDataLoading;
+  })
+  .addCase(setBeerBrewingDate, (state, action) => {
+    const beer = action.payload.beer;
+    const brewingDate = action.payload.brewingDate;
+    if (brewingDate !== null) state.beers[beer.id].brewingDate = brewingDate;
   })
   .addCase(addItemToCart, (state, action) => {
     const { user, item, amount } = action.payload;

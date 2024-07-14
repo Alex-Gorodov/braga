@@ -50,28 +50,32 @@ export function CartPageItem(): JSX.Element {
         }
       </ul>
       {
-        user?.cartItems?.length ? <p>Total: ₪ {totalPrice ? totalPrice.toFixed(2) : ''}</p> : ''
+        user?.cartItems?.length ? <p className="checkout__total">Total: ₪ {totalPrice ? totalPrice.toFixed(2) : ''}</p> : ''
       }
       {
         user?.cartItems?.length
         ?
-        <button className="button" onClick={() => setCheckoutOpened(!isCheckoutOpened)}>Checkout</button>
+        <button className="button checkout__btn" onClick={() => setCheckoutOpened(!isCheckoutOpened)}>Checkout</button>
         :
         <p>No items in cart</p>
       }
       {
         isCheckoutOpened &&
         <div className="checkout__popup-wrapper" ref={paymentRef}>
-          <h3 className="title title--3">Payment methods:</h3>
           <div className="checkout__popup">
+            <h3 className="title title--3 checkout__title">Payment methods:</h3>
             <button className="checkout__close-btn" onClick={() => setCheckoutOpened(!isCheckoutOpened)}>
               <Cross/>
+              <span className="visually-hidden">Close payments window</span>
             </button>
-            <BitIcon/>
-            <p>0543955573</p>
-            <button className="checkout__copy-btn" onClick={() => copyToClipboard('0543955573')}>
-              <Copy/>
-            </button>
+            <div className="checkout__payment-method">
+              <BitIcon/>
+              <p className="checkout__payment-data">0543955573</p>
+              <button className="checkout__copy-btn" onClick={() => copyToClipboard('0543955573')} title="Copy to clipboard">
+                <Copy/>
+                <span className="visually-hidden">copy bit data to clipboard</span>
+              </button>
+            </div>
           </div>
         </div>
       }

@@ -1,4 +1,4 @@
-import { adminChangeBeerCount, adminToggleBeerOnBrewing } from "../../store/api-actions";
+import { adminChangeBeerCount, adminToggleBeerStatus } from "../../store/api-actions";
 import { toggleBeerStatus, updateBeersAmount } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
@@ -41,7 +41,7 @@ export function AdminPageItem(): JSX.Element {
 
   const handleUpdateStatus = (beer: Beer, status: BeerStatus) => {
     dispatch(toggleBeerStatus({beer: beer, status: status}));
-    adminToggleBeerOnBrewing(beer, status);
+    adminToggleBeerStatus(beer, status, dispatch);
   }
 
   return (

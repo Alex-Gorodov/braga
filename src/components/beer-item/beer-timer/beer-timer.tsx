@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { toggleBeerStatus } from "../../../store/actions";
 import { Beer } from "../../../types/beer";
 import { BeerStatus } from "../../../const";
-import { adminToggleBeerOnBrewing } from "../../../store/api-actions";
+import { adminToggleBeerStatus } from "../../../store/api-actions";
+import { useDispatch } from "react-redux";
 
 type BeerTimerProps = {
   item: Beer;
@@ -18,6 +19,7 @@ type TimeLeft = {
 export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
   const brewDate = new Date(item.brewingDate ? item.brewingDate : new Date());
   const finalDate = new Date(brewDate.getTime() + (item.brewingTimeDays || 0) * 24 * 60 * 60 * 1000);
+  const dispatch = useDispatch();
 
   const calculateTimeLeft = (): TimeLeft => {
     const now = new Date();
@@ -38,7 +40,7 @@ export function BeerTimer({ item }: BeerTimerProps): JSX.Element {
         beer: item,
         status: BeerStatus.Ready
       })
-      adminToggleBeerOnBrewing(item, BeerStatus.Ready)
+      adminToggleBeerStatus(item, BeerStatus.Ready, dispatch)
     }
 
     return timeLeft;

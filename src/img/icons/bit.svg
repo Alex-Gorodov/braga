@@ -1,11 +1,11 @@
 <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0.598145" y="0.598145" width="40" height="40" rx="4" fill="url(#paint0_linear_214_82)"/>
   <path d="M36.0981 25.998L30.5981 23.698L31.3981 25.998H33.1981L33.6981 26.298L31.4981 26.598L30.5981 29.098L36.0981 25.998Z" fill="#E51522"/>
-  <path d="M8.59815 12.1982V22.1482C8.59815 24.5507 10.5457 26.4982 12.9482 26.4982V26.4982C15.3506 26.4982 17.2982 24.5189 17.2982 22.1165V22.1165C17.2982 19.6787 15.3219 17.6702 12.8841 17.6702H5.19815" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  <path d="M20.3981 17.7981V26.5981" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="20.3982" cy="14.7979" r="0.9" fill="white" stroke="white"/>
-  <path d="M28.9981 26.5982V26.5982C26.6785 26.5982 24.7981 24.7178 24.7981 22.3982V13.1982" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  <line x1="23.2982" y1="17.498" x2="28.2982" y2="17.498" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <path d="M8.59815 12.1982V22.1482C8.59815 24.5507 10.5457 26.4982 12.9482 26.4982V26.4982C15.3506 26.4982 17.2982 24.5189 17.2982 22.1165V22.1165C17.2982 19.6787 15.3219 17.6702 12.8841 17.6702H5.19815" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M20.3981 17.7981V26.5981" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="20.3982" cy="14.7979" r="0.9" fill="#E51522" stroke="#E51522"/>
+  <path d="M28.9981 26.5982V26.5982C26.6785 26.5982 24.7981 24.7178 24.7981 22.3982V13.1982" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="22.7982" y1="17.998" x2="28.7982" y2="17.998" stroke="white" stroke-width="2" stroke-linecap="round"/>
   <defs>
   <linearGradient id="paint0_linear_214_82" x1="20.5981" y1="0.598145" x2="20.5981" y2="40.5981" gradientUnits="userSpaceOnUse">
   <stop stop-color="#2B5785"/>

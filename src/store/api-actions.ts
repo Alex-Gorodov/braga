@@ -1,4 +1,4 @@
-import { loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, requireAuthorization, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
+import { loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, requireAuthorization, setBeerBrewingDate, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUserInformation, setUsersDataLoadingStatus } from "./actions";
 import { removeUserFromLocalStorage, saveToken } from "../services/token";
 import { ThunkDispatch, createAsyncThunk } from "@reduxjs/toolkit";
 import { removeUser, setUser } from "./slices/user-slice";
@@ -346,11 +346,20 @@ export const adminChangeBeerCount = async (beer: Beer, num: number) => {
   }
 }
 
-export const adminToggleBeerOnBrewing = async (beer: Beer, status: BeerStatus) => {
+export const adminToggleBeerStatus = async (beer: Beer, status: BeerStatus, dispatch: AppDispatch) => {
   try {
     const beerRef = database.ref(`${APIRoute.Beers}/${beer.id}`);
     const snapshot = await beerRef.once('value');
     const beerData = snapshot.val();
+    if (status === BeerStatus.Brewing) {
+      dispatch(setBeerBrewingDate({beer: beerData, brewingDate: new Date()}))
+      beerData.brewingDate = new Date();
+    }
+
+    if (status === BeerStatus.Unavailable) {
+      dispatch(setBeerBrewingDate({beer: beerData, brewingDate: null}))
+      beerData.brewingDate = null;
+    }
 
     beerData.status = status;
     await beerRef.update(beerData);

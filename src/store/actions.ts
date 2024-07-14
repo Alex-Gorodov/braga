@@ -30,6 +30,7 @@ export const setReviewsDataLoadingStatus = createAction<{isReviewsDataLoading: b
 export const setGuestsDataLoadingStatus = createAction<{isGuestsDataLoading: boolean}>('data/setGuestsDataLoadingStatus');
 export const setBeersDataLoadingStatus = createAction<{isBeersDataLoading: boolean}>('data/setBeersDataLoadingStatus');
 export const setUsersDataLoadingStatus = createAction<{isUsersDataLoading: boolean}>('data/setUsersDataLoadingStatus');
+export const setBeerBrewingDate = createAction<{brewingDate: Date | null, beer: Beer}>('data/setBeerBrewingDate');
 
 // Data loaders
 export const loadSubscribers = createAction<{subscribersEmails: Subscriber[]}>('data/loadSubscribers');
