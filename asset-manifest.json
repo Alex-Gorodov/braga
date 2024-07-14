@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/braga/static/css/main.2295a0d8.css",
-    "main.js": "/braga/static/js/main.965c3b92.js",
+    "main.css": "/braga/static/css/main.4b92bb0b.css",
+    "main.js": "/braga/static/js/main.871269b6.js",
     "static/media/hand.png": "/braga/static/media/hand.9c02734d030b38801843.png",
     "static/media/beer-video-poster.jpg": "/braga/static/media/beer-video-poster.d2d6f9741418c795656d.jpg",
     "static/media/hand-mobile.png": "/braga/static/media/hand-mobile.f3329d754ddacf2590d0.png",
@@ -10,7 +10,7 @@
     "static/media/showed-password.svg": "/braga/static/media/showed-password.715a3d24a5a66ad45b899cf3d816f168.svg",
     "static/media/whatsapp.svg": "/braga/static/media/whatsapp.4b0dc2d7ef8eb3090dcc75e7536e940c.svg",
     "static/media/upload-icon.svg": "/braga/static/media/upload-icon.39623dca42b579a21299dd86b5716928.svg",
-    "static/media/bit.svg": "/braga/static/media/bit.b3e99523f79071c1e7e9cec5e666408e.svg",
+    "static/media/bit.svg": "/braga/static/media/bit.86d87d6a5dc18c834846c089cc8c598c.svg",
     "static/media/location.svg": "/braga/static/media/location.1e9221dc92713ec73dfe4beea600bb8b.svg",
     "index.html": "/braga/index.html",
     "static/media/telegram.svg": "/braga/static/media/telegram.1e6ada1aa16e7663a8544864df22f649.svg",
@@ -26,11 +26,11 @@
     "static/media/select.svg": "/braga/static/media/select.dd8e8f67e6cf7fb0c759.svg",
     "static/media/quote.svg": "/braga/static/media/quote.efccf15bc3a4e1b1e8e8.svg",
     "static/media/form-arrow.svg": "/braga/static/media/form-arrow.131d86b864c40a8e3b421bc39fd27742.svg",
-    "main.2295a0d8.css.map": "/braga/static/css/main.2295a0d8.css.map",
-    "main.965c3b92.js.map": "/braga/static/js/main.965c3b92.js.map"
+    "main.4b92bb0b.css.map": "/braga/static/css/main.4b92bb0b.css.map",
+    "main.871269b6.js.map": "/braga/static/js/main.871269b6.js.map"
   },
   "entrypoints": [
-    "static/css/main.2295a0d8.css",
-    "static/js/main.965c3b92.js"
+    "static/css/main.4b92bb0b.css",
+    "static/js/main.871269b6.js"
   ]
 }
