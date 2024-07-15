@@ -55,43 +55,43 @@ export function CartItem({item}: CartItemProps): JSX.Element {
 
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
-const handleMinus = async () => {
-  if (!user || !user.cartItems.includes(item) || isAddingToCart) return;
-  setIsAddingToCart(true);
+  const handleMinus = async () => {
+    if (!user || !user.cartItems.includes(item) || isAddingToCart) return;
+    setIsAddingToCart(true);
 
-  const itemInCart = user.cartItems.find(cartItem => cartItem.id === item.id);
+    const itemInCart = user.cartItems.find(cartItem => cartItem.id === item.id);
 
-  if (itemInCart && itemInCart.amount > 1) {
+    if (itemInCart && itemInCart.amount > 1) {
+      try {
+        user && dispatch(addItemToCart({ user: user, item: item, amount: -1 }));
+        user && await addItemToUserDatabaseCart(user, item, -1);
+      } finally {
+        setIsAddingToCart(false);
+      }
+    } else {
+      try {
+        user && dispatch(removeFromCart({ user: user, item: item }));
+        user && await removeItemFromUserCart(user, item);
+      } finally {
+        setIsAddingToCart(false);
+      }
+    }
+  };
+
+  const handlePlus = async () => {
+    if (!user || !user.cartItems.includes(item) || isAddingToCart) return;
+    setIsAddingToCart(true);
+
     try {
-      user && dispatch(addItemToCart({ user: user, item: item, amount: -1 }));
-      user && await addItemToUserDatabaseCart(user, item, -1);
+      user && dispatch(addItemToCart({ user: user, item: item, amount: 1 }));
+      user && await addItemToUserDatabaseCart(user, item, 1);
+      if (item.amount === beers[item.id].onStock - 1) {
+        dispatch(setStatusMessage({ message: ErrorMessages.LimitError }));
+      }
     } finally {
       setIsAddingToCart(false);
     }
-  } else {
-    try {
-      user && dispatch(removeFromCart({ user: user, item: item }));
-      user && await removeItemFromUserCart(user, item);
-    } finally {
-      setIsAddingToCart(false);
-    }
-  }
-};
-
-const handlePlus = async () => {
-  if (!user || !user.cartItems.includes(item) || isAddingToCart) return;
-  setIsAddingToCart(true);
-
-  try {
-    user && dispatch(addItemToCart({ user: user, item: item, amount: 1 }));
-    user && await addItemToUserDatabaseCart(user, item, 1);
-    if (item.amount === beers[item.id].onStock - 1) {
-      dispatch(setStatusMessage({ message: ErrorMessages.LimitError }));
-    }
-  } finally {
-    setIsAddingToCart(false);
-  }
-};
+  };
 
 
   return (

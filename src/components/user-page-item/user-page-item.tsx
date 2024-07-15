@@ -5,6 +5,7 @@ import { useIsTablet } from "../../hooks/useSizes";
 import { useDispatch } from "react-redux";
 import { User } from "../../types/user";
 import { AppRoute } from "../../const";
+import { useState } from "react";
 
 type UserProps = {
   user: User;
@@ -13,6 +14,8 @@ type UserProps = {
 export function UserPageItem({user}: UserProps): JSX.Element {
   const dispatch = useDispatch();
   const isTablet = useIsTablet();
+
+  const [isUpdatingPreOrder, setIsUpdatingPreOrder] = useState(false);
 
   return (
     <div className="user">
@@ -47,26 +50,44 @@ export function UserPageItem({user}: UserProps): JSX.Element {
                   dispatch(removeItemFromPreOrder({ user: user, item: item }));
                   removeItemFromUserPreOrder(user, item, dispatch);
                 };
-                const handleDecrease = () => {
-                  if (item.amount > 0) {
-                    dispatch(addItemToPreOrder({
-                      user: user,
-                      item: { ...item, amount: -1 },
-                      amount: -1
-                    }));
-                    addItemToUserPreOrder(user, { ...item, amount: -1 }, -1);
-                  } else {
-                    handleRemove();
+
+                const handleDecrease = async () => {
+                  if (!user || isUpdatingPreOrder) return;
+                  setIsUpdatingPreOrder(true);
+
+                  try {
+                    if (item.amount > 1) {
+                      dispatch(addItemToPreOrder({
+                        user: user,
+                        item: { ...item, amount: -1 },
+                        amount: -1
+                      }));
+                      await addItemToUserPreOrder(user, { ...item, amount: -1 }, -1);
+                    } else {
+                      await handleRemove();
+                    }
+                  } finally {
+                    setIsUpdatingPreOrder(false);
                   }
                 };
-                const handleIncrease = () => {
-                  dispatch(addItemToPreOrder({
-                    user: user,
-                    item: { ...item, amount: 1 },
-                    amount: 1
-                  }));
-                  addItemToUserPreOrder(user, { ...item, amount: 1 }, 1);
+
+                const handleIncrease = async () => {
+                  if (!user || isUpdatingPreOrder) return;
+                  setIsUpdatingPreOrder(true);
+
+                  try {
+                    dispatch(addItemToPreOrder({
+                      user: user,
+                      item: { ...item, amount: 1 },
+                      amount: 1
+                    }));
+                    await addItemToUserPreOrder(user, { ...item, amount: 1 }, 1);
+                  } finally {
+                    setIsUpdatingPreOrder(false);
+                  }
                 };
+
+
                 return (
                   <div className="preorder-table__row" key={item.id}>
                     <div className="preorder-table__cell">
