@@ -1,6 +1,6 @@
-import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
+import { addItemToUserDatabaseCart } from "../../store/api-actions";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
-import { addItemToCart, addItemToPreOrder } from "../../store/actions";
+import { addItemToCart } from "../../store/actions";
 import { AppRoute, BeerStatus, SHOP_SORTING, SortingNames } from "../../const";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
@@ -17,6 +17,7 @@ import { Sold } from "../beer-item/sold";
 import cn from 'classnames';
 import { sortByDate } from "../../utils/sortByDate";
 import { BeerStatusLabel } from "../beer-item/beer-status-label";
+import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -57,14 +58,11 @@ export function Shop(): JSX.Element {
     }
   }, [sorting, beers]);
 
-  const [isCartBtnShown, setCartBtnShown] = useState<{item: Beer | null, isButtonShowed: boolean}>({item: null, isButtonShowed: false});
-
   const sortRef = useOutsideClick(() => {
     setSortingOpened(false);
   }) as React.RefObject<HTMLUListElement>;
 
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
 
   return (
     <section className="section shop">
@@ -138,31 +136,6 @@ export function Shop(): JSX.Element {
                 }
               };
 
-              const handleAddToPreOrder = async () => {
-                if (!user || isAddingToPreOrder) {
-                  console.error('User is undefined or already adding to pre-order');
-                  return;
-                }
-
-                setIsAddingToPreOrder(true);
-
-                try {
-                  const preOrderItem: BeerInCart = {
-                    ...item,
-                    amount: 1,
-                  };
-
-                  dispatch(addItemToPreOrder({ user: user, item: preOrderItem, amount: 1 }));
-                  await addItemToUserPreOrder(user, preOrderItem, 1);
-                } finally {
-                  setIsAddingToPreOrder(false);
-                }
-              };
-
-              const itemButtonWrapperClassName = cn("button__wrapper", {
-                "button__wrapper--active": isCartBtnShown.item === item,
-              });
-
               return (
                 <li
                   className="shop__item"
@@ -171,21 +144,6 @@ export function Shop(): JSX.Element {
                   <div className="shop__item-img-wrapper">
                     <Link className="shop__item-link shop__item-link--image" to={link}>
                       <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
-                      {
-                        item.status !== BeerStatus.Ready
-                        ?
-                          item.status !== BeerStatus.Unavailable && user
-                          ?
-                            <div className={itemButtonWrapperClassName}>
-                              <button className="button beer__cart-btn" onClick={handleAddToPreOrder} type="button">Pre-order</button>
-                            </div>
-                          :
-                            ''
-                        :
-                          <div className={itemButtonWrapperClassName}>
-                            <button className="button beer__cart-btn" onClick={handleAddToCart} type="button">Add to cart</button>
-                          </div>
-                      }
                       {
                         item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready && <Soon addedClass="shop__item-label" beer={item}/>
                       }
@@ -210,6 +168,10 @@ export function Shop(): JSX.Element {
                       </span>
                     ))}
                   </div>
+                  {
+                    item.status === BeerStatus.Ready &&
+                    <button className="shop__add-to-cart-btn" onClick={handleAddToCart} type="button"><CartIcon/></button>
+                  }
                 </li>
               )}
             )

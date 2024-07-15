@@ -88,6 +88,7 @@
     display: grid
     grid-template-columns: repeat(2, auto)
     grid-template-rows: repeat(2, auto)
+    align-items: center
     gap: 20px
     &-img-wrapper
       position: relative
@@ -126,4 +127,10 @@
     transition: 0.3s
   &__item-categories
     @include inter-regular
-    grid-column: 1 / -1
+    grid-column: 1
+  &__add-to-cart-btn
+    @include button-reset
+    grid-column: 2
+    justify-self: end
+    & svg
+      width: 20px

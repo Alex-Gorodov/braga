@@ -104,7 +104,7 @@ export const fetchBlogPostsAction = createAsyncThunk<void, undefined, ThunkOptio
   }
 )
 
-export const addItemToUserDatabaseCart = async (user: User, item: BeerInCart) => {
+export const addItemToUserDatabaseCart = async (user: User, item: BeerInCart, amount?: number) => {
   try {
     const userRef = database.ref(APIRoute.Users);
     const snapshot = await userRef.orderByChild('id').equalTo(user.id).once('value');
@@ -116,7 +116,11 @@ export const addItemToUserDatabaseCart = async (user: User, item: BeerInCart) =>
 
       const itemIndex = updatedCartItems.findIndex((i: BeerInCart) => i.id === item.id);
       if (itemIndex > -1) {
-        updatedCartItems[itemIndex].amount += item.amount;
+        if (amount) {
+          updatedCartItems[itemIndex].amount += amount;
+        } else {
+          updatedCartItems[itemIndex].amount += item.amount;
+        }
       } else {
         updatedCartItems.push(item);
       }

@@ -22,6 +22,8 @@
   &__amount
     grid-column: 1 / 3
     grid-row: 2
+  &__discounted-price
+    color: darken($online-green, 5%)
   &__remove-btn
     @include button-reset
     grid-row: 1
@@ -35,3 +37,10 @@
       opacity: 0.6
     &:active
       opacity: 0.3
+  &__change-count-wrapper
+    display: flex
+    gap: 20px
+    align-self: flex-end
+  &__change-count-btn
+    padding: 10px
+    font-style: normal

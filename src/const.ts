@@ -9,6 +9,7 @@ export enum ErrorMessages {
   RegisterEmptyFields = 'Fill the required fields, please.',
   RegisterPasswordNotMatch = 'Passwords do not match',
   EmailError = 'Please enter correct e-mail.',
+  LimitError = 'Maximum stock for this item reached.'
 }
 
 export enum SuccessMessages {
