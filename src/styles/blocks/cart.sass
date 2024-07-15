@@ -34,8 +34,13 @@
     display: flex
     flex-direction: column
     gap: 20px
+    overflow-y: scroll
+    &::-webkit-scrollbar
+      display: none
     &--page
       margin: 40px 0
+    @media (max-width: $mobile)
+      max-height: 300px
   &__total
     @include inter-semi-bold
     margin: 0
