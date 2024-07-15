@@ -35,13 +35,16 @@
     flex-direction: column
     gap: 20px
     overflow-y: scroll
+    @media (max-width: $mobile)
+      max-height: 320px
+      margin-bottom: auto
     &::-webkit-scrollbar
       display: none
     &--page
       margin: 40px 0
-    @media (max-width: $mobile)
-      max-height: 320px
-      margin-bottom: auto
+      @media (max-width: $mobile)
+        max-height: unset
+        margin-bottom: unset
   &__total
     @include inter-semi-bold
     margin: 0
