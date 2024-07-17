@@ -1,6 +1,7 @@
 import { Link, generatePath } from "react-router-dom";
 import { AppRoute } from "../../const";
 import { Post } from "../../types/post";
+import { ReactComponent as Like } from "../../img/icons/like.svg";
 
 type BlogPostProps = {
   post: Post;
@@ -45,14 +46,21 @@ export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
         </>
       }
       <article className={`post ${isPreview ? 'post--preview' : ''}`}>
-        <Link to={link} className="post__image-link">
-          <picture className="post__image-wrapper">
-            <source srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp" width={384} height={475}/>
-            <source media="(min-width: 1170px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
-            <source media="(min-width: 900px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
-            <img className="post__image" src={`${post.img}.png`} width={384} height={475} alt={post.title} srcSet={`${post.img}@2x.png 2x`}/>
-          </picture>
-        </Link>
+        <div className="post__image-container">
+          <Link to={link} className="post__image-link">
+            <picture className="post__image-wrapper">
+              <source srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp" width={384} height={475}/>
+              <source media="(min-width: 1170px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
+              <source media="(min-width: 900px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>
+              <img className="post__image" src={`${post.img}.png`} width={384} height={475} alt={post.title} srcSet={`${post.img}@2x.png 2x`}/>
+            </picture>
+          </Link>
+          <button className="button button--no-shadow post__like">
+            <Like/>
+            <span>{post.likes}</span>
+            <span className="visually-hidden">click to like it!</span>
+          </button>
+        </div>
         <div className="post__text-wrapper">
           <p className="post__date-wrapper">
             <span>{renderedDate()}</span> /&nbsp;

@@ -15,11 +15,23 @@ export function CartPageItem(): JSX.Element {
   const isBeersLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);
   const user = useGetUser();
   const dispatch = useDispatch();
+  const activeUser = useGetUser();
 
-  const totalPrice = user?.cartItems?.reduce((acc, item) =>
-    acc + (item.amount >= 6 ? Number((item.price * 0.9).toFixed(1)) : item.price) * item.amount,
+  const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
+
+  const totalItems = cartItems?.reduce((acc, item) => acc + item.amount, 0);
+  const hasItemWithAmountSixOrMore = cartItems?.some(item => item.amount >= 6);
+
+  const totalPrice = cartItems?.reduce((acc, item) =>
+    acc + (item.amount >= 6 ? item.price * 0.9 : item.price) * item.amount,
     0
   );
+
+  const finalTotalPrice = totalItems && totalItems >= 6 && !hasItemWithAmountSixOrMore
+    ? totalPrice && totalPrice * 0.9
+    : totalPrice;
+
+  const isTotalPriceDiscounted = finalTotalPrice !== totalPrice;
 
   const [isCheckoutOpened, setCheckoutOpened] = useState(false);
 
@@ -50,7 +62,19 @@ export function CartPageItem(): JSX.Element {
         }
       </ul>
       {
-        user?.cartItems?.length ? <p className="checkout__total">Total: ₪ {totalPrice ? totalPrice.toFixed(2) : ''}</p> : ''
+        user?.cartItems?.length ? <p className="checkout__total">
+          <span>Total: </span>
+            <span>{
+              isTotalPriceDiscounted
+                ? <>
+                    <span className="cart-item__old-price">₪{totalPrice?.toFixed(2)}</span>&nbsp;
+                    <span className="cart-item__discounted-price">₪{finalTotalPrice?.toFixed(2)}</span>
+                  </>
+                : <>
+                  <span>₪{finalTotalPrice?.toFixed(2)}</span>
+                </>
+            }</span>
+        </p> : ''
       }
       {
         user?.cartItems?.length

@@ -7,23 +7,35 @@ import { toggleCart } from '../../store/actions';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { forwardRef } from 'react';
+import cn from 'classnames';
 
-type CartBlockProps = {
-  className: string;
-};
+const CartBlock = forwardRef<HTMLDivElement>((props, ref) => {
+  const dispatch = useDispatch();
+  const isCartOpened = useSelector((state: RootState) => state.page.isCartOpened)
 
-const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
+  const cartClassName = cn('cart', {
+    'cart--opened': isCartOpened
+  })
+
   const activeUser = useGetUser();
   const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
+
+  const totalItems = cartItems?.reduce((acc, item) => acc + item.amount, 0);
+  const hasItemWithAmountSixOrMore = cartItems?.some(item => item.amount >= 6);
+
   const totalPrice = cartItems?.reduce((acc, item) =>
-    acc + (item.amount >= 6 ? Number((item.price * 0.9).toFixed(1)) : item.price) * item.amount,
+    acc + (item.amount >= 6 ? item.price * 0.9 : item.price) * item.amount,
     0
   );
 
-  const dispatch = useDispatch();
+  const finalTotalPrice = totalItems && totalItems >= 6 && !hasItemWithAmountSixOrMore
+    ? totalPrice && totalPrice * 0.9
+    : totalPrice;
+
+  const isTotalPriceDiscounted = finalTotalPrice !== totalPrice;
 
   return (
-    <div className={props.className} ref={ref}>
+    <div className={cartClassName} ref={ref}>
       <h2 className="cart__title">My cart</h2>
       <button className="cart__close-btn" onClick={() => dispatch(toggleCart({isCartOpened: false}))}>
         <Cross/>
@@ -39,7 +51,17 @@ const CartBlock = forwardRef<HTMLDivElement, CartBlockProps>((props, ref) => {
           </ul>
           <p className="cart__total">
             <span>Total:</span>
-            <span>₪{totalPrice?.toFixed(2)}</span>
+            <span>{
+              isTotalPriceDiscounted
+                ? <>
+                    <span className="cart-item__old-price">₪{totalPrice?.toFixed(2)}</span>&nbsp;
+                    <span className="cart-item__discounted-price">₪{finalTotalPrice?.toFixed(2)}</span>
+                  </>
+                : <>
+                  <span>₪{finalTotalPrice?.toFixed(2)}</span>
+                </>
+            }</span>
+
           </p>
           <Link className="button" to={AppRoute.Cart} onClick={() => {
             dispatch(toggleCart({isCartOpened: false}))

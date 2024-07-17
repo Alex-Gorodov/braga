@@ -27,10 +27,6 @@ export function Header(): JSX.Element {
   const [isBannerClosed, setBannerClosed] = useState(false);
   const location = useLocation();
 
-  const cartClassName = cn('cart', {
-    'cart--opened': isCartOpened
-  })
-
   const isTablet = useIsTablet();
 
   const mobileNavClassName = cn('navigation__mobile', {
@@ -151,7 +147,7 @@ export function Header(): JSX.Element {
         </nav>
       </>
       }
-      <CartBlock ref={cartRef} className={cartClassName}/>
+      <CartBlock ref={cartRef}/>
       <AuthForm className={loginFormClassName}/>
       <RegisterForm className={loginFormClassName}/>
     </header>

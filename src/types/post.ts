@@ -7,4 +7,5 @@ export type Post = {
   tags: string[];
   img?: string;
   video?: string;
+  likes: number;
 }

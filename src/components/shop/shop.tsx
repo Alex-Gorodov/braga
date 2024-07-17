@@ -1,7 +1,7 @@
 import { addItemToUserDatabaseCart } from "../../store/api-actions";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
-import { addItemToCart } from "../../store/actions";
-import { AppRoute, BeerStatus, SHOP_SORTING, SortingNames } from "../../const";
+import { addItemToCart, setStatusMessage } from "../../store/actions";
+import { AppRoute, BeerStatus, SHOP_SORTING, SortingNames, SuccessMessages } from "../../const";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { sortByRating } from "../../utils/sortByRating";
@@ -14,7 +14,6 @@ import { useState, useEffect } from "react";
 import { Spinner } from "../spinner/spinner";
 import { Soon } from "../beer-item/soon";
 import { Sold } from "../beer-item/sold";
-import cn from 'classnames';
 import { sortByDate } from "../../utils/sortByDate";
 import { BeerStatusLabel } from "../beer-item/beer-status-label";
 import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
@@ -60,7 +59,7 @@ export function Shop(): JSX.Element {
 
   const sortRef = useOutsideClick(() => {
     setSortingOpened(false);
-  }) as React.RefObject<HTMLUListElement>;
+  }) as React.RefObject<HTMLDivElement>;
 
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
@@ -82,8 +81,8 @@ export function Shop(): JSX.Element {
           <span className="shop__count">
             Show 1-6 of {beers.length} results
           </span>
-          <div className="shop__sorting-wrapper">
-            <span className="shop__sorting-item" onClick={() => setSortingOpened(!isSortingOpened)}>
+          <div className="shop__sorting-wrapper" onClick={() => setSortingOpened(!isSortingOpened)} ref={sortRef}>
+            <span className="shop__sorting-item">
               {SHOP_SORTING.find(item => item.name === sorting)?.value || sorting}
             </span>
             {isSortingOpened && (
@@ -104,7 +103,7 @@ export function Shop(): JSX.Element {
             )}
           </div>
         </div>
-        <ul className="shop__items-list" ref={sortRef}>
+        <ul className="shop__items-list">
           {
             !isBeersLoading
             ?
@@ -129,6 +128,7 @@ export function Shop(): JSX.Element {
                   };
 
                   dispatch(addItemToCart({ user: user, item: itemInCart, amount: 1 }));
+                  dispatch(setStatusMessage({message: SuccessMessages.AddToCart}))
 
                   await addItemToUserDatabaseCart(user, itemInCart);
                 } finally {

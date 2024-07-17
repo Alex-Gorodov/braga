@@ -6,7 +6,6 @@ import { BeerInCart } from "../../types/beer";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useState } from "react";
-import { StatusMessage } from "../status-message/status-message";
 import { ErrorMessages } from "../../const";
 
 type CartItemProps = {
@@ -23,35 +22,6 @@ export function CartItem({item}: CartItemProps): JSX.Element {
     user && dispatch(removeFromCart({user, item}))
     user && removeItemFromUserCart(user, item)
   }
-
-  // const [isAddingToCart, setIsAddingToCart] = useState(false);
-
-  // const handleMinus = () => {
-  //   if (user?.cartItems.includes(item)) {
-  //     setIsAddingToCart(true);
-  //     const itemInCart = user.cartItems.find(cartItem => cartItem.id === item.id);
-
-  //     if (itemInCart && itemInCart.amount > 1) {
-  //       user && dispatch(addItemToCart({ user: user, item: item, amount: -1 }));
-  //       user && addItemToUserDatabaseCart(user, item, -1);
-  //     } else {
-  //       user && dispatch(removeFromCart({ user: user, item: item }));
-  //       user && removeItemFromUserCart(user, item);
-  //     }
-  //   }
-  // }
-
-  // const handlePlus = () => {
-  //   if (user?.cartItems.includes(item)) {
-  //     setIsAddingToCart(true);
-  //     user && dispatch(addItemToCart({ user: user, item: item, amount: 1 }));
-  //     user && addItemToUserDatabaseCart(user, item, 1);
-  //   }
-  //   if (item.amount === beers[item.id].onStock - 1) dispatch(setStatusMessage({
-  //     message: ErrorMessages.LimitError
-  //   }));
-  // }
-
 
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
