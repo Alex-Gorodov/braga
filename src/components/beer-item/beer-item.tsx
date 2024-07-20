@@ -178,7 +178,6 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
                     addItemToUserPreOrder(user, { ...item, amount: amount }, amount);
                     dispatch(setStatusMessage({message: SuccessMessages.AddToPreOrder}))
                   } else {
-
                     dispatch(setStatusMessage({message: ErrorMessages.PreOrderError}))
                   }
                 }}

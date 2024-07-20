@@ -47,6 +47,7 @@ export const removeItemFromPreOrder = createAction<{user: User, item: BeerInCart
 export const toggleBeerStatus = createAction<{beer: Beer, status: BeerStatus}>('data/toggleBeerStatus');
 export const removeFromCart = createAction<{user: User, item: BeerInCart}>('data/removeFromCart');
 export const deleteReview = createAction<{item: Beer, review: Review}>('data/deleteReview');
+export const togglePostLikeDB = createAction<{post: Post, user: User | undefined}>('data/togglePostLikeDB');
 
 // Data adding
 export const addItemToPreOrder = createAction<{user: User, item: BeerInCart, amount: number}>('data/addItemToPreOrder');
@@ -60,6 +61,9 @@ export const addReview = createAction<{item: Beer, review: Review}>('data/addRev
 export const requireAuthorization = createAction<{authorizationStatus: AuthorizationStatus}>('user/requireAuthorization');
 export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
 export const setUserInformation = createAction<{userInformation: UserAuthData}>('user/setUserInformation');
+
+// Blog
+export const togglePostLike = createAction<{post: Post, user: User | undefined}>('data/togglePostLike');
 
 // Selectors
 export const getReviewLoadingStatus = (state: RootState) => state.review.isReviewSending;

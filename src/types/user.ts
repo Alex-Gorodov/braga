@@ -1,4 +1,5 @@
 import { Beer, BeerInCart } from "./beer"
+import { Post } from "./post";
 
 export type User = {
   id: string;
@@ -12,7 +13,7 @@ export type User = {
   cartItems: BeerInCart[],
   notifications: Beer[],
   preOrder: BeerInCart[],
-  liked: Beer[],
+  liked: Post[],
   avatar: string
 };
 

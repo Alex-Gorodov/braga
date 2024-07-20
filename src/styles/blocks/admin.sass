@@ -13,6 +13,8 @@
       display: grid
       grid-template-columns: repeat(3, 1fr)
       border: $section-border
+      &:not(:last-of-type)
+        border-bottom: none
       &--head
         border: none
         grid-template-columns: 0.5fr 60px 1fr
@@ -57,6 +59,9 @@
       overflow: scroll
       &:not(:last-of-type)
         border-right: $section-border
+    &--no-preorders
+      grid-column: 2 / -1
+
     &--subscriber
       padding: 10px
       &:nth-of-type(2n)

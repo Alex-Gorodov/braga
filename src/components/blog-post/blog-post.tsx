@@ -1,7 +1,14 @@
 import { Link, generatePath } from "react-router-dom";
-import { AppRoute } from "../../const";
+import { AppRoute, ErrorMessages } from "../../const";
 import { Post } from "../../types/post";
 import { ReactComponent as Like } from "../../img/icons/like.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setStatusMessage, togglePostLike } from "../../store/actions";
+import { useGetUser } from "../../hooks/useGetUser";
+import { useState } from "react";
+import { toggleLikeInDatabase } from "../../store/api-actions";
+import { RootState } from "../../store/root-reducer";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 type BlogPostProps = {
   post: Post;
@@ -9,7 +16,13 @@ type BlogPostProps = {
 }
 
 export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
+  const dispatch = useDispatch();
+  const user = useGetUser()
   const postDate = new Date(post.date).getTime();
+  const postLikes = useSelector((state: RootState) => state.data.blog[post.id].likes)
+  const [isUserLikedThisPost, setUserLikedThisPost] = useState(user && postLikes && postLikes.some((like) => like.id === user.id));
+  const [isShowLikes, setShowLikes] = useState(false);
+
   const renderedDate = () => {
     const date = new Date(postDate);
     return date.toLocaleDateString('en-US', {
@@ -22,6 +35,21 @@ export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
   const link = generatePath(AppRoute.PostPage, {
     id: `${post.id}`,
   })
+
+  const handleLike = async () => {
+    const isLiked = !isUserLikedThisPost;
+    dispatch(togglePostLike({ post: post, user: user }));
+    if (user) {
+      setUserLikedThisPost(isLiked);
+      await toggleLikeInDatabase(post, user, isLiked);
+    } else {
+      dispatch(setStatusMessage({message: ErrorMessages.LikeError}))
+    }
+  };
+
+  const likesListRef = useOutsideClick(() => {
+    setShowLikes(false);
+  }) as React.RefObject<HTMLUListElement>;
 
   return (
     <div className={`post__wrapper ${isPreview ? 'post__wrapper--preview' : ''}`}>
@@ -55,11 +83,29 @@ export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
               <img className="post__image" src={`${post.img}.png`} width={384} height={475} alt={post.title} srcSet={`${post.img}@2x.png 2x`}/>
             </picture>
           </Link>
-          <button className="button button--no-shadow post__like">
+          <button className={`button button--no-shadow post__like ${ isUserLikedThisPost ? 'post__like--liked' : ''}`} onClick={() => handleLike()}>
             <Like/>
-            <span>{post.likes}</span>
+            <span
+              className="post__like-amount"
+              onMouseEnter={() => setShowLikes(!isShowLikes)}
+            >
+              {post.likes? post.likes.length : 0}
+            </span>
             <span className="visually-hidden">click to like it!</span>
           </button>
+          {
+            post.likes && post.likes.length > 0 && <ul className={`post__likes-wrapper ${isShowLikes ? 'post__likes-wrapper--opened' : ''}`} ref={likesListRef}>
+            {
+              post.likes.map((user) => {
+                return (
+                  <li key={user.id}>
+                    <img width={40} height={40} src={user.avatar} title={user.name} alt={user.name} />
+                  </li>
+                )
+              })
+            }
+          </ul>
+          }
         </div>
         <div className="post__text-wrapper">
           <p className="post__date-wrapper">

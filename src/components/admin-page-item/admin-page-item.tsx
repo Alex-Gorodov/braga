@@ -138,7 +138,15 @@ export function AdminPageItem(): JSX.Element {
                   </div>
                 </li>
               ) : (
-                <li className="admin__list-item" key={`user-no-preorder-${user.email}`}>No pre-orders</li>
+                <li className="admin__list-item admin__list-item--preorders" key={`user-no-preorder-${user.email}`}>
+                  <div className="admin__table-cell admin__table-cell--preorders admin__table-cell--value">
+                    <span>{`${user.name} ${user.surname.slice(0, 1)}. (${user.email})`}</span>
+                  </div>
+                  <div className="admin__table-cell admin__table-cell--preorders admin__table-cell--no-preorders admin__table-cell--value">
+                    <span>No pre-orders</span>
+                  </div>
+
+                </li>
               )
             )) : "No users with pre-orders yet"}
         </ul>

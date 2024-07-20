@@ -1,4 +1,4 @@
-import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeerBrewingDate, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerStatus, updateBeersAmount } from "../../actions";
+import { addGuestNotification, addItemToCart, addItemToNotifications, addItemToPreOrder, addReview, addSubscriber, deleteReview, loadBeers, loadBlogPosts, loadGuests, loadSubscribers, loadUsers, removeFromCart, removeItemFromNotifications, removeItemFromPreOrder, setBeerBrewingDate, setBeersDataLoadingStatus, setBlogPostsDataLoadingStatus, setGuestsDataLoadingStatus, setSubscribersDataLoadingStatus, setUsersDataLoadingStatus, toggleBeerStatus, togglePostLike, updateBeersAmount } from "../../actions";
 import { createReducer } from "@reduxjs/toolkit";
 import { DataState } from "../../../types/state";
 
@@ -204,4 +204,27 @@ export const dataReducer = createReducer(initialState, (builder) => {
 
     state.subscribers.push(subscriber);
   })
+  .addCase(togglePostLike, (state, action) => {
+    const { post, user } = action.payload;
+    const userToFind = state.users.find((userToFind) => user?.id === userToFind.id);
+
+    if (userToFind) {
+        // Инициализация массива лайков, если он не инициализирован
+        if (!Array.isArray(state.blog[post.id].likes)) {
+            state.blog[post.id].likes = [];
+        }
+
+        const userLikedIndex = state.blog[post.id].likes.findIndex(likedUser => likedUser.phone === userToFind.phone);
+
+        if (userLikedIndex !== -1) {
+            // Если пользователь уже лайкнул пост, убираем лайк
+            state.blog[post.id].likes = state.blog[post.id].likes.filter(likedUser => likedUser.phone !== userToFind.phone);
+            console.log('est');
+        } else {
+            // Если пользователь не лайкнул пост, добавляем лайк
+            state.blog[post.id].likes.push(userToFind);
+            console.log('netu');
+        }
+    }
+  });
 })

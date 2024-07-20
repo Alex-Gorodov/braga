@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export type Post = {
   id: number;
   title: string;
@@ -7,5 +9,5 @@ export type Post = {
   tags: string[];
   img?: string;
   video?: string;
-  likes: number;
+  likes: User[];
 }

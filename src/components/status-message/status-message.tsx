@@ -17,7 +17,8 @@ export function StatusMessage({message}: StatusMessageProps): JSX.Element {
 
   const requiresAuth = message === ErrorMessages.GuestNotificationError
   || message === ErrorMessages.PreOrderError
-  || message === ErrorMessages.AddingToCartError;
+  || message === ErrorMessages.AddingToCartError
+  || message === ErrorMessages.LikeError;
 
   const dispatch = useDispatch();
 

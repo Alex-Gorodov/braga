@@ -17,6 +17,7 @@ import { Sold } from "../beer-item/sold";
 import { sortByDate } from "../../utils/sortByDate";
 import { BeerStatusLabel } from "../beer-item/beer-status-label";
 import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
+import { ReactComponent as SortingArrow } from "../../img/icons/select.svg";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -95,12 +96,13 @@ export function Shop(): JSX.Element {
                       setSorting(item.name as SortingNames);
                       setSortingOpened(false);
                     }}
-                  >
+                    >
                     {item.value}
                   </li>
                 ))}
               </ul>
             )}
+            <SortingArrow/>
           </div>
         </div>
         <ul className="shop__items-list">

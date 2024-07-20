@@ -372,6 +372,31 @@ export const adminToggleBeerStatus = async (beer: Beer, status: BeerStatus, disp
   }
 }
 
+export const toggleLikeInDatabase = async (post: Post, user: User, isLiked: boolean) => {
+  try {
+    const postRef = database.ref(`${APIRoute.Blog}/${post.id}`);
+    const postSnapshot = await postRef.once('value');
+    const postData = postSnapshot.val();
+
+    if (!postData.likes) {
+      postData.likes = [];
+    }
+
+    if (!isLiked) {
+      // Remove user from likes
+      postData.likes = postData.likes.filter((likedUser: User) => likedUser.id !== user.id);
+    } else {
+      // Add user to likes
+      postData.likes.push(user);
+    }
+
+    await postRef.update(postData);
+  } catch (error) {
+    console.error("Error toggle like: ", error);
+  }
+};
+
+
 export const loginAction = createAsyncThunk<
   UserAuthData,
   AuthData,
