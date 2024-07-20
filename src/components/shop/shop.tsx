@@ -1,7 +1,7 @@
 import { addItemToUserDatabaseCart } from "../../store/api-actions";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
 import { addItemToCart, setStatusMessage } from "../../store/actions";
-import { AppRoute, BeerStatus, SHOP_SORTING, SortingNames, SuccessMessages } from "../../const";
+import { AppRoute, BeerStatus, ErrorMessages, SHOP_SORTING, SortingNames, SuccessMessages } from "../../const";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { sortByRating } from "../../utils/sortByRating";
@@ -117,6 +117,7 @@ export function Shop(): JSX.Element {
 
               const handleAddToCart = async () => {
                 if (!user || isAddingToCart) {
+                  dispatch(setStatusMessage({message: ErrorMessages.AddingToCartError}))
                   console.error('User is undefined or already adding to cart');
                   return;
                 }
