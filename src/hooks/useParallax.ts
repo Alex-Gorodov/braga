@@ -46,13 +46,13 @@ export const useParallax = () => {
     setCoords({ x: window.scrollX, y: window.scrollY });
   };
 
-  const handleDeviceOrientation = (event: DeviceOrientationEvent) => {
-    // Gamma - наклон вокруг оси X (из стороны в сторону)
-    // Beta - наклон вокруг оси Y (вперед-назад)
-    setCoords({ x: coords.x + (event.gamma || 0), y: coords.y + (event.beta || 0) });
-  };
 
   useEffect(() => {
+    const handleDeviceOrientation = (event: DeviceOrientationEvent) => {
+      // Gamma - наклон вокруг оси X (из стороны в сторону)
+      // Beta - наклон вокруг оси Y (вперед-назад)
+      setCoords({ x: coords.x + (event.gamma || 0), y: coords.y + (event.beta || 0) });
+    };
     if (isMobile) {
       window.addEventListener('deviceorientation', handleDeviceOrientation, true);
       window.addEventListener('scroll', handleScroll);
@@ -68,7 +68,7 @@ export const useParallax = () => {
         window.removeEventListener('mousemove', handleMouseMove);
       }
     };
-  }, [handleDeviceOrientation, isMobile]);
+  }, [coords.x, coords.y, isMobile]);
 
   return coords;
 };
