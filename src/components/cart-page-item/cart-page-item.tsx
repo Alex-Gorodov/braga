@@ -1,15 +1,15 @@
+import { ReactComponent as Copy } from "../../img/icons/copy-to-clipboard.svg";
 import { ReactComponent as BitIcon } from "../../img/icons/bit.svg";
 import { ReactComponent as Cross } from "../../img/icons/cross.svg";
-import { ReactComponent as Copy } from "../../img/icons/copy-to-clipboard.svg";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { setStatusMessage } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { useGetUser } from "../../hooks/useGetUser";
 import { CartItem } from "../cart-item/cart-item";
-import { Spinner } from "../spinner/spinner";
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { setStatusMessage } from "../../store/actions";
 import { SuccessMessages } from "../../const";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { Spinner } from "../spinner/spinner";
+import { useState } from "react";
 
 export function CartPageItem(): JSX.Element {
   const isBeersLoading = useSelector((state: RootState) => state.data.isBeersDataLoading);
@@ -20,7 +20,6 @@ export function CartPageItem(): JSX.Element {
   const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
 
   const totalItems = cartItems?.reduce((acc, item) => acc + item.amount, 0);
-  // const hasItemWithAmountSixOrMore = cartItems?.some(item => item.amount >= 6);
 
   const totalPrice = cartItems?.reduce((acc, item) =>
     acc + (item.amount >= 6 ? item.price * 0.9 : item.price) * item.amount,

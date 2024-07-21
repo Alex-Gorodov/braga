@@ -21,7 +21,6 @@ const CartBlock = forwardRef<HTMLDivElement>((props, ref) => {
   const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
 
   const totalItems = cartItems?.reduce((acc, item) => acc + item.amount, 0);
-  // const hasItemWithAmountSixOrMore = cartItems?.some(item => item.amount >= 6);
 
   const totalPrice = cartItems?.reduce((acc, item) =>
     acc + (item.amount >= 6 ? item.price * 0.9 : item.price) * item.amount,

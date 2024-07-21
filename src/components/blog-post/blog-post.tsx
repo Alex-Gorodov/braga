@@ -1,14 +1,14 @@
+import { setStatusMessage, togglePostLike } from "../../store/actions";
+import { ReactComponent as Like } from "../../img/icons/like.svg";
+import { toggleLikeInDatabase } from "../../store/api-actions";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, generatePath } from "react-router-dom";
 import { AppRoute, ErrorMessages } from "../../const";
-import { Post } from "../../types/post";
-import { ReactComponent as Like } from "../../img/icons/like.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { setStatusMessage, togglePostLike } from "../../store/actions";
-import { useGetUser } from "../../hooks/useGetUser";
-import { useState } from "react";
-import { toggleLikeInDatabase } from "../../store/api-actions";
 import { RootState } from "../../store/root-reducer";
-import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { useGetUser } from "../../hooks/useGetUser";
+import { Post } from "../../types/post";
+import { useState } from "react";
 
 type BlogPostProps = {
   post: Post;

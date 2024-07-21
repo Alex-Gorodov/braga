@@ -1,23 +1,23 @@
-import { addItemToUserDatabaseCart } from "../../store/api-actions";
+import { AppRoute, BeerStatus, ErrorMessages, SHOP_SORTING, SortingNames, SuccessMessages } from "../../const";
+import { ReactComponent as SortingArrow } from "../../img/icons/select.svg";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
 import { addItemToCart, setStatusMessage } from "../../store/actions";
-import { AppRoute, BeerStatus, ErrorMessages, SHOP_SORTING, SortingNames, SuccessMessages } from "../../const";
+import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
+import { addItemToUserDatabaseCart } from "../../store/api-actions";
+import { BeerStatusLabel } from "../beer-item/beer-status-label";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { sortByRating } from "../../utils/sortByRating";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, generatePath } from "react-router-dom";
 import { RootState } from "../../store/root-reducer";
+import { sortByDate } from "../../utils/sortByDate";
 import { useGetUser } from "../../hooks/useGetUser";
 import { Beer, BeerInCart } from "../../types/beer";
-import { useState, useEffect } from "react";
 import { Spinner } from "../spinner/spinner";
+import { useState, useEffect } from "react";
 import { Soon } from "../beer-item/soon";
 import { Sold } from "../beer-item/sold";
-import { sortByDate } from "../../utils/sortByDate";
-import { BeerStatusLabel } from "../beer-item/beer-status-label";
-import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
-import { ReactComponent as SortingArrow } from "../../img/icons/select.svg";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);

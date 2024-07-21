@@ -383,10 +383,8 @@ export const toggleLikeInDatabase = async (post: Post, user: User, isLiked: bool
     }
 
     if (!isLiked) {
-      // Remove user from likes
       postData.likes = postData.likes.filter((likedUser: User) => likedUser.id !== user.id);
     } else {
-      // Add user to likes
       postData.likes.push(user);
     }
 
