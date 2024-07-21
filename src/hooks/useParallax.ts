@@ -52,6 +52,8 @@ export const useParallax = () => {
       // Gamma - наклон вокруг оси X (из стороны в сторону)
       // Beta - наклон вокруг оси Y (вперед-назад)
       setCoords({ x: coords.x + (event.gamma || 0), y: coords.y + (event.beta || 0) });
+      console.log(event.gamma);
+
     };
     if (isMobile) {
       window.addEventListener('deviceorientation', handleDeviceOrientation, true);
