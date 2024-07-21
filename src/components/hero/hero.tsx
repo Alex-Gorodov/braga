@@ -5,15 +5,21 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import 'swiper/css/navigation';
 import 'swiper/css';
+import { useParallax } from '../../hooks/useParallax';
+import { Parallax } from '../parallax/parallax';
 
 export function Hero(): JSX.Element {
   const isMobile = useIsMobile();
+  const parallax = useParallax();
 
   return (
     <section className='section'>
       <div className='hero section__container'>
         <div className="section__wrapper">
           <div className='hero__wrapper'>
+            {
+              isMobile && <Parallax mouseX={parallax.x} mouseY={parallax.y}/>
+            }
             <div className='hero__star'>
               <Star/>
             </div>
@@ -23,6 +29,9 @@ export function Hero(): JSX.Element {
             <Link className='button button--reverse' to={AppRoute.Blog}>Learn more</Link>
           </div>
           <HeroSwiper/>
+          {
+            !isMobile && <Parallax mouseX={parallax.x} mouseY={parallax.y}/>
+          }
         </div>
       </div>
       <div className="section__container section__container--background">

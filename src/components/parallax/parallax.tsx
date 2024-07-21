@@ -12,7 +12,7 @@ export const Parallax: React.FC<ParallaxProps> = ({ mouseX, mouseY }) => {
       style={{
         top: `calc(16%)`,
         left: `calc(14%)`,
-        transform: `translate3d(${mouseX * 0.12}px, ${mouseY * 0.32}px, 0) skewX(-40deg)`,
+        transform: `translate3d(${mouseX * 0.4}px, ${mouseY * 0.18}px, 0) skewX(-40deg)`,
       }}>
     </span>
       <span className="parallax__element parallax__element--2"
@@ -26,7 +26,7 @@ export const Parallax: React.FC<ParallaxProps> = ({ mouseX, mouseY }) => {
         style={{
           top: `calc(-16%)`,
           left: `calc(-16%)`,
-          transform: `translate3d(${mouseX * 0.27}px, ${mouseY * 0.12}px, 0) skewX(-40deg)`,
+          transform: `translate3d(${mouseX * 0.27}px, ${mouseY * 0.12}px, 10px) skewX(-40deg)`,
         }}>
       </span>
       <span className="parallax__element parallax__element--4"

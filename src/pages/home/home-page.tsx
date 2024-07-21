@@ -73,41 +73,11 @@ import { SignUp } from "../../components/subscribe/subscribe";
 import { useEffect, useState } from "react";
 import { Parallax } from "../../components/parallax/parallax";
 import { useIsMobile } from "../../hooks/useSizes";
+import { useParallax } from "../../hooks/useParallax";
 
 export function HomePage(): JSX.Element {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const isMobile = useIsMobile();
 
-  const handleMouseMove = (event: MouseEvent) => {
-    setCoords({ x: event.clientX, y: event.clientY });
-  };
-
-  const handleScroll = () => {
-    setCoords({ x: window.scrollX, y: window.scrollY });
-  };
-
-  const handleTouchMove = (event: TouchEvent) => {
-    const touch = event.touches[0];
-    setCoords({ x: touch.clientX, y: touch.clientY });
-  };
-
-  useEffect(() => {
-    if (isMobile) {
-      document.addEventListener('touchmove', handleTouchMove);
-      document.addEventListener('scroll', handleScroll);
-    } else {
-      document.addEventListener('mousemove', handleMouseMove);
-    }
-
-    return () => {
-      if (isMobile) {
-        document.removeEventListener('touchmove', handleTouchMove);
-        document.removeEventListener('scroll', handleScroll);
-      } else {
-        document.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, [isMobile]); // Добавляем isMobile в зависимости useEffect
+  const parallax = useParallax()
 
   return (
     <Layout>
@@ -118,7 +88,6 @@ export function HomePage(): JSX.Element {
       <Video />
       <SwiperClassics />
       <SignUp />
-      <Parallax mouseX={coords.x} mouseY={coords.y} />
     </Layout>
   );
 }
