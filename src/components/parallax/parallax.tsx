@@ -12,8 +12,7 @@ export const Parallax: React.FC<ParallaxProps> = ({ mouseX, mouseY }) => {
     <div className="parallax">
       <span className="parallax__element parallax__element--1"
         style={{
-          top: `calc(${isMobile ? '20%' : '19%'})`,
-          // left: `calc(14%)`,
+          top: `calc(${isMobile ? '25%' : '19%'})`,
           left: `calc(${isMobile ? '14%' : '10%'})`,
 
           transform: `translate3d(${mouseX * 0.4}px, ${mouseY * 0.18}px, 0) skewX(-40deg)`,
