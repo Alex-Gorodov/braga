@@ -42,6 +42,10 @@ export function Hero(): JSX.Element {
           <div className="hero__wrapper hero__wrapper--text">
             <p className='hero__text hero__text--centered'>
               100% natural<br/> and&nbsp;<span className='hero__text hero__text--bold'>handcrafted</span>
+              {
+                `parallaxX: ${parallax.x}, parallaxY: ${parallax.y}`
+
+              }
             </p>
             <p className="hero__description">
               Our beer showcases pure ingredients and traditional brewing methods, reflecting our dedication to quality and craftsmanship.
