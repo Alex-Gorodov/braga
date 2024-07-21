@@ -20,7 +20,7 @@ export const useParallax = () => {
 
   useEffect(() => {
     if (isMobile) {
-      document.addEventListener('touchmove', handleTouchMove);
+      // document.addEventListener('touchmove', handleTouchMove);
       document.addEventListener('scroll', handleScroll);
     } else {
       document.addEventListener('mousemove', handleMouseMove);
@@ -28,7 +28,7 @@ export const useParallax = () => {
 
     return () => {
       if (isMobile) {
-        document.removeEventListener('touchmove', handleTouchMove);
+        // document.removeEventListener('touchmove', handleTouchMove);
         document.removeEventListener('scroll', handleScroll);
       } else {
         document.removeEventListener('mousemove', handleMouseMove);
