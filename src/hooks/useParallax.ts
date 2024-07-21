@@ -49,7 +49,7 @@ export const useParallax = () => {
   const handleDeviceOrientation = (event: DeviceOrientationEvent) => {
     // Gamma - наклон вокруг оси X (из стороны в сторону)
     // Beta - наклон вокруг оси Y (вперед-назад)
-    setCoords({ x: event.beta || 0, y: event.gamma || 0 });
+    setCoords({ x: coords.x + (event.gamma || 0), y: coords.y + (event.beta || 0) });
   };
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export const useParallax = () => {
         window.removeEventListener('mousemove', handleMouseMove);
       }
     };
-  }, [isMobile]);
+  }, [handleDeviceOrientation, isMobile]);
 
   return coords;
 };
