@@ -23,16 +23,14 @@
     display: grid
     grid-template-columns: 1fr
     gap: 20px
-    // padding-top: 40px
     overflow: hidden
-    // @media (max-width: $shop-grid)
-    //   padding-top: 60px
+  &__sorting
+    position: relative
+    display: grid
+    grid-template-columns: auto 1fr
+    gap: 8px
   &__sorting-wrapper
     position: relative
-    // background-image: url("../../img/icons/select.svg")
-    // background-repeat: no-repeat
-    // background-position: calc(100% - 4px)
-    // background-size: initial
     display: flex
     justify-content: space-between
     align-items: center
@@ -58,7 +56,6 @@
     transition: 0.3s
     &:hover
       color: rgba($black, 60%)
-      // opacity: 0.6
   &__sorting-list
     @include list-reset
     position: absolute
@@ -140,8 +137,10 @@
       color: $link-hover
     &--image
       grid-row: 1
+      &:hover
+        transform: scale(2.5) translateY(-52px)
   &__item-name
-    font-size: clamp(1.375rem, 1.1489rem + 1.0638vw, 2rem)
+    font-size: clamp(1.375rem, 1.1489rem + 1.0638vw, 1.7rem)
     transition: 0.3s
   &__item-categories
     @include inter-regular

@@ -14,8 +14,9 @@ import { useGetUser } from "../../hooks/useGetUser";
 import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
 import { Beer } from "../../types/beer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cn from 'classnames';
+import { useParallax } from "../../hooks/useParallax";
 
 type BeerItemProps = {
   item: Beer;
@@ -104,6 +105,17 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
 
   const emojiCode = getStockEmoji(item.onStock);
 
+  const [isImageScale, setImageScale] = useState(false);
+
+  const [translate, setTranslate] = useState({x: 0, y: 0})
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const offsetX = ((event.clientX - rect.left) / rect.width) * 100;
+    const offsetY = ((event.clientY - rect.top) / rect.height) * 100;
+    setTranslate({ x: offsetX, y: offsetY });
+  };
+
   return (
     <div className="product">
       <h1 className="visually-hidden">{item.name}'s page</h1>
@@ -131,16 +143,34 @@ export function BeerItem({item}: BeerItemProps): JSX.Element {
               <img className="product__image product__image--preview" src={`${item.previewImg}.jpg`} width={200} height={245} alt={item.name} srcSet={`${item.previewImg}@2x.jpg 2x`}/>
             </picture>
           </div>
-          <div className="product__image-wrapper product__image-wrapper--main">
+          <div
+            className="product__image-wrapper product__image-wrapper--main"
+            onMouseEnter={() => setImageScale(true)}
+            onMouseLeave={() => setImageScale(false)}
+            onMouseMove={handleMouseMove}
+          >
             <picture>
-              <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={135} height={462}/>
-              <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-              <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-              <img className="product__image product__image--main" src={`${item.img}.png`} width={135} height={462} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
+              <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={135} height={462} />
+              <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" />
+              <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" />
+              <img
+                className="product__image product__image--main"
+                style={{
+                  transform: `scale(${isImageScale ? '2.5' : '1'})`,
+                  transformOrigin: `${translate.x}% ${translate.y}%`,
+                  transition: 'transform 0.2s ease-out'
+                }}
+                src={`${item.img}.png`}
+                width={135}
+                height={462}
+                alt={item.name}
+                srcSet={`${item.img}@2x.png 2x`}
+              />
             </picture>
-            {item.brewingDate && item.status !== BeerStatus.Ready && <BeerTimer item={item}/>}
-            {item.status !== BeerStatus.Ready && <BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`}/>}
+            {item.brewingDate && item.status !== BeerStatus.Ready && <BeerTimer item={item} />}
+            {item.status !== BeerStatus.Ready && <BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`} />}
           </div>
+
         </div>
         <div className="product__details">
           <div className="product__name-wrapper">

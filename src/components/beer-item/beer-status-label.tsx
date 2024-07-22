@@ -32,10 +32,16 @@ export function BeerStatusLabel({status, className}: LabelProps): JSX.Element {
           {
             status === BeerStatus.Fermentation
               ?
-              "During fermentation, yeast converts sugars into alcohol, creating beer's flavor and alcohol content. You can preorder at this stage."
+                <p className="product__status-description">
+                  <span className="product__status-accent">You can preorder at this stage.</span>
+                  During fermentation, yeast converts sugars into alcohol, creating beer's flavor and alcohol content.
+                </p>
               : status === BeerStatus.Maturation
                 ?
-                "During the maturation process, the beer develops carbonation, aroma and smoothes out the taste. You can preorder at this stage."
+                  <p className="product__status-description">
+                    <span className="product__status-accent">You can preorder at this stage.</span>
+                    During the maturation process, the beer develops carbonation, aroma and smoothes out the taste.
+                  </p>
                 : ''
           }
         </span>

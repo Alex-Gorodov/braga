@@ -1,6 +1,8 @@
 import { addItemToUserDatabaseCart, addItemToUserPreOrder } from '../../store/api-actions';
 import { addItemToCart, addItemToPreOrder, setStatusMessage } from "../../store/actions";
 import { AppRoute, BeerStatus, ErrorMessages, SuccessMessages } from "../../const";
+import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
+import { ReactComponent as Preorder } from "../../img/icons/pre-order.svg";
 import { Link, generatePath } from "react-router-dom";
 import { Beer, BeerInCart } from "../../types/beer";
 import { useGetUser } from "../../hooks/useGetUser";
@@ -85,34 +87,14 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
 
   return (
     <div
-      className={`beer__item item ${className}`}
+      className={`beer__item ${className}`}
       onMouseEnter={() => setCartBtnShown(true)}
       onMouseLeave={() => setCartBtnShown(false)}
       onTouchStart={() => setCartBtnShown(!isCartBtnShown)}
     >
-      {
-        small
-        ?
-          ''
-        :
-          item.status !== BeerStatus.Ready
-          ?
-            item.status !== BeerStatus.Unavailable
-            ?
-              <div className={itemButtonWrapperClassName}>
-                <button className={itemButtonClassName} onClick={handleAddToPreOrder} type="button">Pre-order</button>
-              </div>
-            :
-              <div className={itemButtonWrapperClassName}>
-                <Link className={itemButtonClassName} to={link}>Read more</Link>
-              </div>
-          :
-            <div className={itemButtonWrapperClassName}>
-              <button className={itemButtonClassName} onClick={handleAddToCart} type="button">
-                Add to cart
-              </button>
-            </div>
-      }
+      <div className={itemButtonWrapperClassName}>
+        <Link className={itemButtonClassName} to={link}>Read more</Link>
+      </div>
       <div className="beer__picture-wrapper">
         {
           item.onStock === 0 && showStatus && <Sold/>
@@ -120,25 +102,14 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         {
           item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready && showStatus && <Soon beer={item}/>
         }
-        {
-          small ?
-          <Link className='beer__picture-link' to={link}>
-            <picture>
-              <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={small ? 88 : 135} height={small ? 300 : 463}/>
-              <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-              <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
-              <img src={`${item.img}.png`} width={small ? 88 : 135} height={small ? 300 : 463} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
-            </picture>
-          </Link>
-          :
+        <Link className='beer__picture-link' to={link}>
           <picture>
             <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={small ? 88 : 135} height={small ? 300 : 463}/>
             <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
             <source media="(min-width: 900px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>
             <img src={`${item.img}.png`} width={small ? 88 : 135} height={small ? 300 : 463} alt={item.name} srcSet={`${item.img}@2x.png 2x`}/>
           </picture>
-
-        }
+        </Link>
       </div>
       <div className='beer__item-wrapper'>
         <Link className="beer__item-name beer__item-accent" to={link}>
@@ -160,6 +131,14 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
             {item.price}
           </span>
         </p>
+        {
+          item.status === BeerStatus.Ready &&
+          <button className="beer-item__btn" onClick={() => handleAddToCart()}><CartIcon/></button>
+        }
+        {
+          item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation &&
+          <button className="beer-item__btn" onClick={() => handleAddToPreOrder()}><Preorder/></button>
+        }
       </div>
     </div>
   );

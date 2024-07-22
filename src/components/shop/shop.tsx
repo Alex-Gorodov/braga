@@ -1,9 +1,10 @@
 import { AppRoute, BeerStatus, ErrorMessages, SHOP_SORTING, SortingNames, SuccessMessages } from "../../const";
+import { addItemToUserDatabaseCart, addItemToUserPreOrder } from "../../store/api-actions";
+import { addItemToCart, addItemToPreOrder, setStatusMessage } from "../../store/actions";
 import { ReactComponent as SortingArrow } from "../../img/icons/select.svg";
+import { ReactComponent as Preorder } from "../../img/icons/pre-order.svg";
 import { sortByPrice, sortByPriceReverse } from "../../utils/sortByPrice";
-import { addItemToCart, setStatusMessage } from "../../store/actions";
 import { ReactComponent as CartIcon } from "../../img/icons/cart.svg";
-import { addItemToUserDatabaseCart } from "../../store/api-actions";
 import { BeerStatusLabel } from "../beer-item/beer-status-label";
 import { sortByPopularity } from "../../utils/sortByPopularity";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
@@ -63,6 +64,7 @@ export function Shop(): JSX.Element {
   }) as React.RefObject<HTMLDivElement>;
 
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
 
   return (
     <section className="section shop">
@@ -82,27 +84,32 @@ export function Shop(): JSX.Element {
           <span className="shop__count">
             Show 1-6 of {beers.length} results
           </span>
-          <div className="shop__sorting-wrapper" onClick={() => setSortingOpened(!isSortingOpened)} ref={sortRef}>
-            <span className="shop__sorting-item">
-              {SHOP_SORTING.find(item => item.name === sorting)?.value || sorting}
+          <div className="shop__sorting">
+            <span>
+              Sort by:
             </span>
-            {isSortingOpened && (
-              <ul className="shop__sorting-list">
-                {SHOP_SORTING.map((item) => (
-                  <li
-                    className="shop__sorting-item"
-                    key={`sorting-item-${item.value}`}
-                    onClick={() => {
-                      setSorting(item.name as SortingNames);
-                      setSortingOpened(false);
-                    }}
-                    >
-                    {item.value}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <SortingArrow/>
+            <div className="shop__sorting-wrapper" onClick={() => setSortingOpened(!isSortingOpened)} ref={sortRef}>
+              <span className="shop__sorting-item">
+                {SHOP_SORTING.find(item => item.name === sorting)?.value || sorting}
+              </span>
+              {isSortingOpened && (
+                <ul className="shop__sorting-list">
+                  {SHOP_SORTING.map((item) => (
+                    <li
+                      className="shop__sorting-item"
+                      key={`sorting-item-${item.value}`}
+                      onClick={() => {
+                        setSorting(item.name as SortingNames);
+                        setSortingOpened(false);
+                      }}
+                      >
+                      {item.value}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <SortingArrow/>
+            </div>
           </div>
         </div>
         <ul className="shop__items-list">
@@ -136,6 +143,29 @@ export function Shop(): JSX.Element {
                   await addItemToUserDatabaseCart(user, itemInCart);
                 } finally {
                   setIsAddingToCart(false);
+                }
+              };
+
+              const handleAddToPreOrder = async () => {
+                if (!user || isAddingToPreOrder) {
+                  dispatch(setStatusMessage({message: ErrorMessages.PreOrderError}))
+                  console.error('User is undefined or already adding to pre-order');
+                  return;
+                }
+
+                setIsAddingToPreOrder(true);
+
+                try {
+                  const preOrderItem: BeerInCart = {
+                    ...item,
+                    amount: 1,
+                  };
+
+                  dispatch(addItemToPreOrder({ user: user, item: preOrderItem, amount: 1 }));
+                  dispatch(setStatusMessage({message: SuccessMessages.AddToPreOrder}))
+                  await addItemToUserPreOrder(user, preOrderItem, 1);
+                } finally {
+                  setIsAddingToPreOrder(false);
                 }
               };
 
@@ -174,6 +204,10 @@ export function Shop(): JSX.Element {
                   {
                     item.status === BeerStatus.Ready &&
                     <button className="shop__add-to-cart-btn" onClick={handleAddToCart} type="button"><CartIcon/></button>
+                  }
+                  {
+                    item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation &&
+                    <button className="shop__add-to-cart-btn" onClick={handleAddToPreOrder} type="button"><Preorder/></button>
                   }
                 </li>
               )}

@@ -22,7 +22,7 @@ export function CartPageItem(): JSX.Element {
   const totalItems = cartItems?.reduce((acc, item) => acc + item.amount, 0);
 
   const totalPrice = cartItems?.reduce((acc, item) =>
-    acc + (item.amount >= 6 ? item.price * 0.9 : item.price) * item.amount,
+    acc + item.price * item.amount,
     0
   );
 

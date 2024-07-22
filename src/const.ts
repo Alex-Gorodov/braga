@@ -21,12 +21,12 @@ export enum SuccessMessages {
 }
 
 export const SHOP_SORTING = [
-  {name: "price reverse", value: "Sort by price: low to high"},
-  {name: "price", value: "Sort by price: high to low"},
-  {name: "popular", value: "Sort by popularity"},
-  {name: "default", value: "Default sorting"},
-  {name: "rating", value: "Sort by rating"},
-  {name: "newest", value: "Sort by latest"},
+  {name: "price reverse", value: "price: low to high"},
+  {name: "price", value: "price: high to low"},
+  {name: "popular", value: "popularity"},
+  {name: "default", value: "default"},
+  {name: "rating", value: "rating"},
+  {name: "newest", value: "latest"},
 ]
 
 export enum AppRoute {
