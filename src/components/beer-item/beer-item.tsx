@@ -14,9 +14,8 @@ import { useGetUser } from "../../hooks/useGetUser";
 import { Spinner } from "../spinner/spinner";
 import { User } from "../../types/user";
 import { Beer } from "../../types/beer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import cn from 'classnames';
-import { useParallax } from "../../hooks/useParallax";
 
 type BeerItemProps = {
   item: Beer;

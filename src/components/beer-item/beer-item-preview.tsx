@@ -133,11 +133,11 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         </p>
         {
           item.status === BeerStatus.Ready &&
-          <button className="beer-item__btn" onClick={() => handleAddToCart()}><CartIcon/></button>
+          <button className="beer-item__btn" onClick={() => handleAddToCart()} title="Add to cart."><CartIcon/></button>
         }
         {
-          item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation &&
-          <button className="beer-item__btn" onClick={() => handleAddToPreOrder()}><Preorder/></button>
+          (item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation) &&
+          <button className="beer-item__btn" onClick={() => handleAddToPreOrder()} title='Add to pre-orders.'><Preorder/></button>
         }
       </div>
     </div>

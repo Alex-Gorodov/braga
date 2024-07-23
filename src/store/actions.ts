@@ -66,5 +66,4 @@ export const setUserInformation = createAction<{userInformation: UserAuthData}>(
 export const togglePostLike = createAction<{post: Post, user: User | undefined}>('data/togglePostLike');
 
 // Selectors
-export const getReviewLoadingStatus = (state: RootState) => state.review.isReviewSending;
 export const getUploadedPath = (state: RootState) => state.page.uploadedPath;

@@ -5,7 +5,7 @@
   gap: 32px
   &::after
     position: absolute
-    bottom: 0px
+    bottom: -10px
     left: 0
     width: 100%
     display: block
@@ -22,8 +22,12 @@
     &-avatar
       border-radius: 50%
       border: 1px solid $black
-  &__comment
+  &__content
     grid-column: 2
+  &__comment
+    max-width: 600px
+    overflow-wrap: break-word
+    hyphens: auto
   &__date
     color: $dark-gray
   &__rating
