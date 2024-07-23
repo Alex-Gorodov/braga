@@ -203,11 +203,11 @@ export function Shop(): JSX.Element {
                   </div>
                   {
                     item.status === BeerStatus.Ready &&
-                    <button className="shop__add-to-cart-btn" onClick={handleAddToCart} type="button"><CartIcon/></button>
+                    <button className="shop__add-to-cart-btn" onClick={handleAddToCart} type="button" title="Add to cart."><CartIcon/></button>
                   }
                   {
-                    item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation &&
-                    <button className="shop__add-to-cart-btn" onClick={handleAddToPreOrder} type="button"><Preorder/></button>
+                    (item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation) &&
+                    <button className="shop__add-to-cart-btn" onClick={handleAddToPreOrder} type="button" title="Add to pre-orders."><Preorder/></button>
                   }
                 </li>
               )}

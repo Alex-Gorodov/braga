@@ -65,7 +65,7 @@ export function Header(): JSX.Element {
   }) as React.RefObject<HTMLDivElement>;
 
   const cartRef = useOutsideClick(() => {
-    dispatch(toggleCart({isCartOpened: false}))
+    isCartOpened && dispatch(toggleCart({isCartOpened: false}))
   }) as React.RefObject<HTMLDivElement>;
 
   const totalAmount = cartItems ? cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0) : 0;

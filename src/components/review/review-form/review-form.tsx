@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState, ChangeEvent, FormEvent } from "react";
 import { ReactComponent as RatingStar } from '../../../img/icons/rating-star.svg';
-import { addReview, getReviewLoadingStatus } from "../../../store/actions";
+import { addReview } from "../../../store/actions";
 import { addReviewToDatabase } from "../../../store/api-actions";
 import { RootState } from "../../../store/root-reducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,6 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   const activeUser = users.find((user) => user.id === authedUser.id)
 
   const dispatch: AppDispatch = useDispatch();
-  const reviewStatus = useSelector(getReviewLoadingStatus);
   const [reviewFormData, setFormData] = useState<Review>({
     date: (new Date()).toISOString(),
     user: activeUser ? activeUser : {
@@ -102,7 +101,6 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
                 value={star.value}
                 id={`${star.value}-stars`}
                 type="radio"
-                disabled={reviewStatus}
                 onChange={() => handleRatingSelect(star.value)}
                 checked={reviewFormData.rating === star.value}
               />
@@ -124,7 +122,6 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
           rows={5}
           placeholder="Your review here..."
           value={reviewFormData.review}
-          disabled={reviewStatus}
         />
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
@@ -134,7 +131,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
           <button
             className="reviews__submit review-form__submit button"
             type="submit"
-            disabled={reviewStatus || reviewFormData.review.length < 15 || reviewFormData.rating === 0}
+            disabled={reviewFormData.review.length < 15 || reviewFormData.rating === 0}
             ref={refButton}
           >
             Submit
