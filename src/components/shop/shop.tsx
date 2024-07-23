@@ -17,8 +17,6 @@ import { useGetUser } from "../../hooks/useGetUser";
 import { Beer, BeerInCart } from "../../types/beer";
 import { Spinner } from "../spinner/spinner";
 import { useState, useEffect } from "react";
-import { Soon } from "../beer-item/soon";
-import { Sold } from "../beer-item/sold";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);
@@ -177,12 +175,12 @@ export function Shop(): JSX.Element {
                   <div className="shop__item-img-wrapper">
                     <Link className="shop__item-link shop__item-link--image" to={link}>
                       <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
-                      {
+                      {/* {
                         item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready && <Soon addedClass="shop__item-label" beer={item}/>
                       }
                       {
                         item.onStock === 0 && item.status === BeerStatus.Unavailable && <Sold cn="shop__item-label"/>
-                      }
+                      } */}
                     </Link>
                     {
                       item.status !== BeerStatus.Ready && <BeerStatusLabel status={item.status} className={`product__status-label product__status-label--${item.status.toLowerCase()}`}/>
