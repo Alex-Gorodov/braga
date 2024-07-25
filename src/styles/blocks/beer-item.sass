@@ -57,3 +57,26 @@
       opacity: 0.6
     &:active
       opacity: 0.3
+    &__cart-wrapper
+    display: block
+    position: relative
+    & path
+      transition: 0.3s
+    & #left-cart-bottle
+      transform: translateY(7px)
+    & #right-cart-bottle
+      transform: translateY(7px)
+    & #middle-cart-bottle-bg
+      transform: translateY(7px)
+    & #middle-cart-bottle
+      transform: translateY(7px)
+    &:hover
+      opacity: 1
+      & #left-cart-bottle
+        transform: translateY(4px) rotate(-10deg) translateX(-4px)
+      & #right-cart-bottle
+        transform: translateY(-1px) rotate(10deg) translateX(4px)
+      & #middle-cart-bottle-bg
+        transform: translateY(0px)
+      & #middle-cart-bottle
+        transform: translateY(0px)

@@ -1,4 +1,4 @@
-import { setUserInformation, requireAuthorization, toggleSignUpForm, setUploadedPath } from "../../store/actions";
+import { setUserInformation, requireAuthorization, toggleSignUpForm, setUploadedPath, setStatusMessage } from "../../store/actions";
 import { ReactComponent as Showed } from '../../img/icons/showed-password.svg';
 import { ReactComponent as Hidden } from '../../img/icons/hidden-password.svg';
 import { addNewUserToDatabase, loginAction } from "../../store/api-actions";
@@ -67,7 +67,6 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
 
   const [isPassShowed, setPassShowed] = useState(false);
   const [isConfirmPassShowed, setConfirmPassShowed] = useState(false);
-  const [formError, setFormError] = useState<ErrorMessages | null>(null);
   const [isAuthing, setIsAuthing] = useState(false);
 
   const handleCloseForm = () => {
@@ -88,7 +87,6 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
       preOrder: [],
       token: ''
     })
-    setFormError(null);
     setConfirmPassShowed(false);
   }
 
@@ -98,14 +96,14 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
     const auth = getAuth();
 
     if (data.password !== data.confirmPassword) {
-      setFormError(ErrorMessages.RegisterPasswordNotMatch);
+      dispatch(setStatusMessage({message: ErrorMessages.RegisterPasswordNotMatch}))
       setIsAuthing(false);
       return;
     }
 
     const passwordValidationRegex = /^(?=.*\d).{8,}$/;
     if (!passwordValidationRegex.test(data.password)) {
-      setFormError(ErrorMessages.PasswordError);
+      dispatch(setStatusMessage({message: ErrorMessages.PasswordError}))
       setIsAuthing(false);
       return;
     }
@@ -164,11 +162,8 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
 
   const handleFormError = () => {
     if (data.name === '' || data.surname === '' || data.email === '' || data.phone.length < 8) {
-      setFormError(ErrorMessages.RegisterEmptyFields);
+      dispatch(setStatusMessage({message: ErrorMessages.RegisterEmptyFields}));
       setIsAuthing(false);
-      setTimeout(() => {
-        setFormError(null);
-      }, 3000);
       return;
     }
   };
@@ -282,7 +277,6 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               ? <Spinner size={"16"} />
               : 'Create account!'
             }</button>
-          <p className={`form__error-message ${formError ? 'form__error-message--opened' : ''}`}>{formError}</p>
         </form>
       </div>
     ) : <></>

@@ -1,9 +1,12 @@
 .user-navigation
   @include list-reset
   display: grid
-  grid-template-columns: repeat(2, 50px)
-  gap: 32px
-  align-items: center
+  grid-template-columns: repeat(2, auto)
+  gap: 16px
+  align-items: baseline
+  align-content: center
+  &:has(.user-navigation__avatar-wrapper)
+    align-items: center
   &__item
     &:has(.user-navigation__avatar)
       position: relative

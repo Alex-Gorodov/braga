@@ -1,4 +1,4 @@
-import { setUserInformation, requireAuthorization, toggleSignInForm, toggleSignUpForm } from "../../store/actions";
+import { setUserInformation, requireAuthorization, toggleSignInForm, toggleSignUpForm, setStatusMessage } from "../../store/actions";
 import { ReactComponent as Cross } from '../../img/icons/cross.svg';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthorizationStatus, ErrorMessages } from "../../const";
@@ -34,8 +34,6 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
   const [isAuthing, setIsAuthing] = useState(false);
-
-  const [error, setError] = useState<ErrorMessages | null>(null);
 
   const initialData: dataProps = {
     email: {
@@ -114,10 +112,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
 
       handleCloseForm();
     } catch (error) {
-      setError(ErrorMessages.AuthError);
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
+      dispatch(setStatusMessage({message: ErrorMessages.AuthError}))
       console.error(error);
     } finally {
       setIsAuthing(false);
@@ -182,7 +177,6 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
             </div>
           </>
         }
-        <p className={`form__error-message ${error ? 'form__error-message--opened' : ''}`}>{error}</p>
       </form>
     </div>
     : <></>

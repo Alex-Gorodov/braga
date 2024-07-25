@@ -8,7 +8,6 @@ import { SaleBanner } from "../sale-banner/sale-banner";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/root-reducer";
 import { Link, useLocation } from "react-router-dom";
-import { useGetUser } from "../../hooks/useGetUser";
 import { useIsTablet } from "../../hooks/useSizes";
 import { AuthForm } from "../auth-form/auth-form";
 import CartBlock from "../cart-block/cart-block";
@@ -17,10 +16,8 @@ import { AppRoute } from "../../const";
 import cn from 'classnames';
 
 export function Header(): JSX.Element {
-  const activeUser = useGetUser();
   const dispatch = useDispatch();
 
-  const cartItems = useSelector((state: RootState) => state.data.users.find((user) => user.id === activeUser?.id)?.cartItems);
   const [activePage, setActivePage] = useState('Home');
   const [isMenuOpened, setMenuOpened] = useState(false);
   const isCartOpened = useSelector((state: RootState) => state.page.isCartOpened)
@@ -68,7 +65,6 @@ export function Header(): JSX.Element {
     isCartOpened && dispatch(toggleCart({isCartOpened: false}))
   }) as React.RefObject<HTMLDivElement>;
 
-  const totalAmount = cartItems ? cartItems.reduce((sum, cartItem) => sum + cartItem.amount, 0) : 0;
 
   const handleCartOpen = () => {
     dispatch(toggleCart({isCartOpened: !isCartOpened}))
@@ -98,7 +94,6 @@ export function Header(): JSX.Element {
               <li className="user-navigation__item">
                 <button className="header__cart-wrapper header__btn" onClick={handleCartOpen} type="button">
                   <Cart/>
-                  <span>{totalAmount}</span>
                 </button>
               </li>
               <li className="user-navigation__item">
@@ -124,7 +119,6 @@ export function Header(): JSX.Element {
               <li className="user-navigation__item">
                 <button className="header__cart-wrapper header__btn" onClick={handleCartOpen} type="button">
                   <Cart/>
-                  <span>{totalAmount}</span>
                 </button>
               </li>
               <li className="user-navigation__item" onClick={() => setMenuOpened(false)}>
