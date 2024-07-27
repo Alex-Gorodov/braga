@@ -10,31 +10,31 @@ export const Parallax: React.FC<ParallaxProps> = ({ mouseX, mouseY }) => {
   const isMobile = useIsMobile()
   return (
     <div className="parallax">
-      <span className="parallax__element parallax__element--1"
+      <span className="parallax__element parallax__element--left-large"
         style={{
-          top: `calc(${isMobile ? '100px' : '200px'})`,
-          left: `calc(${isMobile ? '24px' : '440px'})`,
-          transform: `translate3d(${isMobile ? '' : '-'}${mouseX * 0.12}px, ${isMobile ? '' : '-'}${mouseY * 0.12}px, 0) skewX(-40deg)`,
-        }}>
-      </span>
-      <span className="parallax__element parallax__element--2"
-        style={{
-          top: `calc(${isMobile ? '100px' : '500px'})`,
-          right: `calc(${isMobile ? '100px' : '400px'})`,
-          transform: `translate3d(-${mouseX * 0.1}px, -${mouseY * 0.1}px, 0) skewX(-40deg)`,
-        }}>
-      </span>
-      <span className="parallax__element parallax__element--3"
-        style={{
-          top: `calc(${isMobile ? '-12px' : '-16px'})`,
-          left: `calc(${isMobile ? '-550px' : '-150px'})`,
+          top: `${isMobile ? '-12px' : '-16px'}`,
+          left: `${isMobile ? '-550px' : '-150px'}`,
           transform: `translate3d(${isMobile ? '' : '-'}${mouseX * 0.1}px, ${isMobile ? '' : '-'}${mouseY * 0.1}px, 0) skewX(-40deg)`,
         }}>
       </span>
-      <span className="parallax__element parallax__element--4"
+      <span className="parallax__element parallax__element--left-small"
         style={{
-          top: `calc(${isMobile ? '200px' : '600px'})`,
-          right: `calc(${isMobile ? '100px' : '400px'})`,
+          top: `${isMobile ? '100px' : '200px'}`,
+          left: `${isMobile ? '84px' : '440px'}`,
+          transform: `translate3d(${isMobile ? '' : '-'}${mouseX * 0.12}px, ${isMobile ? '' : '-'}${mouseY * 0.12}px, 0) skewX(-40deg)`,
+        }}>
+      </span>
+      <span className="parallax__element parallax__element--right-large"
+        style={{
+          top: `${isMobile ? '300px' : '500px'}`,
+          right: `${isMobile ? '100px' : '200px'}`,
+          transform: `translate3d(-${mouseX * 0.1}px, -${mouseY * 0.1}px, 0) skewX(-40deg)`,
+        }}>
+      </span>
+      <span className="parallax__element parallax__element--right-small"
+        style={{
+          top: `${isMobile ? '400px' : '600px'}`,
+          right: `${isMobile ? '100px' : '200px'}`,
           transform: `translate3d(-${mouseX * 0.12}px, -${mouseY * 0.12}px, 0) skewX(-40deg)`,
         }}>
       </span>

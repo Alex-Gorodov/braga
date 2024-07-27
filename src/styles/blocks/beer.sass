@@ -16,7 +16,8 @@
       display: grid
       grid-template-columns: auto  80px
       grid-template-rows: 70px min-content 70px
-      align-items: start
+      // align-items: start
+      align-items: center
       width: 100%
       max-width: 1280px
       justify-content: space-between
@@ -29,7 +30,7 @@
     &-name
       @include inter-bold
       grid-row: 1
-      font-size: clamp(2rem, 0.5479rem + 2.1277vw, 2.25rem)
+      font-size: clamp(1.5rem, 0.5479rem + 2.1277vw, 2.25rem)
       &:hover
         color: $link-hover
         z-index: 25
