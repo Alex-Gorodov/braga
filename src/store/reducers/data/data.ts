@@ -235,17 +235,15 @@ export const dataReducer = createReducer(initialState, (builder) => {
 
     if (userToFind) {
         if (!Array.isArray(state.blog[post.id].likes)) {
-            state.blog[post.id].likes = [];
+          state.blog[post.id].likes = [];
         }
 
-        const userLikedIndex = state.blog[post.id].likes.findIndex(likedUser => likedUser.phone === userToFind.phone);
+        const userLikedIndex = state.blog[post.id].likes.findIndex(likedUser => likedUser.email === userToFind.email);
 
         if (userLikedIndex !== -1) {
-            state.blog[post.id].likes = state.blog[post.id].likes.filter(likedUser => likedUser.phone !== userToFind.phone);
-            console.log('est');
+          state.blog[post.id].likes = state.blog[post.id].likes.filter(likedUser => likedUser.email !== userToFind.email);
         } else {
-            state.blog[post.id].likes.push(userToFind);
-            console.log('netu');
+          state.blog[post.id].likes.push(userToFind);
         }
     }
   });

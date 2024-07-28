@@ -59,7 +59,6 @@ export const addReview = createAction<{item: Beer, review: Review}>('data/addRev
 
 // User
 export const requireAuthorization = createAction<{authorizationStatus: AuthorizationStatus}>('user/requireAuthorization');
-export const getUserInformation = createAction<{userInformation: UserAuthData | null}>('user/getUserInformation');
 export const setUserInformation = createAction<{userInformation: UserAuthData}>('user/setUserInformation');
 
 // Blog

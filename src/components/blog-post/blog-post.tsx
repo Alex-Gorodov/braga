@@ -17,11 +17,18 @@ type BlogPostProps = {
 
 export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
   const dispatch = useDispatch();
-  const user = useGetUser()
+  const user = useGetUser();
   const postDate = new Date(post.date).getTime();
   const postLikes = useSelector((state: RootState) => state.data.blog[post.id].likes)
   const [isUserLikedThisPost, setUserLikedThisPost] = useState(user && postLikes && postLikes.some((like) => like.id === user.id));
   const [isShowLikes, setShowLikes] = useState(false);
+
+  const isLiked = useSelector((state: RootState) => state.data.blog[post.id].likes.some((like) => like.id === user?.id));
+
+  console.log('is liked? ', isUserLikedThisPost);
+
+  console.log(isLiked);
+
 
   const renderedDate = () => {
     const date = new Date(postDate);

@@ -1,5 +1,5 @@
 import { ReducerWithInitialState } from '@reduxjs/toolkit/dist/createReducer';
-import { getUserInformation, requireAuthorization } from '../../actions';
+import { requireAuthorization, setUserInformation } from '../../actions';
 import { ActionReducerMapBuilder, createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../../const';
 import { AuthState } from '../../../types/state';
@@ -33,8 +33,8 @@ export const authReducer: ReducerWithInitialState<AuthState> = createReducer(
       const {authorizationStatus} = action.payload;
       state.authorizationStatus = authorizationStatus;
     })
-    .addCase(getUserInformation, (state, action) => {
+    .addCase(setUserInformation, (state, action) => {
       const {userInformation} = action.payload;
       state.userInfo = userInformation;
-    });
+    })
 });

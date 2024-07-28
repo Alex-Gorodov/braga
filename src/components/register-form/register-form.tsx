@@ -24,8 +24,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
 
   const uploadedUrl = useSelector((state: RootState) => state.page.uploadedPath);
 
-  const authedUser = useSelector((state: RootState) => state.auth.userInfo);
-  // const authedUser = useSelector((state: RootState) => state.user);
+  const authedUser = useSelector((state: RootState) => state.user);
 
   const [data, setData] = useState<RegisterUser>({
     id: '',
@@ -138,7 +137,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
 
       dispatch(requireAuthorization({ authorizationStatus: AuthorizationStatus.Auth }));
 
-      authedUser && dispatch(setUserInformation({ userInformation: authedUser }));
+      dispatch(setUserInformation({ userInformation: authedUser }));
       const authData = {
         login: data.email,
         password: data.password,
