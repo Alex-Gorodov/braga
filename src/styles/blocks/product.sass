@@ -98,9 +98,6 @@
         cursor: unset
         background-color: $black
         color: $white
-        &:hover
-          background-color: unset
-          color: unset
     &-info
       position: absolute
       bottom: -400px
@@ -158,6 +155,7 @@
     @include inter-regular
     font-size: 20px
     line-height: 1.5
+    text-wrap: balance
   &__buttons
     display: grid
     grid-template-columns: 30px 30px auto
@@ -280,7 +278,11 @@
 
   &__review-list
     @include list-reset
+    display: flex
+    flex-direction: column
+    gap: 20px
     margin-bottom: 60px
+
 
   &__others-wrapper
     grid-column: 1 / -1

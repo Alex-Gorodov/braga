@@ -7,8 +7,7 @@ import { combineReducers } from "redux";
 export const rootReducer = combineReducers({
   data: dataReducer,
   auth: authReducer,
-  page: pageReducer
-  // user: userReducer
+  page: pageReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>;

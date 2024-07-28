@@ -133,7 +133,7 @@ export function ReviewForm({item}: ReviewFormProps): JSX.Element {
           <button
             className="reviews__submit review-form__submit button"
             type="submit"
-            disabled={reviewFormData.review.length < 15 || reviewFormData.rating === 0}
+            disabled={ reviewFormData.review.length < 15 || reviewFormData.rating === 0}
             ref={refButton}
           >
             Submit

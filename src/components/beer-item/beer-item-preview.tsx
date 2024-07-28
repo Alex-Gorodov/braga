@@ -137,7 +137,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
         }
         {
           (item.status === BeerStatus.Fermentation || item.status === BeerStatus.Maturation) &&
-          <button className="beer-item__btn" onClick={() => handleAddToPreOrder()} title="Add to pre-orders."><Preorder/></button>
+          <button className="beer-item__btn" onClick={() => handleAddToPreOrder()}><Preorder/></button>
         }
       </div>
     </div>

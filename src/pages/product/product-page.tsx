@@ -13,24 +13,16 @@ export function ProductPage(): JSX.Element {
   const { id } = useParams();
   const beers = useSelector((state: RootState) => state.data.beers);
   const [product, setProduct] = useState<Beer | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+
+  const isPageLoaded = document.readyState === 'complete';
 
   useEffect(() => {
-    setIsLoading(true);
-
     const itemId = Number(id);
     const foundProduct = beers.find((beer) => beer.id === itemId);
 
     if (foundProduct) {
       setProduct(foundProduct);
-      setIsLoading(false);
-    } else {
-      setTimeout(() => {
-
-        setIsLoading(false)
-      }, 1200);
     }
-
   }, [id, beers]);
 
   return (
@@ -38,10 +30,10 @@ export function ProductPage(): JSX.Element {
       <Helmet>
         <title>{`Shop | ${product ? product.name : 'Not found'}`}</title>
       </Helmet>
-      {isLoading ? (
+      {!isPageLoaded ? (
         <Spinner size={"40"} wrapper />
       ) : (
-        product ? (
+        product && isPageLoaded ? (
           <BeerItem item={product} />
         ) : (
           <PageNotFound />
