@@ -16,9 +16,11 @@ type ReviewFormProps = {
 
 export function ReviewForm({item}: ReviewFormProps): JSX.Element {
   const users = useSelector((state: RootState) => state.data.users);
-  const authedUser = useSelector((state: RootState) => state.user)
+  const authedUser = useSelector((state: RootState) => state.auth.userInfo)
+  const activeUser = users.find((user) => user.id === authedUser?.id)
+  // const authedUser = useSelector((state: RootState) => state.user)
+  // const activeUser = users.find((user) => user.id === authedUser.id)
 
-  const activeUser = users.find((user) => user.id === authedUser.id)
 
   const dispatch: AppDispatch = useDispatch();
   const [reviewFormData, setFormData] = useState<Review>({

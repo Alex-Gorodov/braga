@@ -33,6 +33,8 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   const isSignInOpened = useSelector((state: RootState) => state.page.isSignInFormOpened);
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
+  const isError = useSelector((state: RootState) => state.page.statusMessage !== null);
+
   const [isAuthing, setIsAuthing] = useState(false);
 
   const initialData: dataProps = {
@@ -80,7 +82,7 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
   }
 
   const formRef = useOutsideClick(() => {
-    handleCloseForm();
+    !isError && handleCloseForm();
   }) as React.RefObject<HTMLFormElement>;
 
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -112,7 +114,8 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
 
       handleCloseForm();
     } catch (error) {
-      dispatch(setStatusMessage({message: ErrorMessages.AuthError}))
+      dispatch(setStatusMessage({message: ErrorMessages.AuthError}));
+      setData(initialData)
       console.error(error);
     } finally {
       setIsAuthing(false);
