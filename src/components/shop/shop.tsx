@@ -17,8 +17,6 @@ import { useGetUser } from "../../hooks/useGetUser";
 import { Beer, BeerInCart } from "../../types/beer";
 import { Spinner } from "../spinner/spinner";
 import { useState, useEffect } from "react";
-import { Soon } from "../beer-item/soon";
-import { Sold } from "../beer-item/sold";
 
 export function Shop(): JSX.Element {
   const beers = useSelector((state: RootState) => state.data.beers);

@@ -16,7 +16,6 @@
       display: grid
       grid-template-columns: auto  80px
       grid-template-rows: 70px min-content 70px
-      // align-items: start
       align-items: center
       width: 100%
       max-width: 1280px
@@ -43,7 +42,7 @@
       grid-column: 1 / 3
     &-categories
       @include inter-regular
-      color: $dark-gray
+      color: darken($dark-gray, 30%)
       grid-row: 3
       grid-column: 1 / 3
     &-price
