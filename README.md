@@ -76,15 +76,11 @@ Subscribe to our newsletter to receive updates about new products and special of
 ## Contact Information
 
 - **Location**: Peer St, Haifa, IL
-- **Call us**(tel:0543955573)
-- **Whatsapp**(https://wa.me/972543955573)
-- **Telegram**(https://t.me/a_gorodov)
-- **Email**(a.gorodov.22@gmail.com)
+- **Call us**: 0543955573
+- **Whatsapp**: https://wa.me/972543955573
+- **Telegram**: https://t.me/a_gorodov
+- **Email**: a.gorodov.22@gmail.com
 
 ---
 
 ©2024 Alex Gorodov, All Rights Reserved
-
----
-
-Feel free to customize this draft further to better match your website's style and additional features.
