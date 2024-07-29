@@ -1,46 +1,90 @@
-# Getting Started with Create React App
+# Craft Microbrewery Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the official website of our craft microbrewery! Here, you can explore our unique selection of handcrafted beers, learn about our brewing process, and stay updated with our latest news and offers.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Homepage](#homepage)
+- [Shop](#shop)
+- [Blog](#blog)
+- [Newsletter Subscription](#newsletter-subscription)
+- [Contact Information](#contact-information)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Homepage**: Learn about our brewery and discover our featured beers.
+- **Shop**: Browse and purchase our selection of craft beers.
+- **Blog**: Read articles about brewing, ingredients, and more.
+- **Newsletter Subscription**: Stay informed about new products and special offers.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Homepage
 
-### `npm test`
+On the homepage, you'll find:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- A special offer: Get a 10% discount when you buy 6 or more bottles.
+- Information about our craft microbrewery.
+- Featured beers with descriptions and prices.
+- A call to action to subscribe to our newsletter.
 
-### `npm run build`
+### Featured Beers
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Bounty Injection** - Porter with coconut and chocolate flavors (₪10)
+2. **Juicy Bomb** - NEIPA with fruity, hoppy, and bitter notes (₪14)
+3. **Hey Mango** - IPA with fruity, hoppy, and bitter flavors (₪10)
+4. **Therapist’s Breakfast** - Stout with coffee, chocolate, and bread notes (₪11)
+5. **Witbier** - Wheat beer with wheat, citrusy, herbal, and spicy notes (₪10)
+6. **Desert Vagabond** - Light Lager with malty and hoppy flavors (₪11)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Shop
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In the shop section, you can:
 
-### `npm run eject`
+- View and purchase our selection of craft beers.
+- See product availability and detailed descriptions.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Beers Available in the Shop
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Juicy Bomb** - NEIPA (₪14) - Fruity, Hoppy, Bitter
+2. **Hey Mango** - IPA (₪10) - Fruity, Hoppy, Bitter
+3. **Therapist’s Breakfast** - Stout (₪11) - Coffee, Chocolate, Bread
+4. **Witbier** - Wheat Beer (₪10) - Wheat, Citrusy, Herbal, Spicy
+5. **Desert Vagabond** - Light Lager (₪11) - Malty, Hoppy
+6. **Bounty Injection** - Porter (₪10) - Coconut, Chocolate
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Blog
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+In our blog, you can:
 
-## Learn More
+- Read about various topics related to brewing, craft beer, and ingredients.
+- Engage with articles such as "You are about to meet an important ingredient: MALT".
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Example Blog Post
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Title**: You are about to meet an important ingredient: MALT
+- **Date**: July 2, 2024
+- **Categories**: Brewery, Craft, Ingredients
+- **Snippet**: When it comes to brewing beer, baking bread, or even crafting whiskey, there's a key player that often goes unnoticed...
+
+## Newsletter Subscription
+
+Subscribe to our newsletter to receive updates about new products and special offers. We promise to only send you important and interesting updates, no endless spam.
+
+### Subscription Form
+
+- **Your e-mail**: Enter your email to subscribe.
+
+## Contact Information
+
+- **Location**: Peer St, Haifa, IL
+- **Call us**(tel:0543955573)
+- **Whatsapp**(https://wa.me/972543955573)
+- **Telegram**(https://t.me/a_gorodov)
+- **Email**(a.gorodov.22@gmail.com)
+
+---
+
+©2024 Alex Gorodov, All Rights Reserved
+
+---
+
+Feel free to customize this draft further to better match your website's style and additional features.
