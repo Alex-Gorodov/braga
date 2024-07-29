@@ -47,12 +47,18 @@
   &--reverse::after
     left: unset
     right: 10px
-  &:hover::after
+  &:hover::after,
+  &:focus-visible::after
     top: 0
     left: 0
-  &--reverse:hover::after
+  &:focus-visible
+    outline: none
+  &--reverse:hover::after,
+  &--reverse:focus-visible::after
     left: unset
     right: 0
+  &--reverse:focus-visible
+    outline: none
   &:disabled
     background-color: lighten($background-gray, 5%)
     color:  lighten($black, 50%)

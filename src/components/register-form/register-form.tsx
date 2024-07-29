@@ -185,7 +185,6 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
             <Cross />
           </button>
           <label className="form__item" htmlFor="name">
-            <span className="form__label">Your name:</span>
             <input
               className="form__input"
               type="text"
@@ -196,9 +195,9 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               value={data.name}
               onChange={handleFieldChange}
             />
+            <span className="form__label form__label--invisible">Your name:</span>
           </label>
           <label className="form__item" htmlFor="surname">
-            <span className="form__label">Your surname:</span>
             <input
               className="form__input"
               type="text"
@@ -209,9 +208,9 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               value={data.surname}
               onChange={handleFieldChange}
             />
+            <span className="form__label form__label--invisible">Your surname:</span>
           </label>
           <label className="form__item" htmlFor="email">
-            <span className="form__label">Your e-mail:</span>
             <input
               className="form__input"
               type="email"
@@ -222,9 +221,9 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               value={data.email}
               onChange={handleFieldChange}
             />
+            <span className="form__label form__label--invisible">Your e-mail:</span>
           </label>
           <label className="form__item" htmlFor="phone">
-            <span className="form__label">Your phone:</span>
             <input
               className="form__input"
               type="text"
@@ -235,6 +234,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               value={data.phone}
               onChange={handleFieldChange}
             />
+            <span className="form__label form__label--invisible">Your phone:</span>
           </label>
           <label className="form__item" htmlFor="avatar">
             <span className="form__label form__label--visible">Choose avatar:</span>
@@ -248,27 +248,28 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               name="password"
               id="password"
               required
-              placeholder="Password*"
+              placeholder=""
               value={data.password}
               onChange={handleFieldChange}
             />
+            <span className="form__label">Password:</span>
             <span className="form__show-pass-btn" role="button" onClick={() => setPassShowed(!isPassShowed)}>
               <span className="visually-hidden">{isPassShowed ? 'hide password' : 'show password'}</span>
               {isPassShowed ? <Showed /> : <Hidden />}
             </span>
           </label>
           <label className="form__item" htmlFor="confirm-password">
-            {/* <span className="form__label">Confirm password:</span> */}
             <input
               className="form__input"
               type={isConfirmPassShowed ? 'text' : 'password'}
               name="confirmPassword"
               id="confirm-password"
               required
-              placeholder="Confirm password*"
+              placeholder=""
               value={data.confirmPassword}
               onChange={handleFieldChange}
             />
+            <span className="form__label">Confirm password:</span>
             <span className="form__show-pass-btn" role="button" onClick={() => setConfirmPassShowed(!isConfirmPassShowed)}>
               <span className="visually-hidden">{isConfirmPassShowed ? 'hide password' : 'show password'}</span>
               {isConfirmPassShowed ? <Showed /> : <Hidden />}

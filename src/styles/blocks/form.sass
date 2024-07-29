@@ -47,10 +47,14 @@
     right: 20px
     cursor: pointer
     color: $black
+    transition: 0.3s
     &:hover
       opacity: 0.6
     &:active
       opacity: 0.3
+    &:focus-visible
+      opacity: 0.6
+      outline: none
   &__wrapper
     position: fixed
     top: 0
@@ -94,28 +98,28 @@
   &__label
     @include inter-regular
     position: absolute
-    top: -10px
-    left: 6px
+    // top: -10px
+    // left: 6px
     padding: 0 6px
     background-color: $background-gray
+    top: 12px
+    left: 12px
+    transition: 0.3s
     &--visible
       position: static
       padding-left: 10px
-    &--sign-in
-      top: 12px
-      left: 12px
-      transition: 0.3s
+    // &--sign-in
+    &--invisible
+      color: transparent
+      background-color: transparent
 
   &__input
     @include button-reset
     transition: 0.3s
     font-size: 16px
-    &:hover
-      // background-color: lighten($black, 90%)
     &:not([type="file"])
       padding: 12px
     &:focus-visible
-      // background-color: lighten($black, 90%)
       outline: none
   &__show-pass-btn
     position: absolute
@@ -146,7 +150,9 @@
         top: 0
 
 .form__input:focus-visible
-  & + .form__label--sign-in
-    top: -12px
+  & + .form__label
+    top: -8px
     left: 8px
     font-size: 0.8em
+    color: $black
+    background-color: $background-gray
