@@ -18,8 +18,6 @@ export function ReviewItem({item}: ReviewProps): JSX.Element {
   const avatar = user.avatar || '/path/to/default/avatar.png';
   const name = user.name || 'Anonymous';
 
-  console.log(item.date);
-
   return (
     <div className="review-item">
       <p className="review-item__author">

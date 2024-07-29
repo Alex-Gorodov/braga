@@ -278,7 +278,6 @@ export const addSubscriberToDatabase = async (subscriber: string) => {
     const subscriberRef = database.ref(APIRoute.Subscribers);
     const newSubscriberRef = subscriberRef.push();
     await newSubscriberRef.set({ email: subscriber });
-    console.log(`New subscriber ${subscriber} added.`);
   } catch (error) {
     console.error('Error adding to subscribers: ', error);
   }

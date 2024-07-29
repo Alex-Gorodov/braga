@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { PageNotFound } from "../page-not-found/page-not-found";
 import { BeerItem } from "../../components/beer-item/beer-item";
+import { Spinner } from "../../components/spinner/spinner";
 import { Layout } from "../../components/layout/layout";
 import { RootState } from "../../store/root-reducer";
-import { Spinner } from "../../components/spinner/spinner";
-import { Beer } from "../../types/beer";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { PageNotFound } from "../page-not-found/page-not-found";
+import { useSelector } from "react-redux";
+import { Beer } from "../../types/beer";
 
 export function ProductPage(): JSX.Element {
   const { id } = useParams();

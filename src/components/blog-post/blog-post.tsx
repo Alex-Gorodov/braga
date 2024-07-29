@@ -23,13 +23,6 @@ export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
   const [isUserLikedThisPost, setUserLikedThisPost] = useState(user && postLikes && postLikes.some((like) => like.id === user.id));
   const [isShowLikes, setShowLikes] = useState(false);
 
-  const isLiked = useSelector((state: RootState) => state.data.blog[post.id].likes.some((like) => like.id === user?.id));
-
-  console.log('is liked? ', isUserLikedThisPost);
-
-  console.log(isLiked);
-
-
   const renderedDate = () => {
     const date = new Date(postDate);
     return date.toLocaleDateString('en-US', {
@@ -83,6 +76,7 @@ export function BlogPost({post, isPreview}: BlogPostProps): JSX.Element {
       <article className={`post ${isPreview ? 'post--preview' : ''}`}>
         <div className="post__image-container">
           <Link to={link} className="post__image-link">
+            <span className="visually-hidden">To {post.name} page.</span>
             <picture className="post__image-wrapper">
               <source srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp" width={384} height={475}/>
               <source media="(min-width: 1170px)" srcSet={`${post.img}.webp 1x, ${post.img}@2x.webp 2x`} type="image/webp"/>

@@ -82,6 +82,7 @@ export function SubscribeForm(): JSX.Element {
                 if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) setError(true)
                 else handleAddSubscriber();
               }}>
+                <span className="visually-hidden">Submit subscription.</span>
                 <Arrow/>
               </button>
               <p className={`subscribe__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'subscribe__error-message--opened'}`}>Please fill your email.</p>

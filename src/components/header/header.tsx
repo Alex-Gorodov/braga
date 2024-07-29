@@ -77,6 +77,7 @@ export function Header(): JSX.Element {
         !isTablet ?
           <nav className="header__navigation navigation">
             <Link className="navigation__logo" to={AppRoute.Root}>
+              <span className="visually-hidden">To home page.</span>
               <Logo/>
             </Link>
             <ul className="navigation__list">
@@ -114,14 +115,21 @@ export function Header(): JSX.Element {
           type="button"
           >
             <span className="header__burger-line"></span>
+            <span className="visually-hidden">
+              {
+                isMenuOpened ? 'Close menu.' : 'Open menu.'
+              }
+            </span>
           </button>
           <ul className="header__user-navigation user-navigation">
               <li className="user-navigation__item">
                 <button className="header__cart-wrapper header__btn" onClick={handleCartOpen} type="button">
+                  <span className="visually-hidden">Open cart.</span>
                   <Cart/>
                 </button>
               </li>
               <li className="user-navigation__item" onClick={() => setMenuOpened(false)}>
+                <span className="visually-hidden">Open user navigation menu.</span>
                 <HeaderUserProfile/>
               </li>
             </ul>

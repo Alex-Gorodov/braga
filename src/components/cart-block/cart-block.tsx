@@ -37,6 +37,7 @@ const CartBlock = forwardRef<HTMLDivElement>((props, ref) => {
     <div className={cartClassName} ref={ref}>
       <h2 className="cart__title">My cart</h2>
       <button className="cart__close-btn" onClick={() => dispatch(toggleCart({isCartOpened: false}))}>
+        <span className="visually-hidden">Close cart.</span>
         <Cross/>
       </button>
       {
@@ -45,7 +46,9 @@ const CartBlock = forwardRef<HTMLDivElement>((props, ref) => {
         <>
           <ul className="cart__list">
             {cartItems.map((item) => (
-              <CartItem item={item} key={`${item.name}-in-cart`}/>
+              <li key={`${item.name}-in-cart`}>
+                <CartItem item={item}/>
+              </li>
             ))}
           </ul>
           <p className="cart__total">

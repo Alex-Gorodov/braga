@@ -36,6 +36,7 @@ export function HeaderUserProfile(): JSX.Element {
     ?
     <div className="user-navigation__avatar-wrapper">
       <button className="user-navigation__button" onClick={() => setUserMenuOpened(!isUserMenuOpened)}>
+        <span className="visually-hidden">Open user navigation menu.</span>
         <img className="user-navigation__avatar" src={user?.avatar} alt="" width={size} height={size}/>
       </button>
       {
@@ -65,6 +66,7 @@ export function HeaderUserProfile(): JSX.Element {
         dispatch(toggleSignInForm({isOpened: !isSignInOpened}));
         isSignUpOpened && dispatch(toggleSignUpForm({isOpened: false})) && dispatch(toggleSignInForm({isOpened: false}))
       }} type="button">
+        <span className="visually-hidden">Sign in or Sign up.</span>
         <UserIcon/>
       </button>
     </div>
