@@ -134,32 +134,32 @@ export function AuthForm({className}: AuthFormProps): JSX.Element {
           <>
             <div className="form__input-wrapper">
               <label className="form__item">
-                <span className="form__label">E-mail:</span>
                 <input
                   className="form__input"
                   type="email"
                   name="email"
-                  placeholder="Email*"
+                  placeholder=""
                   ref={loginRef}
                   required
                   value={data.email.value}
                   onChange={handleFieldChange}
                 />
+                <span className="form__label form__label--sign-in">E-mail:</span>
               </label>
             </div>
             <div className="form__input-wrapper">
               <label className="form__item">
-                <span className="form__label">Password:</span>
                 <input
                   className="form__input"
                   type="password"
                   name="password"
-                  placeholder="Password*"
+                  placeholder=""
                   ref={passwordRef}
                   required
                   value={data.password.value}
                   onChange={handleFieldChange}
                 />
+                <span className="form__label form__label--sign-in">Password:</span>
               </label>
             </div>
             <div className="form__buttons">

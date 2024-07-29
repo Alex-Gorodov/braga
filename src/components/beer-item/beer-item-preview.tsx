@@ -20,7 +20,7 @@ type BeerItemProps = {
 }
 
 export function BeerItemPreview({ item, showStatus, small, className }: BeerItemProps): JSX.Element {
-  const [isCartBtnShown, setCartBtnShown] = useState(false);
+  const [isBtnShowed, setBtnShowed] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAddingToPreOrder, setIsAddingToPreOrder] = useState(false);
 
@@ -29,7 +29,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
   const user = useGetUser();
 
   const itemButtonWrapperClassName = cn("button__wrapper", {
-    "button__wrapper--active": isCartBtnShown,
+    "button__wrapper--active": isBtnShowed,
   });
 
   const itemButtonClassName = cn("button beer__cart-btn", {
@@ -88,9 +88,9 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
   return (
     <div
       className={`beer__item ${className}`}
-      onMouseEnter={() => setCartBtnShown(true)}
-      onMouseLeave={() => setCartBtnShown(false)}
-      onTouchStart={() => setCartBtnShown(!isCartBtnShown)}
+      onMouseEnter={() => setBtnShowed(true)}
+      onMouseLeave={() => setBtnShowed(false)}
+      onTouchStart={() => setBtnShowed(!isBtnShowed)}
     >
       <div className={itemButtonWrapperClassName}>
         <Link className={itemButtonClassName} to={link}>Read more</Link>
@@ -103,6 +103,7 @@ export function BeerItemPreview({ item, showStatus, small, className }: BeerItem
           item.status !== BeerStatus.Unavailable && item.status !== BeerStatus.Ready && showStatus && <Soon beer={item}/>
         }
         <Link className='beer__picture-link' to={link}>
+          <span className="visually-hidden">To {item.name} page.</span>
           <picture>
             <source srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp" width={small ? 88 : 135} height={small ? 300 : 463}/>
             <source media="(min-width: 1170px)" srcSet={`${item.img}.webp 1x, ${item.img}@2x.webp 2x`} type="image/webp"/>

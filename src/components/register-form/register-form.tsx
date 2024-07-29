@@ -24,6 +24,8 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
 
   const uploadedUrl = useSelector((state: RootState) => state.page.uploadedPath);
 
+  const isError = useSelector((state: RootState) => state.page.statusMessage !== null);
+
   const authedUser = useSelector((state: RootState) => state.user);
 
   const [data, setData] = useState<RegisterUser>({
@@ -46,7 +48,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
   const isSignUpOpened = useSelector((state: RootState) => state.page.isSignUpFormOpened);
 
   const formRef = useOutsideClick(() => {
-    handleCloseForm();
+    !isError && handleCloseForm();
   }) as React.RefObject<HTMLFormElement>;
 
   const handleFieldChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -190,7 +192,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               name="name"
               id="name"
               required
-              placeholder="Name*"
+              placeholder="Kevin*"
               value={data.name}
               onChange={handleFieldChange}
             />
@@ -203,7 +205,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               name="surname"
               id="surname"
               required
-              placeholder="Surname*"
+              placeholder="McCallister*"
               value={data.surname}
               onChange={handleFieldChange}
             />
@@ -216,7 +218,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               name="email"
               id="email"
               required
-              placeholder="E-mail*"
+              placeholder="buzz.dumb@yahoo.com*"
               value={data.email}
               onChange={handleFieldChange}
             />
@@ -229,7 +231,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
               name="phone"
               id="phone"
               required
-              placeholder="Phone*"
+              placeholder="0501112233*"
               value={data.phone}
               onChange={handleFieldChange}
             />
@@ -238,8 +240,8 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
             <span className="form__label form__label--visible">Choose avatar:</span>
             <Upload />
           </label>
+          <span className="form__label form__label--visible">Create password (at least 8 symbols with at least one letter and one number):</span>
           <label className="form__item" htmlFor="password">
-            <span className="form__label">Create password (at least 8 symbols with at least one letter and one number):</span>
             <input
               className="form__input"
               type={isPassShowed ? 'text' : 'password'}
@@ -256,7 +258,7 @@ export function RegisterForm({ className }: RegisterFormProps): JSX.Element {
             </span>
           </label>
           <label className="form__item" htmlFor="confirm-password">
-            <span className="form__label">Confirm password:</span>
+            {/* <span className="form__label">Confirm password:</span> */}
             <input
               className="form__input"
               type={isConfirmPassShowed ? 'text' : 'password'}

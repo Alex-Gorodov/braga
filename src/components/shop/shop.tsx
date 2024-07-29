@@ -174,6 +174,7 @@ export function Shop(): JSX.Element {
                 >
                   <div className="shop__item-img-wrapper">
                     <Link className="shop__item-link shop__item-link--image" to={link}>
+                      <span className="visually-hidden">To {item.name} page.</span>
                       <img src={`${item.img}.png`} alt={item.name} width={100} height={338}/>
                     </Link>
                     {

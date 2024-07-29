@@ -1,11 +1,11 @@
 import { ReactComponent as Arrow } from '../../img/icons/form-arrow.svg';
 import { addSubscriberToDatabase } from '../../store/api-actions';
-import { addSubscriber } from '../../store/actions';
+import { addSubscriber, setStatusMessage } from '../../store/actions';
 import { Spinner } from '../spinner/spinner';
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SuccessMessages } from '../../const';
+import { ErrorMessages, SuccessMessages } from '../../const';
 
 export function SubscribeForm(): JSX.Element {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ export function SubscribeForm(): JSX.Element {
     e.preventDefault();
     if (formData.email === '') {
       setError(true);
+      isError && dispatch(setStatusMessage({message: ErrorMessages.SubscriptionError}))
       return;
     }
 
@@ -43,8 +44,7 @@ export function SubscribeForm(): JSX.Element {
         setError(false);
       }, 2000);
     } catch (error) {
-      setError(true);
-      console.error(error);
+      dispatch(setStatusMessage({message: ErrorMessages.SubscriptionError}))
       setSending(false);
     }
   };
@@ -85,8 +85,6 @@ export function SubscribeForm(): JSX.Element {
                 <span className="visually-hidden">Submit subscription.</span>
                 <Arrow/>
               </button>
-              <p className={`subscribe__error-message ${isError && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email) && 'subscribe__error-message--opened'}`}>Please fill your email.</p>
-
             </form>
           )}
         </div>

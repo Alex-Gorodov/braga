@@ -8,6 +8,7 @@ export enum ErrorMessages {
   CommentError = 'Error! Can\'t add review, please, try again.',
   RegisterEmptyFields = 'Fill the required fields, please.',
   RegisterPasswordNotMatch = 'Passwords do not match',
+  SubscriptionError = 'Please enter the valid e-mail.',
   EmailError = 'Please enter correct e-mail.',
   LimitError = 'Maximum stock for this item reached.',
   LikeError = "Please sign in or register to like this post."
