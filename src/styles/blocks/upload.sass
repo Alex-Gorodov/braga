@@ -8,6 +8,8 @@
     justify-content: center
     border: 3px dashed $black
     border-radius: 12px
+    transition: 0.3s
+    cursor: pointer
     &:hover
       border-color: $link-hover
       & .button,
@@ -27,13 +29,12 @@
     @include inter-regular
     margin: 0
     font-style: italic
+    transition: 0.3s
   &__button
     width: 100%
     padding: 0
     border: none
-    transition: 0s
-    & svg
-      transition: 0s
+    transition: 0.3s
   &__remove-btn
     @include button-reset
     position: absolute

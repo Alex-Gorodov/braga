@@ -94,6 +94,7 @@ export function Header(): JSX.Element {
             <ul className="header__user-navigation user-navigation">
               <li className="user-navigation__item">
                 <button className="header__cart-wrapper header__btn" onClick={handleCartOpen} type="button">
+                  <span className="visually-hidden">Open cart.</span>
                   <Cart/>
                 </button>
               </li>
